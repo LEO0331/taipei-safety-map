@@ -1,0 +1,55 @@
+{
+  "districtSummaries": [
+    {
+      "district": "中正區",
+      "latitude": 25.0324,
+      "longitude": 121.5199,
+      "shelterCount": 1,
+      "shelterCapacity": 1200,
+      "burglaryRecordCount": 1,
+      "burglaryRecordsByYear": { "2024": 1 },
+      "burglaryRecordsByTimePeriod": {
+        "early_morning": 0,
+        "morning": 1,
+        "afternoon": 0,
+        "evening": 0,
+        "night": 0,
+        "unknown": 0
+      }
+    },
+    {
+      "district": "信義區",
+      "latitude": 25.033,
+      "longitude": 121.5668,
+      "shelterCount": 1,
+      "shelterCapacity": 850,
+      "burglaryRecordCount": 1,
+      "burglaryRecordsByYear": { "2023": 1 },
+      "burglaryRecordsByTimePeriod": {
+        "early_morning": 0,
+        "morning": 0,
+        "afternoon": 0,
+        "evening": 0,
+        "night": 1,
+        "unknown": 0
+      }
+    },
+    {
+      "district": "大安區",
+      "latitude": 25.0268,
+      "longitude": 121.543,
+      "shelterCount": 1,
+      "shelterCapacity": 420,
+      "burglaryRecordCount": 1,
+      "burglaryRecordsByYear": { "2024": 1 },
+      "burglaryRecordsByTimePeriod": {
+        "early_morning": 0,
+        "morning": 0,
+        "afternoon": 1,
+        "evening": 0,
+        "night": 0,
+        "unknown": 0
+      }
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "totalShelters": 3,
+  "totalCapacity": 2470,
+  "validCoordinateCount": 3,
+  "invalidCoordinateCount": 0,
+  "byDistrict": {
+    "中正區": { "count": 1, "capacity": 1200 },
+    "信義區": { "count": 1, "capacity": 850 },
+    "大安區": { "count": 1, "capacity": 420 }
+  }
+}

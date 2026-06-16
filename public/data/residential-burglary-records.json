@@ -1,0 +1,47 @@
+[
+  {
+    "id": "burglary-sample-1",
+    "sourceId": "A001",
+    "caseType": "住宅竊盜",
+    "occurredDateRaw": "113/05/12",
+    "occurredAt": "2024-05-12",
+    "year": 2024,
+    "month": 5,
+    "day": 12,
+    "timePeriodRaw": "上午",
+    "timePeriod": "morning",
+    "locationText": "中正區某路段",
+    "district": "中正區",
+    "source": "臺北市住宅竊盜點位資訊"
+  },
+  {
+    "id": "burglary-sample-2",
+    "sourceId": "A002",
+    "caseType": "住宅竊盜",
+    "occurredDateRaw": "112/11/03",
+    "occurredAt": "2023-11-03",
+    "year": 2023,
+    "month": 11,
+    "day": 3,
+    "timePeriodRaw": "夜間",
+    "timePeriod": "night",
+    "locationText": "信義區某街附近",
+    "district": "信義區",
+    "source": "臺北市住宅竊盜點位資訊"
+  },
+  {
+    "id": "burglary-sample-3",
+    "sourceId": "A003",
+    "caseType": "住宅竊盜",
+    "occurredDateRaw": "2024-01-20",
+    "occurredAt": "2024-01-20",
+    "year": 2024,
+    "month": 1,
+    "day": 20,
+    "timePeriodRaw": "下午",
+    "timePeriod": "afternoon",
+    "locationText": "大安區模糊地點",
+    "district": "大安區",
+    "source": "臺北市住宅竊盜點位資訊"
+  }
+]

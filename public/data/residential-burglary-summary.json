@@ -1,0 +1,16 @@
+{
+  "totalRecords": 3,
+  "recordsWithDistrict": 3,
+  "latestRecordMonth": "2024-05",
+  "byYear": { "2023": 1, "2024": 2 },
+  "byMonth": { "1": 1, "5": 1, "11": 1 },
+  "byTimePeriod": {
+    "early_morning": 0,
+    "morning": 1,
+    "afternoon": 1,
+    "evening": 0,
+    "night": 1,
+    "unknown": 0
+  },
+  "byDistrict": { "中正區": 1, "信義區": 1, "大安區": 1 }
+}
