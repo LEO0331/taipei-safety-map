@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import {
   buildDistrictSafetySummary,
+  buildShelterMapClusters,
   calculateDistanceMeters,
   extractDistrictFromLocation,
   formatDistance,
@@ -85,6 +86,37 @@ describe('burglary conversion helpers', () => {
 });
 
 describe('dashboard helpers', () => {
+  it('clusters nearby shelter markers for low-zoom map rendering', () => {
+    const clusters = buildShelterMapClusters(
+      [
+        {
+          id: 's1',
+          district: '中正區',
+          address: 'a',
+          capacity: 100,
+          coordinateStatus: 'valid',
+          latitude: 25.0324,
+          longitude: 121.5199,
+          source: '北市警政APP_防空避難設備位置',
+        },
+        {
+          id: 's2',
+          district: '中正區',
+          address: 'b',
+          capacity: 200,
+          coordinateStatus: 'valid',
+          latitude: 25.0325,
+          longitude: 121.52,
+          source: '北市警政APP_防空避難設備位置',
+        },
+      ],
+      12,
+    );
+
+    expect(clusters).toHaveLength(1);
+    expect(clusters[0]).toMatchObject({ count: 2, capacity: 300 });
+  });
+
   it('calculates distance and localized labels', () => {
     const meters = calculateDistanceMeters(25.0478, 121.517, 25.0339, 121.5645);
     expect(meters).toBeGreaterThan(4000);

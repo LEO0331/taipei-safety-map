@@ -57,6 +57,14 @@ export type DistrictSafetySummary = {
   burglaryRecordsByTimePeriod: Record<BurglaryTimePeriod, number>;
 };
 
+export type ShelterMapCluster = {
+  id: string;
+  latitude: number;
+  longitude: number;
+  count: number;
+  capacity: number;
+};
+
 export type Language = 'zh' | 'en';
 
 export type SafetyDataBundle = {

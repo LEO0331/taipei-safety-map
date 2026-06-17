@@ -1,11 +1,12 @@
 import L from 'leaflet';
 import { useEffect, useMemo, useState } from 'react';
-import { CircleMarker, MapContainer, Marker, Popup, TileLayer, useMap } from 'react-leaflet';
+import { CircleMarker, MapContainer, Marker, Popup, TileLayer, useMap, useMapEvents } from 'react-leaflet';
 import { loadSafetyData } from './lib/loadSafetyData';
 import {
   TAIPEI_DISTRICTS,
   TIME_PERIODS,
   calculateDistanceMeters,
+  buildShelterMapClusters,
   countBy,
   formatDistance,
   mostCommonEntry,
@@ -22,6 +23,10 @@ import type {
 
 type Tab = 'shelter' | 'burglary' | 'overview' | 'notes';
 type CapacityRange = 'all' | 'under100' | '100-499' | '500-999' | '1000plus';
+type MapViewport = {
+  bounds: L.LatLngBounds | null;
+  zoom: number;
+};
 type SelectOption<T extends string = string> = {
   value: T;
   label: string;
@@ -42,6 +47,9 @@ const userIcon = L.divIcon({
 });
 
 const taipeiCenter: [number, number] = [25.0478, 121.5319];
+const detailedShelterZoom = 15;
+const maxDetailedShelterMarkers = 900;
+const maxVisibleBurglaryRecords = 100;
 const radiusOptions: SelectOption[] = [
   { value: '300', label: '300m' },
   { value: '500', label: '500m' },
@@ -137,6 +145,7 @@ function ShelterMap({ data, language }: { data: SafetyDataBundle; language: Lang
   const [radius, setRadius] = useState(500);
   const [userPosition, setUserPosition] = useState<{ latitude: number; longitude: number } | null>(null);
   const [geoMessage, setGeoMessage] = useState<string | null>(null);
+  const [viewport, setViewport] = useState<MapViewport>({ bounds: null, zoom: 12 });
 
   const filteredShelters = useMemo(
     () =>
@@ -171,6 +180,17 @@ function ShelterMap({ data, language }: { data: SafetyDataBundle; language: Lang
       .filter((item) => item.distance <= radius)
       .sort((a, b) => a.distance - b.distance);
   }, [filteredShelters, radius, userPosition]);
+
+  const visibleShelters = useMemo(
+    () => filteredShelters.filter(hasValidCoordinate).filter((shelter) => isInViewport(shelter, viewport.bounds)),
+    [filteredShelters, viewport.bounds],
+  );
+  const shouldRenderDetailedShelters =
+    viewport.zoom >= detailedShelterZoom || visibleShelters.length <= maxDetailedShelterMarkers;
+  const shelterClusters = useMemo(
+    () => buildShelterMapClusters(visibleShelters, viewport.zoom),
+    [visibleShelters, viewport.zoom],
+  );
 
   function requestNearbyShelters() {
     if (!navigator.geolocation) {
@@ -225,17 +245,59 @@ function ShelterMap({ data, language }: { data: SafetyDataBundle; language: Lang
 
       <section className="map-stage">
         <MapContainer center={taipeiCenter} zoom={12} scrollWheelZoom className="map-canvas">
+          <ViewportTracker onChange={setViewport} />
           <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
-          {filteredShelters.filter(hasValidCoordinate).map((shelter) => (
-            <Marker key={shelter.id} position={[shelter.latitude, shelter.longitude]} icon={shieldIcon}>
-              <Popup>
-                <ShelterPopup shelter={shelter} language={language} />
-              </Popup>
-            </Marker>
-          ))}
+          {shouldRenderDetailedShelters
+            ? visibleShelters.map((shelter) => (
+                <Marker key={shelter.id} position={[shelter.latitude, shelter.longitude]} icon={shieldIcon}>
+                  <Popup>
+                    <ShelterPopup shelter={shelter} language={language} />
+                  </Popup>
+                </Marker>
+              ))
+            : shelterClusters.map((cluster) => (
+                <CircleMarker
+                  key={cluster.id}
+                  center={[cluster.latitude, cluster.longitude]}
+                  radius={Math.min(28, 7 + Math.sqrt(cluster.count) * 2.4)}
+                  pathOptions={{ color: '#0f766e', fillColor: '#14b8a6', fillOpacity: 0.34, weight: 2 }}
+                >
+                  <Popup>
+                    <div className="popup-stack">
+                      <strong>{t.airRaidShelters}</strong>
+                      <span>
+                        {t.recordCount}: {cluster.count.toLocaleString()}
+                      </span>
+                      <span>
+                        {t.capacity}: {cluster.capacity.toLocaleString()}
+                      </span>
+                    </div>
+                  </Popup>
+                </CircleMarker>
+              ))}
+          {data.districtSummaries.map((summary) => {
+            if (!summary.burglaryRecordCount) return null;
+            return (
+              <CircleMarker
+                key={`burglary-${summary.district}`}
+                center={[summary.latitude, summary.longitude]}
+                radius={Math.min(32, 8 + Math.sqrt(summary.burglaryRecordCount) * 0.9)}
+                pathOptions={{ color: '#b45309', fillColor: '#f59e0b', fillOpacity: 0.28, weight: 2 }}
+              >
+                <Popup>
+                  <DistrictPopup
+                    summary={summary}
+                    count={summary.burglaryRecordCount}
+                    records={data.burglaries}
+                    language={language}
+                  />
+                </Popup>
+              </CircleMarker>
+            );
+          })}
           {userPosition && (
             <Marker position={[userPosition.latitude, userPosition.longitude]} icon={userIcon}>
               <Popup>{uiText.currentLocation}</Popup>
@@ -260,6 +322,11 @@ function ShelterMap({ data, language }: { data: SafetyDataBundle; language: Lang
           </select>
         </label>
         {geoMessage && <p className="notice">{geoMessage}</p>}
+        <p className="notice">
+          {shouldRenderDetailedShelters
+            ? `${t.airRaidShelters}: ${visibleShelters.length.toLocaleString()}`
+            : `${t.airRaidShelters}: ${visibleShelters.length.toLocaleString()} (${shelterClusters.length.toLocaleString()} clusters)`}
+        </p>
         <h2>{t.nearbyShelters}</h2>
         <ol className="nearby-list">
           {nearbyShelters.map(({ shelter, distance }) => (
@@ -297,6 +364,7 @@ function BurglaryRecords({ data, language }: { data: SafetyDataBundle; language:
     );
   });
   const countsByDistrict = countBy(filtered, (record) => record.district);
+  const visibleRecords = filtered.slice(0, maxVisibleBurglaryRecords);
 
   return (
     <main className="workspace burglary-layout">
@@ -380,9 +448,16 @@ function BurglaryRecords({ data, language }: { data: SafetyDataBundle; language:
       <aside className="side-panel">
         <p className="notice">{t.recordsAreAggregated}</p>
         <h2>{t.recordCount}: {filtered.length.toLocaleString()}</h2>
+        {filtered.length > visibleRecords.length && (
+          <p className="notice">
+            {language === 'zh'
+              ? `列表先顯示前 ${visibleRecords.length.toLocaleString()} 筆，請使用篩選縮小範圍。`
+              : `Showing the first ${visibleRecords.length.toLocaleString()} records. Use filters to narrow the list.`}
+          </p>
+        )}
         <RankingTable counts={countsByDistrict} label={t.district} valueLabel={t.recordCount} />
         <div className="record-list">
-          {filtered.map((record) => (
+          {visibleRecords.map((record) => (
             <article key={record.id}>
               <strong>{record.locationText}</strong>
               <span>
@@ -528,6 +603,19 @@ function FlyTo({ position }: { position: [number, number] }) {
   return null;
 }
 
+function ViewportTracker({ onChange }: { onChange: (viewport: MapViewport) => void }) {
+  const map = useMapEvents({
+    moveend: () => onChange({ bounds: map.getBounds(), zoom: map.getZoom() }),
+    zoomend: () => onChange({ bounds: map.getBounds(), zoom: map.getZoom() }),
+  });
+
+  useEffect(() => {
+    onChange({ bounds: map.getBounds(), zoom: map.getZoom() });
+  }, [map, onChange]);
+
+  return null;
+}
+
 function Metric({ label, value }: { label: string; value: string }) {
   return (
     <article className="metric">
@@ -613,6 +701,10 @@ function hasValidCoordinate(
   shelter: AirRaidShelter,
 ): shelter is AirRaidShelter & { latitude: number; longitude: number } {
   return shelter.coordinateStatus === 'valid' && typeof shelter.latitude === 'number' && typeof shelter.longitude === 'number';
+}
+
+function isInViewport(shelter: { latitude: number; longitude: number }, bounds: L.LatLngBounds | null): boolean {
+  return !bounds || bounds.pad(0.2).contains([shelter.latitude, shelter.longitude]);
 }
 
 function matchesCapacityRange(capacity: number, range: CapacityRange): boolean {

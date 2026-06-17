@@ -7,6 +7,7 @@ import type {
   DistrictSafetySummary,
   Language,
   ResidentialBurglaryRecord,
+  ShelterMapCluster,
 } from '../types';
 
 proj4.defs(
@@ -223,6 +224,32 @@ export function buildDistrictSafetySummary(
       ),
     };
   });
+}
+
+export function buildShelterMapClusters(
+  shelters: Array<AirRaidShelter & { latitude: number; longitude: number }>,
+  zoom: number,
+): ShelterMapCluster[] {
+  const precision = zoom >= 14 ? 3 : zoom >= 12 ? 2 : 1;
+  const clusters = new Map<string, { latitudeTotal: number; longitudeTotal: number; count: number; capacity: number }>();
+
+  for (const shelter of shelters) {
+    const key = `${shelter.latitude.toFixed(precision)}:${shelter.longitude.toFixed(precision)}`;
+    const cluster = clusters.get(key) ?? { latitudeTotal: 0, longitudeTotal: 0, count: 0, capacity: 0 };
+    cluster.latitudeTotal += shelter.latitude;
+    cluster.longitudeTotal += shelter.longitude;
+    cluster.count += 1;
+    cluster.capacity += shelter.capacity ?? 0;
+    clusters.set(key, cluster);
+  }
+
+  return [...clusters.entries()].map(([id, cluster]) => ({
+    id,
+    latitude: cluster.latitudeTotal / cluster.count,
+    longitude: cluster.longitudeTotal / cluster.count,
+    count: cluster.count,
+    capacity: cluster.capacity,
+  }));
 }
 
 export function countBy<T>(items: T[], getKey: (item: T) => string | undefined): Record<string, number> {
