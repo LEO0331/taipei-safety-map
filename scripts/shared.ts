@@ -16,6 +16,7 @@ export const PUBLIC_DATA_DIR = 'public/data';
 export const SHELTER_SOURCE = '北市警政APP_防空避難設備位置';
 export const BURGLARY_SOURCE = '臺北市住宅竊盜點位資訊';
 const utf8Decoder = new TextDecoder('utf-8', { fatal: false });
+const big5Decoder = new TextDecoder('big5', { fatal: false });
 
 export const sources = {
   shelters: {
@@ -50,8 +51,9 @@ export async function readCsv(path: string): Promise<Record<string, string>[]> {
 }
 
 export function decodeCsvBuffer(buffer: Uint8Array): string {
-  const text = utf8Decoder.decode(buffer);
-  return text.replace(/^\uFEFF/, '');
+  const utf8Text = utf8Decoder.decode(buffer).replace(/^\uFEFF/, '');
+  if (!utf8Text.includes('\uFFFD')) return utf8Text;
+  return big5Decoder.decode(buffer).replace(/^\uFEFF/, '');
 }
 
 export function parseCsv(csv: string): string[][] {
@@ -107,8 +109,8 @@ export async function writeJson(path: string, value: unknown): Promise<void> {
 }
 
 export function convertShelterRow(row: Record<string, string>, index: number): AirRaidShelter {
-  const originalX = Number(row['座標x']);
-  const originalY = Number(row['座標y']);
+  const originalX = Number(row['座標x'] ?? row['座標X']);
+  const originalY = Number(row['座標y'] ?? row['座標Y']);
   const coordinate = normalizeShelterCoordinate(originalX, originalY);
   return {
     id: `shelter-${row['項次'] || index + 1}`,

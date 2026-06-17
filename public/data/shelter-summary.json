@@ -1,11 +1,56 @@
 {
-  "totalShelters": 3,
-  "totalCapacity": 2470,
-  "validCoordinateCount": 3,
+  "totalShelters": 6052,
+  "totalCapacity": 13474969,
+  "validCoordinateCount": 6052,
   "invalidCoordinateCount": 0,
   "byDistrict": {
-    "中正區": { "count": 1, "capacity": 1200 },
-    "信義區": { "count": 1, "capacity": 850 },
-    "大安區": { "count": 1, "capacity": 420 }
+    "大同區": {
+      "count": 302,
+      "capacity": 606116
+    },
+    "萬華區": {
+      "count": 618,
+      "capacity": 661351
+    },
+    "中山區": {
+      "count": 549,
+      "capacity": 1248392
+    },
+    "大安區": {
+      "count": 598,
+      "capacity": 1305228
+    },
+    "中正區": {
+      "count": 483,
+      "capacity": 1077953
+    },
+    "松山區": {
+      "count": 261,
+      "capacity": 835806
+    },
+    "信義區": {
+      "count": 610,
+      "capacity": 1780442
+    },
+    "士林區": {
+      "count": 544,
+      "capacity": 946471
+    },
+    "北投區": {
+      "count": 621,
+      "capacity": 829913
+    },
+    "文山區": {
+      "count": 490,
+      "capacity": 1129107
+    },
+    "南港區": {
+      "count": 306,
+      "capacity": 1347192
+    },
+    "內湖區": {
+      "count": 670,
+      "capacity": 1706998
+    }
   }
 }

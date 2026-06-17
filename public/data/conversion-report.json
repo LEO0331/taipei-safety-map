@@ -1,36 +1,36 @@
 {
-  "generatedAt": "2026-06-16T00:00:00.000Z",
+  "generatedAt": "2026-06-17T00:45:03.343Z",
   "sources": [
     {
       "name": "北市警政APP_防空避難設備位置",
       "url": "https://data.taipei/dataset/detail?id=83eecdf1-3bbb-40f9-9484-b55b700c37ef",
       "downloadUrl": "https://data.taipei/api/frontstage/tpeod/dataset/resource.download?rid=39ca53a1-c861-40bc-b329-fc9b28c10e01",
       "downloadedAt": null,
-      "notes": "Sample data is bundled until fetch:data is run."
+      "notes": "Generated from local raw CSV when scripts are run."
     },
     {
       "name": "臺北市住宅竊盜點位資訊",
       "url": "https://data.taipei/dataset/detail?id=68785231-d6c5-47a1-b001-77eec70bec02",
       "downloadUrl": "https://data.taipei/api/frontstage/tpeod/dataset/resource.download?rid=93d9bc2d-af08-4db7-a56b-9f0a49226fa3",
       "downloadedAt": null,
-      "notes": "Burglary locations are displayed only as blurred text and district aggregates."
+      "notes": "Burglary addresses are pre-blurred by the data source and are aggregated in the app."
     }
   ],
   "shelters": {
-    "inputRows": 3,
-    "outputRows": 3,
-    "validCoordinates": 3,
+    "inputRows": 6052,
+    "outputRows": 6052,
+    "validCoordinates": 6052,
     "missingCoordinates": 0,
     "outlierCoordinates": 0
   },
   "burglaries": {
-    "inputRows": 3,
-    "outputRows": 3,
-    "recordsWithoutDistrict": 0,
+    "inputRows": 4394,
+    "outputRows": 4394,
+    "recordsWithoutDistrict": 1,
     "dateParseWarnings": 0
   },
   "notes": [
-    "Do not reverse-identify blurred burglary locations.",
-    "Invalid shelter coordinates are excluded from map markers."
+    "Residential burglary records remain blurred and are never geocoded into exact household-level markers.",
+    "Burglary time periods: morning, early_morning, afternoon, evening, night"
   ]
 }

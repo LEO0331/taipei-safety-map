@@ -115,7 +115,7 @@ export function parseBurglaryDate(raw: string): {
   day?: number;
 } {
   const text = raw.trim();
-  const match = text.match(/(\d{2,4})[/-](\d{1,2})[/-](\d{1,2})/);
+  const match = text.match(/(\d{2,4})[/-](\d{1,2})[/-](\d{1,2})/) ?? text.match(/^(\d{2,3})(\d{2})(\d{2})$/);
   if (!match) return {};
 
   const parsedYear = Number(match[1]);
@@ -142,6 +142,15 @@ function isValidDateParts(year: number, month: number, day: number): boolean {
 export function normalizeBurglaryTimePeriod(raw: string): BurglaryTimePeriod {
   const text = raw.trim().toLowerCase();
   if (!text) return 'unknown';
+  const hourRange = text.match(/^(\d{1,2})\s*[~-]\s*(\d{1,2})$/);
+  if (hourRange) {
+    const hour = Number(hourRange[1]);
+    if (hour >= 0 && hour < 6) return 'early_morning';
+    if (hour >= 6 && hour < 12) return 'morning';
+    if (hour >= 12 && hour < 17) return 'afternoon';
+    if (hour >= 17 && hour < 21) return 'evening';
+    if (hour >= 21 && hour <= 24) return 'night';
+  }
   if (text.includes('凌晨') || text.includes('early')) return 'early_morning';
   if (text.includes('上午') || text.includes('morning')) return 'morning';
   if (text.includes('下午') || text.includes('afternoon')) return 'afternoon';

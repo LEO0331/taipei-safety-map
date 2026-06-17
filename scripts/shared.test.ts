@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { mkdtemp, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
-import { decodeCsvBuffer, parseCsv, readCsv } from './shared';
+import { convertShelterRow, decodeCsvBuffer, parseCsv, readCsv } from './shared';
 
 describe('CSV script helpers', () => {
   it('parses quoted CSV fields with embedded commas and newlines', () => {
@@ -19,11 +19,38 @@ describe('CSV script helpers', () => {
     expect(decodeCsvBuffer(buffer)).toBe('行政區\n中正區');
   });
 
+  it('falls back to Big5 when a CSV is not valid UTF-8', () => {
+    const buffer = new Uint8Array([0xbd, 0x73, 0xb8, 0xb9]);
+
+    expect(decodeCsvBuffer(buffer)).toBe('編號');
+  });
+
   it('reads CSV files into normalized row objects', async () => {
     const directory = await mkdtemp(join(tmpdir(), 'taipei-safety-map-'));
     const path = join(directory, 'sample.csv');
     await writeFile(path, '\uFEFF行政區,地址\n中正區,臺北市中正區\n');
 
     await expect(readCsv(path)).resolves.toEqual([{ 行政區: '中正區', 地址: '臺北市中正區' }]);
+  });
+
+  it('accepts shelter coordinate headers with uppercase X and Y', () => {
+    expect(
+      convertShelterRow(
+        {
+          項次: '1',
+          行政區: '大同區',
+          地址: '臺北市大同區承德路二段235號',
+          容納人數: '1,581',
+          座標X: '121.518527',
+          座標Y: '25.061274',
+        },
+        0,
+      ),
+    ).toMatchObject({
+      capacity: 1581,
+      coordinateStatus: 'valid',
+      longitude: 121.518527,
+      latitude: 25.061274,
+    });
   });
 });

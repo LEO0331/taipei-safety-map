@@ -56,13 +56,25 @@ describe('burglary conversion helpers', () => {
       month: 1,
       day: 20,
     });
+
+    expect(parseBurglaryDate('1030623')).toEqual({
+      occurredAt: '2014-06-23',
+      year: 2014,
+      month: 6,
+      day: 23,
+    });
   });
 
   it('normalizes broad time-period labels', () => {
     expect(normalizeBurglaryTimePeriod('凌晨')).toBe('early_morning');
+    expect(normalizeBurglaryTimePeriod('00~02')).toBe('early_morning');
     expect(normalizeBurglaryTimePeriod('上午')).toBe('morning');
+    expect(normalizeBurglaryTimePeriod('08~10')).toBe('morning');
     expect(normalizeBurglaryTimePeriod('下午')).toBe('afternoon');
+    expect(normalizeBurglaryTimePeriod('14~16')).toBe('afternoon');
+    expect(normalizeBurglaryTimePeriod('18~20')).toBe('evening');
     expect(normalizeBurglaryTimePeriod('夜間')).toBe('night');
+    expect(normalizeBurglaryTimePeriod('22~24')).toBe('night');
     expect(normalizeBurglaryTimePeriod('')).toBe('unknown');
   });
 
