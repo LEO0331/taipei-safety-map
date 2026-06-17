@@ -1,13 +1,13 @@
 {
   "name": "台北公共安全地圖",
   "short_name": "公共安全地圖",
-  "start_url": "/",
+  "start_url": ".",
   "display": "standalone",
   "theme_color": "#1f2937",
   "background_color": "#ffffff",
   "icons": [
     {
-      "src": "/icons/icon.svg",
+      "src": "icons/icon.svg",
       "sizes": "any",
       "type": "image/svg+xml",
       "purpose": "any maskable"

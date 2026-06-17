@@ -1,15 +1,20 @@
 const CACHE_NAME = 'taipei-safety-map-v1';
-const APP_SHELL = ['/', '/manifest.webmanifest', '/icons/icon.svg'];
+const cacheUrl = (path) => new URL(path, self.registration.scope).toString();
+const APP_SHELL = [cacheUrl(''), cacheUrl('manifest.webmanifest'), cacheUrl('icons/icon.svg')];
 const DATA_FILES = [
-  '/data/air-raid-shelters.json',
-  '/data/residential-burglary-records.json',
-  '/data/residential-burglary-summary.json',
-  '/data/shelter-summary.json',
-  '/data/safety-dashboard-summary.json'
+  cacheUrl('data/air-raid-shelters.json'),
+  cacheUrl('data/residential-burglary-records.json'),
+  cacheUrl('data/residential-burglary-summary.json'),
+  cacheUrl('data/shelter-summary.json'),
+  cacheUrl('data/safety-dashboard-summary.json')
 ];
 
 self.addEventListener('install', (event) => {
-  event.waitUntil(caches.open(CACHE_NAME).then((cache) => cache.addAll([...APP_SHELL, ...DATA_FILES])));
+  event.waitUntil(
+    caches
+      .open(CACHE_NAME)
+      .then((cache) => Promise.allSettled([...APP_SHELL, ...DATA_FILES].map((url) => cache.add(url))))
+  );
 });
 
 self.addEventListener('activate', (event) => {

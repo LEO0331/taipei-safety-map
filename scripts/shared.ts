@@ -15,6 +15,7 @@ export const RAW_DIR = 'data/raw/safety';
 export const PUBLIC_DATA_DIR = 'public/data';
 export const SHELTER_SOURCE = '北市警政APP_防空避難設備位置';
 export const BURGLARY_SOURCE = '臺北市住宅竊盜點位資訊';
+const utf8Decoder = new TextDecoder('utf-8', { fatal: false });
 
 export const sources = {
   shelters: {
@@ -34,7 +35,7 @@ export const sources = {
 };
 
 export async function readCsv(path: string): Promise<Record<string, string>[]> {
-  const csv = await readFile(path, 'utf8');
+  const csv = decodeCsvBuffer(await readFile(path));
   const rows = parseCsv(csv);
   const [headers = [], ...records] = rows;
   const normalizedHeaders = headers.map(normalizeColumnName);
@@ -46,6 +47,11 @@ export async function readCsv(path: string): Promise<Record<string, string>[]> {
         return row;
       }, {}),
     );
+}
+
+export function decodeCsvBuffer(buffer: Uint8Array): string {
+  const text = utf8Decoder.decode(buffer);
+  return text.replace(/^\uFEFF/, '');
 }
 
 export function parseCsv(csv: string): string[][] {
@@ -144,10 +150,12 @@ export function convertBurglaryRow(row: Record<string, string>, index: number): 
 
 export async function loadConvertedData() {
   const [shelters, burglaries] = await Promise.all([
-    readFile(`${PUBLIC_DATA_DIR}/air-raid-shelters.json`, 'utf8').then((text) => JSON.parse(text) as AirRaidShelter[]),
-    readFile(`${PUBLIC_DATA_DIR}/residential-burglary-records.json`, 'utf8').then(
-      (text) => JSON.parse(text) as ResidentialBurglaryRecord[],
-    ),
+    readJsonFile<AirRaidShelter[]>(`${PUBLIC_DATA_DIR}/air-raid-shelters.json`),
+    readJsonFile<ResidentialBurglaryRecord[]>(`${PUBLIC_DATA_DIR}/residential-burglary-records.json`),
   ]);
   return { shelters, burglaries, districtSummaries: buildDistrictSafetySummary(shelters, burglaries) };
+}
+
+async function readJsonFile<T>(path: string): Promise<T> {
+  return JSON.parse(await readFile(path, 'utf8')) as T;
 }

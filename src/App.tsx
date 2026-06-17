@@ -22,6 +22,10 @@ import type {
 
 type Tab = 'shelter' | 'burglary' | 'overview' | 'notes';
 type CapacityRange = 'all' | 'under100' | '100-499' | '500-999' | '1000plus';
+type SelectOption<T extends string = string> = {
+  value: T;
+  label: string;
+};
 
 const shieldIcon = L.divIcon({
   className: 'shield-marker',
@@ -38,6 +42,20 @@ const userIcon = L.divIcon({
 });
 
 const taipeiCenter: [number, number] = [25.0478, 121.5319];
+const radiusOptions: SelectOption[] = [
+  { value: '300', label: '300m' },
+  { value: '500', label: '500m' },
+  { value: '1000', label: '1km' },
+  { value: '2000', label: '2km' },
+];
+const monthOptions = Array.from({ length: 12 }, (_, index) => index + 1);
+const capacityOptions: SelectOption<CapacityRange>[] = [
+  { value: 'all', label: 'All' },
+  { value: 'under100', label: 'Under 100' },
+  { value: '100-499', label: '100-499' },
+  { value: '500-999', label: '500-999' },
+  { value: '1000plus', label: '1,000+' },
+];
 
 function App() {
   const [language, setLanguage] = useState<Language>('zh');
@@ -111,6 +129,7 @@ function App() {
 
 function ShelterMap({ data, language }: { data: SafetyDataBundle; language: Language }) {
   const t = translations[language];
+  const uiText = localizedUiText[language];
   const [district, setDistrict] = useState('all');
   const [search, setSearch] = useState('');
   const [capacityRange, setCapacityRange] = useState<CapacityRange>('all');
@@ -155,7 +174,7 @@ function ShelterMap({ data, language }: { data: SafetyDataBundle; language: Lang
 
   function requestNearbyShelters() {
     if (!navigator.geolocation) {
-      setGeoMessage(language === 'zh' ? '此瀏覽器不支援定位。' : 'Geolocation is not supported.');
+      setGeoMessage(uiText.geolocationUnsupported);
       return;
     }
 
@@ -167,7 +186,7 @@ function ShelterMap({ data, language }: { data: SafetyDataBundle; language: Lang
           longitude: position.coords.longitude,
         });
       },
-      () => setGeoMessage(language === 'zh' ? '無法取得目前位置。' : 'Unable to access current location.'),
+      () => setGeoMessage(uiText.geolocationDenied),
       { enableHighAccuracy: true, timeout: 8000 },
     );
   }
@@ -191,11 +210,11 @@ function ShelterMap({ data, language }: { data: SafetyDataBundle; language: Lang
         <label>
           {t.capacityRange}
           <select value={capacityRange} onChange={(event) => setCapacityRange(event.target.value as CapacityRange)}>
-            <option value="all">{t.all}</option>
-            <option value="under100">Under 100</option>
-            <option value="100-499">100-499</option>
-            <option value="500-999">500-999</option>
-            <option value="1000plus">1,000+</option>
+            {capacityOptions.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.value === 'all' ? t.all : option.label}
+              </option>
+            ))}
           </select>
         </label>
         <label className="checkbox-row">
@@ -219,7 +238,7 @@ function ShelterMap({ data, language }: { data: SafetyDataBundle; language: Lang
           ))}
           {userPosition && (
             <Marker position={[userPosition.latitude, userPosition.longitude]} icon={userIcon}>
-              <Popup>{language === 'zh' ? '目前位置' : 'Current location'}</Popup>
+              <Popup>{uiText.currentLocation}</Popup>
             </Marker>
           )}
           {userPosition && <FlyTo position={[userPosition.latitude, userPosition.longitude]} />}
@@ -233,10 +252,11 @@ function ShelterMap({ data, language }: { data: SafetyDataBundle; language: Lang
         <label>
           {t.nearbyRadius}
           <select value={radius} onChange={(event) => setRadius(Number(event.target.value))}>
-            <option value={300}>300m</option>
-            <option value={500}>500m</option>
-            <option value={1000}>1km</option>
-            <option value={2000}>2km</option>
+            {radiusOptions.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
           </select>
         </label>
         {geoMessage && <p className="notice">{geoMessage}</p>}
@@ -259,6 +279,7 @@ function ShelterMap({ data, language }: { data: SafetyDataBundle; language: Lang
 
 function BurglaryRecords({ data, language }: { data: SafetyDataBundle; language: Language }) {
   const t = translations[language];
+  const uiText = localizedUiText[language];
   const [district, setDistrict] = useState('all');
   const [year, setYear] = useState('all');
   const [month, setMonth] = useState('all');
@@ -301,10 +322,10 @@ function BurglaryRecords({ data, language }: { data: SafetyDataBundle; language:
           </select>
         </label>
         <label>
-          Month
+          {uiText.month}
           <select value={month} onChange={(event) => setMonth(event.target.value)}>
             <option value="all">{t.all}</option>
-            {Array.from({ length: 12 }, (_, index) => index + 1).map((option) => (
+            {monthOptions.map((option) => (
               <option key={option} value={option}>
                 {option}
               </option>
@@ -601,5 +622,28 @@ function matchesCapacityRange(capacity: number, range: CapacityRange): boolean {
   if (range === '500-999') return capacity >= 500 && capacity <= 999;
   return capacity >= 1000;
 }
+
+const localizedUiText: Record<
+  Language,
+  {
+    currentLocation: string;
+    geolocationDenied: string;
+    geolocationUnsupported: string;
+    month: string;
+  }
+> = {
+  zh: {
+    currentLocation: '目前位置',
+    geolocationDenied: '無法取得目前位置。',
+    geolocationUnsupported: '此瀏覽器不支援定位。',
+    month: '月份',
+  },
+  en: {
+    currentLocation: 'Current location',
+    geolocationDenied: 'Unable to access current location.',
+    geolocationUnsupported: 'Geolocation is not supported.',
+    month: 'Month',
+  },
+};
 
 export default App;
