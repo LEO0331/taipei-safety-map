@@ -5,6 +5,7 @@ import {
   calculateDistanceMeters,
   extractDistrictFromLocation,
   formatDistance,
+  getBurglaryBubbleRadius,
   normalizeBurglaryTimePeriod,
   normalizeShelterCoordinate,
   parseBurglaryDate,
@@ -86,6 +87,13 @@ describe('burglary conversion helpers', () => {
 });
 
 describe('dashboard helpers', () => {
+  it('keeps burglary district bubbles readable without covering the map', () => {
+    expect(getBurglaryBubbleRadius(1)).toBeCloseTo(7.75);
+    expect(getBurglaryBubbleRadius(328)).toBeGreaterThanOrEqual(20);
+    expect(getBurglaryBubbleRadius(328)).toBeLessThanOrEqual(22);
+    expect(getBurglaryBubbleRadius(10000)).toBe(26);
+  });
+
   it('clusters nearby shelter markers for low-zoom map rendering', () => {
     const clusters = buildShelterMapClusters(
       [

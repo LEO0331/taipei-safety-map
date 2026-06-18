@@ -191,6 +191,10 @@ export function formatDistance(distanceMeters: number, language: Language): stri
   return `${(distanceMeters / 1000).toFixed(1)} km`;
 }
 
+export function getBurglaryBubbleRadius(recordCount: number): number {
+  return Math.min(26, 7 + Math.sqrt(Math.max(0, recordCount)) * 0.75);
+}
+
 export function buildDistrictSafetySummary(
   shelters: AirRaidShelter[],
   burglaryRecords: ResidentialBurglaryRecord[],

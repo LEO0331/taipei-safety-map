@@ -9,6 +9,7 @@ import {
   buildShelterMapClusters,
   countBy,
   formatDistance,
+  getBurglaryBubbleRadius,
   mostCommonEntry,
 } from './lib/safetyData';
 import { timePeriodLabels, translations } from './lib/translations';
@@ -245,6 +246,7 @@ function ShelterMap({ data, language }: { data: SafetyDataBundle; language: Lang
 
       <section className="map-stage">
         <MapContainer center={taipeiCenter} zoom={12} scrollWheelZoom className="map-canvas">
+          <MapSizeSync />
           <ViewportTracker onChange={setViewport} />
           <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
@@ -284,7 +286,7 @@ function ShelterMap({ data, language }: { data: SafetyDataBundle; language: Lang
               <CircleMarker
                 key={`burglary-${summary.district}`}
                 center={[summary.latitude, summary.longitude]}
-                radius={Math.min(32, 8 + Math.sqrt(summary.burglaryRecordCount) * 0.9)}
+                radius={getBurglaryBubbleRadius(summary.burglaryRecordCount)}
                 pathOptions={{ color: '#b45309', fillColor: '#f59e0b', fillOpacity: 0.28, weight: 2 }}
               >
                 <Popup>
@@ -422,6 +424,7 @@ function BurglaryRecords({ data, language }: { data: SafetyDataBundle; language:
 
       <section className="map-stage">
         <MapContainer center={taipeiCenter} zoom={12} scrollWheelZoom className="map-canvas">
+          <MapSizeSync />
           <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -433,7 +436,7 @@ function BurglaryRecords({ data, language }: { data: SafetyDataBundle; language:
               <CircleMarker
                 key={summary.district}
                 center={[summary.latitude, summary.longitude]}
-                radius={10 + Math.sqrt(count) * 8}
+                radius={getBurglaryBubbleRadius(count)}
                 pathOptions={{ color: '#b45309', fillColor: '#f59e0b', fillOpacity: 0.38, weight: 2 }}
               >
                 <Popup>
@@ -612,6 +615,25 @@ function ViewportTracker({ onChange }: { onChange: (viewport: MapViewport) => vo
   useEffect(() => {
     onChange({ bounds: map.getBounds(), zoom: map.getZoom() });
   }, [map, onChange]);
+
+  return null;
+}
+
+function MapSizeSync() {
+  const map = useMap();
+
+  useEffect(() => {
+    const container = map.getContainer();
+    const syncSize = () => map.invalidateSize({ animate: false, pan: false });
+    const frame = requestAnimationFrame(syncSize);
+    const observer = new ResizeObserver(syncSize);
+    observer.observe(container);
+
+    return () => {
+      cancelAnimationFrame(frame);
+      observer.disconnect();
+    };
+  }, [map]);
 
   return null;
 }
