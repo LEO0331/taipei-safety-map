@@ -6,6 +6,7 @@ import {
   TAIPEI_DISTRICTS,
   TIME_PERIODS,
   calculateDistanceMeters,
+  buildDengueDistrictSummaries,
   buildShelterMapClusters,
   countBy,
   formatDistance,
@@ -14,15 +15,17 @@ import {
 } from './lib/safetyData';
 import { timePeriodLabels, translations } from './lib/translations';
 import type {
+  AedLocation,
   AirRaidShelter,
   BurglaryTimePeriod,
+  DengueDistrictSummary,
   DistrictSafetySummary,
   Language,
   ResidentialBurglaryRecord,
   SafetyDataBundle,
 } from './types';
 
-type Tab = 'shelter' | 'burglary' | 'overview' | 'notes';
+type Tab = 'map' | 'nearby' | 'burglary' | 'health' | 'overview' | 'notes';
 type CapacityRange = 'all' | 'under100' | '100-499' | '500-999' | '1000plus';
 type MapViewport = {
   bounds: L.LatLngBounds | null;
@@ -36,6 +39,12 @@ type SelectOption<T extends string = string> = {
 const shieldIcon = L.divIcon({
   className: 'shield-marker',
   html: '<span>🛡️</span>',
+  iconSize: [34, 34],
+  iconAnchor: [17, 17],
+});
+const aedIcon = L.divIcon({
+  className: 'shield-marker aed-marker',
+  html: '<span>❤️‍🩹</span>',
   iconSize: [34, 34],
   iconAnchor: [17, 17],
 });
@@ -68,7 +77,7 @@ const capacityOptions: SelectOption<CapacityRange>[] = [
 
 function App() {
   const [language, setLanguage] = useState<Language>('zh');
-  const [activeTab, setActiveTab] = useState<Tab>('shelter');
+  const [activeTab, setActiveTab] = useState<Tab>('map');
   const [data, setData] = useState<SafetyDataBundle | null>(null);
   const [error, setError] = useState<string | null>(null);
 
@@ -109,8 +118,10 @@ function App() {
       <nav className="tabs" aria-label="Main sections">
         {(
           [
-            ['shelter', t.shelterMap],
+            ['map', t.safetyMap],
+            ['nearby', t.nearbyFacilities],
             ['burglary', t.burglaryRecords],
+            ['health', t.publicHealth],
             ['overview', t.safetyOverview],
             ['notes', t.dataNotes],
           ] as const
@@ -126,8 +137,10 @@ function App() {
         ))}
       </nav>
 
-      {activeTab === 'shelter' && <ShelterMap data={data} language={language} />}
+      {activeTab === 'map' && <SafetyMap data={data} language={language} />}
+      {activeTab === 'nearby' && <SafetyMap data={data} language={language} nearbyMode />}
       {activeTab === 'burglary' && <BurglaryRecords data={data} language={language} />}
+      {activeTab === 'health' && <PublicHealth data={data} language={language} />}
       {activeTab === 'overview' && <SafetyOverview data={data} language={language} />}
       {activeTab === 'notes' && <DataNotes data={data} language={language} />}
 
@@ -136,13 +149,23 @@ function App() {
   );
 }
 
-function ShelterMap({ data, language }: { data: SafetyDataBundle; language: Language }) {
+function SafetyMap({
+  data,
+  language,
+  nearbyMode = false,
+}: {
+  data: SafetyDataBundle;
+  language: Language;
+  nearbyMode?: boolean;
+}) {
   const t = translations[language];
   const uiText = localizedUiText[language];
   const [district, setDistrict] = useState('all');
   const [search, setSearch] = useState('');
   const [capacityRange, setCapacityRange] = useState<CapacityRange>('all');
   const [validOnly, setValidOnly] = useState(true);
+  const [showShelters, setShowShelters] = useState(true);
+  const [showAeds, setShowAeds] = useState(true);
   const [radius, setRadius] = useState(500);
   const [userPosition, setUserPosition] = useState<{ latitude: number; longitude: number } | null>(null);
   const [geoMessage, setGeoMessage] = useState<string | null>(null);
@@ -164,6 +187,25 @@ function ShelterMap({ data, language }: { data: SafetyDataBundle; language: Lang
       }),
     [capacityRange, data.shelters, district, search, validOnly],
   );
+  const filteredAeds = useMemo(
+    () =>
+      data.aeds.filter((aed) => {
+        const haystack = [
+          aed.placeName,
+          aed.address,
+          aed.aedPlacementLocation,
+          aed.aedLocationDescription,
+        ]
+          .join(' ')
+          .toLowerCase();
+        return (
+          (district === 'all' || aed.district === district) &&
+          (!search.trim() || haystack.includes(search.trim().toLowerCase())) &&
+          (!validOnly || aed.coordinateStatus === 'valid')
+        );
+      }),
+    [data.aeds, district, search, validOnly],
+  );
 
   const nearbyShelters = useMemo(() => {
     if (!userPosition) return [];
@@ -181,6 +223,22 @@ function ShelterMap({ data, language }: { data: SafetyDataBundle; language: Lang
       .filter((item) => item.distance <= radius)
       .sort((a, b) => a.distance - b.distance);
   }, [filteredShelters, radius, userPosition]);
+  const nearbyAeds = useMemo(() => {
+    if (!userPosition) return [];
+    return filteredAeds
+      .filter(hasValidPoint)
+      .map((aed) => ({
+        aed,
+        distance: calculateDistanceMeters(
+          userPosition.latitude,
+          userPosition.longitude,
+          aed.latitude,
+          aed.longitude,
+        ),
+      }))
+      .filter((item) => item.distance <= radius)
+      .sort((a, b) => a.distance - b.distance);
+  }, [filteredAeds, radius, userPosition]);
 
   const visibleShelters = useMemo(
     () => filteredShelters.filter(hasValidCoordinate).filter((shelter) => isInViewport(shelter, viewport.bounds)),
@@ -192,8 +250,15 @@ function ShelterMap({ data, language }: { data: SafetyDataBundle; language: Lang
     () => buildShelterMapClusters(visibleShelters, viewport.zoom),
     [visibleShelters, viewport.zoom],
   );
+  const visibleAeds = useMemo(
+    () => filteredAeds.filter(hasValidPoint).filter((aed) => isInViewport(aed, viewport.bounds)),
+    [filteredAeds, viewport.bounds],
+  );
+  const shouldRenderDetailedAeds =
+    viewport.zoom >= detailedShelterZoom || visibleAeds.length <= maxDetailedShelterMarkers;
+  const aedClusters = useMemo(() => buildShelterMapClusters(visibleAeds, viewport.zoom), [visibleAeds, viewport.zoom]);
 
-  function requestNearbyShelters() {
+  function requestLocation() {
     if (!navigator.geolocation) {
       setGeoMessage(uiText.geolocationUnsupported);
       return;
@@ -215,6 +280,18 @@ function ShelterMap({ data, language }: { data: SafetyDataBundle; language: Lang
   return (
     <main className="workspace">
       <section className="filter-panel">
+        <label className="checkbox-row">
+          <input type="checkbox" checked={showAeds} onChange={(event) => setShowAeds(event.target.checked)} />
+          {t.aedLocations}
+        </label>
+        <label className="checkbox-row">
+          <input
+            type="checkbox"
+            checked={showShelters}
+            onChange={(event) => setShowShelters(event.target.checked)}
+          />
+          {t.airRaidShelters}
+        </label>
         <label>
           {t.district}
           <select value={district} onChange={(event) => setDistrict(event.target.value)}>
@@ -252,7 +329,7 @@ function ShelterMap({ data, language }: { data: SafetyDataBundle; language: Lang
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
-          {shouldRenderDetailedShelters
+          {showShelters && (shouldRenderDetailedShelters
             ? visibleShelters.map((shelter) => (
                 <Marker key={shelter.id} position={[shelter.latitude, shelter.longitude]} icon={shieldIcon}>
                   <Popup>
@@ -279,8 +356,31 @@ function ShelterMap({ data, language }: { data: SafetyDataBundle; language: Lang
                     </div>
                   </Popup>
                 </CircleMarker>
-              ))}
-          {data.districtSummaries.map((summary) => {
+              )))}
+          {showAeds &&
+            (shouldRenderDetailedAeds
+              ? visibleAeds.map((aed) => (
+                  <Marker key={aed.id} position={[aed.latitude, aed.longitude]} icon={aedIcon}>
+                    <Popup>
+                      <AedPopup aed={aed} language={language} />
+                    </Popup>
+                  </Marker>
+                ))
+              : aedClusters.map((cluster) => (
+                  <CircleMarker
+                    key={`aed-${cluster.id}`}
+                    center={[cluster.latitude, cluster.longitude]}
+                    radius={Math.min(25, 7 + Math.sqrt(cluster.count) * 2)}
+                    pathOptions={{ color: '#be123c', fillColor: '#fb7185', fillOpacity: 0.34, weight: 2 }}
+                  >
+                    <Popup>
+                      <strong>
+                        {t.aedLocations}: {cluster.count.toLocaleString()}
+                      </strong>
+                    </Popup>
+                  </CircleMarker>
+                )))}
+          {!nearbyMode && data.districtSummaries.map((summary) => {
             if (!summary.burglaryRecordCount) return null;
             return (
               <CircleMarker
@@ -300,6 +400,21 @@ function ShelterMap({ data, language }: { data: SafetyDataBundle; language: Lang
               </CircleMarker>
             );
           })}
+          {!nearbyMode &&
+            data.dengueDistrictSummaries.map((summary) =>
+              summary.recordCount ? (
+                <CircleMarker
+                  key={`dengue-${summary.district}`}
+                  center={[summary.latitude, summary.longitude]}
+                  radius={Math.min(22, 6 + Math.sqrt(summary.recordCount))}
+                  pathOptions={{ color: '#047857', fillColor: '#34d399', fillOpacity: 0.22, weight: 2 }}
+                >
+                  <Popup>
+                    <DenguePopup summary={summary} language={language} />
+                  </Popup>
+                </CircleMarker>
+              ) : null,
+            )}
           {userPosition && (
             <Marker position={[userPosition.latitude, userPosition.longitude]} icon={userIcon}>
               <Popup>{uiText.currentLocation}</Popup>
@@ -310,7 +425,10 @@ function ShelterMap({ data, language }: { data: SafetyDataBundle; language: Lang
       </section>
 
       <aside className="side-panel">
-        <button type="button" className="primary-action" onClick={requestNearbyShelters}>
+        <button type="button" className="primary-action" onClick={requestLocation}>
+          {t.showNearbyAeds}
+        </button>
+        <button type="button" onClick={requestLocation}>
           {t.showNearbyShelters}
         </button>
         <label>
@@ -324,6 +442,20 @@ function ShelterMap({ data, language }: { data: SafetyDataBundle; language: Lang
           </select>
         </label>
         {geoMessage && <p className="notice">{geoMessage}</p>}
+        <p className="notice">{t.aedEmergencyNotice}</p>
+        <h2>{t.nearbyAeds}</h2>
+        <ol className="nearby-list">
+          {nearbyAeds.slice(0, 20).map(({ aed, distance }) => (
+            <li key={aed.id}>
+              <strong>{aed.placeName}</strong>
+              <span>{formatDistance(distance, language)}</span>
+              <small>{aed.aedPlacementLocation ?? aed.address}</small>
+              <a href={googleMapsUrl(aed.latitude, aed.longitude)} target="_blank" rel="noreferrer">
+                {t.openGoogleMaps}
+              </a>
+            </li>
+          ))}
+        </ol>
         <p className="notice">
           {shouldRenderDetailedShelters
             ? `${t.airRaidShelters}: ${visibleShelters.length.toLocaleString()}`
@@ -331,7 +463,7 @@ function ShelterMap({ data, language }: { data: SafetyDataBundle; language: Lang
         </p>
         <h2>{t.nearbyShelters}</h2>
         <ol className="nearby-list">
-          {nearbyShelters.map(({ shelter, distance }) => (
+          {nearbyShelters.slice(0, 20).map(({ shelter, distance }) => (
             <li key={shelter.id}>
               <strong>{shelter.placeName || shelter.name || shelter.address}</strong>
               <span>{formatDistance(distance, language)}</span>
@@ -475,6 +607,127 @@ function BurglaryRecords({ data, language }: { data: SafetyDataBundle; language:
   );
 }
 
+function PublicHealth({ data, language }: { data: SafetyDataBundle; language: Language }) {
+  const t = translations[language];
+  const [district, setDistrict] = useState('all');
+  const [month, setMonth] = useState('all');
+  const [surveyType, setSurveyType] = useState('all');
+  const [positiveOnly, setPositiveOnly] = useState(false);
+  const surveyTypes = [...new Set(data.dengueRecords.flatMap((item) => (item.surveyType ? [item.surveyType] : [])))];
+  const filtered = data.dengueRecords.filter(
+    (item) =>
+      (district === 'all' || item.district === district) &&
+      (month === 'all' || item.surveyMonth === Number(month)) &&
+      (surveyType === 'all' || item.surveyType === surveyType) &&
+      (!positiveOnly || (item.positiveHouseholds ?? 0) > 0 || (item.positiveContainersTotal ?? 0) > 0),
+  );
+  const summaries = buildDengueDistrictSummaries(filtered);
+  const breteauValues = filtered.flatMap((item) => (item.breteauIndex === undefined ? [] : [item.breteauIndex]));
+  const containerValues = filtered.flatMap((item) => (item.containerIndex === undefined ? [] : [item.containerIndex]));
+
+  return (
+    <main className="overview">
+      <section className="filter-panel health-filters">
+        <label>
+          {t.district}
+          <select value={district} onChange={(event) => setDistrict(event.target.value)}>
+            <option value="all">{t.all}</option>
+            {TAIPEI_DISTRICTS.map((name) => (
+              <option key={name}>{name}</option>
+            ))}
+          </select>
+        </label>
+        <label>
+          {localizedUiText[language].month}
+          <select value={month} onChange={(event) => setMonth(event.target.value)}>
+            <option value="all">{t.all}</option>
+            {monthOptions.map((value) => (
+              <option key={value}>{value}</option>
+            ))}
+          </select>
+        </label>
+        <label>
+          {t.surveyType}
+          <select value={surveyType} onChange={(event) => setSurveyType(event.target.value)}>
+            <option value="all">{t.all}</option>
+            {surveyTypes.map((value) => (
+              <option key={value}>{value}</option>
+            ))}
+          </select>
+        </label>
+        <label className="checkbox-row">
+          <input type="checkbox" checked={positiveOnly} onChange={(event) => setPositiveOnly(event.target.checked)} />
+          {language === 'zh' ? '僅顯示陽性紀錄' : 'Positive records only'}
+        </label>
+      </section>
+      <p className="notice">{t.dengueMapNotice}</p>
+      <section className="summary-grid">
+        <Metric label={t.dengueSurveyRecordCount} value={filtered.length.toLocaleString()} />
+        <Metric
+          label={t.surveyedHouseholds}
+          value={filtered.reduce((sum, item) => sum + (item.surveyedHouseholds ?? 0), 0).toLocaleString()}
+        />
+        <Metric
+          label={t.positiveHouseholds}
+          value={filtered.reduce((sum, item) => sum + (item.positiveHouseholds ?? 0), 0).toLocaleString()}
+        />
+        <Metric label={t.averageBreteauIndex} value={formatAverage(breteauValues)} />
+        <Metric label={t.averageContainerIndex} value={formatAverage(containerValues)} />
+      </section>
+      <section className="public-health-grid">
+        <div className="map-stage">
+          <MapContainer center={taipeiCenter} zoom={11} scrollWheelZoom className="map-canvas">
+            <MapSizeSync />
+            <TileLayer
+              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            />
+            {summaries.map((summary) =>
+              summary.recordCount ? (
+                <CircleMarker
+                  key={summary.district}
+                  center={[summary.latitude, summary.longitude]}
+                  radius={Math.min(25, 7 + Math.sqrt(summary.recordCount) * 1.2)}
+                  pathOptions={{ color: '#047857', fillColor: '#34d399', fillOpacity: 0.3, weight: 2 }}
+                >
+                  <Popup>
+                    <DenguePopup summary={summary} language={language} />
+                  </Popup>
+                </CircleMarker>
+              ) : null,
+            )}
+          </MapContainer>
+        </div>
+        <div className="health-table">
+          <p className="notice">{t.dengueSurveyInterpretationNotice}</p>
+          <table>
+            <thead>
+              <tr>
+                <th>{t.district}</th>
+                <th>{t.village}</th>
+                <th>{t.surveyType}</th>
+                <th>{t.breteauIndex}</th>
+                <th>{t.containerIndex}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {filtered.slice(0, 100).map((item) => (
+                <tr key={item.id}>
+                  <td>{item.district}</td>
+                  <td>{item.village ?? '-'}</td>
+                  <td>{item.surveyType ?? '-'}</td>
+                  <td>{item.breteauIndex ?? '-'}</td>
+                  <td>{item.containerIndex ?? '-'}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  );
+}
+
 function SafetyOverview({ data, language }: { data: SafetyDataBundle; language: Language }) {
   const t = translations[language];
   const totalCapacity = data.shelters.reduce((sum, shelter) => sum + (shelter.capacity ?? 0), 0);
@@ -496,6 +749,15 @@ function SafetyOverview({ data, language }: { data: SafetyDataBundle; language: 
   const latest = [...data.burglaries]
     .filter((record) => record.year && record.month)
     .sort((a, b) => (b.year ?? 0) - (a.year ?? 0) || (b.month ?? 0) - (a.month ?? 0))[0];
+  const aedByDistrict = countBy(data.aeds, (item) => item.district);
+  const dengueByDistrict = data.dengueDistrictSummaries.reduce<Record<string, number>>((counts, item) => {
+    counts[item.district] = item.recordCount;
+    return counts;
+  }, {});
+  const latestDengueMonth = data.dengueRecords
+    .flatMap((item) => (item.surveyYear && item.surveyMonth ? [`${item.surveyYear}-${String(item.surveyMonth).padStart(2, '0')}`] : []))
+    .sort()
+    .at(-1);
 
   return (
     <main className="overview">
@@ -511,6 +773,9 @@ function SafetyOverview({ data, language }: { data: SafetyDataBundle; language: 
           label={t.recordsWithDistrict}
           value={data.burglaries.filter((record) => record.district).length.toLocaleString()}
         />
+        <Metric label={t.aedLocationCount} value={data.aeds.length.toLocaleString()} />
+        <Metric label={t.latestDengueSurveyMonth} value={latestDengueMonth ?? '-'} />
+        <Metric label={t.dengueSurveyRecordCount} value={data.dengueRecords.length.toLocaleString()} />
       </section>
       <section className="chart-grid">
         <BarChart title={t.sheltersByDistrict} values={shelterDistricts} />
@@ -519,6 +784,8 @@ function SafetyOverview({ data, language }: { data: SafetyDataBundle; language: 
         <BarChart title={t.burglaryRecordsByMonth} values={burglaryByMonth} />
         <BarChart title={t.burglaryRecordsByTimePeriod} values={burglaryByPeriod} />
         <BarChart title={t.burglaryRecordsByDistrict} values={burglaryByDistrict} />
+        <BarChart title={t.aedLocationsByDistrict} values={aedByDistrict} />
+        <BarChart title={t.dengueSurveyRecordsByDistrict} values={dengueByDistrict} />
         <ComparisonChart title={t.shelterCapacityVsBurglaryRecords} summaries={data.districtSummaries} notice={t.noCausationNotice} />
       </section>
     </main>
@@ -565,6 +832,45 @@ function ShelterPopup({ shelter, language }: { shelter: AirRaidShelter; language
       <a href={mapsUrl} target="_blank" rel="noreferrer">
         {t.openGoogleMaps}
       </a>
+    </div>
+  );
+}
+
+function AedPopup({ aed, language }: { aed: AedLocation; language: Language }) {
+  const t = translations[language];
+  return (
+    <div className="popup-stack">
+      <strong>{t.aedLocation}</strong>
+      <span>{aed.placeName}</span>
+      <span>{t.address}: {aed.address}</span>
+      {aed.district && <span>{t.district}: {aed.district}</span>}
+      {aed.placeCategory && <span>{t.placeCategory}: {aed.placeCategory}</span>}
+      {aed.placeType && <span>{t.placeType}: {aed.placeType}</span>}
+      {aed.aedPlacementLocation && <span>{t.aedPlacementLocation}: {aed.aedPlacementLocation}</span>}
+      {aed.aedLocationDescription && <span>{t.aedLocationDescription}: {aed.aedLocationDescription}</span>}
+      <span className="notice">{t.aedEmergencyNotice}</span>
+      {aed.latitude !== undefined && aed.longitude !== undefined && (
+        <a href={googleMapsUrl(aed.latitude, aed.longitude)} target="_blank" rel="noreferrer">
+          {t.openGoogleMaps}
+        </a>
+      )}
+    </div>
+  );
+}
+
+function DenguePopup({ summary, language }: { summary: DengueDistrictSummary; language: Language }) {
+  const t = translations[language];
+  return (
+    <div className="popup-stack">
+      <strong>{t.dengueVectorDensity}</strong>
+      <span>{t.district}: {summary.district}</span>
+      <span>{t.recordCount}: {summary.recordCount}</span>
+      <span>{t.surveyedHouseholds}: {summary.surveyedHouseholds}</span>
+      <span>{t.positiveHouseholds}: {summary.positiveHouseholds}</span>
+      <span>{t.positiveContainersTotal}: {summary.positiveContainersTotal}</span>
+      <span>{t.averageBreteauIndex}: {formatOptional(summary.averageBreteauIndex)}</span>
+      <span>{t.averageContainerIndex}: {formatOptional(summary.averageContainerIndex)}</span>
+      <small>{t.dengueMapNotice}</small>
     </div>
   );
 }
@@ -725,6 +1031,12 @@ function hasValidCoordinate(
   return shelter.coordinateStatus === 'valid' && typeof shelter.latitude === 'number' && typeof shelter.longitude === 'number';
 }
 
+function hasValidPoint<T extends { coordinateStatus: string; latitude?: number; longitude?: number }>(
+  item: T,
+): item is T & { latitude: number; longitude: number } {
+  return item.coordinateStatus === 'valid' && typeof item.latitude === 'number' && typeof item.longitude === 'number';
+}
+
 function isInViewport(shelter: { latitude: number; longitude: number }, bounds: L.LatLngBounds | null): boolean {
   return !bounds || bounds.pad(0.2).contains([shelter.latitude, shelter.longitude]);
 }
@@ -735,6 +1047,18 @@ function matchesCapacityRange(capacity: number, range: CapacityRange): boolean {
   if (range === '100-499') return capacity >= 100 && capacity <= 499;
   if (range === '500-999') return capacity >= 500 && capacity <= 999;
   return capacity >= 1000;
+}
+
+function googleMapsUrl(latitude: number, longitude: number): string {
+  return `https://www.google.com/maps/search/?api=1&query=${latitude},${longitude}`;
+}
+
+function formatAverage(values: number[]): string {
+  return values.length ? (values.reduce((sum, value) => sum + value, 0) / values.length).toFixed(2) : '-';
+}
+
+function formatOptional(value: number | undefined): string {
+  return value === undefined ? '-' : value.toFixed(2);
 }
 
 const localizedUiText: Record<

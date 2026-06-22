@@ -1,20 +1,31 @@
-import { mkdir, readFile, writeFile } from 'node:fs/promises';
+import { mkdir, readFile, stat, writeFile } from 'node:fs/promises';
 import { dirname } from 'node:path';
 import {
   buildDistrictSafetySummary,
+  buildDengueDistrictSummaries,
   extractDistrictFromLocation,
   normalizeBurglaryTimePeriod,
   normalizeColumnName,
   normalizeShelterCoordinate,
+  parseDengueSurveyDate,
+  parseNumber,
   parseBurglaryDate,
   parseCapacity,
 } from '../src/lib/safetyData.ts';
-import type { AirRaidShelter, ResidentialBurglaryRecord } from '../src/types.ts';
+import type {
+  AedLocation,
+  AirRaidShelter,
+  DengueSurveyRecord,
+  ResidentialBurglaryRecord,
+} from '../src/types.ts';
+import { TAIPEI_BOUNDS, TAIPEI_DISTRICT_CODE_MAP } from '../src/lib/safetyData.ts';
 
 export const RAW_DIR = 'data/raw/safety';
 export const PUBLIC_DATA_DIR = 'public/data';
 export const SHELTER_SOURCE = '北市警政APP_防空避難設備位置';
 export const BURGLARY_SOURCE = '臺北市住宅竊盜點位資訊';
+export const AED_SOURCE = '臺北市AED自動體外心臟去顫器設置地點';
+export const DENGUE_SOURCE = '臺北市登革熱病媒蚊密度調查結果';
 const utf8Decoder = new TextDecoder('utf-8', { fatal: false });
 const big5Decoder = new TextDecoder('big5', { fatal: false });
 
@@ -108,6 +119,18 @@ export async function writeJson(path: string, value: unknown): Promise<void> {
   await writeFile(path, `${JSON.stringify(value, null, 2)}\n`);
 }
 
+export async function downloadCsv(url: string | undefined, path: string, force: boolean): Promise<void> {
+  if (!url) {
+    if (await stat(path).catch(() => null)) return;
+    throw new Error(`CSV URL required because ${path} does not exist.`);
+  }
+  if (!force && (await stat(path).catch(() => null))) return;
+  const response = await fetch(url);
+  if (!response.ok) throw new Error(`CSV download failed: ${response.status} ${response.statusText}`);
+  await mkdir(dirname(path), { recursive: true });
+  await writeFile(path, new Uint8Array(await response.arrayBuffer()));
+}
+
 export function convertShelterRow(row: Record<string, string>, index: number): AirRaidShelter {
   const originalX = Number(row['座標x'] ?? row['座標X']);
   const originalY = Number(row['座標y'] ?? row['座標Y']);
@@ -150,14 +173,92 @@ export function convertBurglaryRow(row: Record<string, string>, index: number): 
   };
 }
 
+export function convertAedRow(row: Record<string, string>, index: number): AedLocation {
+  const latitude = parseNumber(row['緯度']);
+  const longitude = parseNumber(row['經度']);
+  const districtCode = emptyToUndefined(row['行政區域代碼']);
+  const district =
+    (districtCode ? TAIPEI_DISTRICT_CODE_MAP[districtCode] : undefined) ??
+    extractDistrictFromLocation(row['場所地址'] ?? '');
+  const coordinateStatus =
+    latitude === undefined || longitude === undefined
+      ? 'missing'
+      : longitude < TAIPEI_BOUNDS.minLng ||
+          longitude > TAIPEI_BOUNDS.maxLng ||
+          latitude < TAIPEI_BOUNDS.minLat ||
+          latitude > TAIPEI_BOUNDS.maxLat
+        ? 'outlier'
+        : 'valid';
+  return {
+    id: `aed-${index + 1}`,
+    layer: 'aed_location',
+    placeName: row['場所名稱']?.trim() || 'AED',
+    address: row['場所地址']?.trim() || '',
+    districtCode,
+    district,
+    latitude,
+    longitude,
+    coordinateStatus,
+    placeCategory: emptyToUndefined(row['場所分類']),
+    placeType: emptyToUndefined(row['場所類型']),
+    aedPlacementLocation: emptyToUndefined(row['AED放置地點']),
+    aedLocationDescription: emptyToUndefined(row['AED地點描述']),
+    source: AED_SOURCE,
+  };
+}
+
+export function convertDengueRow(row: Record<string, string>, index: number): DengueSurveyRecord {
+  const surveyDateRaw = row['日期']?.trim() ?? '';
+  const parsedDate = parseDengueSurveyDate(surveyDateRaw);
+  return {
+    id: `dengue-${row['流水號'] || index + 1}`,
+    layer: 'dengue_vector_density',
+    sourceId: emptyToUndefined(row['流水號']),
+    surveyDateRaw,
+    surveyDate: parsedDate.surveyDate,
+    surveyYear: parsedDate.surveyYear,
+    surveyMonth: parsedDate.surveyMonth,
+    city: emptyToUndefined(row['縣市']),
+    district: row['區別']?.trim() || '未分類',
+    village: emptyToUndefined(row['里別']),
+    surveyType: emptyToUndefined(row['調查種類']),
+    surveyedHouseholds: parseNumber(row['調查戶數']),
+    positiveHouseholds: parseNumber(row['陽性戶數']),
+    inspectedContainersIndoor: parseNumber(row['調查積水容器數戶內']),
+    inspectedContainersOutdoor: parseNumber(row['調查積水容器數戶外']),
+    inspectedContainersTotal: parseNumber(row['調查積水容器數合計']),
+    positiveContainersIndoor: parseNumber(row['陽性容器數戶內']),
+    positiveContainersOutdoor: parseNumber(row['陽性容器數戶外']),
+    positiveContainersTotal: parseNumber(row['陽性容器數合計']),
+    breteauIndex: parseNumber(row['布氏指數']),
+    breteauLevel: parseNumber(row['布氏級數']),
+    containerIndex: parseNumber(row['容器指數']),
+    containerLevel: parseNumber(row['容器級數']),
+    source: DENGUE_SOURCE,
+  };
+}
+
 export async function loadConvertedData() {
-  const [shelters, burglaries] = await Promise.all([
+  const [shelters, burglaries, aeds, dengueRecords] = await Promise.all([
     readJsonFile<AirRaidShelter[]>(`${PUBLIC_DATA_DIR}/air-raid-shelters.json`),
     readJsonFile<ResidentialBurglaryRecord[]>(`${PUBLIC_DATA_DIR}/residential-burglary-records.json`),
+    readJsonFile<AedLocation[]>(`${PUBLIC_DATA_DIR}/aed-locations.json`),
+    readJsonFile<DengueSurveyRecord[]>(`${PUBLIC_DATA_DIR}/dengue-vector-density-records.json`),
   ]);
-  return { shelters, burglaries, districtSummaries: buildDistrictSafetySummary(shelters, burglaries) };
+  return {
+    shelters,
+    burglaries,
+    aeds,
+    dengueRecords,
+    districtSummaries: buildDistrictSafetySummary(shelters, burglaries),
+    dengueDistrictSummaries: buildDengueDistrictSummaries(dengueRecords),
+  };
 }
 
 async function readJsonFile<T>(path: string): Promise<T> {
   return JSON.parse(await readFile(path, 'utf8')) as T;
+}
+
+function emptyToUndefined(value: string | undefined): string | undefined {
+  return value?.trim() || undefined;
 }

@@ -1,9 +1,15 @@
 import { countBy } from '../src/lib/safetyData.ts';
 import { loadConvertedData, sources, writeJson } from './shared.ts';
 
-const { shelters, burglaries, districtSummaries } = await loadConvertedData();
+const { shelters, burglaries, aeds, dengueRecords, districtSummaries, dengueDistrictSummaries } =
+  await loadConvertedData();
 
-await writeJson('public/data/safety-dashboard-summary.json', { districtSummaries });
+await writeJson('public/data/safety-dashboard-summary.json', {
+  districtSummaries,
+  dengueDistrictSummaries,
+  aedCount: aeds.length,
+  dengueRecordCount: dengueRecords.length,
+});
 await writeJson('public/data/conversion-report.json', {
   generatedAt: new Date().toISOString(),
   sources: [
@@ -21,6 +27,20 @@ await writeJson('public/data/conversion-report.json', {
       downloadedAt: null,
       notes: 'Burglary addresses are pre-blurred by the data source and are aggregated in the app.',
     },
+    {
+      name: '臺北市AED自動體外心臟去顫器設置地點',
+      url: 'https://data.taipei/dataset/detail?id=cd050577-115f-4299-b37a-012ff490a632',
+      downloadUrl: '',
+      downloadedAt: null,
+      notes: 'Generated from the uploaded UTF-8-SIG CSV.',
+    },
+    {
+      name: '臺北市登革熱病媒蚊密度調查結果',
+      url: 'https://data.taipei/dataset/detail?id=1ec5170f-8507-48ad-ad91-c50cb1493119',
+      downloadUrl: '',
+      downloadedAt: null,
+      notes: 'District and village survey results; no exact coordinates are provided.',
+    },
   ],
   shelters: {
     inputRows: shelters.length,
@@ -35,9 +55,25 @@ await writeJson('public/data/conversion-report.json', {
     recordsWithoutDistrict: burglaries.filter((record) => !record.district).length,
     dateParseWarnings: burglaries.filter((record) => !record.year).length,
   },
+  aeds: {
+    inputRows: aeds.length,
+    outputRows: aeds.length,
+    validCoordinates: aeds.filter((item) => item.coordinateStatus === 'valid').length,
+    missingCoordinates: aeds.filter((item) => item.coordinateStatus === 'missing').length,
+    outlierCoordinates: aeds.filter((item) => item.coordinateStatus === 'outlier').length,
+    recordsWithoutDistrict: aeds.filter((item) => !item.district).length,
+  },
+  dengue: {
+    inputRows: dengueRecords.length,
+    outputRows: dengueRecords.length,
+    dateParseWarnings: dengueRecords.filter((item) => !item.surveyDate).length,
+    numericParseWarnings: 0,
+  },
   notes: [
     'Residential burglary records remain blurred and are never geocoded into exact household-level markers.',
     `Burglary time periods: ${Object.keys(countBy(burglaries, (record) => record.timePeriod)).join(', ')}`,
+    'AED availability is not real-time.',
+    'Dengue records are shown only as district/village survey aggregates.',
   ],
 });
 

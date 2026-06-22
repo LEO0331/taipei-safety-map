@@ -9,7 +9,11 @@
     "preview": "vite preview",
     "test": "vitest run",
     "fetch:data": "tsx scripts/fetchSafetyData.ts",
-    "convert:data": "tsx scripts/convertShelters.ts && tsx scripts/convertResidentialBurglaries.ts && tsx scripts/buildSafetySummaries.ts"
+    "convert:data": "tsx scripts/convertShelters.ts && tsx scripts/convertResidentialBurglaries.ts && tsx scripts/convertAedLocations.ts && tsx scripts/convertDengueVectorDensity.ts && tsx scripts/buildSafetySummaries.ts",
+    "data:convert:aed": "tsx scripts/convertAedLocations.ts",
+    "data:convert:dengue": "tsx scripts/convertDengueVectorDensity.ts",
+    "data:fetch:aed": "tsx scripts/fetchAedLocations.ts",
+    "data:fetch:dengue": "tsx scripts/fetchDengueVectorDensity.ts"
   },
   "dependencies": {
     "leaflet": "^1.9.4",

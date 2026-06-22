@@ -78,7 +78,7 @@ input {
 
 .tabs {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(6, 1fr);
   gap: 1px;
   position: sticky;
   top: 0;
@@ -180,6 +180,10 @@ input {
   background: #2563eb;
   border: 3px solid #fff;
   box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.22);
+}
+
+.aed-marker span {
+  border-color: #be123c;
 }
 
 .popup-stack {
@@ -323,6 +327,23 @@ td {
   gap: 14px;
 }
 
+.health-filters {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  border: 0;
+}
+
+.public-health-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(320px, 1fr);
+  gap: 14px;
+}
+
+.health-table {
+  max-height: 760px;
+  overflow: auto;
+}
+
 .notes div {
   padding: 14px 0;
   border-top: 1px solid #d8e1df;
@@ -373,8 +394,13 @@ footer {
   }
 
   .summary-grid,
-  .chart-grid {
+  .chart-grid,
+  .public-health-grid {
     grid-template-columns: 1fr;
+  }
+
+  .health-filters {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
@@ -388,6 +414,10 @@ footer {
   }
 
   .filter-panel {
+    grid-template-columns: 1fr;
+  }
+
+  .health-filters {
     grid-template-columns: 1fr;
   }
 

@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { mkdtemp, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
-import { convertShelterRow, decodeCsvBuffer, parseCsv, readCsv } from './shared';
+import { convertAedRow, convertShelterRow, decodeCsvBuffer, parseCsv, readCsv } from './shared';
 
 describe('CSV script helpers', () => {
   it('parses quoted CSV fields with embedded commas and newlines', () => {
@@ -51,6 +51,25 @@ describe('CSV script helpers', () => {
       coordinateStatus: 'valid',
       longitude: 121.518527,
       latitude: 25.061274,
+    });
+  });
+
+  it('maps AED district codes and validates coordinates', () => {
+    expect(
+      convertAedRow(
+        {
+          場所名稱: '測試 AED',
+          場所地址: '和平東路1段162號',
+          行政區域代碼: '63000030',
+          緯度: '25.02603',
+          經度: '121.528283',
+        },
+        0,
+      ),
+    ).toMatchObject({
+      district: '大安區',
+      coordinateStatus: 'valid',
+      layer: 'aed_location',
     });
   });
 });

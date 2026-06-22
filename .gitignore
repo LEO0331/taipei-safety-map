@@ -5,4 +5,6 @@ dist
 *.local
 data/raw/safety/*.csv
 data/raw/safety/*.json
+data/raw/aed-locations/*.csv
+data/raw/dengue-vector-density/*.csv
 .omx

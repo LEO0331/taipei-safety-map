@@ -1,5 +1,13 @@
-import type { ConversionReport, DistrictSafetySummary, SafetyDataBundle } from '../types';
-import type { AirRaidShelter, ResidentialBurglaryRecord } from '../types';
+import type {
+  AedLocation,
+  AirRaidShelter,
+  ConversionReport,
+  DengueDistrictSummary,
+  DengueSurveyRecord,
+  DistrictSafetySummary,
+  ResidentialBurglaryRecord,
+  SafetyDataBundle,
+} from '../types';
 
 const DATA_BASE = `${import.meta.env.BASE_URL}data`;
 
@@ -12,16 +20,24 @@ async function loadJson<T>(path: string): Promise<T> {
 }
 
 export async function loadSafetyData(): Promise<SafetyDataBundle> {
-  const [shelters, burglaries, dashboard, conversionReport] = await Promise.all([
+  const [shelters, burglaries, aeds, dengueRecords, dashboard, conversionReport] = await Promise.all([
     loadJson<AirRaidShelter[]>('air-raid-shelters.json'),
     loadJson<ResidentialBurglaryRecord[]>('residential-burglary-records.json'),
-    loadJson<{ districtSummaries: DistrictSafetySummary[] }>('safety-dashboard-summary.json'),
+    loadJson<AedLocation[]>('aed-locations.json'),
+    loadJson<DengueSurveyRecord[]>('dengue-vector-density-records.json'),
+    loadJson<{
+      districtSummaries: DistrictSafetySummary[];
+      dengueDistrictSummaries: DengueDistrictSummary[];
+    }>('safety-dashboard-summary.json'),
     loadJson<ConversionReport>('conversion-report.json'),
   ]);
 
   return {
     shelters,
     burglaries,
+    aeds,
+    dengueRecords,
+    dengueDistrictSummaries: dashboard.dengueDistrictSummaries,
     districtSummaries: dashboard.districtSummaries,
     conversionReport,
   };

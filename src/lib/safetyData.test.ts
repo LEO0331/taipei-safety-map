@@ -1,11 +1,14 @@
 import { describe, expect, it } from 'vitest';
 import {
   buildDistrictSafetySummary,
+  buildDengueDistrictSummaries,
   buildShelterMapClusters,
   calculateDistanceMeters,
   extractDistrictFromLocation,
   formatDistance,
   getBurglaryBubbleRadius,
+  parseDengueSurveyDate,
+  parseNumber,
   normalizeBurglaryTimePeriod,
   normalizeShelterCoordinate,
   parseBurglaryDate,
@@ -166,6 +169,48 @@ describe('dashboard helpers', () => {
       burglaryRecordCount: 1,
       burglaryRecordsByYear: { '2024': 1 },
       burglaryRecordsByTimePeriod: expect.objectContaining({ morning: 1 }),
+    });
+  });
+});
+
+describe('AED and dengue helpers', () => {
+  it('parses dengue dates and optional numbers', () => {
+    expect(parseDengueSurveyDate('20260504')).toEqual({
+      surveyDate: '2026-05-04',
+      surveyYear: 2026,
+      surveyMonth: 5,
+    });
+    expect(parseNumber('2.5')).toBe(2.5);
+    expect(parseNumber('')).toBeUndefined();
+  });
+
+  it('aggregates dengue records by district without inventing point locations', () => {
+    const summaries = buildDengueDistrictSummaries([
+      {
+        id: 'd1',
+        layer: 'dengue_vector_density',
+        surveyDateRaw: '20260504',
+        district: '中正區',
+        village: '文祥里',
+        surveyType: '住宅',
+        surveyedHouseholds: 50,
+        positiveHouseholds: 1,
+        inspectedContainersTotal: 7,
+        positiveContainersTotal: 1,
+        breteauIndex: 2,
+        breteauLevel: 1,
+        containerIndex: 14.3,
+        containerLevel: 2,
+        source: '臺北市登革熱病媒蚊密度調查結果',
+      },
+    ]);
+
+    expect(summaries.find((item) => item.district === '中正區')).toMatchObject({
+      recordCount: 1,
+      surveyedHouseholds: 50,
+      positiveHouseholds: 1,
+      averageBreteauIndex: 2,
+      maxContainerIndex: 14.3,
     });
   });
 });

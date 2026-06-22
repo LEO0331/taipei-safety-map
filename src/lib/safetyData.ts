@@ -5,6 +5,8 @@ import type {
   CoordinateStatus,
   CoordinateSystem,
   DistrictSafetySummary,
+  DengueDistrictSummary,
+  DengueSurveyRecord,
   Language,
   ResidentialBurglaryRecord,
   ShelterMapCluster,
@@ -47,6 +49,20 @@ export const TAIPEI_DISTRICT_CENTROIDS: Record<string, { latitude: number; longi
 };
 
 export const TAIPEI_DISTRICTS = Object.keys(TAIPEI_DISTRICT_CENTROIDS);
+export const TAIPEI_DISTRICT_CODE_MAP: Record<string, string> = {
+  '63000010': '松山區',
+  '63000020': '信義區',
+  '63000030': '大安區',
+  '63000040': '中山區',
+  '63000050': '中正區',
+  '63000060': '大同區',
+  '63000070': '萬華區',
+  '63000080': '文山區',
+  '63000090': '南港區',
+  '63000100': '內湖區',
+  '63000110': '士林區',
+  '63000120': '北投區',
+};
 
 export function parseCapacity(raw: unknown): number | null {
   const normalized = String(raw ?? '')
@@ -195,6 +211,36 @@ export function getBurglaryBubbleRadius(recordCount: number): number {
   return Math.min(26, 7 + Math.sqrt(Math.max(0, recordCount)) * 0.75);
 }
 
+export function parseNumber(raw: unknown): number | undefined {
+  const text = String(raw ?? '').replaceAll(',', '').trim();
+  if (!text) return undefined;
+  const value = Number(text);
+  return Number.isFinite(value) ? value : undefined;
+}
+
+export function parseDengueSurveyDate(raw: string | undefined): {
+  surveyDate?: string;
+  surveyYear?: number;
+  surveyMonth?: number;
+  warning?: string;
+} {
+  const text = raw?.trim() ?? '';
+  const compact = text.match(/^(\d{4})(\d{2})(\d{2})$/);
+  const separated = text.match(/^(\d{2,4})[/-](\d{1,2})[/-](\d{1,2})$/);
+  const match = compact ?? separated;
+  if (!match) return text ? { warning: `Unparsed date: ${text}` } : {};
+  const rawYear = Number(match[1]);
+  const year = rawYear < 1911 ? rawYear + 1911 : rawYear;
+  const month = Number(match[2]);
+  const day = Number(match[3]);
+  if (!isValidDateParts(year, month, day)) return { warning: `Invalid date: ${text}` };
+  return {
+    surveyDate: `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`,
+    surveyYear: year,
+    surveyMonth: month,
+  };
+}
+
 export function buildDistrictSafetySummary(
   shelters: AirRaidShelter[],
   burglaryRecords: ResidentialBurglaryRecord[],
@@ -230,8 +276,69 @@ export function buildDistrictSafetySummary(
   });
 }
 
-export function buildShelterMapClusters(
-  shelters: Array<AirRaidShelter & { latitude: number; longitude: number }>,
+export function buildDengueDistrictSummaries(records: DengueSurveyRecord[]): DengueDistrictSummary[] {
+  return TAIPEI_DISTRICTS.map((district) => {
+    const districtRecords = records.filter((record) => record.district === district);
+    const breteauValues = districtRecords.flatMap((record) =>
+      record.breteauIndex === undefined ? [] : [record.breteauIndex],
+    );
+    const containerValues = districtRecords.flatMap((record) =>
+      record.containerIndex === undefined ? [] : [record.containerIndex],
+    );
+    const villageMax = new Map<string, { breteauIndex: number; breteauLevel?: number }>();
+    for (const record of districtRecords) {
+      if (!record.village || record.breteauIndex === undefined) continue;
+      const current = villageMax.get(record.village);
+      if (!current || record.breteauIndex > current.breteauIndex) {
+        villageMax.set(record.village, {
+          breteauIndex: record.breteauIndex,
+          breteauLevel: record.breteauLevel,
+        });
+      }
+    }
+    return {
+      district,
+      ...TAIPEI_DISTRICT_CENTROIDS[district],
+      recordCount: districtRecords.length,
+      surveyedHouseholds: sumOptional(districtRecords.map((record) => record.surveyedHouseholds)),
+      positiveHouseholds: sumOptional(districtRecords.map((record) => record.positiveHouseholds)),
+      inspectedContainersTotal: sumOptional(districtRecords.map((record) => record.inspectedContainersTotal)),
+      positiveContainersTotal: sumOptional(districtRecords.map((record) => record.positiveContainersTotal)),
+      averageBreteauIndex: average(breteauValues),
+      maxBreteauIndex: maxOptional(breteauValues),
+      maxBreteauLevel: maxOptional(
+        districtRecords.flatMap((record) => (record.breteauLevel === undefined ? [] : [record.breteauLevel])),
+      ),
+      averageContainerIndex: average(containerValues),
+      maxContainerIndex: maxOptional(containerValues),
+      maxContainerLevel: maxOptional(
+        districtRecords.flatMap((record) => (record.containerLevel === undefined ? [] : [record.containerLevel])),
+      ),
+      topVillagesByBreteauIndex: [...villageMax.entries()]
+        .map(([village, value]) => ({ village, ...value }))
+        .sort((a, b) => b.breteauIndex - a.breteauIndex)
+        .slice(0, 5),
+      bySurveyType: Object.entries(countBy(districtRecords, (record) => record.surveyType))
+        .map(([surveyType, count]) => ({ surveyType, count }))
+        .sort((a, b) => b.count - a.count),
+    };
+  });
+}
+
+function sumOptional(values: Array<number | undefined>): number {
+  return values.reduce<number>((sum, value) => sum + (value ?? 0), 0);
+}
+
+function average(values: number[]): number | undefined {
+  return values.length ? values.reduce((sum, value) => sum + value, 0) / values.length : undefined;
+}
+
+function maxOptional(values: number[]): number | undefined {
+  return values.length ? Math.max(...values) : undefined;
+}
+
+export function buildShelterMapClusters<T extends { latitude: number; longitude: number; capacity?: number | null }>(
+  shelters: T[],
   zoom: number,
 ): ShelterMapCluster[] {
   const precision = zoom >= 14 ? 3 : zoom >= 12 ? 2 : 1;
