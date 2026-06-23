@@ -9,4 +9,6 @@ data/raw/aed-locations/*.csv
 data/raw/dengue-vector-density/*.csv
 data/raw/evacuation-gates/*.csv
 data/raw/evacuation-gates/*.json
+data/raw/medical-facilities/*.csv
+data/raw/medical-facilities/*.json
 .omx

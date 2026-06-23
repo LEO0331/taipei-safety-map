@@ -6,6 +6,7 @@ import type {
   DengueSurveyRecord,
   DistrictSafetySummary,
   EvacuationGate,
+  MedicalFacility,
   ResidentialBurglaryRecord,
   SafetyDataBundle,
 } from '../types';
@@ -21,11 +22,12 @@ async function loadJson<T>(path: string): Promise<T> {
 }
 
 export async function loadSafetyData(): Promise<SafetyDataBundle> {
-  const [shelters, burglaries, aeds, evacuationGates, dengueRecords, dashboard, conversionReport] = await Promise.all([
+  const [shelters, burglaries, aeds, evacuationGates, medicalFacilities, dengueRecords, dashboard, conversionReport] = await Promise.all([
     loadJson<AirRaidShelter[]>('air-raid-shelters.json'),
     loadJson<ResidentialBurglaryRecord[]>('residential-burglary-records.json'),
     loadJson<AedLocation[]>('aed-locations.json'),
     loadJson<EvacuationGate[]>('evacuation-gates.json'),
+    loadJson<MedicalFacility[]>('medical-facilities.json'),
     loadJson<DengueSurveyRecord[]>('dengue-vector-density-records.json'),
     loadJson<{
       districtSummaries: DistrictSafetySummary[];
@@ -39,6 +41,7 @@ export async function loadSafetyData(): Promise<SafetyDataBundle> {
     burglaries,
     aeds,
     evacuationGates,
+    medicalFacilities,
     dengueRecords,
     dengueDistrictSummaries: dashboard.dengueDistrictSummaries,
     districtSummaries: dashboard.districtSummaries,

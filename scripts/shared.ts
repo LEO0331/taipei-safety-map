@@ -17,6 +17,8 @@ import type {
   AirRaidShelter,
   DengueSurveyRecord,
   EvacuationGate,
+  MedicalFacility,
+  MedicalFacilityType,
   ResidentialBurglaryRecord,
 } from '../src/types.ts';
 import { TAIPEI_BOUNDS, TAIPEI_DISTRICT_CODE_MAP } from '../src/lib/safetyData.ts';
@@ -28,6 +30,8 @@ export const BURGLARY_SOURCE = '臺北市住宅竊盜點位資訊';
 export const AED_SOURCE = '臺北市AED自動體外心臟去顫器設置地點';
 export const DENGUE_SOURCE = '臺北市登革熱病媒蚊密度調查結果';
 export const EVACUATION_GATE_SOURCE = '臺北市疏散門資訊';
+export const MEDICAL_HOSPITAL_SOURCE = '臺北市公私立醫療院所－臺北市醫院清冊';
+export const MEDICAL_CLINIC_SOURCE = '臺北市公私立醫療院所－臺北市診所清冊';
 const utf8Decoder = new TextDecoder('utf-8', { fatal: false });
 const big5Decoder = new TextDecoder('big5', { fatal: false });
 
@@ -266,13 +270,62 @@ export function convertEvacuationGateRow(row: Record<string, string>, index: num
   };
 }
 
+export function normalizeDistrictCode(raw: unknown): string | undefined {
+  if (raw === undefined || raw === null) return undefined;
+  const text = String(raw).trim();
+  if (!text || text.toLowerCase() === 'nan') return undefined;
+  return text.replace(/\.0$/, '');
+}
+
+export function convertMedicalFacilityRow(
+  row: Record<string, string>,
+  index: number,
+  facilityType: MedicalFacilityType,
+): MedicalFacility {
+  const districtCode = normalizeDistrictCode(
+    facilityType === 'hospital' ? row['行政區域代碼'] : row['行政區'],
+  );
+  const address = row['地址']?.trim() ?? '';
+  const latitude = parseNumber(row['緯度']);
+  const longitude = parseNumber(row['經度']);
+  const coordinateStatus =
+    latitude === undefined || longitude === undefined
+      ? 'missing'
+      : longitude < TAIPEI_BOUNDS.minLng ||
+          longitude > TAIPEI_BOUNDS.maxLng ||
+          latitude < TAIPEI_BOUNDS.minLat ||
+          latitude > TAIPEI_BOUNDS.maxLat
+        ? 'outlier'
+        : 'valid';
+  return {
+    id: `medical-${facilityType}-${index + 1}`,
+    layer: 'medical_facility',
+    facilityType,
+    facilityName:
+      row['機構名稱']?.split('\t')[0]?.trim() || (facilityType === 'hospital' ? '醫院' : '診所'),
+    medicalCategory:
+      facilityType === 'hospital' ? '醫院' : emptyToUndefined(row['分類']),
+    address,
+    districtCode,
+    cityCode: facilityType === 'clinic' ? normalizeDistrictCode(row['縣市別代碼']) : undefined,
+    district:
+      (districtCode ? TAIPEI_DISTRICT_CODE_MAP[districtCode] : undefined) ??
+      extractDistrictFromLocation(address),
+    longitude,
+    latitude,
+    coordinateStatus,
+    source: facilityType === 'hospital' ? MEDICAL_HOSPITAL_SOURCE : MEDICAL_CLINIC_SOURCE,
+  };
+}
+
 export async function loadConvertedData() {
-  const [shelters, burglaries, aeds, dengueRecords, evacuationGates] = await Promise.all([
+  const [shelters, burglaries, aeds, dengueRecords, evacuationGates, medicalFacilities] = await Promise.all([
     readJsonFile<AirRaidShelter[]>(`${PUBLIC_DATA_DIR}/air-raid-shelters.json`),
     readJsonFile<ResidentialBurglaryRecord[]>(`${PUBLIC_DATA_DIR}/residential-burglary-records.json`),
     readJsonFile<AedLocation[]>(`${PUBLIC_DATA_DIR}/aed-locations.json`),
     readJsonFile<DengueSurveyRecord[]>(`${PUBLIC_DATA_DIR}/dengue-vector-density-records.json`),
     readJsonFile<EvacuationGate[]>(`${PUBLIC_DATA_DIR}/evacuation-gates.json`),
+    readJsonFile<MedicalFacility[]>(`${PUBLIC_DATA_DIR}/medical-facilities.json`),
   ]);
   return {
     shelters,
@@ -280,6 +333,7 @@ export async function loadConvertedData() {
     aeds,
     dengueRecords,
     evacuationGates,
+    medicalFacilities,
     districtSummaries: buildDistrictSafetySummary(shelters, burglaries),
     dengueDistrictSummaries: buildDengueDistrictSummaries(dengueRecords),
   };

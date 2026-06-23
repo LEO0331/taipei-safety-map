@@ -1,0 +1,101 @@
+{
+  "totalMedicalFacilities": 1895,
+  "hospitalCount": 37,
+  "clinicCount": 1858,
+  "validCoordinateCount": 1895,
+  "recordsWithoutDistrict": 0,
+  "byDistrict": [
+    {
+      "district": "中山區",
+      "hospitalCount": 4,
+      "clinicCount": 270,
+      "totalCount": 274
+    },
+    {
+      "district": "中正區",
+      "hospitalCount": 3,
+      "clinicCount": 133,
+      "totalCount": 136
+    },
+    {
+      "district": "信義區",
+      "hospitalCount": 1,
+      "clinicCount": 143,
+      "totalCount": 144
+    },
+    {
+      "district": "內湖區",
+      "hospitalCount": 4,
+      "clinicCount": 138,
+      "totalCount": 142
+    },
+    {
+      "district": "北投區",
+      "hospitalCount": 6,
+      "clinicCount": 99,
+      "totalCount": 105
+    },
+    {
+      "district": "南港區",
+      "hospitalCount": 0,
+      "clinicCount": 42,
+      "totalCount": 42
+    },
+    {
+      "district": "士林區",
+      "hospitalCount": 1,
+      "clinicCount": 140,
+      "totalCount": 141
+    },
+    {
+      "district": "大同區",
+      "hospitalCount": 1,
+      "clinicCount": 67,
+      "totalCount": 68
+    },
+    {
+      "district": "大安區",
+      "hospitalCount": 6,
+      "clinicCount": 506,
+      "totalCount": 512
+    },
+    {
+      "district": "文山區",
+      "hospitalCount": 2,
+      "clinicCount": 88,
+      "totalCount": 90
+    },
+    {
+      "district": "松山區",
+      "hospitalCount": 5,
+      "clinicCount": 147,
+      "totalCount": 152
+    },
+    {
+      "district": "萬華區",
+      "hospitalCount": 4,
+      "clinicCount": 85,
+      "totalCount": 89
+    }
+  ],
+  "byFacilityType": [
+    {
+      "facilityType": "hospital",
+      "count": 37
+    },
+    {
+      "facilityType": "clinic",
+      "count": 1858
+    }
+  ],
+  "byMedicalCategory": [
+    {
+      "medicalCategory": "醫院",
+      "count": 37
+    },
+    {
+      "medicalCategory": "診所",
+      "count": 1858
+    }
+  ]
+}

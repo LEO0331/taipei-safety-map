@@ -190,6 +190,11 @@ input {
   border-color: #1d4ed8;
 }
 
+.hospital-marker span,
+.clinic-marker span {
+  border-color: #7c3aed;
+}
+
 .popup-stack {
   display: grid;
   gap: 4px;

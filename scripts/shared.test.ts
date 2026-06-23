@@ -5,8 +5,10 @@ import { tmpdir } from 'node:os';
 import {
   convertAedRow,
   convertEvacuationGateRow,
+  convertMedicalFacilityRow,
   convertShelterRow,
   decodeCsvBuffer,
+  normalizeDistrictCode,
   parseCsv,
   readCsv,
 } from './shared';
@@ -110,5 +112,58 @@ describe('CSV script helpers', () => {
         1,
       ).coordinateStatus,
     ).toBe('outlier');
+  });
+
+  it('normalizes decimal district codes', () => {
+    expect(normalizeDistrictCode('63000050.0')).toBe('63000050');
+    expect(normalizeDistrictCode(' nan ')).toBeUndefined();
+  });
+
+  it('converts hospitals and clinics into medical facilities', () => {
+    expect(
+      convertMedicalFacilityRow(
+        {
+          行政區域代碼: '63000050',
+          機構名稱: '測試醫院\t臺北市中正區測試路1號\t121.51\t25.04',
+          地址: '臺北市中正區測試路1號',
+          經度: '121.51',
+          緯度: '25.04',
+        },
+        0,
+        'hospital',
+      ),
+    ).toMatchObject({
+      id: 'medical-hospital-1',
+      layer: 'medical_facility',
+      facilityType: 'hospital',
+      facilityName: '測試醫院',
+      medicalCategory: '醫院',
+      districtCode: '63000050',
+      district: '中正區',
+      coordinateStatus: 'valid',
+    });
+
+    expect(
+      convertMedicalFacilityRow(
+        {
+          縣市別代碼: '63000',
+          分類: '診所',
+          機構名稱: '測試診所',
+          行政區: '63000030.0',
+          地址: '臺北市大安區測試路2號',
+          經度: '121.52',
+          緯度: '25.03',
+        },
+        0,
+        'clinic',
+      ),
+    ).toMatchObject({
+      id: 'medical-clinic-1',
+      facilityType: 'clinic',
+      districtCode: '63000030',
+      district: '大安區',
+      cityCode: '63000',
+      coordinateStatus: 'valid',
+    });
   });
 });

@@ -22,6 +22,8 @@ import type {
   DistrictSafetySummary,
   EvacuationGate,
   Language,
+  MedicalFacility,
+  MedicalFacilityType,
   ResidentialBurglaryRecord,
   SafetyDataBundle,
 } from './types';
@@ -52,6 +54,18 @@ const aedIcon = L.divIcon({
 const evacuationGateIcon = L.divIcon({
   className: 'shield-marker evacuation-gate-marker',
   html: '<span>🚪</span>',
+  iconSize: [34, 34],
+  iconAnchor: [17, 17],
+});
+const hospitalIcon = L.divIcon({
+  className: 'shield-marker hospital-marker',
+  html: '<span>🏥</span>',
+  iconSize: [34, 34],
+  iconAnchor: [17, 17],
+});
+const clinicIcon = L.divIcon({
+  className: 'shield-marker clinic-marker',
+  html: '<span>⚕️</span>',
   iconSize: [34, 34],
   iconAnchor: [17, 17],
 });
@@ -175,6 +189,9 @@ function SafetyMap({
   const [showShelters, setShowShelters] = useState(true);
   const [showAeds, setShowAeds] = useState(true);
   const [showEvacuationGates, setShowEvacuationGates] = useState(true);
+  const [showMedicalFacilities, setShowMedicalFacilities] = useState(false);
+  const [medicalFacilityType, setMedicalFacilityType] = useState<MedicalFacilityType | 'all'>('all');
+  const [medicalCategory, setMedicalCategory] = useState('all');
   const [showBurglaries, setShowBurglaries] = useState(true);
   const [showDengue, setShowDengue] = useState(true);
   const [riversidePark, setRiversidePark] = useState('all');
@@ -236,6 +253,33 @@ function SafetyMap({
       }),
     [data.evacuationGates, hasLocationDescription, riversidePark, search, validOnly],
   );
+  const medicalCategories = useMemo(
+    () => [...new Set(data.medicalFacilities.flatMap((item) => (item.medicalCategory ? [item.medicalCategory] : [])))].sort(),
+    [data.medicalFacilities],
+  );
+  const filteredMedicalFacilities = useMemo(
+    () =>
+      data.medicalFacilities.filter((facility) => {
+        const typeLabel = facility.facilityType === 'hospital' ? t.hospital : t.clinic;
+        const haystack = [
+          facility.facilityName,
+          facility.address,
+          facility.district,
+          facility.medicalCategory,
+          typeLabel,
+        ]
+          .join(' ')
+          .toLowerCase();
+        return (
+          (district === 'all' || facility.district === district) &&
+          (medicalFacilityType === 'all' || facility.facilityType === medicalFacilityType) &&
+          (medicalCategory === 'all' || facility.medicalCategory === medicalCategory) &&
+          (!search.trim() || haystack.includes(search.trim().toLowerCase())) &&
+          (!validOnly || facility.coordinateStatus === 'valid')
+        );
+      }),
+    [data.medicalFacilities, district, medicalCategory, medicalFacilityType, search, t.clinic, t.hospital, validOnly],
+  );
 
   const nearbyShelters = useMemo(() => {
     if (!userPosition) return [];
@@ -285,6 +329,22 @@ function SafetyMap({
       .filter((item) => item.distance <= radius)
       .sort((a, b) => a.distance - b.distance);
   }, [filteredEvacuationGates, radius, userPosition]);
+  const nearbyMedicalFacilities = useMemo(() => {
+    if (!userPosition) return [];
+    return filteredMedicalFacilities
+      .filter(hasValidPoint)
+      .map((facility) => ({
+        facility,
+        distance: calculateDistanceMeters(
+          userPosition.latitude,
+          userPosition.longitude,
+          facility.latitude,
+          facility.longitude,
+        ),
+      }))
+      .filter((item) => item.distance <= radius)
+      .sort((a, b) => a.distance - b.distance);
+  }, [filteredMedicalFacilities, radius, userPosition]);
 
   const visibleShelters = useMemo(
     () => filteredShelters.filter(hasValidCoordinate).filter((shelter) => isInViewport(shelter, viewport.bounds)),
@@ -310,6 +370,14 @@ function SafetyMap({
   const evacuationGateClusters = useMemo(
     () => buildShelterMapClusters(visibleEvacuationGates, viewport.zoom),
     [visibleEvacuationGates, viewport.zoom],
+  );
+  const visibleMedicalFacilities = useMemo(
+    () => filteredMedicalFacilities.filter(hasValidPoint).filter((item) => isInViewport(item, viewport.bounds)),
+    [filteredMedicalFacilities, viewport.bounds],
+  );
+  const medicalFacilityClusters = useMemo(
+    () => buildShelterMapClusters(visibleMedicalFacilities, viewport.zoom),
+    [visibleMedicalFacilities, viewport.zoom],
   );
 
   function requestLocation() {
@@ -337,6 +405,14 @@ function SafetyMap({
         <label className="checkbox-row">
           <input type="checkbox" checked={showAeds} onChange={(event) => setShowAeds(event.target.checked)} />
           {t.aedLocations}
+        </label>
+        <label className="checkbox-row">
+          <input
+            type="checkbox"
+            checked={showMedicalFacilities}
+            onChange={(event) => setShowMedicalFacilities(event.target.checked)}
+          />
+          {t.medicalFacilities}
         </label>
         <label className="checkbox-row">
           <input
@@ -386,6 +462,26 @@ function SafetyMap({
             placeholder={t.searchPlaceholder}
             onChange={(event) => setSearch(event.target.value)}
           />
+        </label>
+        <label>
+          {t.medicalFacilityType}
+          <select
+            value={medicalFacilityType}
+            onChange={(event) => setMedicalFacilityType(event.target.value as MedicalFacilityType | 'all')}
+          >
+            <option value="all">{t.all}</option>
+            <option value="hospital">{t.hospitals}</option>
+            <option value="clinic">{t.clinics}</option>
+          </select>
+        </label>
+        <label>
+          {t.classification}
+          <select value={medicalCategory} onChange={(event) => setMedicalCategory(event.target.value)}>
+            <option value="all">{t.all}</option>
+            {medicalCategories.map((category) => (
+              <option key={category}>{category}</option>
+            ))}
+          </select>
         </label>
         <label>
           {t.riversidePark}
@@ -502,6 +598,33 @@ function SafetyMap({
                     </Popup>
                   </CircleMarker>
                 )))}
+          {showMedicalFacilities &&
+            (viewport.zoom >= detailedShelterZoom
+              ? visibleMedicalFacilities.map((facility) => (
+                  <Marker
+                    key={facility.id}
+                    position={[facility.latitude, facility.longitude]}
+                    icon={facility.facilityType === 'hospital' ? hospitalIcon : clinicIcon}
+                  >
+                    <Popup>
+                      <MedicalFacilityPopup facility={facility} language={language} />
+                    </Popup>
+                  </Marker>
+                ))
+              : medicalFacilityClusters.map((cluster) => (
+                  <CircleMarker
+                    key={`medical-${cluster.id}`}
+                    center={[cluster.latitude, cluster.longitude]}
+                    radius={Math.min(25, 7 + Math.sqrt(cluster.count) * 2)}
+                    pathOptions={{ color: '#7c3aed', fillColor: '#a78bfa', fillOpacity: 0.34, weight: 2 }}
+                  >
+                    <Popup>
+                      <strong>
+                        {t.medicalFacilities}: {cluster.count.toLocaleString()}
+                      </strong>
+                    </Popup>
+                  </CircleMarker>
+                )))}
           {!nearbyMode && showBurglaries && data.districtSummaries.map((summary) => {
             if (!summary.burglaryRecordCount) return null;
             return (
@@ -557,6 +680,36 @@ function SafetyMap({
         <button type="button" onClick={requestLocation}>
           {t.showNearbyEvacuationGates}
         </button>
+        <button
+          type="button"
+          onClick={() => {
+            setMedicalFacilityType('hospital');
+            setShowMedicalFacilities(true);
+            requestLocation();
+          }}
+        >
+          {t.showNearbyHospitals}
+        </button>
+        <button
+          type="button"
+          onClick={() => {
+            setMedicalFacilityType('clinic');
+            setShowMedicalFacilities(true);
+            requestLocation();
+          }}
+        >
+          {t.showNearbyClinics}
+        </button>
+        <button
+          type="button"
+          onClick={() => {
+            setMedicalFacilityType('all');
+            setShowMedicalFacilities(true);
+            requestLocation();
+          }}
+        >
+          {t.showNearbyMedicalFacilities}
+        </button>
         <label>
           {t.nearbyRadius}
           <select value={radius} onChange={(event) => setRadius(Number(event.target.value))}>
@@ -577,6 +730,22 @@ function SafetyMap({
               <span>{formatDistance(distance, language)}</span>
               <small>{aed.aedPlacementLocation ?? aed.address}</small>
               <a href={googleMapsUrl(aed.latitude, aed.longitude)} target="_blank" rel="noreferrer">
+                {t.openGoogleMaps}
+              </a>
+            </li>
+          ))}
+        </ol>
+        <p className="notice">{t.medicalFacilityNotice}</p>
+        <h2>{t.nearbyMedicalFacilities}</h2>
+        <ol className="nearby-list">
+          {nearbyMedicalFacilities.slice(0, 20).map(({ facility, distance }) => (
+            <li key={facility.id}>
+              <strong>{facility.facilityName}</strong>
+              <span>{facility.facilityType === 'hospital' ? t.hospital : t.clinic} · {formatDistance(distance, language)}</span>
+              {facility.district && <small>{facility.district}</small>}
+              <small>{facility.address}</small>
+              {facility.medicalCategory && <small>{t.classification}: {facility.medicalCategory}</small>}
+              <a href={googleMapsUrl(facility.latitude, facility.longitude)} target="_blank" rel="noreferrer">
                 {t.openGoogleMaps}
               </a>
             </li>
@@ -891,6 +1060,19 @@ function SafetyOverview({ data, language }: { data: SafetyDataBundle; language: 
     .filter((record) => record.year && record.month)
     .sort((a, b) => (b.year ?? 0) - (a.year ?? 0) || (b.month ?? 0) - (a.month ?? 0))[0];
   const aedByDistrict = countBy(data.aeds, (item) => item.district);
+  const hospitals = data.medicalFacilities.filter((item) => item.facilityType === 'hospital');
+  const clinics = data.medicalFacilities.filter((item) => item.facilityType === 'clinic');
+  const hospitalsByDistrict = countBy(hospitals, (item) => item.district);
+  const clinicsByDistrict = countBy(clinics, (item) => item.district);
+  const medicalFacilitiesByDistrict = countBy(data.medicalFacilities, (item) => item.district);
+  const medicalFacilitiesByType = {
+    [t.hospitals]: hospitals.length,
+    [t.clinics]: clinics.length,
+  };
+  const medicalCoordinateAvailability = {
+    [t.hasValidCoordinates]: data.medicalFacilities.filter((item) => item.coordinateStatus === 'valid').length,
+    [t.invalidCoordinates]: data.medicalFacilities.filter((item) => item.coordinateStatus !== 'valid').length,
+  };
   const gatesByRiversidePark = countBy(data.evacuationGates, (item) => item.riversidePark);
   const topRiversidePark = mostCommonEntry(gatesByRiversidePark);
   const riversideParkAvailability = {
@@ -925,6 +1107,19 @@ function SafetyOverview({ data, language }: { data: SafetyDataBundle; language: 
           value={data.burglaries.filter((record) => record.district).length.toLocaleString()}
         />
         <Metric label={t.aedLocationCount} value={data.aeds.length.toLocaleString()} />
+        <Metric label={t.medicalFacilityCount} value={data.medicalFacilities.length.toLocaleString()} />
+        <Metric label={t.hospitalCount} value={hospitals.length.toLocaleString()} />
+        <Metric label={t.clinicCount} value={clinics.length.toLocaleString()} />
+        <Metric
+          label={t.medicalFacilitiesWithValidCoordinates}
+          value={data.medicalFacilities.filter((item) => item.coordinateStatus === 'valid').length.toLocaleString()}
+        />
+        <Metric label={t.topDistrictByHospitalCount} value={mostCommonEntry(hospitalsByDistrict)?.[0] ?? '-'} />
+        <Metric label={t.topDistrictByClinicCount} value={mostCommonEntry(clinicsByDistrict)?.[0] ?? '-'} />
+        <Metric
+          label={t.topDistrictByMedicalFacilityCount}
+          value={mostCommonEntry(medicalFacilitiesByDistrict)?.[0] ?? '-'}
+        />
         <Metric label={t.evacuationGateCount} value={data.evacuationGates.length.toLocaleString()} />
         <Metric
           label={t.evacuationGatesWithValidCoordinates}
@@ -950,6 +1145,11 @@ function SafetyOverview({ data, language }: { data: SafetyDataBundle; language: 
         <BarChart title={t.burglaryRecordsByTimePeriod} values={burglaryByPeriod} />
         <BarChart title={t.burglaryRecordsByDistrict} values={burglaryByDistrict} />
         <BarChart title={t.aedLocationsByDistrict} values={aedByDistrict} />
+        <BarChart title={t.hospitalsByDistrict} values={hospitalsByDistrict} />
+        <BarChart title={t.clinicsByDistrict} values={clinicsByDistrict} />
+        <BarChart title={t.medicalFacilitiesByDistrict} values={medicalFacilitiesByDistrict} />
+        <BarChart title={t.medicalFacilitiesByType} values={medicalFacilitiesByType} />
+        <BarChart title={t.medicalFacilityCoordinateAvailability} values={medicalCoordinateAvailability} />
         <BarChart title={t.evacuationGatesByRiversidePark} values={gatesByRiversidePark} />
         <BarChart title={t.riversideParkAvailability} values={riversideParkAvailability} />
         <BarChart title={t.locationDescriptionAvailability} values={locationDescriptionAvailability} />
@@ -969,6 +1169,7 @@ function DataNotes({ data, language }: { data: SafetyDataBundle; language: Langu
       <p>{t.burglaryPrivacyNotice}</p>
       <p>{t.shelterAvailabilityNotice}</p>
       <p>{t.evacuationGateDataNote}</p>
+      <p>{t.medicalFacilityDataNote}</p>
       <dl>
         {data.conversionReport.sources.map((source) => (
           <div key={source.name}>
@@ -1038,6 +1239,26 @@ function EvacuationGatePopup({ gate, language }: { gate: EvacuationGate; languag
       <span className="notice">{t.evacuationGateNotice}</span>
       {gate.latitude !== undefined && gate.longitude !== undefined && (
         <a href={googleMapsUrl(gate.latitude, gate.longitude)} target="_blank" rel="noreferrer">
+          {t.openGoogleMaps}
+        </a>
+      )}
+    </div>
+  );
+}
+
+function MedicalFacilityPopup({ facility, language }: { facility: MedicalFacility; language: Language }) {
+  const t = translations[language];
+  return (
+    <div className="popup-stack">
+      <strong>{t.medicalFacility}</strong>
+      <span>{t.medicalFacilityType}: {facility.facilityType === 'hospital' ? t.hospital : t.clinic}</span>
+      <span>{t.institutionName}: {facility.facilityName}</span>
+      {facility.district && <span>{t.district}: {facility.district}</span>}
+      <span>{t.address}: {facility.address}</span>
+      {facility.medicalCategory && <span>{t.classification}: {facility.medicalCategory}</span>}
+      <span className="notice">{t.medicalFacilityNotice}</span>
+      {facility.latitude !== undefined && facility.longitude !== undefined && (
+        <a href={googleMapsUrl(facility.latitude, facility.longitude)} target="_blank" rel="noreferrer">
           {t.openGoogleMaps}
         </a>
       )}

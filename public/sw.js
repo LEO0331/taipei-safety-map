@@ -12,7 +12,9 @@ const DATA_FILES = [
   cacheUrl('data/dengue-vector-density-records.json'),
   cacheUrl('data/dengue-vector-density-summary.json'),
   cacheUrl('data/evacuation-gates.json'),
-  cacheUrl('data/evacuation-gate-summary.json')
+  cacheUrl('data/evacuation-gate-summary.json'),
+  cacheUrl('data/medical-facilities.json'),
+  cacheUrl('data/medical-facility-summary.json')
 ];
 
 self.addEventListener('install', (event) => {

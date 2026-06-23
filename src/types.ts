@@ -6,7 +6,8 @@ export type SafetyLayer =
   | 'residential_burglary_record'
   | 'aed_location'
   | 'dengue_vector_density'
-  | 'evacuation_gate';
+  | 'evacuation_gate'
+  | 'medical_facility';
 
 export type AirRaidShelter = {
   id: string;
@@ -100,6 +101,40 @@ export type EvacuationGate = {
   source: string;
 };
 
+export type MedicalFacilityType = 'hospital' | 'clinic';
+
+export type MedicalFacility = {
+  id: string;
+  layer: 'medical_facility';
+  facilityType: MedicalFacilityType;
+  facilityName: string;
+  medicalCategory?: string;
+  address: string;
+  districtCode?: string;
+  cityCode?: string;
+  district?: string;
+  longitude?: number;
+  latitude?: number;
+  coordinateStatus: CoordinateStatus;
+  source: string;
+};
+
+export type MedicalFacilitySummary = {
+  totalMedicalFacilities: number;
+  hospitalCount: number;
+  clinicCount: number;
+  validCoordinateCount: number;
+  recordsWithoutDistrict: number;
+  byDistrict: Array<{
+    district: string;
+    hospitalCount: number;
+    clinicCount: number;
+    totalCount: number;
+  }>;
+  byFacilityType: Array<{ facilityType: MedicalFacilityType; count: number }>;
+  byMedicalCategory: Array<{ medicalCategory: string; count: number }>;
+};
+
 export type DengueSurveyRecord = {
   id: string;
   layer: 'dengue_vector_density';
@@ -153,6 +188,7 @@ export type SafetyDataBundle = {
   burglaries: ResidentialBurglaryRecord[];
   aeds: AedLocation[];
   evacuationGates: EvacuationGate[];
+  medicalFacilities: MedicalFacility[];
   dengueRecords: DengueSurveyRecord[];
   dengueDistrictSummaries: DengueDistrictSummary[];
   districtSummaries: DistrictSafetySummary[];
@@ -203,6 +239,17 @@ export type ConversionReport = {
     validCoordinates: number;
     missingCoordinates: number;
     outlierCoordinates: number;
+  };
+  medicalFacilities?: {
+    inputRows: number;
+    outputRows: number;
+    hospitalCount: number;
+    clinicCount: number;
+    validCoordinates: number;
+    missingCoordinates: number;
+    outlierCoordinates: number;
+    recordsWithoutDistrict: number;
+    unmappedDistrictExamples: string[];
   };
   notes: string[];
 };

@@ -1018,5 +1018,26 @@
       "美堤河濱公園": 1
     }
   },
+  "medicalFacilitySummary": {
+    "totalMedicalFacilities": 1895,
+    "hospitalCount": 37,
+    "clinicCount": 1858,
+    "validCoordinateCount": 1895,
+    "recordsWithoutDistrict": 0,
+    "byDistrict": {
+      "中正區": 136,
+      "大同區": 68,
+      "中山區": 274,
+      "松山區": 152,
+      "大安區": 512,
+      "萬華區": 89,
+      "信義區": 144,
+      "士林區": 141,
+      "北投區": 105,
+      "內湖區": 142,
+      "文山區": 90,
+      "南港區": 42
+    }
+  },
   "dengueRecordCount": 254
 }
