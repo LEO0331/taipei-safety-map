@@ -5,7 +5,8 @@ export type SafetyLayer =
   | 'air_raid_shelter'
   | 'residential_burglary_record'
   | 'aed_location'
-  | 'dengue_vector_density';
+  | 'dengue_vector_density'
+  | 'evacuation_gate';
 
 export type AirRaidShelter = {
   id: string;
@@ -87,6 +88,18 @@ export type AedLocation = {
   source: string;
 };
 
+export type EvacuationGate = {
+  id: string;
+  layer: 'evacuation_gate';
+  riversidePark?: string;
+  gateName: string;
+  description?: string;
+  longitude?: number;
+  latitude?: number;
+  coordinateStatus: CoordinateStatus;
+  source: string;
+};
+
 export type DengueSurveyRecord = {
   id: string;
   layer: 'dengue_vector_density';
@@ -139,6 +152,7 @@ export type SafetyDataBundle = {
   shelters: AirRaidShelter[];
   burglaries: ResidentialBurglaryRecord[];
   aeds: AedLocation[];
+  evacuationGates: EvacuationGate[];
   dengueRecords: DengueSurveyRecord[];
   dengueDistrictSummaries: DengueDistrictSummary[];
   districtSummaries: DistrictSafetySummary[];
@@ -152,6 +166,8 @@ export type ConversionReport = {
     url: string;
     downloadUrl: string;
     downloadedAt: string | null;
+    fileSize?: number;
+    encoding?: string;
     notes: string;
   }>;
   shelters: {
@@ -180,6 +196,13 @@ export type ConversionReport = {
     outputRows: number;
     dateParseWarnings: number;
     numericParseWarnings: number;
+  };
+  evacuationGates?: {
+    inputRows: number;
+    outputRows: number;
+    validCoordinates: number;
+    missingCoordinates: number;
+    outlierCoordinates: number;
   };
   notes: string[];
 };

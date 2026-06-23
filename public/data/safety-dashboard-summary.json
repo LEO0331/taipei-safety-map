@@ -993,5 +993,30 @@
     }
   ],
   "aedCount": 2728,
+  "evacuationGateCount": 36,
+  "evacuationGateSummary": {
+    "totalRecords": 36,
+    "validCoordinates": 36,
+    "riversideParks": 16,
+    "recordsWithLocationDescription": 36,
+    "byRiversidePark": {
+      "景美河濱公園": 1,
+      "福和河濱公園": 1,
+      "道南右岸河濱公園": 1,
+      "馬場町河濱公園": 1,
+      "華中河濱公園": 5,
+      "雙園河濱公園": 1,
+      "龍山河濱公園": 2,
+      "延平河濱公園": 5,
+      "南湖左岸河濱公園": 1,
+      "成美左岸河濱公園": 2,
+      "觀山河濱公園": 3,
+      "迎風河濱公園": 1,
+      "大佳河濱公園": 3,
+      "南湖右岸河濱公園": 2,
+      "成美右岸河濱公園": 2,
+      "美堤河濱公園": 1
+    }
+  },
   "dengueRecordCount": 254
 }

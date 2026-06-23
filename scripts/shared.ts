@@ -16,6 +16,7 @@ import type {
   AedLocation,
   AirRaidShelter,
   DengueSurveyRecord,
+  EvacuationGate,
   ResidentialBurglaryRecord,
 } from '../src/types.ts';
 import { TAIPEI_BOUNDS, TAIPEI_DISTRICT_CODE_MAP } from '../src/lib/safetyData.ts';
@@ -26,6 +27,7 @@ export const SHELTER_SOURCE = '北市警政APP_防空避難設備位置';
 export const BURGLARY_SOURCE = '臺北市住宅竊盜點位資訊';
 export const AED_SOURCE = '臺北市AED自動體外心臟去顫器設置地點';
 export const DENGUE_SOURCE = '臺北市登革熱病媒蚊密度調查結果';
+export const EVACUATION_GATE_SOURCE = '臺北市疏散門資訊';
 const utf8Decoder = new TextDecoder('utf-8', { fatal: false });
 const big5Decoder = new TextDecoder('big5', { fatal: false });
 
@@ -238,18 +240,46 @@ export function convertDengueRow(row: Record<string, string>, index: number): De
   };
 }
 
+export function convertEvacuationGateRow(row: Record<string, string>, index: number): EvacuationGate {
+  const latitude = parseNumber(row.Latitude);
+  const longitude = parseNumber(row.Longitude);
+  const coordinateStatus =
+    latitude === undefined || longitude === undefined
+      ? 'missing'
+      : longitude < TAIPEI_BOUNDS.minLng ||
+          longitude > TAIPEI_BOUNDS.maxLng ||
+          latitude < TAIPEI_BOUNDS.minLat ||
+          latitude > TAIPEI_BOUNDS.maxLat
+        ? 'outlier'
+        : 'valid';
+  const riversidePark = emptyToUndefined(row.Riverside_Park);
+  return {
+    id: `evacuation-gate-${index + 1}`,
+    layer: 'evacuation_gate',
+    riversidePark: riversidePark === '-' ? undefined : riversidePark,
+    gateName: row.Name?.trim() || '疏散門',
+    description: emptyToUndefined(row.Description),
+    longitude,
+    latitude,
+    coordinateStatus,
+    source: EVACUATION_GATE_SOURCE,
+  };
+}
+
 export async function loadConvertedData() {
-  const [shelters, burglaries, aeds, dengueRecords] = await Promise.all([
+  const [shelters, burglaries, aeds, dengueRecords, evacuationGates] = await Promise.all([
     readJsonFile<AirRaidShelter[]>(`${PUBLIC_DATA_DIR}/air-raid-shelters.json`),
     readJsonFile<ResidentialBurglaryRecord[]>(`${PUBLIC_DATA_DIR}/residential-burglary-records.json`),
     readJsonFile<AedLocation[]>(`${PUBLIC_DATA_DIR}/aed-locations.json`),
     readJsonFile<DengueSurveyRecord[]>(`${PUBLIC_DATA_DIR}/dengue-vector-density-records.json`),
+    readJsonFile<EvacuationGate[]>(`${PUBLIC_DATA_DIR}/evacuation-gates.json`),
   ]);
   return {
     shelters,
     burglaries,
     aeds,
     dengueRecords,
+    evacuationGates,
     districtSummaries: buildDistrictSafetySummary(shelters, burglaries),
     dengueDistrictSummaries: buildDengueDistrictSummaries(dengueRecords),
   };

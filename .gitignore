@@ -7,4 +7,6 @@ data/raw/safety/*.csv
 data/raw/safety/*.json
 data/raw/aed-locations/*.csv
 data/raw/dengue-vector-density/*.csv
+data/raw/evacuation-gates/*.csv
+data/raw/evacuation-gates/*.json
 .omx

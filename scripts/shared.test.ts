@@ -2,7 +2,14 @@ import { describe, expect, it } from 'vitest';
 import { mkdtemp, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
-import { convertAedRow, convertShelterRow, decodeCsvBuffer, parseCsv, readCsv } from './shared';
+import {
+  convertAedRow,
+  convertEvacuationGateRow,
+  convertShelterRow,
+  decodeCsvBuffer,
+  parseCsv,
+  readCsv,
+} from './shared';
 
 describe('CSV script helpers', () => {
   it('parses quoted CSV fields with embedded commas and newlines', () => {
@@ -71,5 +78,37 @@ describe('CSV script helpers', () => {
       coordinateStatus: 'valid',
       layer: 'aed_location',
     });
+  });
+
+  it('normalizes evacuation gate fields and validates coordinates', () => {
+    expect(
+      convertEvacuationGateRow(
+        {
+          Riverside_Park: '-',
+          Name: '景1,育英',
+          Description: '文山區育英街底',
+          Longitude: '121.5369669',
+          Latitude: '24.98947221',
+        },
+        0,
+      ),
+    ).toEqual({
+      id: 'evacuation-gate-1',
+      layer: 'evacuation_gate',
+      riversidePark: undefined,
+      gateName: '景1,育英',
+      description: '文山區育英街底',
+      longitude: 121.5369669,
+      latitude: 24.98947221,
+      coordinateStatus: 'valid',
+      source: '臺北市疏散門資訊',
+    });
+
+    expect(
+      convertEvacuationGateRow(
+        { Riverside_Park: '河濱公園', Name: '測試', Longitude: '120', Latitude: '24' },
+        1,
+      ).coordinateStatus,
+    ).toBe('outlier');
   });
 });

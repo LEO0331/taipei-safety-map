@@ -186,6 +186,10 @@ input {
   border-color: #be123c;
 }
 
+.evacuation-gate-marker span {
+  border-color: #1d4ed8;
+}
+
 .popup-stack {
   display: grid;
   gap: 4px;

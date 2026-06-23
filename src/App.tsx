@@ -20,6 +20,7 @@ import type {
   BurglaryTimePeriod,
   DengueDistrictSummary,
   DistrictSafetySummary,
+  EvacuationGate,
   Language,
   ResidentialBurglaryRecord,
   SafetyDataBundle,
@@ -48,6 +49,12 @@ const aedIcon = L.divIcon({
   iconSize: [34, 34],
   iconAnchor: [17, 17],
 });
+const evacuationGateIcon = L.divIcon({
+  className: 'shield-marker evacuation-gate-marker',
+  html: '<span>🚪</span>',
+  iconSize: [34, 34],
+  iconAnchor: [17, 17],
+});
 
 const userIcon = L.divIcon({
   className: 'user-marker',
@@ -65,6 +72,7 @@ const radiusOptions: SelectOption[] = [
   { value: '500', label: '500m' },
   { value: '1000', label: '1km' },
   { value: '2000', label: '2km' },
+  { value: '5000', label: '5km' },
 ];
 const monthOptions = Array.from({ length: 12 }, (_, index) => index + 1);
 const capacityOptions: SelectOption<CapacityRange>[] = [
@@ -166,6 +174,11 @@ function SafetyMap({
   const [validOnly, setValidOnly] = useState(true);
   const [showShelters, setShowShelters] = useState(true);
   const [showAeds, setShowAeds] = useState(true);
+  const [showEvacuationGates, setShowEvacuationGates] = useState(true);
+  const [showBurglaries, setShowBurglaries] = useState(true);
+  const [showDengue, setShowDengue] = useState(true);
+  const [riversidePark, setRiversidePark] = useState('all');
+  const [hasLocationDescription, setHasLocationDescription] = useState(false);
   const [radius, setRadius] = useState(500);
   const [userPosition, setUserPosition] = useState<{ latitude: number; longitude: number } | null>(null);
   const [geoMessage, setGeoMessage] = useState<string | null>(null);
@@ -206,6 +219,23 @@ function SafetyMap({
       }),
     [data.aeds, district, search, validOnly],
   );
+  const riversideParks = useMemo(
+    () => [...new Set(data.evacuationGates.flatMap((gate) => (gate.riversidePark ? [gate.riversidePark] : [])))].sort(),
+    [data.evacuationGates],
+  );
+  const filteredEvacuationGates = useMemo(
+    () =>
+      data.evacuationGates.filter((gate) => {
+        const haystack = [gate.gateName, gate.riversidePark, gate.description].join(' ').toLowerCase();
+        return (
+          (riversidePark === 'all' || gate.riversidePark === riversidePark) &&
+          (!hasLocationDescription || Boolean(gate.description)) &&
+          (!search.trim() || haystack.includes(search.trim().toLowerCase())) &&
+          (!validOnly || gate.coordinateStatus === 'valid')
+        );
+      }),
+    [data.evacuationGates, hasLocationDescription, riversidePark, search, validOnly],
+  );
 
   const nearbyShelters = useMemo(() => {
     if (!userPosition) return [];
@@ -239,6 +269,22 @@ function SafetyMap({
       .filter((item) => item.distance <= radius)
       .sort((a, b) => a.distance - b.distance);
   }, [filteredAeds, radius, userPosition]);
+  const nearbyEvacuationGates = useMemo(() => {
+    if (!userPosition) return [];
+    return filteredEvacuationGates
+      .filter(hasValidPoint)
+      .map((gate) => ({
+        gate,
+        distance: calculateDistanceMeters(
+          userPosition.latitude,
+          userPosition.longitude,
+          gate.latitude,
+          gate.longitude,
+        ),
+      }))
+      .filter((item) => item.distance <= radius)
+      .sort((a, b) => a.distance - b.distance);
+  }, [filteredEvacuationGates, radius, userPosition]);
 
   const visibleShelters = useMemo(
     () => filteredShelters.filter(hasValidCoordinate).filter((shelter) => isInViewport(shelter, viewport.bounds)),
@@ -257,6 +303,14 @@ function SafetyMap({
   const shouldRenderDetailedAeds =
     viewport.zoom >= detailedShelterZoom || visibleAeds.length <= maxDetailedShelterMarkers;
   const aedClusters = useMemo(() => buildShelterMapClusters(visibleAeds, viewport.zoom), [visibleAeds, viewport.zoom]);
+  const visibleEvacuationGates = useMemo(
+    () => filteredEvacuationGates.filter(hasValidPoint).filter((gate) => isInViewport(gate, viewport.bounds)),
+    [filteredEvacuationGates, viewport.bounds],
+  );
+  const evacuationGateClusters = useMemo(
+    () => buildShelterMapClusters(visibleEvacuationGates, viewport.zoom),
+    [visibleEvacuationGates, viewport.zoom],
+  );
 
   function requestLocation() {
     if (!navigator.geolocation) {
@@ -292,6 +346,30 @@ function SafetyMap({
           />
           {t.airRaidShelters}
         </label>
+        <label className="checkbox-row">
+          <input
+            type="checkbox"
+            checked={showEvacuationGates}
+            onChange={(event) => setShowEvacuationGates(event.target.checked)}
+          />
+          {t.evacuationGates}
+        </label>
+        {!nearbyMode && (
+          <>
+            <label className="checkbox-row">
+              <input
+                type="checkbox"
+                checked={showBurglaries}
+                onChange={(event) => setShowBurglaries(event.target.checked)}
+              />
+              {t.burglaryRecords}
+            </label>
+            <label className="checkbox-row">
+              <input type="checkbox" checked={showDengue} onChange={(event) => setShowDengue(event.target.checked)} />
+              {t.dengueVectorDensity}
+            </label>
+          </>
+        )}
         <label>
           {t.district}
           <select value={district} onChange={(event) => setDistrict(event.target.value)}>
@@ -303,7 +381,28 @@ function SafetyMap({
         </label>
         <label>
           {t.search}
-          <input value={search} onChange={(event) => setSearch(event.target.value)} />
+          <input
+            value={search}
+            placeholder={t.searchPlaceholder}
+            onChange={(event) => setSearch(event.target.value)}
+          />
+        </label>
+        <label>
+          {t.riversidePark}
+          <select value={riversidePark} onChange={(event) => setRiversidePark(event.target.value)}>
+            <option value="all">{t.all}</option>
+            {riversideParks.map((park) => (
+              <option key={park}>{park}</option>
+            ))}
+          </select>
+        </label>
+        <label className="checkbox-row">
+          <input
+            type="checkbox"
+            checked={hasLocationDescription}
+            onChange={(event) => setHasLocationDescription(event.target.checked)}
+          />
+          {t.hasLocationDescription}
         </label>
         <label>
           {t.capacityRange}
@@ -380,7 +479,30 @@ function SafetyMap({
                     </Popup>
                   </CircleMarker>
                 )))}
-          {!nearbyMode && data.districtSummaries.map((summary) => {
+          {showEvacuationGates &&
+            (viewport.zoom >= detailedShelterZoom
+              ? visibleEvacuationGates.map((gate) => (
+                  <Marker key={gate.id} position={[gate.latitude, gate.longitude]} icon={evacuationGateIcon}>
+                    <Popup>
+                      <EvacuationGatePopup gate={gate} language={language} />
+                    </Popup>
+                  </Marker>
+                ))
+              : evacuationGateClusters.map((cluster) => (
+                  <CircleMarker
+                    key={`evacuation-gate-${cluster.id}`}
+                    center={[cluster.latitude, cluster.longitude]}
+                    radius={Math.min(22, 7 + Math.sqrt(cluster.count) * 2)}
+                    pathOptions={{ color: '#1d4ed8', fillColor: '#60a5fa', fillOpacity: 0.34, weight: 2 }}
+                  >
+                    <Popup>
+                      <strong>
+                        {t.evacuationGates}: {cluster.count.toLocaleString()}
+                      </strong>
+                    </Popup>
+                  </CircleMarker>
+                )))}
+          {!nearbyMode && showBurglaries && data.districtSummaries.map((summary) => {
             if (!summary.burglaryRecordCount) return null;
             return (
               <CircleMarker
@@ -401,6 +523,7 @@ function SafetyMap({
             );
           })}
           {!nearbyMode &&
+            showDengue &&
             data.dengueDistrictSummaries.map((summary) =>
               summary.recordCount ? (
                 <CircleMarker
@@ -431,6 +554,9 @@ function SafetyMap({
         <button type="button" onClick={requestLocation}>
           {t.showNearbyShelters}
         </button>
+        <button type="button" onClick={requestLocation}>
+          {t.showNearbyEvacuationGates}
+        </button>
         <label>
           {t.nearbyRadius}
           <select value={radius} onChange={(event) => setRadius(Number(event.target.value))}>
@@ -451,6 +577,21 @@ function SafetyMap({
               <span>{formatDistance(distance, language)}</span>
               <small>{aed.aedPlacementLocation ?? aed.address}</small>
               <a href={googleMapsUrl(aed.latitude, aed.longitude)} target="_blank" rel="noreferrer">
+                {t.openGoogleMaps}
+              </a>
+            </li>
+          ))}
+        </ol>
+        <p className="notice">{t.evacuationGateNotice}</p>
+        <h2>{t.nearbyEvacuationGates}</h2>
+        <ol className="nearby-list">
+          {nearbyEvacuationGates.slice(0, 20).map(({ gate, distance }) => (
+            <li key={gate.id}>
+              <strong>{gate.gateName}</strong>
+              <span>{formatDistance(distance, language)}</span>
+              <small>{gate.riversidePark ?? t.notSpecified}</small>
+              {gate.description && <small>{gate.description}</small>}
+              <a href={googleMapsUrl(gate.latitude, gate.longitude)} target="_blank" rel="noreferrer">
                 {t.openGoogleMaps}
               </a>
             </li>
@@ -750,6 +891,16 @@ function SafetyOverview({ data, language }: { data: SafetyDataBundle; language: 
     .filter((record) => record.year && record.month)
     .sort((a, b) => (b.year ?? 0) - (a.year ?? 0) || (b.month ?? 0) - (a.month ?? 0))[0];
   const aedByDistrict = countBy(data.aeds, (item) => item.district);
+  const gatesByRiversidePark = countBy(data.evacuationGates, (item) => item.riversidePark);
+  const topRiversidePark = mostCommonEntry(gatesByRiversidePark);
+  const riversideParkAvailability = {
+    [t.hasRiversidePark]: data.evacuationGates.filter((item) => item.riversidePark).length,
+    [t.withoutRiversidePark]: data.evacuationGates.filter((item) => !item.riversidePark).length,
+  };
+  const locationDescriptionAvailability = {
+    [t.hasLocationDescription]: data.evacuationGates.filter((item) => item.description).length,
+    [t.withoutLocationDescription]: data.evacuationGates.filter((item) => !item.description).length,
+  };
   const dengueByDistrict = data.dengueDistrictSummaries.reduce<Record<string, number>>((counts, item) => {
     counts[item.district] = item.recordCount;
     return counts;
@@ -774,6 +925,20 @@ function SafetyOverview({ data, language }: { data: SafetyDataBundle; language: 
           value={data.burglaries.filter((record) => record.district).length.toLocaleString()}
         />
         <Metric label={t.aedLocationCount} value={data.aeds.length.toLocaleString()} />
+        <Metric label={t.evacuationGateCount} value={data.evacuationGates.length.toLocaleString()} />
+        <Metric
+          label={t.evacuationGatesWithValidCoordinates}
+          value={data.evacuationGates.filter((item) => item.coordinateStatus === 'valid').length.toLocaleString()}
+        />
+        <Metric
+          label={t.riversideParksWithEvacuationGates}
+          value={Object.keys(gatesByRiversidePark).length.toLocaleString()}
+        />
+        <Metric label={t.topRiversideParkByGateCount} value={topRiversidePark?.[0] ?? t.notSpecified} />
+        <Metric
+          label={t.recordsWithLocationDescription}
+          value={data.evacuationGates.filter((item) => item.description).length.toLocaleString()}
+        />
         <Metric label={t.latestDengueSurveyMonth} value={latestDengueMonth ?? '-'} />
         <Metric label={t.dengueSurveyRecordCount} value={data.dengueRecords.length.toLocaleString()} />
       </section>
@@ -785,6 +950,9 @@ function SafetyOverview({ data, language }: { data: SafetyDataBundle; language: 
         <BarChart title={t.burglaryRecordsByTimePeriod} values={burglaryByPeriod} />
         <BarChart title={t.burglaryRecordsByDistrict} values={burglaryByDistrict} />
         <BarChart title={t.aedLocationsByDistrict} values={aedByDistrict} />
+        <BarChart title={t.evacuationGatesByRiversidePark} values={gatesByRiversidePark} />
+        <BarChart title={t.riversideParkAvailability} values={riversideParkAvailability} />
+        <BarChart title={t.locationDescriptionAvailability} values={locationDescriptionAvailability} />
         <BarChart title={t.dengueSurveyRecordsByDistrict} values={dengueByDistrict} />
         <ComparisonChart title={t.shelterCapacityVsBurglaryRecords} summaries={data.districtSummaries} notice={t.noCausationNotice} />
       </section>
@@ -800,6 +968,7 @@ function DataNotes({ data, language }: { data: SafetyDataBundle; language: Langu
       <p>{t.dataDisclaimer}</p>
       <p>{t.burglaryPrivacyNotice}</p>
       <p>{t.shelterAvailabilityNotice}</p>
+      <p>{t.evacuationGateDataNote}</p>
       <dl>
         {data.conversionReport.sources.map((source) => (
           <div key={source.name}>
@@ -851,6 +1020,24 @@ function AedPopup({ aed, language }: { aed: AedLocation; language: Language }) {
       <span className="notice">{t.aedEmergencyNotice}</span>
       {aed.latitude !== undefined && aed.longitude !== undefined && (
         <a href={googleMapsUrl(aed.latitude, aed.longitude)} target="_blank" rel="noreferrer">
+          {t.openGoogleMaps}
+        </a>
+      )}
+    </div>
+  );
+}
+
+function EvacuationGatePopup({ gate, language }: { gate: EvacuationGate; language: Language }) {
+  const t = translations[language];
+  return (
+    <div className="popup-stack">
+      <strong>{t.evacuationGate}</strong>
+      <span>{t.riversidePark}: {gate.riversidePark ?? t.notSpecified}</span>
+      <span>{t.gateName}: {gate.gateName}</span>
+      {gate.description && <span>{t.locationDescription}: {gate.description}</span>}
+      <span className="notice">{t.evacuationGateNotice}</span>
+      {gate.latitude !== undefined && gate.longitude !== undefined && (
+        <a href={googleMapsUrl(gate.latitude, gate.longitude)} target="_blank" rel="noreferrer">
           {t.openGoogleMaps}
         </a>
       )}
@@ -1072,13 +1259,13 @@ const localizedUiText: Record<
 > = {
   zh: {
     currentLocation: '目前位置',
-    geolocationDenied: '無法取得目前位置。',
+    geolocationDenied: '無法取得您的位置，請確認定位權限。',
     geolocationUnsupported: '此瀏覽器不支援定位。',
     month: '月份',
   },
   en: {
     currentLocation: 'Current location',
-    geolocationDenied: 'Unable to access current location.',
+    geolocationDenied: 'Unable to get your location. Please check location permission.',
     geolocationUnsupported: 'Geolocation is not supported.',
     month: 'Month',
   },

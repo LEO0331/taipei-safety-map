@@ -1,13 +1,27 @@
 import { countBy } from '../src/lib/safetyData.ts';
 import { loadConvertedData, sources, writeJson } from './shared.ts';
+import { readFile, stat } from 'node:fs/promises';
 
-const { shelters, burglaries, aeds, dengueRecords, districtSummaries, dengueDistrictSummaries } =
+const { shelters, burglaries, aeds, evacuationGates, dengueRecords, districtSummaries, dengueDistrictSummaries } =
   await loadConvertedData();
+const evacuationGateFile = await stat('data/raw/evacuation-gates/evacuation-gates.csv').catch(() => null);
+const evacuationGateFetchStatus = await readFile('data/raw/evacuation-gates/fetch-status.json', 'utf8')
+  .then((value) => JSON.parse(value) as { failure?: string | null })
+  .catch(() => null);
+const evacuationGateSummary = {
+  totalRecords: evacuationGates.length,
+  validCoordinates: evacuationGates.filter((item) => item.coordinateStatus === 'valid').length,
+  riversideParks: Object.keys(countBy(evacuationGates, (item) => item.riversidePark)).length,
+  recordsWithLocationDescription: evacuationGates.filter((item) => item.description).length,
+  byRiversidePark: countBy(evacuationGates, (item) => item.riversidePark),
+};
 
 await writeJson('public/data/safety-dashboard-summary.json', {
   districtSummaries,
   dengueDistrictSummaries,
   aedCount: aeds.length,
+  evacuationGateCount: evacuationGates.length,
+  evacuationGateSummary,
   dengueRecordCount: dengueRecords.length,
 });
 await writeJson('public/data/conversion-report.json', {
@@ -41,6 +55,18 @@ await writeJson('public/data/conversion-report.json', {
       downloadedAt: null,
       notes: 'District and village survey results; no exact coordinates are provided.',
     },
+    {
+      name: '臺北市疏散門資訊',
+      url: 'https://data.taipei/dataset/detail?id=443dc687-92b6-4ffd-8dc0-23738437b571',
+      downloadUrl:
+        'https://data.taipei/api/frontstage/tpeod/dataset/resource.download?rid=47cffd30-3527-45af-b709-6f76772e3cfb',
+      downloadedAt: evacuationGateFile?.mtime.toISOString() ?? null,
+      fileSize: evacuationGateFile?.size,
+      encoding: 'UTF-8-SIG',
+      notes: evacuationGateFetchStatus?.failure
+        ? `Latest download failed: ${evacuationGateFetchStatus.failure}. Existing generated data was retained.`
+        : 'WGS84 location records; operating status is not real-time.',
+    },
   ],
   shelters: {
     inputRows: shelters.length,
@@ -69,11 +95,19 @@ await writeJson('public/data/conversion-report.json', {
     dateParseWarnings: dengueRecords.filter((item) => !item.surveyDate).length,
     numericParseWarnings: 0,
   },
+  evacuationGates: {
+    inputRows: evacuationGates.length,
+    outputRows: evacuationGates.length,
+    validCoordinates: evacuationGates.filter((item) => item.coordinateStatus === 'valid').length,
+    missingCoordinates: evacuationGates.filter((item) => item.coordinateStatus === 'missing').length,
+    outlierCoordinates: evacuationGates.filter((item) => item.coordinateStatus === 'outlier').length,
+  },
   notes: [
     'Residential burglary records remain blurred and are never geocoded into exact household-level markers.',
     `Burglary time periods: ${Object.keys(countBy(burglaries, (record) => record.timePeriod)).join(', ')}`,
     'AED availability is not real-time.',
     'Dengue records are shown only as district/village survey aggregates.',
+    'Evacuation gate records do not represent real-time operating status or safe routes.',
   ],
 });
 
