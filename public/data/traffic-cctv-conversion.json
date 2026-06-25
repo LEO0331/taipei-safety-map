@@ -1,0 +1,13 @@
+{
+  "inputRows": 416,
+  "outputRows": 416,
+  "duplicateRows": 0,
+  "duplicateExamples": [],
+  "invalidCoordinateExamples": [],
+  "outlierCoordinateExamples": [
+    "080-環河快貴陽匝道: 121.29441,25.21892",
+    "081-環河快萬板大橋: 121.29173,25.14905",
+    "082-環河快華翠大橋: 121.29214,25.13923",
+    "083-環河快青年路口: 121.30149,25.11113"
+  ]
+}

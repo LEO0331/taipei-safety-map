@@ -1,0 +1,15 @@
+{
+  "inputRows": 401,
+  "outputRows": 401,
+  "duplicateRows": 0,
+  "duplicateExamples": [],
+  "recordsWithoutDistrict": 0,
+  "unmappedDistrictExamples": [],
+  "invalidCapacityExamples": [
+    "俟搬遷後重新評估"
+  ],
+  "invalidAreaExamples": [
+    "俟搬遷後重新評估",
+    "改建後重新評估"
+  ]
+}

@@ -6001,5 +6001,419 @@
       }
     ]
   },
+  "emergencyShelterSummary": {
+    "totalRecords": 401,
+    "uniqueShelterIdCount": 401,
+    "cityCount": 1,
+    "districtCount": 12,
+    "villageCount": 239,
+    "totalListedCapacityPeople": 289266,
+    "totalKnownShelterAreaSqm": 2497755.2759000002,
+    "recordsWithCapacity": 400,
+    "recordsWithArea": 399,
+    "reliefStationCount": 353,
+    "accessibleFacilityCount": 362,
+    "indoorShelterCount": 354,
+    "outdoorShelterCount": 45,
+    "byDistrict": [
+      {
+        "district": "中正區",
+        "count": 25,
+        "totalListedCapacityPeople": 16030,
+        "accessibleFacilityCount": 24,
+        "reliefStationCount": 23,
+        "indoorShelterCount": 24,
+        "outdoorShelterCount": 1,
+        "topShelterTypes": [
+          {
+            "shelterType": "school",
+            "count": 16
+          },
+          {
+            "shelterType": "metro_station",
+            "count": 4
+          },
+          {
+            "shelterType": "library",
+            "count": 2
+          }
+        ]
+      },
+      {
+        "district": "大同區",
+        "count": 26,
+        "totalListedCapacityPeople": 9536,
+        "accessibleFacilityCount": 24,
+        "reliefStationCount": 23,
+        "indoorShelterCount": 23,
+        "outdoorShelterCount": 3,
+        "topShelterTypes": [
+          {
+            "shelterType": "school",
+            "count": 16
+          },
+          {
+            "shelterType": "park_green_space",
+            "count": 3
+          },
+          {
+            "shelterType": "library",
+            "count": 3
+          }
+        ]
+      },
+      {
+        "district": "中山區",
+        "count": 37,
+        "totalListedCapacityPeople": 42741,
+        "accessibleFacilityCount": 34,
+        "reliefStationCount": 30,
+        "indoorShelterCount": 29,
+        "outdoorShelterCount": 9,
+        "topShelterTypes": [
+          {
+            "shelterType": "school",
+            "count": 19
+          },
+          {
+            "shelterType": "park_green_space",
+            "count": 6
+          },
+          {
+            "shelterType": "market_parking_lot",
+            "count": 3
+          }
+        ]
+      },
+      {
+        "district": "松山區",
+        "count": 32,
+        "totalListedCapacityPeople": 11060,
+        "accessibleFacilityCount": 29,
+        "reliefStationCount": 30,
+        "indoorShelterCount": 29,
+        "outdoorShelterCount": 3,
+        "topShelterTypes": [
+          {
+            "shelterType": "school",
+            "count": 14
+          },
+          {
+            "shelterType": "library",
+            "count": 5
+          },
+          {
+            "shelterType": "activity_center",
+            "count": 5
+          }
+        ]
+      },
+      {
+        "district": "大安區",
+        "count": 32,
+        "totalListedCapacityPeople": 51676,
+        "accessibleFacilityCount": 31,
+        "reliefStationCount": 31,
+        "indoorShelterCount": 31,
+        "outdoorShelterCount": 1,
+        "topShelterTypes": [
+          {
+            "shelterType": "school",
+            "count": 19
+          },
+          {
+            "shelterType": "metro_station",
+            "count": 5
+          },
+          {
+            "shelterType": "market_parking_lot",
+            "count": 4
+          }
+        ]
+      },
+      {
+        "district": "萬華區",
+        "count": 25,
+        "totalListedCapacityPeople": 50966,
+        "accessibleFacilityCount": 22,
+        "reliefStationCount": 22,
+        "indoorShelterCount": 23,
+        "outdoorShelterCount": 2,
+        "topShelterTypes": [
+          {
+            "shelterType": "school",
+            "count": 15
+          },
+          {
+            "shelterType": "market_parking_lot",
+            "count": 4
+          },
+          {
+            "shelterType": "sports_facility",
+            "count": 2
+          }
+        ]
+      },
+      {
+        "district": "信義區",
+        "count": 26,
+        "totalListedCapacityPeople": 15411,
+        "accessibleFacilityCount": 24,
+        "reliefStationCount": 22,
+        "indoorShelterCount": 23,
+        "outdoorShelterCount": 3,
+        "topShelterTypes": [
+          {
+            "shelterType": "school",
+            "count": 17
+          },
+          {
+            "shelterType": "park_green_space",
+            "count": 3
+          },
+          {
+            "shelterType": "library",
+            "count": 3
+          }
+        ]
+      },
+      {
+        "district": "士林區",
+        "count": 43,
+        "totalListedCapacityPeople": 27399,
+        "accessibleFacilityCount": 37,
+        "reliefStationCount": 36,
+        "indoorShelterCount": 35,
+        "outdoorShelterCount": 8,
+        "topShelterTypes": [
+          {
+            "shelterType": "school",
+            "count": 28
+          },
+          {
+            "shelterType": "park_green_space",
+            "count": 7
+          },
+          {
+            "shelterType": "library",
+            "count": 3
+          }
+        ]
+      },
+      {
+        "district": "北投區",
+        "count": 40,
+        "totalListedCapacityPeople": 20854,
+        "accessibleFacilityCount": 31,
+        "reliefStationCount": 30,
+        "indoorShelterCount": 32,
+        "outdoorShelterCount": 8,
+        "topShelterTypes": [
+          {
+            "shelterType": "school",
+            "count": 23
+          },
+          {
+            "shelterType": "park_green_space",
+            "count": 8
+          },
+          {
+            "shelterType": "library",
+            "count": 5
+          }
+        ]
+      },
+      {
+        "district": "內湖區",
+        "count": 38,
+        "totalListedCapacityPeople": 13218,
+        "accessibleFacilityCount": 36,
+        "reliefStationCount": 35,
+        "indoorShelterCount": 35,
+        "outdoorShelterCount": 3,
+        "topShelterTypes": [
+          {
+            "shelterType": "school",
+            "count": 23
+          },
+          {
+            "shelterType": "activity_center",
+            "count": 6
+          },
+          {
+            "shelterType": "library",
+            "count": 4
+          }
+        ]
+      },
+      {
+        "district": "南港區",
+        "count": 22,
+        "totalListedCapacityPeople": 17982,
+        "accessibleFacilityCount": 19,
+        "reliefStationCount": 19,
+        "indoorShelterCount": 20,
+        "outdoorShelterCount": 2,
+        "topShelterTypes": [
+          {
+            "shelterType": "school",
+            "count": 12
+          },
+          {
+            "shelterType": "park_green_space",
+            "count": 2
+          },
+          {
+            "shelterType": "sports_facility",
+            "count": 2
+          }
+        ]
+      },
+      {
+        "district": "文山區",
+        "count": 55,
+        "totalListedCapacityPeople": 12393,
+        "accessibleFacilityCount": 51,
+        "reliefStationCount": 52,
+        "indoorShelterCount": 50,
+        "outdoorShelterCount": 2,
+        "topShelterTypes": [
+          {
+            "shelterType": "school",
+            "count": 28
+          },
+          {
+            "shelterType": "activity_center",
+            "count": 13
+          },
+          {
+            "shelterType": "library",
+            "count": 6
+          }
+        ]
+      }
+    ],
+    "byShelterType": [
+      {
+        "shelterType": "school",
+        "count": 230,
+        "totalListedCapacityPeople": 37685
+      },
+      {
+        "shelterType": "park_green_space",
+        "count": 38,
+        "totalListedCapacityPeople": 158210
+      },
+      {
+        "shelterType": "sports_facility",
+        "count": 17,
+        "totalListedCapacityPeople": 4492
+      },
+      {
+        "shelterType": "metro_station",
+        "count": 17,
+        "totalListedCapacityPeople": 35853
+      },
+      {
+        "shelterType": "market_parking_lot",
+        "count": 27,
+        "totalListedCapacityPeople": 37113
+      },
+      {
+        "shelterType": "library",
+        "count": 40,
+        "totalListedCapacityPeople": 5126
+      },
+      {
+        "shelterType": "activity_center",
+        "count": 28,
+        "totalListedCapacityPeople": 3498
+      },
+      {
+        "shelterType": "arts_center",
+        "count": 3,
+        "totalListedCapacityPeople": 6705
+      },
+      {
+        "shelterType": "military_camp",
+        "count": 1,
+        "totalListedCapacityPeople": 584
+      }
+    ],
+    "byDisasterApplicability": {
+      "flood": [
+        {
+          "status": "yes",
+          "count": 206
+        },
+        {
+          "status": "no",
+          "count": 195
+        }
+      ],
+      "earthquake": [
+        {
+          "status": "backup",
+          "count": 239
+        },
+        {
+          "status": "yes",
+          "count": 62
+        },
+        {
+          "status": "no",
+          "count": 100
+        }
+      ],
+      "landslide": [
+        {
+          "status": "no",
+          "count": 390
+        },
+        {
+          "status": "yes",
+          "count": 6
+        },
+        {
+          "status": "old_settlement",
+          "count": 5
+        }
+      ],
+      "tsunami": [
+        {
+          "status": "no",
+          "count": 391
+        },
+        {
+          "status": "backup",
+          "count": 10
+        }
+      ]
+    }
+  },
+  "trafficCctvSummary": {
+    "totalRecords": 416,
+    "validCoordinateCount": 412,
+    "missingCoordinateCount": 0,
+    "outlierCoordinateCount": 4,
+    "unparsedCoordinateCount": 0,
+    "cityCount": 1,
+    "byCity": [
+      {
+        "city": "臺北市",
+        "count": 416
+      }
+    ],
+    "coordinateStatus": [
+      {
+        "coordinateStatus": "valid",
+        "count": 412
+      },
+      {
+        "coordinateStatus": "outlier",
+        "count": 4
+      }
+    ]
+  },
   "dengueRecordCount": 254
 }

@@ -5,12 +5,16 @@ import type {
   DengueDistrictSummary,
   DengueSurveyRecord,
   DistrictSafetySummary,
+  EmergencyShelter,
+  EmergencyShelterSummary,
   EvacuationGate,
   FireHydrant,
   FireHydrantSummary,
   MedicalFacility,
   ResidentialBurglaryRecord,
   SafetyDataBundle,
+  TrafficCctvFacility,
+  TrafficCctvSummary,
 } from '../types';
 
 const DATA_BASE = `${import.meta.env.BASE_URL}data`;
@@ -24,17 +28,21 @@ async function loadJson<T>(path: string): Promise<T> {
 }
 
 export async function loadSafetyData(): Promise<SafetyDataBundle> {
-  const [shelters, burglaries, aeds, evacuationGates, medicalFacilities, dengueRecords, dashboard, conversionReport] = await Promise.all([
+  const [shelters, burglaries, aeds, evacuationGates, medicalFacilities, emergencyShelters, trafficCctvFacilities, dengueRecords, dashboard, conversionReport] = await Promise.all([
     loadJson<AirRaidShelter[]>('air-raid-shelters.json'),
     loadJson<ResidentialBurglaryRecord[]>('residential-burglary-records.json'),
     loadJson<AedLocation[]>('aed-locations.json'),
     loadJson<EvacuationGate[]>('evacuation-gates.json'),
     loadJson<MedicalFacility[]>('medical-facilities.json'),
+    loadJson<EmergencyShelter[]>('emergency-shelters.json'),
+    loadJson<TrafficCctvFacility[]>('traffic-cctv-facilities.json'),
     loadJson<DengueSurveyRecord[]>('dengue-vector-density-records.json'),
     loadJson<{
       districtSummaries: DistrictSafetySummary[];
       dengueDistrictSummaries: DengueDistrictSummary[];
       fireHydrantSummary: FireHydrantSummary;
+      emergencyShelterSummary: EmergencyShelterSummary;
+      trafficCctvSummary: TrafficCctvSummary;
     }>('safety-dashboard-summary.json'),
     loadJson<ConversionReport>('conversion-report.json'),
   ]);
@@ -45,7 +53,11 @@ export async function loadSafetyData(): Promise<SafetyDataBundle> {
     aeds,
     evacuationGates,
     medicalFacilities,
+    emergencyShelters,
+    trafficCctvFacilities,
     fireHydrantSummary: dashboard.fireHydrantSummary,
+    emergencyShelterSummary: dashboard.emergencyShelterSummary,
+    trafficCctvSummary: dashboard.trafficCctvSummary,
     dengueRecords,
     dengueDistrictSummaries: dashboard.dengueDistrictSummaries,
     districtSummaries: dashboard.districtSummaries,

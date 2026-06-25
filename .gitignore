@@ -13,4 +13,8 @@ data/raw/medical-facilities/*.csv
 data/raw/medical-facilities/*.json
 data/raw/fire-hydrants/*.csv
 data/raw/fire-hydrants/*.json
+data/raw/emergency-shelters/*.csv
+data/raw/emergency-shelters/*.json
+data/raw/traffic-cctv/*.csv
+data/raw/traffic-cctv/*.json
 .omx

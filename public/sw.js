@@ -16,6 +16,10 @@ const DATA_FILES = [
   cacheUrl('data/medical-facilities.json'),
   cacheUrl('data/medical-facility-summary.json'),
   cacheUrl('data/fire-hydrant-summary.json'),
+  cacheUrl('data/emergency-shelters.json'),
+  cacheUrl('data/emergency-shelter-summary.json'),
+  cacheUrl('data/traffic-cctv-facilities.json'),
+  cacheUrl('data/traffic-cctv-summary.json'),
   cacheUrl('data/conversion-report.json')
 ];
 

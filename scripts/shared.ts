@@ -15,7 +15,11 @@ import {
 import type {
   AedLocation,
   AirRaidShelter,
+  CoordinateStatus,
   DengueSurveyRecord,
+  DisasterApplicabilityStatus,
+  EmergencyShelter,
+  EmergencyShelterType,
   EvacuationGate,
   FireHydrant,
   FireHydrantAreaScope,
@@ -23,8 +27,9 @@ import type {
   MedicalFacility,
   MedicalFacilityType,
   ResidentialBurglaryRecord,
+  TrafficCctvFacility,
 } from '../src/types.ts';
-import { TAIPEI_BOUNDS, TAIPEI_DISTRICT_CODE_MAP } from '../src/lib/safetyData.ts';
+import { TAIPEI_BOUNDS, TAIPEI_DISTRICTS, TAIPEI_DISTRICT_CODE_MAP } from '../src/lib/safetyData.ts';
 
 export const RAW_DIR = 'data/raw/safety';
 export const PUBLIC_DATA_DIR = 'public/data';
@@ -37,6 +42,10 @@ export const MEDICAL_HOSPITAL_SOURCE = '臺北市公私立醫療院所－臺北�
 export const MEDICAL_CLINIC_SOURCE = '臺北市公私立醫療院所－臺北市診所清冊';
 export const FIRE_HYDRANT_SOURCE = '大臺北地區消防栓分布點位圖';
 export const FIRE_HYDRANT_AGENCY = '臺北自來水事業處';
+export const EMERGENCY_SHELTER_SOURCE = '臺北市可供避難收容處所一覽表';
+export const EMERGENCY_SHELTER_AGENCY = '臺北市政府教育局';
+export const TRAFFIC_CCTV_SOURCE = '臺北市CCTV設施';
+export const TRAFFIC_CCTV_AGENCY = '臺北市政府交通局交通管制工程處';
 export const FIRE_HYDRANT_BOUNDS = {
   minLng: 121.3,
   maxLng: 121.75,
@@ -408,14 +417,146 @@ export function convertFireHydrantRow(row: Record<string, string>, index: number
   };
 }
 
+export function classifyEmergencyShelterType(raw: string | undefined): EmergencyShelterType {
+  const text = raw?.trim() ?? '';
+  if (!text) return 'unknown';
+  if (text.includes('學校')) return 'school';
+  if (text.includes('圖書館')) return 'library';
+  if (text.includes('公園') || text.includes('綠地')) return 'park_green_space';
+  if (text.includes('活動中心')) return 'activity_center';
+  if (text.includes('市場') || text.includes('停車場')) return 'market_parking_lot';
+  if (text.includes('捷運')) return 'metro_station';
+  if (text.includes('體育') || text.includes('運動')) return 'sports_facility';
+  if (text.includes('藝術')) return 'arts_center';
+  if (text.includes('營區')) return 'military_camp';
+  return 'other';
+}
+
+export function parseDisasterApplicability(raw: unknown): DisasterApplicabilityStatus {
+  const text = String(raw ?? '').trim();
+  if (!text) return 'unknown';
+  if (text === 'Y') return 'yes';
+  if (text === 'N') return 'no';
+  if (text.includes('備用')) return 'backup';
+  if (text.includes('老舊聚落')) return 'old_settlement';
+  return 'unknown';
+}
+
+export function parseSourceBoolean(raw: unknown): boolean | undefined {
+  const text = String(raw ?? '').trim();
+  if (!text) return undefined;
+  if (text === 'Y') return true;
+  if (text === 'N') return false;
+  return undefined;
+}
+
+export function parseServedVillages(raw: string | undefined): string[] {
+  return (raw ?? '')
+    .split(/[、,，;；\n]/)
+    .map((item) => item.trim())
+    .filter(Boolean);
+}
+
+export function parseNumberField(raw: unknown): number | undefined {
+  const text = String(raw ?? '').replaceAll(',', '').trim();
+  if (!text || text.toLowerCase() === 'nan') return undefined;
+  const value = Number(text);
+  return Number.isFinite(value) ? value : undefined;
+}
+
+export function normalizeTaipeiDistrict(raw: unknown, address?: string): string | undefined {
+  const text = String(raw ?? '').trim();
+  return TAIPEI_DISTRICTS.find((district) => text === district || text.includes(district)) ?? extractDistrictFromLocation(address ?? '');
+}
+
+export function convertEmergencyShelterRow(row: Record<string, string>, index: number): EmergencyShelter {
+  const address = emptyToUndefined(row['門牌地址']);
+  return {
+    id: `emergency-shelter-${row['收容所編號'] || index + 1}`,
+    layer: 'emergency_shelter',
+    shelterId: row['收容所編號']?.trim() || String(index + 1),
+    shelterName: row['名稱']?.trim() || '避難收容處所',
+    city: emptyToUndefined(row['縣市']),
+    postalCode: emptyToUndefined(row['郵遞區號']),
+    district: normalizeTaipeiDistrict(row['鄉鎮'], address),
+    village: emptyToUndefined(row['村里']),
+    address,
+    shelterTypeRaw: emptyToUndefined(row['類型']),
+    shelterType: classifyEmergencyShelterType(row['類型']),
+    floodStatus: parseDisasterApplicability(row['水災']),
+    earthquakeStatus: parseDisasterApplicability(row['震災']),
+    landslideStatus: parseDisasterApplicability(row['土石流']),
+    tsunamiStatus: parseDisasterApplicability(row['海嘯']),
+    isReliefStation: parseSourceBoolean(row['救濟支站']),
+    hasAccessibleFacilities: parseSourceBoolean(row['無障礙設施']),
+    hasIndoorSpace: parseSourceBoolean(row['室內']),
+    hasOutdoorSpace: parseSourceBoolean(row['室外']),
+    servedVillagesRaw: emptyToUndefined(row['服務里別']),
+    servedVillages: parseServedVillages(row['服務里別']),
+    capacityPeople: parseNumberField(row['容納人數']),
+    shelterAreaSqm: parseNumberField(row['收容所面積（平方公尺）']),
+    contactPersonName: emptyToUndefined(row['聯絡人姓名']),
+    contactPhone: emptyToUndefined(row['聯絡人連絡電話']),
+    managerName: emptyToUndefined(row['管理人姓名']),
+    managerPhone: emptyToUndefined(row['管理人連絡電話']),
+    notes: emptyToUndefined(row['備考']),
+    locationPrecision: address ? 'address_only' : 'missing',
+    source: EMERGENCY_SHELTER_SOURCE,
+    sourceAgency: EMERGENCY_SHELTER_AGENCY,
+  };
+}
+
+export function parseCameraLocationCode(raw: unknown): {
+  cameraLocationCodeRaw?: string;
+  cameraLocationCode?: string;
+  locationDescription?: string;
+} {
+  const text = emptyToUndefined(String(raw ?? ''));
+  if (!text) return {};
+  const match = text.match(/^([A-Za-z]*\d{1,5})(?:[-_／/](.*))?$/);
+  return {
+    cameraLocationCodeRaw: text,
+    cameraLocationCode: match?.[1] ?? undefined,
+    locationDescription: emptyToUndefined(match?.[2]) ?? text,
+  };
+}
+
+export function convertTrafficCctvRow(row: Record<string, string>, index: number): TrafficCctvFacility {
+  const longitude = parsePossiblyInvalidNumber(row['WGSX(WGS84經度座標)'] ?? row.WGSX);
+  const latitude = parsePossiblyInvalidNumber(row['WGSY(WGS84緯度座標)'] ?? row.WGSY);
+  const coordinateStatus: CoordinateStatus =
+    longitude.status !== 'valid' || latitude.status !== 'valid'
+      ? longitude.status === 'unparsed' || latitude.status === 'unparsed'
+        ? 'unparsed'
+        : 'missing'
+      : isOutsideTaipeiBounds(longitude.value, latitude.value)
+        ? 'outlier'
+        : 'valid';
+  const sequence = parseNumberField(row['流水號']);
+  return {
+    id: `traffic-cctv-${sequence ?? index + 1}`,
+    layer: 'traffic_cctv',
+    sourceSequenceNumber: sequence,
+    city: emptyToUndefined(row['縣市']),
+    ...parseCameraLocationCode(row['攝影機編號位置'] ?? row['攝影機編號']),
+    longitude: longitude.value,
+    latitude: latitude.value,
+    coordinateStatus,
+    source: TRAFFIC_CCTV_SOURCE,
+    sourceAgency: TRAFFIC_CCTV_AGENCY,
+  };
+}
+
 export async function loadConvertedData() {
-  const [shelters, burglaries, aeds, dengueRecords, evacuationGates, medicalFacilities] = await Promise.all([
+  const [shelters, burglaries, aeds, dengueRecords, evacuationGates, medicalFacilities, emergencyShelters, trafficCctvFacilities] = await Promise.all([
     readJsonFile<AirRaidShelter[]>(`${PUBLIC_DATA_DIR}/air-raid-shelters.json`),
     readJsonFile<ResidentialBurglaryRecord[]>(`${PUBLIC_DATA_DIR}/residential-burglary-records.json`),
     readJsonFile<AedLocation[]>(`${PUBLIC_DATA_DIR}/aed-locations.json`),
     readJsonFile<DengueSurveyRecord[]>(`${PUBLIC_DATA_DIR}/dengue-vector-density-records.json`),
     readJsonFile<EvacuationGate[]>(`${PUBLIC_DATA_DIR}/evacuation-gates.json`),
     readJsonFile<MedicalFacility[]>(`${PUBLIC_DATA_DIR}/medical-facilities.json`),
+    readJsonFile<EmergencyShelter[]>(`${PUBLIC_DATA_DIR}/emergency-shelters.json`),
+    readJsonFile<TrafficCctvFacility[]>(`${PUBLIC_DATA_DIR}/traffic-cctv-facilities.json`),
   ]);
   return {
     shelters,
@@ -424,6 +565,8 @@ export async function loadConvertedData() {
     dengueRecords,
     evacuationGates,
     medicalFacilities,
+    emergencyShelters,
+    trafficCctvFacilities,
     districtSummaries: buildDistrictSafetySummary(shelters, burglaries),
     dengueDistrictSummaries: buildDengueDistrictSummaries(dengueRecords),
   };
@@ -444,6 +587,17 @@ function isOutsideFireHydrantBounds(longitude: number | undefined, latitude: num
     longitude > FIRE_HYDRANT_BOUNDS.maxLng ||
     latitude < FIRE_HYDRANT_BOUNDS.minLat ||
     latitude > FIRE_HYDRANT_BOUNDS.maxLat
+  );
+}
+
+function isOutsideTaipeiBounds(longitude: number | undefined, latitude: number | undefined): boolean {
+  return (
+    longitude === undefined ||
+    latitude === undefined ||
+    longitude < TAIPEI_BOUNDS.minLng ||
+    longitude > TAIPEI_BOUNDS.maxLng ||
+    latitude < TAIPEI_BOUNDS.minLat ||
+    latitude > TAIPEI_BOUNDS.maxLat
   );
 }
 

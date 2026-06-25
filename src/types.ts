@@ -3,12 +3,16 @@ export type CoordinateStatus = 'valid' | 'missing' | 'outlier' | 'unparsed';
 export type CoordinateSystem = 'wgs84' | 'twd97_tm2' | 'unknown';
 export type SafetyLayer =
   | 'air_raid_shelter'
+  | 'emergency_shelter'
   | 'residential_burglary_record'
   | 'aed_location'
   | 'dengue_vector_density'
   | 'evacuation_gate'
   | 'medical_facility'
-  | 'fire_hydrant';
+  | 'fire_hydrant'
+  | 'traffic_cctv';
+
+export type LocationPrecision = 'exact' | 'district_centroid' | 'address_only' | 'missing';
 
 export type AirRaidShelter = {
   id: string;
@@ -196,6 +200,116 @@ export type FireHydrantSummary = {
   byAreaScope: Array<{ areaScope: FireHydrantAreaScope; count: number }>;
 };
 
+export type EmergencyShelterType =
+  | 'school'
+  | 'library'
+  | 'park_green_space'
+  | 'activity_center'
+  | 'market_parking_lot'
+  | 'metro_station'
+  | 'sports_facility'
+  | 'arts_center'
+  | 'military_camp'
+  | 'other'
+  | 'unknown';
+
+export type DisasterApplicabilityStatus = 'yes' | 'no' | 'backup' | 'old_settlement' | 'unknown';
+
+export type EmergencyShelter = {
+  id: string;
+  layer: 'emergency_shelter';
+  shelterId: string;
+  shelterName: string;
+  city?: string;
+  postalCode?: string;
+  district?: string;
+  village?: string;
+  address?: string;
+  shelterTypeRaw?: string;
+  shelterType: EmergencyShelterType;
+  floodStatus: DisasterApplicabilityStatus;
+  earthquakeStatus: DisasterApplicabilityStatus;
+  landslideStatus: DisasterApplicabilityStatus;
+  tsunamiStatus: DisasterApplicabilityStatus;
+  isReliefStation?: boolean;
+  hasAccessibleFacilities?: boolean;
+  hasIndoorSpace?: boolean;
+  hasOutdoorSpace?: boolean;
+  servedVillagesRaw?: string;
+  servedVillages: string[];
+  capacityPeople?: number;
+  shelterAreaSqm?: number;
+  contactPersonName?: string;
+  contactPhone?: string;
+  managerName?: string;
+  managerPhone?: string;
+  notes?: string;
+  longitude?: number;
+  latitude?: number;
+  locationPrecision: LocationPrecision;
+  source: string;
+  sourceAgency: string;
+};
+
+export type EmergencyShelterSummary = {
+  totalRecords: number;
+  uniqueShelterIdCount: number;
+  cityCount: number;
+  districtCount: number;
+  villageCount: number;
+  totalListedCapacityPeople: number;
+  totalKnownShelterAreaSqm: number;
+  recordsWithCapacity: number;
+  recordsWithArea: number;
+  reliefStationCount: number;
+  accessibleFacilityCount: number;
+  indoorShelterCount: number;
+  outdoorShelterCount: number;
+  byDistrict: Array<{
+    district: string;
+    count: number;
+    totalListedCapacityPeople: number;
+    accessibleFacilityCount: number;
+    reliefStationCount: number;
+    indoorShelterCount: number;
+    outdoorShelterCount: number;
+    topShelterTypes: Array<{ shelterType: EmergencyShelterType; shelterTypeRaw?: string; count: number }>;
+  }>;
+  byShelterType: Array<{ shelterType: EmergencyShelterType; shelterTypeRaw?: string; count: number; totalListedCapacityPeople: number }>;
+  byDisasterApplicability: {
+    flood: Array<{ status: DisasterApplicabilityStatus; count: number }>;
+    earthquake: Array<{ status: DisasterApplicabilityStatus; count: number }>;
+    landslide: Array<{ status: DisasterApplicabilityStatus; count: number }>;
+    tsunami: Array<{ status: DisasterApplicabilityStatus; count: number }>;
+  };
+};
+
+export type TrafficCctvFacility = {
+  id: string;
+  layer: 'traffic_cctv';
+  sourceSequenceNumber?: number;
+  city?: string;
+  cameraLocationCodeRaw?: string;
+  cameraLocationCode?: string;
+  locationDescription?: string;
+  longitude?: number;
+  latitude?: number;
+  coordinateStatus: CoordinateStatus;
+  source: string;
+  sourceAgency: string;
+};
+
+export type TrafficCctvSummary = {
+  totalRecords: number;
+  validCoordinateCount: number;
+  missingCoordinateCount: number;
+  outlierCoordinateCount: number;
+  unparsedCoordinateCount: number;
+  cityCount: number;
+  byCity: Array<{ city: string; count: number }>;
+  coordinateStatus: Array<{ coordinateStatus: CoordinateStatus; count: number }>;
+};
+
 export type DengueSurveyRecord = {
   id: string;
   layer: 'dengue_vector_density';
@@ -251,6 +365,10 @@ export type SafetyDataBundle = {
   evacuationGates: EvacuationGate[];
   medicalFacilities: MedicalFacility[];
   fireHydrantSummary: FireHydrantSummary;
+  emergencyShelters: EmergencyShelter[];
+  emergencyShelterSummary: EmergencyShelterSummary;
+  trafficCctvFacilities: TrafficCctvFacility[];
+  trafficCctvSummary: TrafficCctvSummary;
   dengueRecords: DengueSurveyRecord[];
   dengueDistrictSummaries: DengueDistrictSummary[];
   districtSummaries: DistrictSafetySummary[];
@@ -324,6 +442,27 @@ export type ConversionReport = {
     outlierCoordinates: number;
     areaParseWarnings: string[];
     coordinateConflictExamples: string[];
+  };
+  emergencyShelters?: {
+    inputRows: number;
+    outputRows: number;
+    duplicateRows: number;
+    recordsWithoutDistrict: number;
+    invalidCapacityExamples: string[];
+    invalidAreaExamples: string[];
+    unmappedDistrictExamples: string[];
+  };
+  trafficCctv?: {
+    inputRows: number;
+    outputRows: number;
+    duplicateRows: number;
+    validCoordinates: number;
+    missingCoordinates: number;
+    unparsedCoordinates: number;
+    outlierCoordinates: number;
+    invalidCoordinateExamples: string[];
+    outlierCoordinateExamples: string[];
+    duplicateExamples: string[];
   };
   notes: string[];
 };

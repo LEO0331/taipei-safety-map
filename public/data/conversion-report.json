@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-25T00:47:54.296Z",
+  "generatedAt": "2026-06-25T06:03:17.636Z",
   "sources": [
     {
       "name": "北市警政APP_防空避難設備位置",
@@ -64,6 +64,24 @@
       "fileSize": 3789187,
       "encoding": "UTF-8-SIG",
       "notes": "Greater Taipei hydrant records from 北水處; full hydrant JSON is lazy-loaded and not PWA-cached."
+    },
+    {
+      "name": "臺北市可供避難收容處所一覽表",
+      "url": "https://data.taipei/dataset/detail?id=aaf97773-3631-40e2-b3cc-da87bf2ce1d5",
+      "downloadUrl": "https://data.taipei/api/frontstage/tpeod/dataset/resource.download?rid=4c92dbd4-d259-495a-8390-52628119a4dd",
+      "downloadedAt": "2026-06-25T05:45:21.080Z",
+      "fileSize": 102859,
+      "encoding": "UTF-8-SIG",
+      "notes": "Taipei emergency shelter public-data directory; records have no coordinates and are shown as district summaries plus address links."
+    },
+    {
+      "name": "臺北市CCTV設施",
+      "url": "https://data.taipei/dataset/detail?id=50a5c4ec-9515-4c30-b83f-30b66e37053d",
+      "downloadUrl": "https://data.taipei/api/frontstage/tpeod/dataset/resource.download?rid=d317a3c4-5621-4591-9cee-93334611e03e",
+      "downloadedAt": "2026-06-25T05:58:22.167Z",
+      "fileSize": 22010,
+      "encoding": "Big5 / CP950",
+      "notes": "Traffic CCTV equipment location records from 交通局交工處; no live video, camera direction, or monitoring coverage is provided."
     }
   ],
   "shelters": {
@@ -123,6 +141,38 @@
     "unparsedCoordinates": 0,
     "outlierCoordinates": 0
   },
+  "emergencyShelters": {
+    "inputRows": 401,
+    "outputRows": 401,
+    "duplicateRows": 0,
+    "duplicateExamples": [],
+    "recordsWithoutDistrict": 0,
+    "unmappedDistrictExamples": [],
+    "invalidCapacityExamples": [
+      "俟搬遷後重新評估"
+    ],
+    "invalidAreaExamples": [
+      "俟搬遷後重新評估",
+      "改建後重新評估"
+    ]
+  },
+  "trafficCctv": {
+    "inputRows": 416,
+    "outputRows": 416,
+    "duplicateRows": 0,
+    "duplicateExamples": [],
+    "invalidCoordinateExamples": [],
+    "outlierCoordinateExamples": [
+      "080-環河快貴陽匝道: 121.29441,25.21892",
+      "081-環河快萬板大橋: 121.29173,25.14905",
+      "082-環河快華翠大橋: 121.29214,25.13923",
+      "083-環河快青年路口: 121.30149,25.11113"
+    ],
+    "validCoordinates": 412,
+    "missingCoordinates": 0,
+    "unparsedCoordinates": 0,
+    "outlierCoordinates": 4
+  },
   "notes": [
     "Residential burglary records remain blurred and are never geocoded into exact household-level markers.",
     "Burglary time periods: morning, early_morning, afternoon, evening, night",
@@ -130,6 +180,8 @@
     "Dengue records are shown only as district/village survey aggregates.",
     "Evacuation gate records do not represent real-time operating status or safe routes.",
     "Medical facility records do not represent real-time opening, emergency-service, or care availability.",
-    "Fire hydrant records do not represent real-time availability, fire-response deployment, or fire-safety level."
+    "Fire hydrant records do not represent real-time availability, fire-response deployment, or fire-safety level.",
+    "Emergency shelter records do not represent real-time opening status, remaining capacity, or official evacuation instructions.",
+    "CCTV records do not provide live video, camera direction, monitoring coverage, or public-safety scoring."
   ]
 }

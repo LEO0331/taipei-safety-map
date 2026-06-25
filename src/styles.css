@@ -199,6 +199,10 @@ input {
   border-color: #dc2626;
 }
 
+.cctv-marker span {
+  border-color: #374151;
+}
+
 .popup-stack {
   display: grid;
   gap: 4px;

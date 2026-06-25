@@ -2,9 +2,13 @@
 
 A mobile-first bilingual Vite + React + TypeScript + Leaflet app for public safety information in Taipei.
 
-The app combines AED locations, medical facilities, fire hydrants, air-raid shelters, evacuation gates, historical residential burglary records, and dengue vector-density survey results. It does not provide real-time availability, medical advice, fire-response instructions, evacuation instructions, crime prediction, or outbreak-risk prediction.
+The app combines AED locations, medical facilities, fire hydrants, air-raid shelters, emergency shelters, evacuation gates, CCTV equipment locations, historical residential burglary records, and dengue vector-density survey results. It does not provide real-time availability, remaining shelter capacity, live CCTV video, medical advice, fire-response instructions, evacuation instructions, crime prediction, or outbreak-risk prediction.
 
-Fire & emergency facilities: AEDs, medical facilities, fire hydrants, shelters, and evacuation gates / 消防與緊急設施：AED、醫療院所、消防栓、避難設備與疏散門
+Fire & emergency facilities: AEDs, medical facilities, and fire hydrants / 消防與緊急設施：AED、醫療院所與消防栓
+
+Shelters & disaster response facilities: air-raid shelters, emergency shelters, and evacuation gates / 避難與災害應變設施：防空避難設備、避難收容處所與疏散門
+
+Traffic monitoring facilities: CCTV equipment locations / 交通監控設施：CCTV設備點位
 
 ## Data Sources
 
@@ -15,12 +19,18 @@ Fire & emergency facilities: AEDs, medical facilities, fire hydrants, shelters, 
 - `臺北市疏散門資訊`: WGS84 evacuation-gate location records with riverside park, name, and location description.
 - `臺北市公私立醫療院所`: separate hospital and clinic resources with WGS84 coordinates.
 - `大臺北地區消防栓分布點位圖`: Greater Taipei hydrant records from 北水處 with WGS84 and TWD97 coordinates.
+- `臺北市可供避難收容處所一覽表`: UTF-8-SIG emergency shelter directory with disaster applicability, listed capacity, area, served villages, and public contact fields.
+- `臺北市CCTV設施`: Big5 / CP950 traffic CCTV equipment locations with sequence number, city, camera location/code, and WGS84 coordinates.
 
 Burglary records are never geocoded to exact household-level markers. The app uses district-level aggregation, blurred location text, and fixed district centroids.
 
 Dengue survey records do not include coordinates. The app uses district centroids for aggregate bubbles and never represents them as exact village or survey locations. The Breteau index generally represents positive water-holding containers per 100 surveyed households; the container index generally represents the proportion of inspected containers that were positive. Refer to official public-health sources for interpretation.
 
-Nearby AED, hospital, clinic, fire-hydrant, shelter, and evacuation-gate searches use browser geolocation and Haversine distance. Fire hydrant records do not represent real-time availability, fire-response deployment, or on-site accessibility.
+Emergency shelter records do not include coordinates. The app shows district-level bubbles using Taipei district centroids, renders a searchable directory, and links addresses to Google Maps lookup. It does not automatically geocode, claim real-time opening status, show remaining capacity, or replace official evacuation instructions. Contact and manager fields stay in normalized JSON but are not shown in default cards.
+
+Nearby AED, hospital, clinic, fire-hydrant, air-raid shelter, and evacuation-gate searches use browser geolocation and Haversine distance. Emergency shelters use district/address lookup until verified coordinates are added. Fire hydrant records do not represent real-time availability, fire-response deployment, or on-site accessibility.
+
+CCTV records are shown as traffic monitoring infrastructure points only. The app parses WGS84 coordinates and validates them against Taipei bounds, but does not provide live video access, camera direction, monitoring coverage, camera-feed links, crime-prevention claims, or safety scores. Live traffic image value-added use requires separate official application and usage under the authority rules.
 
 ## Local Workflow
 
@@ -56,11 +66,17 @@ data/raw/evacuation-gates/evacuation-gates.csv
 data/raw/medical-facilities/hospitals.csv
 data/raw/medical-facilities/clinics.csv
 data/raw/fire-hydrants/fire-hydrants.csv
+data/raw/emergency-shelters/emergency-shelters.csv
+data/raw/traffic-cctv/traffic-cctv.csv
 ```
 
 ## Coordinate Handling
 
-Shelter coordinates are detected as WGS84 when they look like longitude/latitude pairs. TWD97 TM2 / EPSG:3826 coordinates are converted to WGS84 with `proj4`. Medical hospital and clinic CSVs are decoded as Big5 / CP950 with UTF-8 fallback. Fire hydrant CSVs are UTF-8-SIG with Big5 fallback, preserve TWD97 coordinates, classify underground / above-ground hydrants, and validate WGS84 coordinates against Greater Taipei bounds.
+Air-raid shelter coordinates are detected as WGS84 when they look like longitude/latitude pairs. TWD97 TM2 / EPSG:3826 coordinates are converted to WGS84 with `proj4`. Medical hospital and clinic CSVs are decoded as Big5 / CP950 with UTF-8 fallback. Fire hydrant CSVs are UTF-8-SIG with Big5 fallback, preserve TWD97 coordinates, classify underground / above-ground hydrants, and validate WGS84 coordinates against Greater Taipei bounds.
+
+Emergency shelter CSVs are UTF-8-SIG with Big5 fallback. Conversion parses `Y` / `N` / `備用` / `老舊聚落`, listed capacity, area, shelter type, served villages, accessibility, indoor/outdoor flags, and relief-station flags. Optional verified coordinates can be added later through `public/data/emergency-shelter-locations.json`; the app does not geocode addresses automatically.
+
+CCTV CSVs are Big5 / CP950 with UTF-8 fallback. Conversion parses `流水號`, `縣市`, `攝影機編號位置` / `攝影機編號`, and WGS84 longitude/latitude. Missing, unparsed, and outlier coordinates are reported and are not rendered as exact markers.
 
 `fire-hydrants.json` is intentionally not precached because it is large. The app caches `fire-hydrant-summary.json` and lazy-loads exact hydrant points only when the hydrant layer or nearby hydrant lookup is used.
 
@@ -72,4 +88,4 @@ In repository settings, enable Pages with `GitHub Actions` as the source.
 
 ## Disclaimer
 
-This site presents public AED, medical-facility, fire-hydrant, shelter, and evacuation-gate locations, historical burglary records, and dengue vector-density survey results. Fire hydrant records do not represent real-time availability, fire-response deployment, on-site accessibility, or fire-safety level. In an emergency, call 119 and follow official authorities and on-site command.
+This site presents public AED, medical-facility, fire-hydrant, air-raid shelter, emergency shelter, evacuation-gate, and CCTV equipment records, historical burglary records, and dengue vector-density survey results. Fire hydrant, emergency shelter, and CCTV records do not represent real-time availability, fire-response deployment, shelter opening status, remaining capacity, CCTV live video, monitoring coverage, on-site accessibility, or official evacuation instructions. In an emergency, call 119 and follow official authorities and on-site command.

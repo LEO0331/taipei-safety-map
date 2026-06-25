@@ -1,0 +1,24 @@
+{
+  "totalRecords": 416,
+  "validCoordinateCount": 412,
+  "missingCoordinateCount": 0,
+  "outlierCoordinateCount": 4,
+  "unparsedCoordinateCount": 0,
+  "cityCount": 1,
+  "byCity": [
+    {
+      "city": "臺北市",
+      "count": 416
+    }
+  ],
+  "coordinateStatus": [
+    {
+      "coordinateStatus": "valid",
+      "count": 412
+    },
+    {
+      "coordinateStatus": "outlier",
+      "count": 4
+    }
+  ]
+}

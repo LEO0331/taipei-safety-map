@@ -1,7 +1,7 @@
 import { countBy } from '../src/lib/safetyData.ts';
 import { loadConvertedData, sources, writeJson } from './shared.ts';
 import { readFile, stat } from 'node:fs/promises';
-import type { FireHydrantSummary } from '../src/types.ts';
+import type { EmergencyShelterSummary, FireHydrantSummary, TrafficCctvSummary } from '../src/types.ts';
 
 const {
   shelters,
@@ -58,6 +58,43 @@ const [fireHydrantSummary, fireHydrantConversion, fireHydrantFile, fireHydrantFe
     .then((value) => JSON.parse(value) as { failure?: string | null })
     .catch(() => null),
 ]);
+const [emergencyShelterSummary, emergencyShelterConversion, emergencyShelterFile, emergencyShelterFetchStatus] = await Promise.all([
+  readFile('public/data/emergency-shelter-summary.json', 'utf8').then((value) => JSON.parse(value) as EmergencyShelterSummary),
+  readFile('public/data/emergency-shelter-conversion.json', 'utf8').then(
+    (value) =>
+      JSON.parse(value) as {
+        inputRows: number;
+        outputRows: number;
+        duplicateRows: number;
+        recordsWithoutDistrict: number;
+        invalidCapacityExamples: string[];
+        invalidAreaExamples: string[];
+        unmappedDistrictExamples: string[];
+      },
+  ),
+  stat('data/raw/emergency-shelters/emergency-shelters.csv').catch(() => null),
+  readFile('data/raw/emergency-shelters/fetch-status.json', 'utf8')
+    .then((value) => JSON.parse(value) as { failure?: string | null })
+    .catch(() => null),
+]);
+const [trafficCctvSummary, trafficCctvConversion, trafficCctvFile, trafficCctvFetchStatus] = await Promise.all([
+  readFile('public/data/traffic-cctv-summary.json', 'utf8').then((value) => JSON.parse(value) as TrafficCctvSummary),
+  readFile('public/data/traffic-cctv-conversion.json', 'utf8').then(
+    (value) =>
+      JSON.parse(value) as {
+        inputRows: number;
+        outputRows: number;
+        duplicateRows: number;
+        invalidCoordinateExamples: string[];
+        outlierCoordinateExamples: string[];
+        duplicateExamples: string[];
+      },
+  ),
+  stat('data/raw/traffic-cctv/traffic-cctv.csv').catch(() => null),
+  readFile('data/raw/traffic-cctv/fetch-status.json', 'utf8')
+    .then((value) => JSON.parse(value) as { failure?: string | null })
+    .catch(() => null),
+]);
 
 await writeJson('public/data/safety-dashboard-summary.json', {
   districtSummaries,
@@ -67,6 +104,8 @@ await writeJson('public/data/safety-dashboard-summary.json', {
   evacuationGateSummary,
   medicalFacilitySummary,
   fireHydrantSummary,
+  emergencyShelterSummary,
+  trafficCctvSummary,
   dengueRecordCount: dengueRecords.length,
 });
 await writeJson('public/data/conversion-report.json', {
@@ -148,6 +187,30 @@ await writeJson('public/data/conversion-report.json', {
         ? `Latest fire hydrant download failed: ${fireHydrantFetchStatus.failure}. Existing generated data was retained.`
         : 'Greater Taipei hydrant records from 北水處; full hydrant JSON is lazy-loaded and not PWA-cached.',
     },
+    {
+      name: '臺北市可供避難收容處所一覽表',
+      url: 'https://data.taipei/dataset/detail?id=aaf97773-3631-40e2-b3cc-da87bf2ce1d5',
+      downloadUrl:
+        'https://data.taipei/api/frontstage/tpeod/dataset/resource.download?rid=4c92dbd4-d259-495a-8390-52628119a4dd',
+      downloadedAt: emergencyShelterFile?.mtime.toISOString() ?? null,
+      fileSize: emergencyShelterFile?.size,
+      encoding: 'UTF-8-SIG',
+      notes: emergencyShelterFetchStatus?.failure
+        ? `Latest emergency shelter download failed: ${emergencyShelterFetchStatus.failure}. Existing generated data was retained.`
+        : 'Taipei emergency shelter public-data directory; records have no coordinates and are shown as district summaries plus address links.',
+    },
+    {
+      name: '臺北市CCTV設施',
+      url: 'https://data.taipei/dataset/detail?id=50a5c4ec-9515-4c30-b83f-30b66e37053d',
+      downloadUrl:
+        'https://data.taipei/api/frontstage/tpeod/dataset/resource.download?rid=d317a3c4-5621-4591-9cee-93334611e03e',
+      downloadedAt: trafficCctvFile?.mtime.toISOString() ?? null,
+      fileSize: trafficCctvFile?.size,
+      encoding: 'Big5 / CP950',
+      notes: trafficCctvFetchStatus?.failure
+        ? `Latest CCTV download failed: ${trafficCctvFetchStatus.failure}. Existing generated data was retained.`
+        : 'Traffic CCTV equipment location records from 交通局交工處; no live video, camera direction, or monitoring coverage is provided.',
+    },
   ],
   shelters: {
     inputRows: shelters.length,
@@ -204,6 +267,14 @@ await writeJson('public/data/conversion-report.json', {
     unparsedCoordinates: 0,
     outlierCoordinates: fireHydrantSummary.outlierCoordinateCount,
   },
+  emergencyShelters: emergencyShelterConversion,
+  trafficCctv: {
+    ...trafficCctvConversion,
+    validCoordinates: trafficCctvSummary.validCoordinateCount,
+    missingCoordinates: trafficCctvSummary.missingCoordinateCount,
+    unparsedCoordinates: trafficCctvSummary.unparsedCoordinateCount,
+    outlierCoordinates: trafficCctvSummary.outlierCoordinateCount,
+  },
   notes: [
     'Residential burglary records remain blurred and are never geocoded into exact household-level markers.',
     `Burglary time periods: ${Object.keys(countBy(burglaries, (record) => record.timePeriod)).join(', ')}`,
@@ -212,6 +283,8 @@ await writeJson('public/data/conversion-report.json', {
     'Evacuation gate records do not represent real-time operating status or safe routes.',
     'Medical facility records do not represent real-time opening, emergency-service, or care availability.',
     'Fire hydrant records do not represent real-time availability, fire-response deployment, or fire-safety level.',
+    'Emergency shelter records do not represent real-time opening status, remaining capacity, or official evacuation instructions.',
+    'CCTV records do not provide live video, camera direction, monitoring coverage, or public-safety scoring.',
   ],
 });
 

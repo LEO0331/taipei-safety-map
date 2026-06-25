@@ -4,13 +4,20 @@ import { join } from 'node:path';
 import { tmpdir } from 'node:os';
 import {
   convertAedRow,
+  convertEmergencyShelterRow,
   convertEvacuationGateRow,
   convertFireHydrantRow,
   convertMedicalFacilityRow,
   convertShelterRow,
+  convertTrafficCctvRow,
   decodeCsvBuffer,
   normalizeDistrictCode,
+  parseCameraLocationCode,
+  parseDisasterApplicability,
   parseHydrantArea,
+  parseNumberField,
+  parseServedVillages,
+  parseSourceBoolean,
   parseCsv,
   readCsv,
 } from './shared';
@@ -210,5 +217,98 @@ describe('CSV script helpers', () => {
       coordinateStatus: 'unparsed',
       hydrantType: 'above_ground',
     });
+  });
+
+  it('parses and converts emergency shelter rows without coordinates', () => {
+    expect(parseDisasterApplicability('Y')).toBe('yes');
+    expect(parseDisasterApplicability('N')).toBe('no');
+    expect(parseDisasterApplicability('備用')).toBe('backup');
+    expect(parseDisasterApplicability('老舊聚落')).toBe('old_settlement');
+    expect(parseSourceBoolean('Y')).toBe(true);
+    expect(parseSourceBoolean('N')).toBe(false);
+    expect(parseServedVillages('板溪里、網溪里，螢圃里;林興里')).toEqual(['板溪里', '網溪里', '螢圃里', '林興里']);
+    expect(parseNumberField('1,234')).toBe(1234);
+
+    expect(
+      convertEmergencyShelterRow(
+        {
+          收容所編號: 'SA100-0002',
+          名稱: '臺北市立螢橋國民中學',
+          縣市: '臺北市',
+          郵遞區號: '100',
+          鄉鎮: '',
+          村里: '林興里',
+          門牌地址: '臺北市中正區汀州路三段四號',
+          類型: '學校',
+          水災: 'Y',
+          震災: '備用',
+          土石流: 'N',
+          海嘯: '老舊聚落',
+          救濟支站: 'Y',
+          無障礙設施: 'Y',
+          室內: 'Y',
+          室外: 'N',
+          服務里別: '板溪里、網溪里',
+          容納人數: '52',
+          '收容所面積（平方公尺）': '209',
+          聯絡人姓名: '公開姓名',
+          聯絡人連絡電話: '02-0000',
+          管理人姓名: '管理者',
+          管理人連絡電話: '02-1111',
+          備考: '測試',
+        },
+        0,
+      ),
+    ).toMatchObject({
+      id: 'emergency-shelter-SA100-0002',
+      layer: 'emergency_shelter',
+      shelterType: 'school',
+      district: '中正區',
+      floodStatus: 'yes',
+      earthquakeStatus: 'backup',
+      tsunamiStatus: 'old_settlement',
+      isReliefStation: true,
+      hasOutdoorSpace: false,
+      servedVillages: ['板溪里', '網溪里'],
+      capacityPeople: 52,
+      shelterAreaSqm: 209,
+      contactPersonName: '公開姓名',
+      locationPrecision: 'address_only',
+    });
+  });
+
+  it('parses and converts traffic CCTV rows', () => {
+    expect(parseCameraLocationCode('001-市民快承德')).toEqual({
+      cameraLocationCodeRaw: '001-市民快承德',
+      cameraLocationCode: '001',
+      locationDescription: '市民快承德',
+    });
+
+    expect(
+      convertTrafficCctvRow(
+        {
+          流水號: '1',
+          縣市: '臺北市',
+          攝影機編號: '001-市民快承德',
+          WGSX: '121.5169',
+          WGSY: '25.04855',
+        },
+        0,
+      ),
+    ).toMatchObject({
+      id: 'traffic-cctv-1',
+      layer: 'traffic_cctv',
+      sourceSequenceNumber: 1,
+      city: '臺北市',
+      cameraLocationCode: '001',
+      locationDescription: '市民快承德',
+      longitude: 121.5169,
+      latitude: 25.04855,
+      coordinateStatus: 'valid',
+      sourceAgency: '臺北市政府交通局交通管制工程處',
+    });
+
+    expect(convertTrafficCctvRow({ WGSX: 'x', WGSY: '25' }, 1).coordinateStatus).toBe('unparsed');
+    expect(convertTrafficCctvRow({ WGSX: '120', WGSY: '25' }, 2).coordinateStatus).toBe('outlier');
   });
 });

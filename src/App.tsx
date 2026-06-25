@@ -20,8 +20,11 @@ import type {
   AedLocation,
   AirRaidShelter,
   BurglaryTimePeriod,
+  CoordinateStatus,
   DengueDistrictSummary,
   DistrictSafetySummary,
+  DisasterApplicabilityStatus,
+  EmergencyShelterType,
   EvacuationGate,
   FireHydrant,
   FireHydrantAreaScope,
@@ -31,6 +34,7 @@ import type {
   MedicalFacilityType,
   ResidentialBurglaryRecord,
   SafetyDataBundle,
+  TrafficCctvFacility,
 } from './types';
 
 type Tab = 'map' | 'nearby' | 'burglary' | 'health' | 'overview' | 'notes';
@@ -80,6 +84,12 @@ const hydrantIcon = L.divIcon({
   iconSize: [34, 34],
   iconAnchor: [17, 17],
 });
+const cctvIcon = L.divIcon({
+  className: 'shield-marker cctv-marker',
+  html: '<span>📹</span>',
+  iconSize: [34, 34],
+  iconAnchor: [17, 17],
+});
 
 const userIcon = L.divIcon({
   className: 'user-marker',
@@ -117,6 +127,7 @@ const capacityOptions: SelectOption<CapacityRange>[] = [
   { value: '500-999', label: '500-999' },
   { value: '1000plus', label: '1,000+' },
 ];
+const disasterStatuses: DisasterApplicabilityStatus[] = ['yes', 'no', 'backup', 'old_settlement', 'unknown'];
 
 function App() {
   const [language, setLanguage] = useState<Language>('zh');
@@ -212,6 +223,8 @@ function SafetyMap({
   const [showEvacuationGates, setShowEvacuationGates] = useState(true);
   const [showMedicalFacilities, setShowMedicalFacilities] = useState(false);
   const [showFireHydrants, setShowFireHydrants] = useState(false);
+  const [showEmergencyShelters, setShowEmergencyShelters] = useState(true);
+  const [showCctvFacilities, setShowCctvFacilities] = useState(false);
   const [showExactHydrants, setShowExactHydrants] = useState(false);
   const [taipeiCityOnlyHydrants, setTaipeiCityOnlyHydrants] = useState(true);
   const [medicalFacilityType, setMedicalFacilityType] = useState<MedicalFacilityType | 'all'>('all');
@@ -221,6 +234,16 @@ function SafetyMap({
   const [hydrantDistrict, setHydrantDistrict] = useState('all');
   const [hydrantVillage, setHydrantVillage] = useState('all');
   const [areaScope, setAreaScope] = useState<FireHydrantAreaScope | 'all'>('all');
+  const [emergencyShelterType, setEmergencyShelterType] = useState<EmergencyShelterType | 'all'>('all');
+  const [floodStatus, setFloodStatus] = useState<DisasterApplicabilityStatus | 'all'>('all');
+  const [earthquakeStatus, setEarthquakeStatus] = useState<DisasterApplicabilityStatus | 'all'>('all');
+  const [accessibleOnly, setAccessibleOnly] = useState(false);
+  const [indoorOnly, setIndoorOnly] = useState(false);
+  const [outdoorOnly, setOutdoorOnly] = useState(false);
+  const [hasEmergencyShelterCapacity, setHasEmergencyShelterCapacity] = useState(false);
+  const [servedVillage, setServedVillage] = useState('all');
+  const [cctvCity, setCctvCity] = useState('all');
+  const [cctvCoordinateStatus, setCctvCoordinateStatus] = useState<CoordinateStatus | 'all'>('valid');
   const [fireHydrants, setFireHydrants] = useState<FireHydrant[] | null>(null);
   const [showBurglaries, setShowBurglaries] = useState(true);
   const [showDengue, setShowDengue] = useState(true);
@@ -348,6 +371,80 @@ function SafetyMap({
     taipeiCityOnlyHydrants,
     validOnly,
   ]);
+  const emergencyShelterTypes = useMemo(
+    () => [...new Set(data.emergencyShelters.map((item) => item.shelterType))].sort(),
+    [data.emergencyShelters],
+  );
+  const servedVillages = useMemo(
+    () => [...new Set(data.emergencyShelters.flatMap((item) => item.servedVillages))].sort(),
+    [data.emergencyShelters],
+  );
+  const filteredEmergencyShelters = useMemo(() => {
+    const query = search.trim().toLowerCase();
+    return data.emergencyShelters.filter((shelter) => {
+      const haystack = [
+        shelter.shelterId,
+        shelter.shelterName,
+        shelter.district,
+        shelter.village,
+        shelter.address,
+        shelter.shelterTypeRaw,
+        shelter.servedVillages.join(' '),
+        shelter.notes,
+      ]
+        .join(' ')
+        .toLowerCase();
+      return (
+        (district === 'all' || shelter.district === district) &&
+        (emergencyShelterType === 'all' || shelter.shelterType === emergencyShelterType) &&
+        (floodStatus === 'all' || shelter.floodStatus === floodStatus) &&
+        (earthquakeStatus === 'all' || shelter.earthquakeStatus === earthquakeStatus) &&
+        (!accessibleOnly || shelter.hasAccessibleFacilities) &&
+        (!indoorOnly || shelter.hasIndoorSpace) &&
+        (!outdoorOnly || shelter.hasOutdoorSpace) &&
+        (!hasEmergencyShelterCapacity || shelter.capacityPeople !== undefined) &&
+        (servedVillage === 'all' || shelter.servedVillages.includes(servedVillage)) &&
+        (!query || haystack.includes(query)) &&
+        (!hasEmergencyShelterCapacity || matchesCapacityRange(shelter.capacityPeople ?? 0, capacityRange))
+      );
+    });
+  }, [
+    accessibleOnly,
+    capacityRange,
+    data.emergencyShelters,
+    district,
+    earthquakeStatus,
+    emergencyShelterType,
+    floodStatus,
+    hasEmergencyShelterCapacity,
+    indoorOnly,
+    outdoorOnly,
+    search,
+    servedVillage,
+  ]);
+  const cctvCities = useMemo(
+    () => [...new Set(data.trafficCctvFacilities.flatMap((item) => (item.city ? [item.city] : [])))].sort(),
+    [data.trafficCctvFacilities],
+  );
+  const filteredCctvFacilities = useMemo(() => {
+    const query = search.trim().toLowerCase();
+    return data.trafficCctvFacilities.filter((facility) => {
+      const haystack = [
+        facility.sourceSequenceNumber,
+        facility.city,
+        facility.cameraLocationCodeRaw,
+        facility.cameraLocationCode,
+        facility.locationDescription,
+      ]
+        .join(' ')
+        .toLowerCase();
+      return (
+        (cctvCity === 'all' || facility.city === cctvCity) &&
+        (cctvCoordinateStatus === 'all' || facility.coordinateStatus === cctvCoordinateStatus) &&
+        (!query || haystack.includes(query))
+      );
+    });
+  }, [cctvCity, cctvCoordinateStatus, data.trafficCctvFacilities, search]);
   const hydrantCities = useMemo(
     () => [...new Set((fireHydrants ?? []).flatMap((item) => (item.city ? [item.city] : [])))].sort(),
     [fireHydrants],
@@ -491,6 +588,14 @@ function SafetyMap({
     () => buildShelterMapClusters(visibleFireHydrants, viewport.zoom),
     [visibleFireHydrants, viewport.zoom],
   );
+  const visibleCctvFacilities = useMemo(
+    () => filteredCctvFacilities.filter(hasValidPoint).filter((item) => isInViewport(item, viewport.bounds)),
+    [filteredCctvFacilities, viewport.bounds],
+  );
+  const cctvClusters = useMemo(
+    () => buildShelterMapClusters(visibleCctvFacilities, viewport.zoom),
+    [visibleCctvFacilities, viewport.zoom],
+  );
   const hydrantDistrictSummaries = useMemo(
     () =>
       data.fireHydrantSummary.byDistrict
@@ -502,6 +607,26 @@ function SafetyMap({
           return centroid ? [{ ...item, ...centroid }] : [];
         }),
     [data.fireHydrantSummary.byDistrict, hydrantCity, hydrantDistrict, taipeiCityOnlyHydrants],
+  );
+  const emergencyShelterDistrictSummaries = useMemo(
+    () =>
+      TAIPEI_DISTRICTS.flatMap((name) => {
+        const records = filteredEmergencyShelters.filter((item) => item.district === name);
+        const centroid = TAIPEI_DISTRICT_CENTROIDS[name];
+        if (!records.length || !centroid) return [];
+        const topType = mostCommonEntry(countBy(records, (item) => formatEmergencyShelterType(item.shelterType, language)));
+        return [{
+          district: name,
+          ...centroid,
+          count: records.length,
+          capacity: records.reduce((sum, item) => sum + (item.capacityPeople ?? 0), 0),
+          accessible: records.filter((item) => item.hasAccessibleFacilities).length,
+          indoor: records.filter((item) => item.hasIndoorSpace).length,
+          outdoor: records.filter((item) => item.hasOutdoorSpace).length,
+          topType: topType?.[0] ?? '-',
+        }];
+      }),
+    [filteredEmergencyShelters, language],
   );
 
   async function ensureFireHydrants() {
@@ -564,10 +689,26 @@ function SafetyMap({
         <label className="checkbox-row">
           <input
             type="checkbox"
+            checked={showEmergencyShelters}
+            onChange={(event) => setShowEmergencyShelters(event.target.checked)}
+          />
+          {t.emergencyShelters}
+        </label>
+        <label className="checkbox-row">
+          <input
+            type="checkbox"
             checked={showEvacuationGates}
             onChange={(event) => setShowEvacuationGates(event.target.checked)}
           />
           {t.evacuationGates}
+        </label>
+        <label className="checkbox-row">
+          <input
+            type="checkbox"
+            checked={showCctvFacilities}
+            onChange={(event) => setShowCctvFacilities(event.target.checked)}
+          />
+          {t.cctvFacilities}
         </label>
         {!nearbyMode && (
           <>
@@ -598,9 +739,92 @@ function SafetyMap({
           {t.search}
           <input
             value={search}
-            placeholder={showFireHydrants ? t.fireHydrantSearchPlaceholder : t.searchPlaceholder}
+            placeholder={
+              showCctvFacilities
+                ? t.cctvSearchPlaceholder
+                : showEmergencyShelters
+                  ? t.emergencyShelterSearchPlaceholder
+                  : showFireHydrants
+                    ? t.fireHydrantSearchPlaceholder
+                    : t.searchPlaceholder
+            }
             onChange={(event) => setSearch(event.target.value)}
           />
+        </label>
+        <label>
+          {t.cctvFacilities}
+          <select value={cctvCity} onChange={(event) => setCctvCity(event.target.value)}>
+            <option value="all">{t.all}</option>
+            {cctvCities.map((city) => (
+              <option key={city}>{city}</option>
+            ))}
+          </select>
+        </label>
+        <label>
+          {t.coordinateStatus}
+          <select value={cctvCoordinateStatus} onChange={(event) => setCctvCoordinateStatus(event.target.value as CoordinateStatus | 'all')}>
+            <option value="all">{t.all}</option>
+            <option value="valid">{t.hasValidCoordinates}</option>
+            <option value="missing">{t.missingCoordinates}</option>
+            <option value="unparsed">{t.unparsedCoordinates}</option>
+            <option value="outlier">{t.outlierCoordinates}</option>
+          </select>
+        </label>
+        <label>
+          {t.shelterType}
+          <select value={emergencyShelterType} onChange={(event) => setEmergencyShelterType(event.target.value as EmergencyShelterType | 'all')}>
+            <option value="all">{t.all}</option>
+            {emergencyShelterTypes.map((type) => (
+              <option key={type} value={type}>{formatEmergencyShelterType(type, language)}</option>
+            ))}
+          </select>
+        </label>
+        <label>
+          {t.floodApplicable}
+          <select value={floodStatus} onChange={(event) => setFloodStatus(event.target.value as DisasterApplicabilityStatus | 'all')}>
+            <option value="all">{t.all}</option>
+            {disasterStatuses.map((status) => (
+              <option key={status} value={status}>{formatDisasterStatus(status, language)}</option>
+            ))}
+          </select>
+        </label>
+        <label>
+          {t.earthquakeApplicable}
+          <select value={earthquakeStatus} onChange={(event) => setEarthquakeStatus(event.target.value as DisasterApplicabilityStatus | 'all')}>
+            <option value="all">{t.all}</option>
+            {disasterStatuses.map((status) => (
+              <option key={status} value={status}>{formatDisasterStatus(status, language)}</option>
+            ))}
+          </select>
+        </label>
+        <label>
+          {t.servedVillages}
+          <select value={servedVillage} onChange={(event) => setServedVillage(event.target.value)}>
+            <option value="all">{t.all}</option>
+            {servedVillages.map((name) => (
+              <option key={name}>{name}</option>
+            ))}
+          </select>
+        </label>
+        <label className="checkbox-row">
+          <input type="checkbox" checked={accessibleOnly} onChange={(event) => setAccessibleOnly(event.target.checked)} />
+          {t.accessibleFacilities}
+        </label>
+        <label className="checkbox-row">
+          <input type="checkbox" checked={indoorOnly} onChange={(event) => setIndoorOnly(event.target.checked)} />
+          {t.indoor}
+        </label>
+        <label className="checkbox-row">
+          <input type="checkbox" checked={outdoorOnly} onChange={(event) => setOutdoorOnly(event.target.checked)} />
+          {t.outdoor}
+        </label>
+        <label className="checkbox-row">
+          <input
+            type="checkbox"
+            checked={hasEmergencyShelterCapacity}
+            onChange={(event) => setHasEmergencyShelterCapacity(event.target.checked)}
+          />
+          {t.hasCapacity}
         </label>
         <label className="checkbox-row">
           <input
@@ -870,6 +1094,52 @@ function SafetyMap({
                       </Popup>
                     </CircleMarker>
                   )))}
+          {showEmergencyShelters &&
+            emergencyShelterDistrictSummaries.map((summary) => (
+              <CircleMarker
+                key={`emergency-shelter-${summary.district}`}
+                center={[summary.latitude, summary.longitude]}
+                radius={Math.min(26, 7 + Math.sqrt(summary.count) * 1.4)}
+                pathOptions={{ color: '#9333ea', fillColor: '#c084fc', fillOpacity: 0.28, weight: 2 }}
+              >
+                <Popup>
+                  <div className="popup-stack">
+                    <strong>{t.emergencyShelters}</strong>
+                    <span>{t.district}: {summary.district}</span>
+                    <span>{t.emergencyShelterCount}: {summary.count.toLocaleString()}</span>
+                    <span>{t.totalListedCapacity}: {summary.capacity.toLocaleString()}</span>
+                    <span>{t.accessibleFacilities}: {summary.accessible.toLocaleString()}</span>
+                    <span>{t.indoor}: {summary.indoor.toLocaleString()}</span>
+                    <span>{t.outdoor}: {summary.outdoor.toLocaleString()}</span>
+                    <span>{t.topShelterType}: {summary.topType}</span>
+                    <small>{t.emergencyShelterNoCoordinateNotice}</small>
+                  </div>
+                </Popup>
+              </CircleMarker>
+            ))}
+          {showCctvFacilities &&
+            (viewport.zoom >= detailedShelterZoom || visibleCctvFacilities.length <= maxDetailedShelterMarkers
+              ? visibleCctvFacilities.map((facility) => (
+                  <Marker key={facility.id} position={[facility.latitude, facility.longitude]} icon={cctvIcon}>
+                    <Popup>
+                      <TrafficCctvPopup facility={facility} language={language} />
+                    </Popup>
+                  </Marker>
+                ))
+              : cctvClusters.map((cluster) => (
+                  <CircleMarker
+                    key={`cctv-${cluster.id}`}
+                    center={[cluster.latitude, cluster.longitude]}
+                    radius={Math.min(24, 7 + Math.sqrt(cluster.count) * 1.8)}
+                    pathOptions={{ color: '#374151', fillColor: '#9ca3af', fillOpacity: 0.34, weight: 2 }}
+                  >
+                    <Popup>
+                      <strong>
+                        {t.cctvFacilities}: {cluster.count.toLocaleString()}
+                      </strong>
+                    </Popup>
+                  </CircleMarker>
+                )))}
           {!nearbyMode && showBurglaries && data.districtSummaries.map((summary) => {
             if (!summary.burglaryRecordCount) return null;
             return (
@@ -966,6 +1236,15 @@ function SafetyMap({
         >
           {t.showNearbyFireHydrants}
         </button>
+        <button
+          type="button"
+          onClick={() => {
+            setShowEmergencyShelters(true);
+            setGeoMessage(t.emergencyShelterDistanceUnavailableNotice);
+          }}
+        >
+          {t.viewEmergencySheltersByNearbyDistrict}
+        </button>
         <label>
           {t.nearbyRadius}
           <select value={radius} onChange={(event) => setRadius(Number(event.target.value))}>
@@ -978,6 +1257,44 @@ function SafetyMap({
         </label>
         {geoMessage && <p className="notice">{geoMessage}</p>}
         <p className="notice">{t.aedEmergencyNotice}</p>
+        <p className="notice">{t.emergencyShelterNoCoordinateNotice}</p>
+        <h2>{t.emergencyShelterDirectory}</h2>
+        <ol className="nearby-list">
+          {filteredEmergencyShelters.slice(0, 50).map((shelter) => (
+            <li key={shelter.id}>
+              <strong>{shelter.shelterName}</strong>
+              <span>{shelter.shelterId} · {shelter.district ?? '-'} · {formatEmergencyShelterType(shelter.shelterType, language)}</span>
+              <small>{shelter.address ?? '-'}</small>
+              <small>{t.capacityPeople}: {shelter.capacityPeople?.toLocaleString() ?? '-'}</small>
+              <small>
+                {t.flood}: {formatDisasterStatus(shelter.floodStatus, language)} · {t.earthquake}: {formatDisasterStatus(shelter.earthquakeStatus, language)}
+              </small>
+              {shelter.servedVillages.length > 0 && <small>{t.servedVillages}: {shelter.servedVillages.slice(0, 8).join('、')}</small>}
+              {shelter.address && (
+                <a href={googleMapsAddressUrl(shelter.address)} target="_blank" rel="noreferrer">
+                  {t.openGoogleMaps}
+                </a>
+              )}
+            </li>
+          ))}
+        </ol>
+        <p className="notice">{t.cctvFacilityNotice}</p>
+        <h2>{t.trafficCctvFacilities}</h2>
+        <ol className="nearby-list">
+          {filteredCctvFacilities.slice(0, 50).map((facility) => (
+            <li key={facility.id}>
+              <strong>{facility.cameraLocationCodeRaw ?? facility.locationDescription ?? t.cctvFacility}</strong>
+              <span>{t.sourceSequenceNumber}: {facility.sourceSequenceNumber ?? '-'}</span>
+              <small>{t.city}: {facility.city ?? '-'}</small>
+              <small>{t.coordinateStatus}: {formatCoordinateStatus(facility.coordinateStatus, language)}</small>
+              {facility.coordinateStatus === 'valid' && facility.latitude !== undefined && facility.longitude !== undefined && (
+                <a href={googleMapsUrl(facility.latitude, facility.longitude)} target="_blank" rel="noreferrer">
+                  {t.openGoogleMaps}
+                </a>
+              )}
+            </li>
+          ))}
+        </ol>
         <h2>{t.nearbyAeds}</h2>
         <ol className="nearby-list">
           {nearbyAeds.slice(0, 20).map(({ aed, distance }) => (
@@ -1365,6 +1682,46 @@ function SafetyOverview({ data, language }: { data: SafetyDataBundle; language: 
       .slice(0, 20)
       .map((item) => [`${item.city} ${item.district} ${item.village}`, item.count]),
   );
+  const emergencyShelterSummary = data.emergencyShelterSummary;
+  const emergencySheltersByDistrict = Object.fromEntries(
+    emergencyShelterSummary.byDistrict.map((item) => [item.district, item.count]),
+  );
+  const emergencyCapacityByDistrict = Object.fromEntries(
+    emergencyShelterSummary.byDistrict.map((item) => [item.district, item.totalListedCapacityPeople]),
+  );
+  const emergencySheltersByType = Object.fromEntries(
+    emergencyShelterSummary.byShelterType.map((item) => [formatEmergencyShelterType(item.shelterType, language), item.count]),
+  );
+  const emergencyCapacityByType = Object.fromEntries(
+    emergencyShelterSummary.byShelterType.map((item) => [
+      formatEmergencyShelterType(item.shelterType, language),
+      item.totalListedCapacityPeople,
+    ]),
+  );
+  const accessibleSheltersByDistrict = Object.fromEntries(
+    emergencyShelterSummary.byDistrict.map((item) => [item.district, item.accessibleFacilityCount]),
+  );
+  const reliefStationsByDistrict = Object.fromEntries(
+    emergencyShelterSummary.byDistrict.map((item) => [item.district, item.reliefStationCount]),
+  );
+  const indoorOutdoorShelters = {
+    [t.indoor]: emergencyShelterSummary.indoorShelterCount,
+    [t.outdoor]: emergencyShelterSummary.outdoorShelterCount,
+  };
+  const disasterApplicability = Object.fromEntries(
+    emergencyShelterSummary.byDisasterApplicability.flood.map((item) => [
+      `${t.flood} ${formatDisasterStatus(item.status, language)}`,
+      item.count,
+    ]),
+  );
+  const topEmergencyShelterDistrict = [...emergencyShelterSummary.byDistrict].sort((a, b) => b.count - a.count)[0];
+  const topEmergencyCapacityDistrict = [...emergencyShelterSummary.byDistrict].sort((a, b) => b.totalListedCapacityPeople - a.totalListedCapacityPeople)[0];
+  const topEmergencyShelterType = [...emergencyShelterSummary.byShelterType].sort((a, b) => b.count - a.count)[0];
+  const cctvSummary = data.trafficCctvSummary;
+  const cctvByCity = Object.fromEntries(cctvSummary.byCity.map((item) => [item.city, item.count]));
+  const cctvCoordinateStatus = Object.fromEntries(
+    cctvSummary.coordinateStatus.map((item) => [formatCoordinateStatus(item.coordinateStatus, language), item.count]),
+  );
   const gatesByRiversidePark = countBy(data.evacuationGates, (item) => item.riversidePark);
   const topRiversidePark = mostCommonEntry(gatesByRiversidePark);
   const riversideParkAvailability = {
@@ -1407,6 +1764,20 @@ function SafetyOverview({ data, language }: { data: SafetyDataBundle; language: 
         <Metric label={t.topDistrictByHydrantCount} value={topHydrantDistrict ? `${topHydrantDistrict.city} ${topHydrantDistrict.district}` : '-'} />
         <Metric label={t.topHydrantType} value={hydrantSummary.undergroundHydrantCount >= hydrantSummary.aboveGroundHydrantCount ? t.undergroundHydrant : t.aboveGroundHydrant} />
         <Metric label={t.villagesCovered} value={hydrantSummary.villageCount.toLocaleString()} />
+        <Metric label={t.emergencyShelterCount} value={emergencyShelterSummary.totalRecords.toLocaleString()} />
+        <Metric label={t.totalListedCapacity} value={emergencyShelterSummary.totalListedCapacityPeople.toLocaleString()} />
+        <Metric label={t.shelterTypesCovered} value={emergencyShelterSummary.byShelterType.length.toLocaleString()} />
+        <Metric label={t.accessibleShelterCount} value={emergencyShelterSummary.accessibleFacilityCount.toLocaleString()} />
+        <Metric label={t.reliefStationCount} value={emergencyShelterSummary.reliefStationCount.toLocaleString()} />
+        <Metric label={t.indoorShelterCount} value={emergencyShelterSummary.indoorShelterCount.toLocaleString()} />
+        <Metric label={t.outdoorShelterCount} value={emergencyShelterSummary.outdoorShelterCount.toLocaleString()} />
+        <Metric label={t.topDistrictByShelterCount} value={topEmergencyShelterDistrict?.district ?? '-'} />
+        <Metric label={t.topDistrictByListedCapacity} value={topEmergencyCapacityDistrict?.district ?? '-'} />
+        <Metric label={t.topShelterType} value={topEmergencyShelterType ? formatEmergencyShelterType(topEmergencyShelterType.shelterType, language) : '-'} />
+        <Metric label={t.cctvFacilityCount} value={cctvSummary.totalRecords.toLocaleString()} />
+        <Metric label={t.cctvValidCoordinateCount} value={cctvSummary.validCoordinateCount.toLocaleString()} />
+        <Metric label={t.cctvCityCount} value={cctvSummary.cityCount.toLocaleString()} />
+        <Metric label={t.cctvCoordinateOutlierCount} value={cctvSummary.outlierCoordinateCount.toLocaleString()} />
         <Metric label={t.medicalFacilityCount} value={data.medicalFacilities.length.toLocaleString()} />
         <Metric label={t.hospitalCount} value={hospitals.length.toLocaleString()} />
         <Metric label={t.clinicCount} value={clinics.length.toLocaleString()} />
@@ -1451,6 +1822,16 @@ function SafetyOverview({ data, language }: { data: SafetyDataBundle; language: 
         <BarChart title={t.fireHydrantsByAreaScope} values={hydrantsByScope} />
         <BarChart title={t.topVillagesByHydrantCount} values={topHydrantVillage} />
         <BarChart title={t.fireHydrantCoordinateStatus} values={hydrantCoordinateStatus} />
+        <BarChart title={t.emergencySheltersByDistrict} values={emergencySheltersByDistrict} />
+        <BarChart title={t.listedCapacityByDistrict} values={emergencyCapacityByDistrict} />
+        <BarChart title={t.emergencySheltersByType} values={emergencySheltersByType} />
+        <BarChart title={t.listedCapacityByShelterType} values={emergencyCapacityByType} />
+        <BarChart title={t.accessibleSheltersByDistrict} values={accessibleSheltersByDistrict} />
+        <BarChart title={t.indoorOutdoorShelters} values={indoorOutdoorShelters} />
+        <BarChart title={t.reliefStationsByDistrict} values={reliefStationsByDistrict} />
+        <BarChart title={t.disasterApplicabilityDistribution} values={disasterApplicability} />
+        <BarChart title={t.cctvFacilitiesByCity} values={cctvByCity} />
+        <BarChart title={t.cctvCoordinateStatus} values={cctvCoordinateStatus} />
         <BarChart title={t.hospitalsByDistrict} values={hospitalsByDistrict} />
         <BarChart title={t.clinicsByDistrict} values={clinicsByDistrict} />
         <BarChart title={t.medicalFacilitiesByDistrict} values={medicalFacilitiesByDistrict} />
@@ -1477,6 +1858,10 @@ function DataNotes({ data, language }: { data: SafetyDataBundle; language: Langu
       <p>{t.evacuationGateDataNote}</p>
       <p>{t.medicalFacilityDataNote}</p>
       <p>{t.fireHydrantDataNote}</p>
+      <p>{t.emergencyShelterDataNote}</p>
+      <p>{t.emergencyShelterUseNote}</p>
+      <p>{t.cctvDataNote}</p>
+      <p>{t.cctvLiveImageApplicationNote}</p>
       <dl>
         {data.conversionReport.sources.map((source) => (
           <div key={source.name}>
@@ -1593,6 +1978,26 @@ function FireHydrantPopup({ hydrant, language }: { hydrant: FireHydrant; languag
       <span className="notice">{t.fireHydrantNotice}</span>
       {hydrant.latitude !== undefined && hydrant.longitude !== undefined && (
         <a href={googleMapsUrl(hydrant.latitude, hydrant.longitude)} target="_blank" rel="noreferrer">
+          {t.openGoogleMaps}
+        </a>
+      )}
+    </div>
+  );
+}
+
+function TrafficCctvPopup({ facility, language }: { facility: TrafficCctvFacility; language: Language }) {
+  const t = translations[language];
+  return (
+    <div className="popup-stack">
+      <strong>{t.cctvFacility}</strong>
+      <span>{t.sourceSequenceNumber}: {facility.sourceSequenceNumber ?? '-'}</span>
+      <span>{t.city}: {facility.city ?? '-'}</span>
+      <span>{t.cameraLocationCode}: {facility.cameraLocationCodeRaw ?? '-'}</span>
+      {facility.longitude !== undefined && <span>{t.wgs84Longitude}: {facility.longitude}</span>}
+      {facility.latitude !== undefined && <span>{t.wgs84Latitude}: {facility.latitude}</span>}
+      <span className="notice">{t.cctvPopupNotice}</span>
+      {facility.latitude !== undefined && facility.longitude !== undefined && (
+        <a href={googleMapsUrl(facility.latitude, facility.longitude)} target="_blank" rel="noreferrer">
           {t.openGoogleMaps}
         </a>
       )}
@@ -1795,6 +2200,10 @@ function googleMapsUrl(latitude: number, longitude: number): string {
   return `https://www.google.com/maps/search/?api=1&query=${latitude},${longitude}`;
 }
 
+function googleMapsAddressUrl(address: string): string {
+  return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`;
+}
+
 function formatAverage(values: number[]): string {
   return values.length ? (values.reduce((sum, value) => sum + value, 0) / values.length).toFixed(2) : '-';
 }
@@ -1809,6 +2218,47 @@ function formatAreaScope(scope: FireHydrantAreaScope, language: Language): strin
   if (scope === 'new_taipei_official_scope') return t.newTaipeiOfficialScope;
   if (scope === 'new_taipei_other') return t.newTaipeiOtherScope;
   return t.unknownScope;
+}
+
+function formatEmergencyShelterType(type: EmergencyShelterType, language: Language): string {
+  const t = translations[language];
+  const labels: Record<EmergencyShelterType, string> = {
+    school: t.schoolShelter,
+    library: t.libraryShelter,
+    park_green_space: t.parkGreenSpaceShelter,
+    activity_center: t.activityCenterShelter,
+    market_parking_lot: t.marketParkingLotShelter,
+    metro_station: t.metroStationShelter,
+    sports_facility: t.sportsFacilityShelter,
+    arts_center: t.artsCenterShelter,
+    military_camp: t.militaryCampShelter,
+    other: t.other,
+    unknown: t.unknown,
+  };
+  return labels[type];
+}
+
+function formatDisasterStatus(status: DisasterApplicabilityStatus, language: Language): string {
+  const t = translations[language];
+  const labels: Record<DisasterApplicabilityStatus, string> = {
+    yes: t.applicableYes,
+    no: t.applicableNo,
+    backup: t.backup,
+    old_settlement: t.oldSettlement,
+    unknown: t.unknown,
+  };
+  return labels[status];
+}
+
+function formatCoordinateStatus(status: CoordinateStatus, language: Language): string {
+  const t = translations[language];
+  const labels: Record<CoordinateStatus, string> = {
+    valid: t.hasValidCoordinates,
+    missing: t.missingCoordinates,
+    unparsed: t.unparsedCoordinates,
+    outlier: t.outlierCoordinates,
+  };
+  return labels[status];
 }
 
 const localizedUiText: Record<
