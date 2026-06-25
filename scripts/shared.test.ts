@@ -5,10 +5,12 @@ import { tmpdir } from 'node:os';
 import {
   convertAedRow,
   convertEvacuationGateRow,
+  convertFireHydrantRow,
   convertMedicalFacilityRow,
   convertShelterRow,
   decodeCsvBuffer,
   normalizeDistrictCode,
+  parseHydrantArea,
   parseCsv,
   readCsv,
 } from './shared';
@@ -164,6 +166,49 @@ describe('CSV script helpers', () => {
       district: '大安區',
       cityCode: '63000',
       coordinateStatus: 'valid',
+    });
+  });
+
+  it('parses and converts fire hydrant rows', () => {
+    expect(parseHydrantArea('新北市三重區二重里')).toMatchObject({
+      city: '新北市',
+      district: '三重區',
+      village: '二重里',
+      areaScope: 'new_taipei_official_scope',
+      isNewTaipei: true,
+    });
+
+    expect(
+      convertFireHydrantRow(
+        {
+          序號: '1',
+          圖號: '3448A',
+          編號: '1',
+          WPID: 'WPH65002000023',
+          '97X座標': '298313.375',
+          '97Y座標': '2772832.341',
+          WGS84經度: '121.4788752',
+          WGS84緯度: '25.06292077',
+          型式: '地下式消防栓',
+          所在地區: '新北市三重區二重里',
+        },
+        0,
+      ),
+    ).toMatchObject({
+      id: 'fire-hydrant-WPH65002000023',
+      layer: 'fire_hydrant',
+      sourceSequenceNumber: 1,
+      hydrantType: 'underground',
+      city: '新北市',
+      district: '三重區',
+      village: '二重里',
+      coordinateStatus: 'valid',
+      sourceAgency: '臺北自來水事業處',
+    });
+
+    expect(convertFireHydrantRow({ WGS84經度: 'x', WGS84緯度: '25', 型式: '地上式消防栓' }, 1)).toMatchObject({
+      coordinateStatus: 'unparsed',
+      hydrantType: 'above_ground',
     });
   });
 });

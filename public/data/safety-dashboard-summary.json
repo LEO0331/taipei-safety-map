@@ -1039,5 +1039,4967 @@
       "南港區": 42
     }
   },
+  "fireHydrantSummary": {
+    "totalRecords": 30444,
+    "validCoordinateCount": 30444,
+    "outlierCoordinateCount": 0,
+    "taipeiCityCount": 21905,
+    "newTaipeiCount": 8539,
+    "newTaipeiOfficialScopeCount": 8535,
+    "newTaipeiOtherCount": 4,
+    "undergroundHydrantCount": 27902,
+    "aboveGroundHydrantCount": 2542,
+    "otherHydrantTypeCount": 0,
+    "unknownHydrantTypeCount": 0,
+    "cityCount": 2,
+    "districtCount": 18,
+    "villageCount": 797,
+    "byCity": [
+      {
+        "city": "新北市",
+        "count": 8539
+      },
+      {
+        "city": "臺北市",
+        "count": 21905
+      }
+    ],
+    "byDistrict": [
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "count": 2650,
+        "undergroundHydrantCount": 2556,
+        "aboveGroundHydrantCount": 94
+      },
+      {
+        "city": "新北市",
+        "district": "中和區",
+        "count": 2097,
+        "undergroundHydrantCount": 2008,
+        "aboveGroundHydrantCount": 89
+      },
+      {
+        "city": "新北市",
+        "district": "永和區",
+        "count": 1259,
+        "undergroundHydrantCount": 1113,
+        "aboveGroundHydrantCount": 146
+      },
+      {
+        "city": "新北市",
+        "district": "汐止區",
+        "count": 186,
+        "undergroundHydrantCount": 185,
+        "aboveGroundHydrantCount": 1
+      },
+      {
+        "city": "新北市",
+        "district": "新店區",
+        "count": 2343,
+        "undergroundHydrantCount": 2175,
+        "aboveGroundHydrantCount": 168
+      },
+      {
+        "city": "新北市",
+        "district": "蘆洲區",
+        "count": 4,
+        "undergroundHydrantCount": 4,
+        "aboveGroundHydrantCount": 0
+      },
+      {
+        "city": "臺北市",
+        "district": "士林區",
+        "count": 2884,
+        "undergroundHydrantCount": 2756,
+        "aboveGroundHydrantCount": 128
+      },
+      {
+        "city": "臺北市",
+        "district": "大同區",
+        "count": 1057,
+        "undergroundHydrantCount": 991,
+        "aboveGroundHydrantCount": 66
+      },
+      {
+        "city": "臺北市",
+        "district": "大安區",
+        "count": 2034,
+        "undergroundHydrantCount": 1755,
+        "aboveGroundHydrantCount": 279
+      },
+      {
+        "city": "臺北市",
+        "district": "中山區",
+        "count": 2244,
+        "undergroundHydrantCount": 1955,
+        "aboveGroundHydrantCount": 289
+      },
+      {
+        "city": "臺北市",
+        "district": "中正區",
+        "count": 1481,
+        "undergroundHydrantCount": 1375,
+        "aboveGroundHydrantCount": 106
+      },
+      {
+        "city": "臺北市",
+        "district": "內湖區",
+        "count": 2600,
+        "undergroundHydrantCount": 2071,
+        "aboveGroundHydrantCount": 529
+      },
+      {
+        "city": "臺北市",
+        "district": "文山區",
+        "count": 1943,
+        "undergroundHydrantCount": 1848,
+        "aboveGroundHydrantCount": 95
+      },
+      {
+        "city": "臺北市",
+        "district": "北投區",
+        "count": 2364,
+        "undergroundHydrantCount": 2262,
+        "aboveGroundHydrantCount": 102
+      },
+      {
+        "city": "臺北市",
+        "district": "松山區",
+        "count": 1292,
+        "undergroundHydrantCount": 1151,
+        "aboveGroundHydrantCount": 141
+      },
+      {
+        "city": "臺北市",
+        "district": "信義區",
+        "count": 1521,
+        "undergroundHydrantCount": 1355,
+        "aboveGroundHydrantCount": 166
+      },
+      {
+        "city": "臺北市",
+        "district": "南港區",
+        "count": 1278,
+        "undergroundHydrantCount": 1181,
+        "aboveGroundHydrantCount": 97
+      },
+      {
+        "city": "臺北市",
+        "district": "萬華區",
+        "count": 1207,
+        "undergroundHydrantCount": 1161,
+        "aboveGroundHydrantCount": 46
+      }
+    ],
+    "byVillage": [
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "二重里",
+        "count": 53
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "三民里",
+        "count": 19
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "三安里",
+        "count": 23
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "大同里",
+        "count": 9
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "大安里",
+        "count": 6
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "大有里",
+        "count": 61
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "大園里",
+        "count": 18
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "大德里",
+        "count": 4
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "中山里",
+        "count": 16
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "中央里",
+        "count": 13
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "中正里",
+        "count": 11
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "中民里",
+        "count": 8
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "五常里",
+        "count": 96
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "五華里",
+        "count": 33
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "五順里",
+        "count": 20
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "五福里",
+        "count": 32
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "仁忠里",
+        "count": 19
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "仁華里",
+        "count": 35
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "仁義里",
+        "count": 16
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "仁德里",
+        "count": 20
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "介壽里",
+        "count": 8
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "六合里",
+        "count": 26
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "六福里",
+        "count": 25
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "文化里",
+        "count": 27
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "平和里",
+        "count": 11
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "正安里",
+        "count": 13
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "正義里",
+        "count": 11
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "正德里",
+        "count": 10
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "民生里",
+        "count": 59
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "民和里",
+        "count": 2
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "永吉里",
+        "count": 25
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "永安里",
+        "count": 27
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "永春里",
+        "count": 22
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "永清里",
+        "count": 28
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "永盛里",
+        "count": 19
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "永發里",
+        "count": 83
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "永順里",
+        "count": 24
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "永煇里",
+        "count": 11
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "永福里",
+        "count": 28
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "永德里",
+        "count": 16
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "永興里",
+        "count": 9
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "永豐里",
+        "count": 26
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "田中里",
+        "count": 23
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "田心里",
+        "count": 23
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "田安里",
+        "count": 37
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "立德里",
+        "count": 25
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "光正里",
+        "count": 16
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "光田里",
+        "count": 42
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "光明里",
+        "count": 35
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "光華里",
+        "count": 9
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "光陽里",
+        "count": 26
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "光榮里",
+        "count": 10
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "光輝里",
+        "count": 13
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "吉利里",
+        "count": 9
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "同安里",
+        "count": 13
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "同慶里",
+        "count": 18
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "安慶里",
+        "count": 11
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "成功里",
+        "count": 50
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "自強里",
+        "count": 9
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "更寮里",
+        "count": 1
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "秀江里",
+        "count": 11
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "尚德里",
+        "count": 20
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "幸福里",
+        "count": 9
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "忠孝里",
+        "count": 10
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "承德里",
+        "count": 20
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "長元里",
+        "count": 18
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "長生里",
+        "count": 6
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "長安里",
+        "count": 18
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "長江里",
+        "count": 15
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "長泰里",
+        "count": 11
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "長福里",
+        "count": 9
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "信安里",
+        "count": 15
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "厚德里",
+        "count": 35
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "奕壽里",
+        "count": 17
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "重明里",
+        "count": 33
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "重陽里",
+        "count": 21
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "重新里",
+        "count": 12
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "國隆里",
+        "count": 10
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "培德里",
+        "count": 38
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "崇德里",
+        "count": 32
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "清和里",
+        "count": 14
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "博愛里",
+        "count": 44
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "富華里",
+        "count": 8
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "富貴里",
+        "count": 86
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "富福里",
+        "count": 14
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "菜寮里",
+        "count": 14
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "開元里",
+        "count": 14
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "順德里",
+        "count": 17
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "慈化里",
+        "count": 17
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "慈生里",
+        "count": 19
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "慈佑里",
+        "count": 2
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "慈祐里",
+        "count": 33
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "慈惠里",
+        "count": 12
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "慈愛里",
+        "count": 20
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "慈福里",
+        "count": 16
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "溪美里",
+        "count": 59
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "瑞德里",
+        "count": 16
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "萬壽里",
+        "count": 11
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "過田里",
+        "count": 49
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "碧華里",
+        "count": 84
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "福民里",
+        "count": 29
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "福田里",
+        "count": 16
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "福安里",
+        "count": 18
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "福利里",
+        "count": 12
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "福星里",
+        "count": 9
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "福祉里",
+        "count": 35
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "福隆里",
+        "count": 44
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "福德里",
+        "count": 24
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "福樂里",
+        "count": 36
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "維德里",
+        "count": 19
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "錦田里",
+        "count": 18
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "錦安里",
+        "count": 12
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "錦江里",
+        "count": 10
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "錦通里",
+        "count": 15
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "龍門里",
+        "count": 19
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "龍濱里",
+        "count": 21
+      },
+      {
+        "city": "新北市",
+        "district": "三重區",
+        "village": "雙園里",
+        "count": 12
+      },
+      {
+        "city": "新北市",
+        "district": "中和區",
+        "village": "力行里",
+        "count": 24
+      },
+      {
+        "city": "新北市",
+        "district": "中和區",
+        "village": "中山里",
+        "count": 10
+      },
+      {
+        "city": "新北市",
+        "district": "中和區",
+        "village": "中正里",
+        "count": 19
+      },
+      {
+        "city": "新北市",
+        "district": "中和區",
+        "village": "中安里",
+        "count": 28
+      },
+      {
+        "city": "新北市",
+        "district": "中和區",
+        "village": "中和區",
+        "count": 1
+      },
+      {
+        "city": "新北市",
+        "district": "中和區",
+        "village": "中原里",
+        "count": 187
+      },
+      {
+        "city": "新北市",
+        "district": "中和區",
+        "village": "中興里",
+        "count": 21
+      },
+      {
+        "city": "新北市",
+        "district": "中和區",
+        "village": "仁和里",
+        "count": 16
+      },
+      {
+        "city": "新北市",
+        "district": "中和區",
+        "village": "內南里",
+        "count": 45
+      },
+      {
+        "city": "新北市",
+        "district": "中和區",
+        "village": "文元里",
+        "count": 25
+      },
+      {
+        "city": "新北市",
+        "district": "中和區",
+        "village": "外南里",
+        "count": 17
+      },
+      {
+        "city": "新北市",
+        "district": "中和區",
+        "village": "平河里",
+        "count": 70
+      },
+      {
+        "city": "新北市",
+        "district": "中和區",
+        "village": "正行里",
+        "count": 16
+      },
+      {
+        "city": "新北市",
+        "district": "中和區",
+        "village": "正南里",
+        "count": 22
+      },
+      {
+        "city": "新北市",
+        "district": "中和區",
+        "village": "民安里",
+        "count": 1
+      },
+      {
+        "city": "新北市",
+        "district": "中和區",
+        "village": "瓦嗂里",
+        "count": 30
+      },
+      {
+        "city": "新北市",
+        "district": "中和區",
+        "village": "吉興里",
+        "count": 13
+      },
+      {
+        "city": "新北市",
+        "district": "中和區",
+        "village": "安平里",
+        "count": 26
+      },
+      {
+        "city": "新北市",
+        "district": "中和區",
+        "village": "安和里",
+        "count": 31
+      },
+      {
+        "city": "新北市",
+        "district": "中和區",
+        "village": "安順里",
+        "count": 21
+      },
+      {
+        "city": "新北市",
+        "district": "中和區",
+        "village": "安樂里",
+        "count": 24
+      },
+      {
+        "city": "新北市",
+        "district": "中和區",
+        "village": "安穗里",
+        "count": 23
+      },
+      {
+        "city": "新北市",
+        "district": "中和區",
+        "village": "灰嗂里",
+        "count": 18
+      },
+      {
+        "city": "新北市",
+        "district": "中和區",
+        "village": "灰?里",
+        "count": 1
+      },
+      {
+        "city": "新北市",
+        "district": "中和區",
+        "village": "秀士里",
+        "count": 16
+      },
+      {
+        "city": "新北市",
+        "district": "中和區",
+        "village": "秀山里",
+        "count": 22
+      },
+      {
+        "city": "新北市",
+        "district": "中和區",
+        "village": "秀仁里",
+        "count": 21
+      },
+      {
+        "city": "新北市",
+        "district": "中和區",
+        "village": "秀水里",
+        "count": 27
+      },
+      {
+        "city": "新北市",
+        "district": "中和區",
+        "village": "秀成里",
+        "count": 28
+      },
+      {
+        "city": "新北市",
+        "district": "中和區",
+        "village": "秀明里",
+        "count": 19
+      },
+      {
+        "city": "新北市",
+        "district": "中和區",
+        "village": "秀峰里",
+        "count": 21
+      },
+      {
+        "city": "新北市",
+        "district": "中和區",
+        "village": "秀景里",
+        "count": 53
+      },
+      {
+        "city": "新北市",
+        "district": "中和區",
+        "village": "秀義里",
+        "count": 12
+      },
+      {
+        "city": "新北市",
+        "district": "中和區",
+        "village": "秀福里",
+        "count": 28
+      },
+      {
+        "city": "新北市",
+        "district": "中和區",
+        "village": "佳和里",
+        "count": 22
+      },
+      {
+        "city": "新北市",
+        "district": "中和區",
+        "village": "和興里",
+        "count": 20
+      },
+      {
+        "city": "新北市",
+        "district": "中和區",
+        "village": "宜安里",
+        "count": 11
+      },
+      {
+        "city": "新北市",
+        "district": "中和區",
+        "village": "忠孝里",
+        "count": 23
+      },
+      {
+        "city": "新北市",
+        "district": "中和區",
+        "village": "東南里",
+        "count": 21
+      },
+      {
+        "city": "新北市",
+        "district": "中和區",
+        "village": "枋寮里",
+        "count": 19
+      },
+      {
+        "city": "新北市",
+        "district": "中和區",
+        "village": "信和里",
+        "count": 20
+      },
+      {
+        "city": "新北市",
+        "district": "中和區",
+        "village": "南山里",
+        "count": 23
+      },
+      {
+        "city": "新北市",
+        "district": "中和區",
+        "village": "建和里",
+        "count": 25
+      },
+      {
+        "city": "新北市",
+        "district": "中和區",
+        "village": "員山里",
+        "count": 24
+      },
+      {
+        "city": "新北市",
+        "district": "中和區",
+        "village": "員富里",
+        "count": 4
+      },
+      {
+        "city": "新北市",
+        "district": "中和區",
+        "village": "泰安里",
+        "count": 13
+      },
+      {
+        "city": "新北市",
+        "district": "中和區",
+        "village": "崇南里",
+        "count": 25
+      },
+      {
+        "city": "新北市",
+        "district": "中和區",
+        "village": "連和里",
+        "count": 37
+      },
+      {
+        "city": "新北市",
+        "district": "中和區",
+        "village": "連城里",
+        "count": 36
+      },
+      {
+        "city": "新北市",
+        "district": "中和區",
+        "village": "頂南里",
+        "count": 8
+      },
+      {
+        "city": "新北市",
+        "district": "中和區",
+        "village": "復興里",
+        "count": 57
+      },
+      {
+        "city": "新北市",
+        "district": "中和區",
+        "village": "景文里",
+        "count": 27
+      },
+      {
+        "city": "新北市",
+        "district": "中和區",
+        "village": "景平里",
+        "count": 27
+      },
+      {
+        "city": "新北市",
+        "district": "中和區",
+        "village": "景本里",
+        "count": 11
+      },
+      {
+        "city": "新北市",
+        "district": "中和區",
+        "village": "景安里",
+        "count": 32
+      },
+      {
+        "city": "新北市",
+        "district": "中和區",
+        "village": "景南里",
+        "count": 22
+      },
+      {
+        "city": "新北市",
+        "district": "中和區",
+        "village": "景新里",
+        "count": 16
+      },
+      {
+        "city": "新北市",
+        "district": "中和區",
+        "village": "景福里",
+        "count": 29
+      },
+      {
+        "city": "新北市",
+        "district": "中和區",
+        "village": "華南里",
+        "count": 12
+      },
+      {
+        "city": "新北市",
+        "district": "中和區",
+        "village": "華新里",
+        "count": 27
+      },
+      {
+        "city": "新北市",
+        "district": "中和區",
+        "village": "新南里",
+        "count": 29
+      },
+      {
+        "city": "新北市",
+        "district": "中和區",
+        "village": "嘉慶里",
+        "count": 8
+      },
+      {
+        "city": "新北市",
+        "district": "中和區",
+        "village": "壽南里",
+        "count": 29
+      },
+      {
+        "city": "新北市",
+        "district": "中和區",
+        "village": "漳和里",
+        "count": 31
+      },
+      {
+        "city": "新北市",
+        "district": "中和區",
+        "village": "碧山里",
+        "count": 2
+      },
+      {
+        "city": "新北市",
+        "district": "中和區",
+        "village": "碧河里",
+        "count": 92
+      },
+      {
+        "city": "新北市",
+        "district": "中和區",
+        "village": "福和里",
+        "count": 30
+      },
+      {
+        "city": "新北市",
+        "district": "中和區",
+        "village": "福南里",
+        "count": 6
+      },
+      {
+        "city": "新北市",
+        "district": "中和區",
+        "village": "福美里",
+        "count": 34
+      },
+      {
+        "city": "新北市",
+        "district": "中和區",
+        "village": "福真里",
+        "count": 22
+      },
+      {
+        "city": "新北市",
+        "district": "中和區",
+        "village": "福祥里",
+        "count": 33
+      },
+      {
+        "city": "新北市",
+        "district": "中和區",
+        "village": "福善里",
+        "count": 24
+      },
+      {
+        "city": "新北市",
+        "district": "中和區",
+        "village": "廟美里",
+        "count": 21
+      },
+      {
+        "city": "新北市",
+        "district": "中和區",
+        "village": "德行里",
+        "count": 25
+      },
+      {
+        "city": "新北市",
+        "district": "中和區",
+        "village": "橫路里",
+        "count": 21
+      },
+      {
+        "city": "新北市",
+        "district": "中和區",
+        "village": "積穗里",
+        "count": 22
+      },
+      {
+        "city": "新北市",
+        "district": "中和區",
+        "village": "興南里",
+        "count": 21
+      },
+      {
+        "city": "新北市",
+        "district": "中和區",
+        "village": "錦中里",
+        "count": 41
+      },
+      {
+        "city": "新北市",
+        "district": "中和區",
+        "village": "錦和里",
+        "count": 32
+      },
+      {
+        "city": "新北市",
+        "district": "中和區",
+        "village": "錦昌里",
+        "count": 21
+      },
+      {
+        "city": "新北市",
+        "district": "中和區",
+        "village": "錦盛里",
+        "count": 26
+      },
+      {
+        "city": "新北市",
+        "district": "永和區",
+        "village": "上林里",
+        "count": 28
+      },
+      {
+        "city": "新北市",
+        "district": "永和區",
+        "village": "上溪里",
+        "count": 19
+      },
+      {
+        "city": "新北市",
+        "district": "永和區",
+        "village": "下溪里",
+        "count": 13
+      },
+      {
+        "city": "新北市",
+        "district": "永和區",
+        "village": "大同里",
+        "count": 3
+      },
+      {
+        "city": "新北市",
+        "district": "永和區",
+        "village": "大新里",
+        "count": 14
+      },
+      {
+        "city": "新北市",
+        "district": "永和區",
+        "village": "中溪里",
+        "count": 33
+      },
+      {
+        "city": "新北市",
+        "district": "永和區",
+        "village": "中興里",
+        "count": 18
+      },
+      {
+        "city": "新北市",
+        "district": "永和區",
+        "village": "仁愛里",
+        "count": 17
+      },
+      {
+        "city": "新北市",
+        "district": "永和區",
+        "village": "文化里",
+        "count": 14
+      },
+      {
+        "city": "新北市",
+        "district": "永和區",
+        "village": "水源里",
+        "count": 31
+      },
+      {
+        "city": "新北市",
+        "district": "永和區",
+        "village": "正興里",
+        "count": 13
+      },
+      {
+        "city": "新北市",
+        "district": "永和區",
+        "village": "民本里",
+        "count": 20
+      },
+      {
+        "city": "新北市",
+        "district": "永和區",
+        "village": "民生里",
+        "count": 20
+      },
+      {
+        "city": "新北市",
+        "district": "永和區",
+        "village": "民治里",
+        "count": 17
+      },
+      {
+        "city": "新北市",
+        "district": "永和區",
+        "village": "民族里",
+        "count": 25
+      },
+      {
+        "city": "新北市",
+        "district": "永和區",
+        "village": "民富里",
+        "count": 10
+      },
+      {
+        "city": "新北市",
+        "district": "永和區",
+        "village": "民樂里",
+        "count": 28
+      },
+      {
+        "city": "新北市",
+        "district": "永和區",
+        "village": "民權里",
+        "count": 21
+      },
+      {
+        "city": "新北市",
+        "district": "永和區",
+        "village": "永元里",
+        "count": 19
+      },
+      {
+        "city": "新北市",
+        "district": "永和區",
+        "village": "永安里",
+        "count": 14
+      },
+      {
+        "city": "新北市",
+        "district": "永和區",
+        "village": "永成里",
+        "count": 13
+      },
+      {
+        "city": "新北市",
+        "district": "永和區",
+        "village": "永貞里",
+        "count": 21
+      },
+      {
+        "city": "新北市",
+        "district": "永和區",
+        "village": "永福里",
+        "count": 14
+      },
+      {
+        "city": "新北市",
+        "district": "永和區",
+        "village": "永樂里",
+        "count": 12
+      },
+      {
+        "city": "新北市",
+        "district": "永和區",
+        "village": "永興里",
+        "count": 23
+      },
+      {
+        "city": "新北市",
+        "district": "永和區",
+        "village": "光明里",
+        "count": 26
+      },
+      {
+        "city": "新北市",
+        "district": "永和區",
+        "village": "光復里",
+        "count": 14
+      },
+      {
+        "city": "新北市",
+        "district": "永和區",
+        "village": "安和里",
+        "count": 20
+      },
+      {
+        "city": "新北市",
+        "district": "永和區",
+        "village": "竹林里",
+        "count": 29
+      },
+      {
+        "city": "新北市",
+        "district": "永和區",
+        "village": "秀元里",
+        "count": 16
+      },
+      {
+        "city": "新北市",
+        "district": "永和區",
+        "village": "秀成里",
+        "count": 22
+      },
+      {
+        "city": "新北市",
+        "district": "永和區",
+        "village": "秀和里",
+        "count": 38
+      },
+      {
+        "city": "新北市",
+        "district": "永和區",
+        "village": "秀林里",
+        "count": 23
+      },
+      {
+        "city": "新北市",
+        "district": "永和區",
+        "village": "秀朗里",
+        "count": 24
+      },
+      {
+        "city": "新北市",
+        "district": "永和區",
+        "village": "秀得里",
+        "count": 9
+      },
+      {
+        "city": "新北市",
+        "district": "永和區",
+        "village": "協和里",
+        "count": 18
+      },
+      {
+        "city": "新北市",
+        "district": "永和區",
+        "village": "和平里",
+        "count": 28
+      },
+      {
+        "city": "新北市",
+        "district": "永和區",
+        "village": "店街里",
+        "count": 26
+      },
+      {
+        "city": "新北市",
+        "district": "永和區",
+        "village": "忠義里",
+        "count": 5
+      },
+      {
+        "city": "新北市",
+        "district": "永和區",
+        "village": "河堤里",
+        "count": 12
+      },
+      {
+        "city": "新北市",
+        "district": "永和區",
+        "village": "河濱里",
+        "count": 14
+      },
+      {
+        "city": "新北市",
+        "district": "永和區",
+        "village": "保平里",
+        "count": 28
+      },
+      {
+        "city": "新北市",
+        "district": "永和區",
+        "village": "保安里",
+        "count": 32
+      },
+      {
+        "city": "新北市",
+        "district": "永和區",
+        "village": "保順里",
+        "count": 42
+      },
+      {
+        "city": "新北市",
+        "district": "永和區",
+        "village": "信義里",
+        "count": 21
+      },
+      {
+        "city": "新北市",
+        "district": "永和區",
+        "village": "前溪里",
+        "count": 24
+      },
+      {
+        "city": "新北市",
+        "district": "永和區",
+        "village": "後溪里",
+        "count": 20
+      },
+      {
+        "city": "新北市",
+        "district": "永和區",
+        "village": "桂林里",
+        "count": 14
+      },
+      {
+        "city": "新北市",
+        "district": "永和區",
+        "village": "得和里",
+        "count": 27
+      },
+      {
+        "city": "新北市",
+        "district": "永和區",
+        "village": "頂溪里",
+        "count": 24
+      },
+      {
+        "city": "新北市",
+        "district": "永和區",
+        "village": "復興里",
+        "count": 15
+      },
+      {
+        "city": "新北市",
+        "district": "永和區",
+        "village": "智光里",
+        "count": 21
+      },
+      {
+        "city": "新北市",
+        "district": "永和區",
+        "village": "新生里",
+        "count": 10
+      },
+      {
+        "city": "新北市",
+        "district": "永和區",
+        "village": "新部里",
+        "count": 17
+      },
+      {
+        "city": "新北市",
+        "district": "永和區",
+        "village": "碧山里",
+        "count": 1
+      },
+      {
+        "city": "新北市",
+        "district": "永和區",
+        "village": "福和里",
+        "count": 36
+      },
+      {
+        "city": "新北市",
+        "district": "永和區",
+        "village": "福林里",
+        "count": 23
+      },
+      {
+        "city": "新北市",
+        "district": "永和區",
+        "village": "網溪里",
+        "count": 10
+      },
+      {
+        "city": "新北市",
+        "district": "永和區",
+        "village": "潭安里",
+        "count": 30
+      },
+      {
+        "city": "新北市",
+        "district": "永和區",
+        "village": "潭墘里",
+        "count": 16
+      },
+      {
+        "city": "新北市",
+        "district": "永和區",
+        "village": "豫溪里",
+        "count": 26
+      },
+      {
+        "city": "新北市",
+        "district": "永和區",
+        "village": "勵行里",
+        "count": 15
+      },
+      {
+        "city": "新北市",
+        "district": "永和區",
+        "village": "雙和里",
+        "count": 23
+      },
+      {
+        "city": "新北市",
+        "district": "汐止區",
+        "village": "北山里",
+        "count": 21
+      },
+      {
+        "city": "新北市",
+        "district": "汐止區",
+        "village": "宜興里",
+        "count": 13
+      },
+      {
+        "city": "新北市",
+        "district": "汐止區",
+        "village": "忠山里",
+        "count": 3
+      },
+      {
+        "city": "新北市",
+        "district": "汐止區",
+        "village": "東勢里",
+        "count": 120
+      },
+      {
+        "city": "新北市",
+        "district": "汐止區",
+        "village": "福山里",
+        "count": 22
+      },
+      {
+        "city": "新北市",
+        "district": "汐止區",
+        "village": "橫科里",
+        "count": 1
+      },
+      {
+        "city": "新北市",
+        "district": "汐止區",
+        "village": "環河里",
+        "count": 6
+      },
+      {
+        "city": "新北市",
+        "district": "新店區",
+        "village": "下城里",
+        "count": 51
+      },
+      {
+        "city": "新北市",
+        "district": "新店區",
+        "village": "大同里",
+        "count": 35
+      },
+      {
+        "city": "新北市",
+        "district": "新店區",
+        "village": "大豐里",
+        "count": 27
+      },
+      {
+        "city": "新北市",
+        "district": "新店區",
+        "village": "大鵬里",
+        "count": 1
+      },
+      {
+        "city": "新北市",
+        "district": "新店區",
+        "village": "小城里",
+        "count": 31
+      },
+      {
+        "city": "新北市",
+        "district": "新店區",
+        "village": "中山里",
+        "count": 136
+      },
+      {
+        "city": "新北市",
+        "district": "新店區",
+        "village": "中央里",
+        "count": 61
+      },
+      {
+        "city": "新北市",
+        "district": "新店區",
+        "village": "中正里",
+        "count": 47
+      },
+      {
+        "city": "新北市",
+        "district": "新店區",
+        "village": "中華里",
+        "count": 35
+      },
+      {
+        "city": "新北市",
+        "district": "新店區",
+        "village": "中興里",
+        "count": 30
+      },
+      {
+        "city": "新北市",
+        "district": "新店區",
+        "village": "五峰里",
+        "count": 68
+      },
+      {
+        "city": "新北市",
+        "district": "新店區",
+        "village": "仁愛里",
+        "count": 18
+      },
+      {
+        "city": "新北市",
+        "district": "新店區",
+        "village": "公崙里",
+        "count": 49
+      },
+      {
+        "city": "新北市",
+        "district": "新店區",
+        "village": "太平里",
+        "count": 19
+      },
+      {
+        "city": "新北市",
+        "district": "新店區",
+        "village": "文中里",
+        "count": 13
+      },
+      {
+        "city": "新北市",
+        "district": "新店區",
+        "village": "文明里",
+        "count": 21
+      },
+      {
+        "city": "新北市",
+        "district": "新店區",
+        "village": "日興里",
+        "count": 66
+      },
+      {
+        "city": "新北市",
+        "district": "新店區",
+        "village": "永平里",
+        "count": 17
+      },
+      {
+        "city": "新北市",
+        "district": "新店區",
+        "village": "永安里",
+        "count": 41
+      },
+      {
+        "city": "新北市",
+        "district": "新店區",
+        "village": "吉祥里",
+        "count": 7
+      },
+      {
+        "city": "新北市",
+        "district": "新店區",
+        "village": "安和里",
+        "count": 81
+      },
+      {
+        "city": "新北市",
+        "district": "新店區",
+        "village": "安昌里",
+        "count": 5
+      },
+      {
+        "city": "新北市",
+        "district": "新店區",
+        "village": "江陵里",
+        "count": 27
+      },
+      {
+        "city": "新北市",
+        "district": "新店區",
+        "village": "百忍里",
+        "count": 21
+      },
+      {
+        "city": "新北市",
+        "district": "新店區",
+        "village": "百和里",
+        "count": 22
+      },
+      {
+        "city": "新北市",
+        "district": "新店區",
+        "village": "百福里",
+        "count": 19
+      },
+      {
+        "city": "新北市",
+        "district": "新店區",
+        "village": "和平里",
+        "count": 19
+      },
+      {
+        "city": "新北市",
+        "district": "新店區",
+        "village": "屈尺里",
+        "count": 67
+      },
+      {
+        "city": "新北市",
+        "district": "新店區",
+        "village": "忠孝里",
+        "count": 18
+      },
+      {
+        "city": "新北市",
+        "district": "新店區",
+        "village": "忠誠里",
+        "count": 22
+      },
+      {
+        "city": "新北市",
+        "district": "新店區",
+        "village": "明城里",
+        "count": 25
+      },
+      {
+        "city": "新北市",
+        "district": "新店區",
+        "village": "明德里",
+        "count": 21
+      },
+      {
+        "city": "新北市",
+        "district": "新店區",
+        "village": "玫瑰里",
+        "count": 49
+      },
+      {
+        "city": "新北市",
+        "district": "新店區",
+        "village": "直潭里",
+        "count": 81
+      },
+      {
+        "city": "新北市",
+        "district": "新店區",
+        "village": "長春里",
+        "count": 12
+      },
+      {
+        "city": "新北市",
+        "district": "新店區",
+        "village": "青潭里",
+        "count": 25
+      },
+      {
+        "city": "新北市",
+        "district": "新店區",
+        "village": "信義里",
+        "count": 31
+      },
+      {
+        "city": "新北市",
+        "district": "新店區",
+        "village": "建國里",
+        "count": 26
+      },
+      {
+        "city": "新北市",
+        "district": "新店區",
+        "village": "美城里",
+        "count": 35
+      },
+      {
+        "city": "新北市",
+        "district": "新店區",
+        "village": "美潭里",
+        "count": 25
+      },
+      {
+        "city": "新北市",
+        "district": "新店區",
+        "village": "員潭里",
+        "count": 12
+      },
+      {
+        "city": "新北市",
+        "district": "新店區",
+        "village": "柴埕里",
+        "count": 26
+      },
+      {
+        "city": "新北市",
+        "district": "新店區",
+        "village": "國校里",
+        "count": 26
+      },
+      {
+        "city": "新北市",
+        "district": "新店區",
+        "village": "國豐里",
+        "count": 25
+      },
+      {
+        "city": "新北市",
+        "district": "新店區",
+        "village": "張北里",
+        "count": 43
+      },
+      {
+        "city": "新北市",
+        "district": "新店區",
+        "village": "張南里",
+        "count": 7
+      },
+      {
+        "city": "新北市",
+        "district": "新店區",
+        "village": "粗坑里",
+        "count": 92
+      },
+      {
+        "city": "新北市",
+        "district": "新店區",
+        "village": "頂城里",
+        "count": 68
+      },
+      {
+        "city": "新北市",
+        "district": "新店區",
+        "village": "復興里",
+        "count": 53
+      },
+      {
+        "city": "新北市",
+        "district": "新店區",
+        "village": "塗潭里",
+        "count": 22
+      },
+      {
+        "city": "新北市",
+        "district": "新店區",
+        "village": "新生里",
+        "count": 23
+      },
+      {
+        "city": "新北市",
+        "district": "新店區",
+        "village": "新安里",
+        "count": 43
+      },
+      {
+        "city": "新北市",
+        "district": "新店區",
+        "village": "新和里",
+        "count": 17
+      },
+      {
+        "city": "新北市",
+        "district": "新店區",
+        "village": "新店里",
+        "count": 13
+      },
+      {
+        "city": "新北市",
+        "district": "新店區",
+        "village": "新德里",
+        "count": 14
+      },
+      {
+        "city": "新北市",
+        "district": "新店區",
+        "village": "達觀里",
+        "count": 1
+      },
+      {
+        "city": "新北市",
+        "district": "新店區",
+        "village": "碧山里",
+        "count": 2
+      },
+      {
+        "city": "新北市",
+        "district": "新店區",
+        "village": "福民里",
+        "count": 23
+      },
+      {
+        "city": "新北市",
+        "district": "新店區",
+        "village": "福德里",
+        "count": 27
+      },
+      {
+        "city": "新北市",
+        "district": "新店區",
+        "village": "廣明里",
+        "count": 17
+      },
+      {
+        "city": "新北市",
+        "district": "新店區",
+        "village": "廣興里",
+        "count": 44
+      },
+      {
+        "city": "新北市",
+        "district": "新店區",
+        "village": "德安里",
+        "count": 118
+      },
+      {
+        "city": "新北市",
+        "district": "新店區",
+        "village": "龜山里",
+        "count": 27
+      },
+      {
+        "city": "新北市",
+        "district": "新店區",
+        "village": "雙坑里",
+        "count": 1
+      },
+      {
+        "city": "新北市",
+        "district": "新店區",
+        "village": "雙城里",
+        "count": 67
+      },
+      {
+        "city": "新北市",
+        "district": "新店區",
+        "village": "寶安里",
+        "count": 57
+      },
+      {
+        "city": "新北市",
+        "district": "新店區",
+        "village": "寶福里",
+        "count": 48
+      },
+      {
+        "city": "新北市",
+        "district": "新店區",
+        "village": "寶興里",
+        "count": 23
+      },
+      {
+        "city": "新北市",
+        "district": "蘆洲區",
+        "village": "民和里",
+        "count": 4
+      },
+      {
+        "city": "臺北市",
+        "district": "士林區",
+        "village": "三玉里",
+        "count": 87
+      },
+      {
+        "city": "臺北市",
+        "district": "士林區",
+        "village": "仁勇里",
+        "count": 38
+      },
+      {
+        "city": "臺北市",
+        "district": "士林區",
+        "village": "公館里",
+        "count": 100
+      },
+      {
+        "city": "臺北市",
+        "district": "士林區",
+        "village": "天山里",
+        "count": 43
+      },
+      {
+        "city": "臺北市",
+        "district": "士林區",
+        "village": "天母里",
+        "count": 104
+      },
+      {
+        "city": "臺北市",
+        "district": "士林區",
+        "village": "天玉里",
+        "count": 53
+      },
+      {
+        "city": "臺北市",
+        "district": "士林區",
+        "village": "天和里",
+        "count": 50
+      },
+      {
+        "city": "臺北市",
+        "district": "士林區",
+        "village": "天祿里",
+        "count": 41
+      },
+      {
+        "city": "臺北市",
+        "district": "士林區",
+        "village": "天壽里",
+        "count": 47
+      },
+      {
+        "city": "臺北市",
+        "district": "士林區",
+        "village": "天福里",
+        "count": 53
+      },
+      {
+        "city": "臺北市",
+        "district": "士林區",
+        "village": "文林里",
+        "count": 1
+      },
+      {
+        "city": "臺北市",
+        "district": "士林區",
+        "village": "平等里",
+        "count": 50
+      },
+      {
+        "city": "臺北市",
+        "district": "士林區",
+        "village": "永倫里",
+        "count": 70
+      },
+      {
+        "city": "臺北市",
+        "district": "士林區",
+        "village": "永福里",
+        "count": 44
+      },
+      {
+        "city": "臺北市",
+        "district": "士林區",
+        "village": "名山里",
+        "count": 64
+      },
+      {
+        "city": "臺北市",
+        "district": "士林區",
+        "village": "百齡里",
+        "count": 19
+      },
+      {
+        "city": "臺北市",
+        "district": "士林區",
+        "village": "岩山里",
+        "count": 61
+      },
+      {
+        "city": "臺北市",
+        "district": "士林區",
+        "village": "忠誠里",
+        "count": 41
+      },
+      {
+        "city": "臺北市",
+        "district": "士林區",
+        "village": "承德里",
+        "count": 41
+      },
+      {
+        "city": "臺北市",
+        "district": "士林區",
+        "village": "明勝里",
+        "count": 32
+      },
+      {
+        "city": "臺北市",
+        "district": "士林區",
+        "village": "東山里",
+        "count": 49
+      },
+      {
+        "city": "臺北市",
+        "district": "士林區",
+        "village": "社子里",
+        "count": 45
+      },
+      {
+        "city": "臺北市",
+        "district": "士林區",
+        "village": "社園里",
+        "count": 39
+      },
+      {
+        "city": "臺北市",
+        "district": "士林區",
+        "village": "社新里",
+        "count": 59
+      },
+      {
+        "city": "臺北市",
+        "district": "士林區",
+        "village": "芝山里",
+        "count": 73
+      },
+      {
+        "city": "臺北市",
+        "district": "士林區",
+        "village": "信義里",
+        "count": 1
+      },
+      {
+        "city": "臺北市",
+        "district": "士林區",
+        "village": "前港里",
+        "count": 31
+      },
+      {
+        "city": "臺北市",
+        "district": "士林區",
+        "village": "後港里",
+        "count": 59
+      },
+      {
+        "city": "臺北市",
+        "district": "士林區",
+        "village": "富光里",
+        "count": 43
+      },
+      {
+        "city": "臺北市",
+        "district": "士林區",
+        "village": "富洲里",
+        "count": 93
+      },
+      {
+        "city": "臺北市",
+        "district": "士林區",
+        "village": "菁山里",
+        "count": 164
+      },
+      {
+        "city": "臺北市",
+        "district": "士林區",
+        "village": "陽明里",
+        "count": 125
+      },
+      {
+        "city": "臺北市",
+        "district": "士林區",
+        "village": "新安里",
+        "count": 74
+      },
+      {
+        "city": "臺北市",
+        "district": "士林區",
+        "village": "溪山里",
+        "count": 34
+      },
+      {
+        "city": "臺北市",
+        "district": "士林區",
+        "village": "義信里",
+        "count": 32
+      },
+      {
+        "city": "臺北市",
+        "district": "士林區",
+        "village": "聖山里",
+        "count": 23
+      },
+      {
+        "city": "臺北市",
+        "district": "士林區",
+        "village": "葫東里",
+        "count": 33
+      },
+      {
+        "city": "臺北市",
+        "district": "士林區",
+        "village": "葫蘆里",
+        "count": 45
+      },
+      {
+        "city": "臺北市",
+        "district": "士林區",
+        "village": "福中里",
+        "count": 35
+      },
+      {
+        "city": "臺北市",
+        "district": "士林區",
+        "village": "福安里",
+        "count": 74
+      },
+      {
+        "city": "臺北市",
+        "district": "士林區",
+        "village": "福志里",
+        "count": 68
+      },
+      {
+        "city": "臺北市",
+        "district": "士林區",
+        "village": "福佳里",
+        "count": 67
+      },
+      {
+        "city": "臺北市",
+        "district": "士林區",
+        "village": "福林里",
+        "count": 85
+      },
+      {
+        "city": "臺北市",
+        "district": "士林區",
+        "village": "福華里",
+        "count": 20
+      },
+      {
+        "city": "臺北市",
+        "district": "士林區",
+        "village": "福順里",
+        "count": 42
+      },
+      {
+        "city": "臺北市",
+        "district": "士林區",
+        "village": "福德里",
+        "count": 59
+      },
+      {
+        "city": "臺北市",
+        "district": "士林區",
+        "village": "翠山里",
+        "count": 44
+      },
+      {
+        "city": "臺北市",
+        "district": "士林區",
+        "village": "德行里",
+        "count": 35
+      },
+      {
+        "city": "臺北市",
+        "district": "士林區",
+        "village": "德華里",
+        "count": 57
+      },
+      {
+        "city": "臺北市",
+        "district": "士林區",
+        "village": "臨溪里",
+        "count": 83
+      },
+      {
+        "city": "臺北市",
+        "district": "士林區",
+        "village": "舊佳里",
+        "count": 45
+      },
+      {
+        "city": "臺北市",
+        "district": "士林區",
+        "village": "蘭雅里",
+        "count": 58
+      },
+      {
+        "city": "臺北市",
+        "district": "士林區",
+        "village": "蘭興里",
+        "count": 51
+      },
+      {
+        "city": "臺北市",
+        "district": "大同區",
+        "village": "大有里",
+        "count": 45
+      },
+      {
+        "city": "臺北市",
+        "district": "大同區",
+        "village": "民權里",
+        "count": 63
+      },
+      {
+        "city": "臺北市",
+        "district": "大同區",
+        "village": "永樂里",
+        "count": 56
+      },
+      {
+        "city": "臺北市",
+        "district": "大同區",
+        "village": "玉泉里",
+        "count": 59
+      },
+      {
+        "city": "臺北市",
+        "district": "大同區",
+        "village": "光能里",
+        "count": 41
+      },
+      {
+        "city": "臺北市",
+        "district": "大同區",
+        "village": "老師里",
+        "count": 48
+      },
+      {
+        "city": "臺北市",
+        "district": "大同區",
+        "village": "至聖里",
+        "count": 75
+      },
+      {
+        "city": "臺北市",
+        "district": "大同區",
+        "village": "延平里",
+        "count": 29
+      },
+      {
+        "city": "臺北市",
+        "district": "大同區",
+        "village": "保安里",
+        "count": 50
+      },
+      {
+        "city": "臺北市",
+        "district": "大同區",
+        "village": "南芳里",
+        "count": 29
+      },
+      {
+        "city": "臺北市",
+        "district": "大同區",
+        "village": "建功里",
+        "count": 42
+      },
+      {
+        "city": "臺北市",
+        "district": "大同區",
+        "village": "建明里",
+        "count": 43
+      },
+      {
+        "city": "臺北市",
+        "district": "大同區",
+        "village": "建泰里",
+        "count": 42
+      },
+      {
+        "city": "臺北市",
+        "district": "大同區",
+        "village": "星明里",
+        "count": 40
+      },
+      {
+        "city": "臺北市",
+        "district": "大同區",
+        "village": "重慶里",
+        "count": 64
+      },
+      {
+        "city": "臺北市",
+        "district": "大同區",
+        "village": "國順里",
+        "count": 26
+      },
+      {
+        "city": "臺北市",
+        "district": "大同區",
+        "village": "國慶里",
+        "count": 31
+      },
+      {
+        "city": "臺北市",
+        "district": "大同區",
+        "village": "揚雅里",
+        "count": 12
+      },
+      {
+        "city": "臺北市",
+        "district": "大同區",
+        "village": "斯文里",
+        "count": 39
+      },
+      {
+        "city": "臺北市",
+        "district": "大同區",
+        "village": "景星里",
+        "count": 17
+      },
+      {
+        "city": "臺北市",
+        "district": "大同區",
+        "village": "朝陽里",
+        "count": 38
+      },
+      {
+        "city": "臺北市",
+        "district": "大同區",
+        "village": "隆和里",
+        "count": 25
+      },
+      {
+        "city": "臺北市",
+        "district": "大同區",
+        "village": "楊雅里",
+        "count": 1
+      },
+      {
+        "city": "臺北市",
+        "district": "大同區",
+        "village": "蓬萊里",
+        "count": 30
+      },
+      {
+        "city": "臺北市",
+        "district": "大同區",
+        "village": "鄰江里",
+        "count": 45
+      },
+      {
+        "city": "臺北市",
+        "district": "大同區",
+        "village": "雙連里",
+        "count": 67
+      },
+      {
+        "city": "臺北市",
+        "district": "大安區",
+        "village": "大學里",
+        "count": 44
+      },
+      {
+        "city": "臺北市",
+        "district": "大安區",
+        "village": "仁愛里",
+        "count": 60
+      },
+      {
+        "city": "臺北市",
+        "district": "大安區",
+        "village": "仁慈里",
+        "count": 33
+      },
+      {
+        "city": "臺北市",
+        "district": "大安區",
+        "village": "古風里",
+        "count": 23
+      },
+      {
+        "city": "臺北市",
+        "district": "大安區",
+        "village": "古莊里",
+        "count": 48
+      },
+      {
+        "city": "臺北市",
+        "district": "大安區",
+        "village": "正聲里",
+        "count": 31
+      },
+      {
+        "city": "臺北市",
+        "district": "大安區",
+        "village": "民炤里",
+        "count": 65
+      },
+      {
+        "city": "臺北市",
+        "district": "大安區",
+        "village": "民輝里",
+        "count": 53
+      },
+      {
+        "city": "臺北市",
+        "district": "大安區",
+        "village": "永康里",
+        "count": 36
+      },
+      {
+        "city": "臺北市",
+        "district": "大安區",
+        "village": "光明里",
+        "count": 27
+      },
+      {
+        "city": "臺北市",
+        "district": "大安區",
+        "village": "光武里",
+        "count": 53
+      },
+      {
+        "city": "臺北市",
+        "district": "大安區",
+        "village": "光信里",
+        "count": 38
+      },
+      {
+        "city": "臺北市",
+        "district": "大安區",
+        "village": "全安里",
+        "count": 36
+      },
+      {
+        "city": "臺北市",
+        "district": "大安區",
+        "village": "住安里",
+        "count": 37
+      },
+      {
+        "city": "臺北市",
+        "district": "大安區",
+        "village": "車層里",
+        "count": 33
+      },
+      {
+        "city": "臺北市",
+        "district": "大安區",
+        "village": "和安里",
+        "count": 56
+      },
+      {
+        "city": "臺北市",
+        "district": "大安區",
+        "village": "昌隆里",
+        "count": 26
+      },
+      {
+        "city": "臺北市",
+        "district": "大安區",
+        "village": "法治里",
+        "count": 25
+      },
+      {
+        "city": "臺北市",
+        "district": "大安區",
+        "village": "臥龍里",
+        "count": 25
+      },
+      {
+        "city": "臺北市",
+        "district": "大安區",
+        "village": "芳和里",
+        "count": 56
+      },
+      {
+        "city": "臺北市",
+        "district": "大安區",
+        "village": "虎嘯里",
+        "count": 39
+      },
+      {
+        "city": "臺北市",
+        "district": "大安區",
+        "village": "建安里",
+        "count": 33
+      },
+      {
+        "city": "臺北市",
+        "district": "大安區",
+        "village": "建倫里",
+        "count": 43
+      },
+      {
+        "city": "臺北市",
+        "district": "大安區",
+        "village": "通化里",
+        "count": 33
+      },
+      {
+        "city": "臺北市",
+        "district": "大安區",
+        "village": "通安里",
+        "count": 41
+      },
+      {
+        "city": "臺北市",
+        "district": "大安區",
+        "village": "敦安里",
+        "count": 31
+      },
+      {
+        "city": "臺北市",
+        "district": "大安區",
+        "village": "敦煌里",
+        "count": 33
+      },
+      {
+        "city": "臺北市",
+        "district": "大安區",
+        "village": "華聲里",
+        "count": 38
+      },
+      {
+        "city": "臺北市",
+        "district": "大安區",
+        "village": "新龍里",
+        "count": 21
+      },
+      {
+        "city": "臺北市",
+        "district": "大安區",
+        "village": "群英里",
+        "count": 5
+      },
+      {
+        "city": "臺北市",
+        "district": "大安區",
+        "village": "群賢里",
+        "count": 38
+      },
+      {
+        "city": "臺北市",
+        "district": "大安區",
+        "village": "義安里",
+        "count": 52
+      },
+      {
+        "city": "臺北市",
+        "district": "大安區",
+        "village": "義村里",
+        "count": 42
+      },
+      {
+        "city": "臺北市",
+        "district": "大安區",
+        "village": "誠安里",
+        "count": 30
+      },
+      {
+        "city": "臺北市",
+        "district": "大安區",
+        "village": "福住里",
+        "count": 46
+      },
+      {
+        "city": "臺北市",
+        "district": "大安區",
+        "village": "德安里",
+        "count": 40
+      },
+      {
+        "city": "臺北市",
+        "district": "大安區",
+        "village": "黎元里",
+        "count": 29
+      },
+      {
+        "city": "臺北市",
+        "district": "大安區",
+        "village": "黎孝里",
+        "count": 32
+      },
+      {
+        "city": "臺北市",
+        "district": "大安區",
+        "village": "黎和里",
+        "count": 26
+      },
+      {
+        "city": "臺北市",
+        "district": "大安區",
+        "village": "學府里",
+        "count": 128
+      },
+      {
+        "city": "臺北市",
+        "district": "大安區",
+        "village": "錦安里",
+        "count": 41
+      },
+      {
+        "city": "臺北市",
+        "district": "大安區",
+        "village": "錦泰里",
+        "count": 29
+      },
+      {
+        "city": "臺北市",
+        "district": "大安區",
+        "village": "錦華里",
+        "count": 30
+      },
+      {
+        "city": "臺北市",
+        "district": "大安區",
+        "village": "龍生里",
+        "count": 28
+      },
+      {
+        "city": "臺北市",
+        "district": "大安區",
+        "village": "龍安里",
+        "count": 35
+      },
+      {
+        "city": "臺北市",
+        "district": "大安區",
+        "village": "龍坡里",
+        "count": 36
+      },
+      {
+        "city": "臺北市",
+        "district": "大安區",
+        "village": "龍門里",
+        "count": 50
+      },
+      {
+        "city": "臺北市",
+        "district": "大安區",
+        "village": "龍泉里",
+        "count": 24
+      },
+      {
+        "city": "臺北市",
+        "district": "大安區",
+        "village": "龍陣里",
+        "count": 21
+      },
+      {
+        "city": "臺北市",
+        "district": "大安區",
+        "village": "龍淵里",
+        "count": 44
+      },
+      {
+        "city": "臺北市",
+        "district": "大安區",
+        "village": "龍雲里",
+        "count": 47
+      },
+      {
+        "city": "臺北市",
+        "district": "大安區",
+        "village": "龍圖里",
+        "count": 41
+      },
+      {
+        "city": "臺北市",
+        "district": "大安區",
+        "village": "臨江里",
+        "count": 23
+      },
+      {
+        "city": "臺北市",
+        "district": "中山區",
+        "village": "力行里",
+        "count": 70
+      },
+      {
+        "city": "臺北市",
+        "district": "中山區",
+        "village": "下埤里",
+        "count": 56
+      },
+      {
+        "city": "臺北市",
+        "district": "中山區",
+        "village": "大佳里",
+        "count": 55
+      },
+      {
+        "city": "臺北市",
+        "district": "中山區",
+        "village": "大直里",
+        "count": 77
+      },
+      {
+        "city": "臺北市",
+        "district": "中山區",
+        "village": "中山里",
+        "count": 47
+      },
+      {
+        "city": "臺北市",
+        "district": "中山區",
+        "village": "中央里",
+        "count": 51
+      },
+      {
+        "city": "臺北市",
+        "district": "中山區",
+        "village": "中吉里",
+        "count": 72
+      },
+      {
+        "city": "臺北市",
+        "district": "中山區",
+        "village": "中庄里",
+        "count": 45
+      },
+      {
+        "city": "臺北市",
+        "district": "中山區",
+        "village": "中原里",
+        "count": 50
+      },
+      {
+        "city": "臺北市",
+        "district": "中山區",
+        "village": "北安里",
+        "count": 21
+      },
+      {
+        "city": "臺北市",
+        "district": "中山區",
+        "village": "正守里",
+        "count": 37
+      },
+      {
+        "city": "臺北市",
+        "district": "中山區",
+        "village": "正得里",
+        "count": 44
+      },
+      {
+        "city": "臺北市",
+        "district": "中山區",
+        "village": "正義里",
+        "count": 33
+      },
+      {
+        "city": "臺北市",
+        "district": "中山區",
+        "village": "民安里",
+        "count": 64
+      },
+      {
+        "city": "臺北市",
+        "district": "中山區",
+        "village": "永安里",
+        "count": 60
+      },
+      {
+        "city": "臺北市",
+        "district": "中山區",
+        "village": "成功里",
+        "count": 151
+      },
+      {
+        "city": "臺北市",
+        "district": "中山區",
+        "village": "朱崙里",
+        "count": 37
+      },
+      {
+        "city": "臺北市",
+        "district": "中山區",
+        "village": "朱園里",
+        "count": 69
+      },
+      {
+        "city": "臺北市",
+        "district": "中山區",
+        "village": "朱馥里",
+        "count": 59
+      },
+      {
+        "city": "臺北市",
+        "district": "中山區",
+        "village": "江山里",
+        "count": 52
+      },
+      {
+        "city": "臺北市",
+        "district": "中山區",
+        "village": "江寧里",
+        "count": 50
+      },
+      {
+        "city": "臺北市",
+        "district": "中山區",
+        "village": "行仁里",
+        "count": 38
+      },
+      {
+        "city": "臺北市",
+        "district": "中山區",
+        "village": "行孝里",
+        "count": 31
+      },
+      {
+        "city": "臺北市",
+        "district": "中山區",
+        "village": "行政里",
+        "count": 45
+      },
+      {
+        "city": "臺北市",
+        "district": "中山區",
+        "village": "松江里",
+        "count": 42
+      },
+      {
+        "city": "臺北市",
+        "district": "中山區",
+        "village": "金泰里",
+        "count": 157
+      },
+      {
+        "city": "臺北市",
+        "district": "中山區",
+        "village": "恆安里",
+        "count": 27
+      },
+      {
+        "city": "臺北市",
+        "district": "中山區",
+        "village": "員山里",
+        "count": 1
+      },
+      {
+        "city": "臺北市",
+        "district": "中山區",
+        "village": "埤頭里",
+        "count": 39
+      },
+      {
+        "city": "臺北市",
+        "district": "中山區",
+        "village": "康樂里",
+        "count": 40
+      },
+      {
+        "city": "臺北市",
+        "district": "中山區",
+        "village": "復華里",
+        "count": 63
+      },
+      {
+        "city": "臺北市",
+        "district": "中山區",
+        "village": "晴光里",
+        "count": 29
+      },
+      {
+        "city": "臺北市",
+        "district": "中山區",
+        "village": "集英里",
+        "count": 72
+      },
+      {
+        "city": "臺北市",
+        "district": "中山區",
+        "village": "圓山里",
+        "count": 58
+      },
+      {
+        "city": "臺北市",
+        "district": "中山區",
+        "village": "新生里",
+        "count": 53
+      },
+      {
+        "city": "臺北市",
+        "district": "中山區",
+        "village": "新庄里",
+        "count": 44
+      },
+      {
+        "city": "臺北市",
+        "district": "中山區",
+        "village": "新喜里",
+        "count": 40
+      },
+      {
+        "city": "臺北市",
+        "district": "中山區",
+        "village": "新福里",
+        "count": 48
+      },
+      {
+        "city": "臺北市",
+        "district": "中山區",
+        "village": "聚盛里",
+        "count": 31
+      },
+      {
+        "city": "臺北市",
+        "district": "中山區",
+        "village": "聚葉里",
+        "count": 35
+      },
+      {
+        "city": "臺北市",
+        "district": "中山區",
+        "village": "劍潭里",
+        "count": 61
+      },
+      {
+        "city": "臺北市",
+        "district": "中山區",
+        "village": "興亞里",
+        "count": 73
+      },
+      {
+        "city": "臺北市",
+        "district": "中山區",
+        "village": "龍洲里",
+        "count": 17
+      },
+      {
+        "city": "臺北市",
+        "district": "中正區",
+        "village": "三愛里",
+        "count": 62
+      },
+      {
+        "city": "臺北市",
+        "district": "中正區",
+        "village": "文北里",
+        "count": 49
+      },
+      {
+        "city": "臺北市",
+        "district": "中正區",
+        "village": "文盛里",
+        "count": 32
+      },
+      {
+        "city": "臺北市",
+        "district": "中正區",
+        "village": "文祥里",
+        "count": 32
+      },
+      {
+        "city": "臺北市",
+        "district": "中正區",
+        "village": "水源里",
+        "count": 49
+      },
+      {
+        "city": "臺北市",
+        "district": "中正區",
+        "village": "永功里",
+        "count": 56
+      },
+      {
+        "city": "臺北市",
+        "district": "中正區",
+        "village": "永昌里",
+        "count": 36
+      },
+      {
+        "city": "臺北市",
+        "district": "中正區",
+        "village": "光復里",
+        "count": 69
+      },
+      {
+        "city": "臺北市",
+        "district": "中正區",
+        "village": "幸市里",
+        "count": 52
+      },
+      {
+        "city": "臺北市",
+        "district": "中正區",
+        "village": "幸福里",
+        "count": 47
+      },
+      {
+        "city": "臺北市",
+        "district": "中正區",
+        "village": "忠勤里",
+        "count": 32
+      },
+      {
+        "city": "臺北市",
+        "district": "中正區",
+        "village": "東門里",
+        "count": 86
+      },
+      {
+        "city": "臺北市",
+        "district": "中正區",
+        "village": "板溪里",
+        "count": 33
+      },
+      {
+        "city": "臺北市",
+        "district": "中正區",
+        "village": "林興里",
+        "count": 41
+      },
+      {
+        "city": "臺北市",
+        "district": "中正區",
+        "village": "河堤里",
+        "count": 27
+      },
+      {
+        "city": "臺北市",
+        "district": "中正區",
+        "village": "南門里",
+        "count": 55
+      },
+      {
+        "city": "臺北市",
+        "district": "中正區",
+        "village": "南福里",
+        "count": 67
+      },
+      {
+        "city": "臺北市",
+        "district": "中正區",
+        "village": "建國里",
+        "count": 70
+      },
+      {
+        "city": "臺北市",
+        "district": "中正區",
+        "village": "梅花里",
+        "count": 74
+      },
+      {
+        "city": "臺北市",
+        "district": "中正區",
+        "village": "頂東里",
+        "count": 40
+      },
+      {
+        "city": "臺北市",
+        "district": "中正區",
+        "village": "富水里",
+        "count": 26
+      },
+      {
+        "city": "臺北市",
+        "district": "中正區",
+        "village": "廈安里",
+        "count": 27
+      },
+      {
+        "city": "臺北市",
+        "district": "中正區",
+        "village": "愛國里",
+        "count": 28
+      },
+      {
+        "city": "臺北市",
+        "district": "中正區",
+        "village": "新營里",
+        "count": 36
+      },
+      {
+        "city": "臺北市",
+        "district": "中正區",
+        "village": "網溪里",
+        "count": 33
+      },
+      {
+        "city": "臺北市",
+        "district": "中正區",
+        "village": "黎明里",
+        "count": 102
+      },
+      {
+        "city": "臺北市",
+        "district": "中正區",
+        "village": "螢圃里",
+        "count": 41
+      },
+      {
+        "city": "臺北市",
+        "district": "中正區",
+        "village": "螢雪里",
+        "count": 52
+      },
+      {
+        "city": "臺北市",
+        "district": "中正區",
+        "village": "龍光里",
+        "count": 32
+      },
+      {
+        "city": "臺北市",
+        "district": "中正區",
+        "village": "龍福里",
+        "count": 60
+      },
+      {
+        "city": "臺北市",
+        "district": "中正區",
+        "village": "龍興里",
+        "count": 35
+      },
+      {
+        "city": "臺北市",
+        "district": "內湖區",
+        "village": "大湖里",
+        "count": 60
+      },
+      {
+        "city": "臺北市",
+        "district": "內湖區",
+        "village": "五分里",
+        "count": 54
+      },
+      {
+        "city": "臺北市",
+        "district": "內湖區",
+        "village": "內湖里",
+        "count": 30
+      },
+      {
+        "city": "臺北市",
+        "district": "內湖區",
+        "village": "內溝里",
+        "count": 46
+      },
+      {
+        "city": "臺北市",
+        "district": "內湖區",
+        "village": "石潭里",
+        "count": 137
+      },
+      {
+        "city": "臺北市",
+        "district": "內湖區",
+        "village": "安泰里",
+        "count": 37
+      },
+      {
+        "city": "臺北市",
+        "district": "內湖區",
+        "village": "安湖里",
+        "count": 23
+      },
+      {
+        "city": "臺北市",
+        "district": "內湖區",
+        "village": "行善里",
+        "count": 35
+      },
+      {
+        "city": "臺北市",
+        "district": "內湖區",
+        "village": "西安里",
+        "count": 47
+      },
+      {
+        "city": "臺北市",
+        "district": "內湖區",
+        "village": "西康里",
+        "count": 123
+      },
+      {
+        "city": "臺北市",
+        "district": "內湖區",
+        "village": "西湖里",
+        "count": 116
+      },
+      {
+        "city": "臺北市",
+        "district": "內湖區",
+        "village": "秀湖里",
+        "count": 66
+      },
+      {
+        "city": "臺北市",
+        "district": "內湖區",
+        "village": "明湖里",
+        "count": 16
+      },
+      {
+        "city": "臺北市",
+        "district": "內湖區",
+        "village": "東湖里",
+        "count": 28
+      },
+      {
+        "city": "臺北市",
+        "district": "內湖區",
+        "village": "金湖里",
+        "count": 81
+      },
+      {
+        "city": "臺北市",
+        "district": "內湖區",
+        "village": "金瑞里",
+        "count": 29
+      },
+      {
+        "city": "臺北市",
+        "district": "內湖區",
+        "village": "金龍里",
+        "count": 33
+      },
+      {
+        "city": "臺北市",
+        "district": "內湖區",
+        "village": "南湖里",
+        "count": 31
+      },
+      {
+        "city": "臺北市",
+        "district": "內湖區",
+        "village": "康寧里",
+        "count": 47
+      },
+      {
+        "city": "臺北市",
+        "district": "內湖區",
+        "village": "清白里",
+        "count": 46
+      },
+      {
+        "city": "臺北市",
+        "district": "內湖區",
+        "village": "港都里",
+        "count": 35
+      },
+      {
+        "city": "臺北市",
+        "district": "內湖區",
+        "village": "港富里",
+        "count": 68
+      },
+      {
+        "city": "臺北市",
+        "district": "內湖區",
+        "village": "港華里",
+        "count": 66
+      },
+      {
+        "city": "臺北市",
+        "district": "內湖區",
+        "village": "港墘里",
+        "count": 132
+      },
+      {
+        "city": "臺北市",
+        "district": "內湖區",
+        "village": "湖元里",
+        "count": 401
+      },
+      {
+        "city": "臺北市",
+        "district": "內湖區",
+        "village": "湖興里",
+        "count": 69
+      },
+      {
+        "city": "臺北市",
+        "district": "內湖區",
+        "village": "湖濱里",
+        "count": 60
+      },
+      {
+        "city": "臺北市",
+        "district": "內湖區",
+        "village": "紫星里",
+        "count": 48
+      },
+      {
+        "city": "臺北市",
+        "district": "內湖區",
+        "village": "紫陽里",
+        "count": 57
+      },
+      {
+        "city": "臺北市",
+        "district": "內湖區",
+        "village": "紫雲里",
+        "count": 37
+      },
+      {
+        "city": "臺北市",
+        "district": "內湖區",
+        "village": "週美里",
+        "count": 111
+      },
+      {
+        "city": "臺北市",
+        "district": "內湖區",
+        "village": "瑞光里",
+        "count": 16
+      },
+      {
+        "city": "臺北市",
+        "district": "內湖區",
+        "village": "瑞陽里",
+        "count": 45
+      },
+      {
+        "city": "臺北市",
+        "district": "內湖區",
+        "village": "葫洲里",
+        "count": 37
+      },
+      {
+        "city": "臺北市",
+        "district": "內湖區",
+        "village": "碧山里",
+        "count": 101
+      },
+      {
+        "city": "臺北市",
+        "district": "內湖區",
+        "village": "樂康里",
+        "count": 35
+      },
+      {
+        "city": "臺北市",
+        "district": "內湖區",
+        "village": "麗山里",
+        "count": 29
+      },
+      {
+        "city": "臺北市",
+        "district": "內湖區",
+        "village": "寶湖里",
+        "count": 121
+      },
+      {
+        "city": "臺北市",
+        "district": "內湖區",
+        "village": "蘆洲里",
+        "count": 47
+      },
+      {
+        "city": "臺北市",
+        "district": "文山區",
+        "village": "木柵里",
+        "count": 83
+      },
+      {
+        "city": "臺北市",
+        "district": "文山區",
+        "village": "木新里",
+        "count": 55
+      },
+      {
+        "city": "臺北市",
+        "district": "文山區",
+        "village": "老泉里",
+        "count": 61
+      },
+      {
+        "city": "臺北市",
+        "district": "文山區",
+        "village": "忠順里",
+        "count": 37
+      },
+      {
+        "city": "臺北市",
+        "district": "文山區",
+        "village": "明義里",
+        "count": 33
+      },
+      {
+        "city": "臺北市",
+        "district": "文山區",
+        "village": "明興里",
+        "count": 38
+      },
+      {
+        "city": "臺北市",
+        "district": "文山區",
+        "village": "指南里",
+        "count": 101
+      },
+      {
+        "city": "臺北市",
+        "district": "文山區",
+        "village": "政大里",
+        "count": 53
+      },
+      {
+        "city": "臺北市",
+        "district": "文山區",
+        "village": "博嘉里",
+        "count": 96
+      },
+      {
+        "city": "臺北市",
+        "district": "文山區",
+        "village": "景仁里",
+        "count": 38
+      },
+      {
+        "city": "臺北市",
+        "district": "文山區",
+        "village": "景行里",
+        "count": 47
+      },
+      {
+        "city": "臺北市",
+        "district": "文山區",
+        "village": "景東里",
+        "count": 23
+      },
+      {
+        "city": "臺北市",
+        "district": "文山區",
+        "village": "景美里",
+        "count": 35
+      },
+      {
+        "city": "臺北市",
+        "district": "文山區",
+        "village": "景華里",
+        "count": 42
+      },
+      {
+        "city": "臺北市",
+        "district": "文山區",
+        "village": "景慶里",
+        "count": 36
+      },
+      {
+        "city": "臺北市",
+        "district": "文山區",
+        "village": "華興里",
+        "count": 71
+      },
+      {
+        "city": "臺北市",
+        "district": "文山區",
+        "village": "順興里",
+        "count": 38
+      },
+      {
+        "city": "臺北市",
+        "district": "文山區",
+        "village": "萬年里",
+        "count": 53
+      },
+      {
+        "city": "臺北市",
+        "district": "文山區",
+        "village": "萬有里",
+        "count": 35
+      },
+      {
+        "city": "臺北市",
+        "district": "文山區",
+        "village": "萬和里",
+        "count": 31
+      },
+      {
+        "city": "臺北市",
+        "district": "文山區",
+        "village": "萬芳里",
+        "count": 42
+      },
+      {
+        "city": "臺北市",
+        "district": "文山區",
+        "village": "萬美里",
+        "count": 56
+      },
+      {
+        "city": "臺北市",
+        "district": "文山區",
+        "village": "萬盛里",
+        "count": 40
+      },
+      {
+        "city": "臺北市",
+        "district": "文山區",
+        "village": "萬祥里",
+        "count": 30
+      },
+      {
+        "city": "臺北市",
+        "district": "文山區",
+        "village": "萬隆里",
+        "count": 25
+      },
+      {
+        "city": "臺北市",
+        "district": "文山區",
+        "village": "萬興里",
+        "count": 69
+      },
+      {
+        "city": "臺北市",
+        "district": "文山區",
+        "village": "試院里",
+        "count": 58
+      },
+      {
+        "city": "臺北市",
+        "district": "文山區",
+        "village": "樟文里",
+        "count": 38
+      },
+      {
+        "city": "臺北市",
+        "district": "文山區",
+        "village": "樟林里",
+        "count": 60
+      },
+      {
+        "city": "臺北市",
+        "district": "文山區",
+        "village": "樟新里",
+        "count": 32
+      },
+      {
+        "city": "臺北市",
+        "district": "文山區",
+        "village": "樟腳里",
+        "count": 40
+      },
+      {
+        "city": "臺北市",
+        "district": "文山區",
+        "village": "樟樹里",
+        "count": 25
+      },
+      {
+        "city": "臺北市",
+        "district": "文山區",
+        "village": "興光里",
+        "count": 29
+      },
+      {
+        "city": "臺北市",
+        "district": "文山區",
+        "village": "興安里",
+        "count": 47
+      },
+      {
+        "city": "臺北市",
+        "district": "文山區",
+        "village": "興邦里",
+        "count": 30
+      },
+      {
+        "city": "臺北市",
+        "district": "文山區",
+        "village": "興旺里",
+        "count": 42
+      },
+      {
+        "city": "臺北市",
+        "district": "文山區",
+        "village": "興昌里",
+        "count": 62
+      },
+      {
+        "city": "臺北市",
+        "district": "文山區",
+        "village": "興家里",
+        "count": 38
+      },
+      {
+        "city": "臺北市",
+        "district": "文山區",
+        "village": "興泰里",
+        "count": 32
+      },
+      {
+        "city": "臺北市",
+        "district": "文山區",
+        "village": "興得里",
+        "count": 46
+      },
+      {
+        "city": "臺北市",
+        "district": "文山區",
+        "village": "興業里",
+        "count": 36
+      },
+      {
+        "city": "臺北市",
+        "district": "文山區",
+        "village": "興福里",
+        "count": 27
+      },
+      {
+        "city": "臺北市",
+        "district": "文山區",
+        "village": "興豐里",
+        "count": 33
+      },
+      {
+        "city": "臺北市",
+        "district": "北投區",
+        "village": "一德里",
+        "count": 115
+      },
+      {
+        "city": "臺北市",
+        "district": "北投區",
+        "village": "八仙里",
+        "count": 105
+      },
+      {
+        "city": "臺北市",
+        "district": "北投區",
+        "village": "大屯里",
+        "count": 43
+      },
+      {
+        "city": "臺北市",
+        "district": "北投區",
+        "village": "大同里",
+        "count": 32
+      },
+      {
+        "city": "臺北市",
+        "district": "北投區",
+        "village": "中心里",
+        "count": 48
+      },
+      {
+        "city": "臺北市",
+        "district": "北投區",
+        "village": "中央里",
+        "count": 47
+      },
+      {
+        "city": "臺北市",
+        "district": "北投區",
+        "village": "中和里",
+        "count": 46
+      },
+      {
+        "city": "臺北市",
+        "district": "北投區",
+        "village": "中庸里",
+        "count": 31
+      },
+      {
+        "city": "臺北市",
+        "district": "北投區",
+        "village": "文化里",
+        "count": 18
+      },
+      {
+        "city": "臺北市",
+        "district": "北投區",
+        "village": "文林里",
+        "count": 29
+      },
+      {
+        "city": "臺北市",
+        "district": "北投區",
+        "village": "永和里",
+        "count": 94
+      },
+      {
+        "city": "臺北市",
+        "district": "北投區",
+        "village": "永明里",
+        "count": 29
+      },
+      {
+        "city": "臺北市",
+        "district": "北投區",
+        "village": "永欣里",
+        "count": 47
+      },
+      {
+        "city": "臺北市",
+        "district": "北投區",
+        "village": "石牌里",
+        "count": 36
+      },
+      {
+        "city": "臺北市",
+        "district": "北投區",
+        "village": "立農里",
+        "count": 56
+      },
+      {
+        "city": "臺北市",
+        "district": "北投區",
+        "village": "立賢里",
+        "count": 41
+      },
+      {
+        "city": "臺北市",
+        "district": "北投區",
+        "village": "吉利里",
+        "count": 40
+      },
+      {
+        "city": "臺北市",
+        "district": "北投區",
+        "village": "吉慶里",
+        "count": 29
+      },
+      {
+        "city": "臺北市",
+        "district": "北投區",
+        "village": "秀山里",
+        "count": 37
+      },
+      {
+        "city": "臺北市",
+        "district": "北投區",
+        "village": "奇岩里",
+        "count": 111
+      },
+      {
+        "city": "臺北市",
+        "district": "北投區",
+        "village": "東華里",
+        "count": 51
+      },
+      {
+        "city": "臺北市",
+        "district": "北投區",
+        "village": "林泉里",
+        "count": 57
+      },
+      {
+        "city": "臺北市",
+        "district": "北投區",
+        "village": "長安里",
+        "count": 50
+      },
+      {
+        "city": "臺北市",
+        "district": "北投區",
+        "village": "建民里",
+        "count": 130
+      },
+      {
+        "city": "臺北市",
+        "district": "北投區",
+        "village": "泉源里",
+        "count": 62
+      },
+      {
+        "city": "臺北市",
+        "district": "北投區",
+        "village": "洲美里",
+        "count": 115
+      },
+      {
+        "city": "臺北市",
+        "district": "北投區",
+        "village": "振華里",
+        "count": 58
+      },
+      {
+        "city": "臺北市",
+        "district": "北投區",
+        "village": "桃源里",
+        "count": 44
+      },
+      {
+        "city": "臺北市",
+        "district": "北投區",
+        "village": "清江里",
+        "count": 70
+      },
+      {
+        "city": "臺北市",
+        "district": "北投區",
+        "village": "尊賢里",
+        "count": 28
+      },
+      {
+        "city": "臺北市",
+        "district": "北投區",
+        "village": "智仁里",
+        "count": 42
+      },
+      {
+        "city": "臺北市",
+        "district": "北投區",
+        "village": "湖山里",
+        "count": 55
+      },
+      {
+        "city": "臺北市",
+        "district": "北投區",
+        "village": "湖田里",
+        "count": 67
+      },
+      {
+        "city": "臺北市",
+        "district": "北投區",
+        "village": "開明里",
+        "count": 79
+      },
+      {
+        "city": "臺北市",
+        "district": "北投區",
+        "village": "溫泉里",
+        "count": 45
+      },
+      {
+        "city": "臺北市",
+        "district": "北投區",
+        "village": "裕民里",
+        "count": 53
+      },
+      {
+        "city": "臺北市",
+        "district": "北投區",
+        "village": "榮光里",
+        "count": 60
+      },
+      {
+        "city": "臺北市",
+        "district": "北投區",
+        "village": "榮華里",
+        "count": 63
+      },
+      {
+        "city": "臺北市",
+        "district": "北投區",
+        "village": "福興里",
+        "count": 51
+      },
+      {
+        "city": "臺北市",
+        "district": "北投區",
+        "village": "稻香里",
+        "count": 48
+      },
+      {
+        "city": "臺北市",
+        "district": "北投區",
+        "village": "豐年里",
+        "count": 29
+      },
+      {
+        "city": "臺北市",
+        "district": "北投區",
+        "village": "關渡里",
+        "count": 73
+      },
+      {
+        "city": "臺北市",
+        "district": "松山區",
+        "village": "三民里",
+        "count": 36
+      },
+      {
+        "city": "臺北市",
+        "district": "松山區",
+        "village": "中正里",
+        "count": 78
+      },
+      {
+        "city": "臺北市",
+        "district": "松山區",
+        "village": "中崙里",
+        "count": 21
+      },
+      {
+        "city": "臺北市",
+        "district": "松山區",
+        "village": "中華里",
+        "count": 43
+      },
+      {
+        "city": "臺北市",
+        "district": "松山區",
+        "village": "介壽里",
+        "count": 34
+      },
+      {
+        "city": "臺北市",
+        "district": "松山區",
+        "village": "民有里",
+        "count": 54
+      },
+      {
+        "city": "臺北市",
+        "district": "松山區",
+        "village": "民福里",
+        "count": 44
+      },
+      {
+        "city": "臺北市",
+        "district": "松山區",
+        "village": "吉仁里",
+        "count": 12
+      },
+      {
+        "city": "臺北市",
+        "district": "松山區",
+        "village": "吉祥里",
+        "count": 57
+      },
+      {
+        "city": "臺北市",
+        "district": "松山區",
+        "village": "安平里",
+        "count": 70
+      },
+      {
+        "city": "臺北市",
+        "district": "松山區",
+        "village": "自強里",
+        "count": 32
+      },
+      {
+        "city": "臺北市",
+        "district": "松山區",
+        "village": "東光里",
+        "count": 43
+      },
+      {
+        "city": "臺北市",
+        "district": "松山區",
+        "village": "東昌里",
+        "count": 19
+      },
+      {
+        "city": "臺北市",
+        "district": "松山區",
+        "village": "東勢里",
+        "count": 25
+      },
+      {
+        "city": "臺北市",
+        "district": "松山區",
+        "village": "東榮里",
+        "count": 58
+      },
+      {
+        "city": "臺北市",
+        "district": "松山區",
+        "village": "松基里",
+        "count": 45
+      },
+      {
+        "city": "臺北市",
+        "district": "松山區",
+        "village": "美仁里",
+        "count": 37
+      },
+      {
+        "city": "臺北市",
+        "district": "松山區",
+        "village": "莊敬里",
+        "count": 74
+      },
+      {
+        "city": "臺北市",
+        "district": "松山區",
+        "village": "富泰里",
+        "count": 19
+      },
+      {
+        "city": "臺北市",
+        "district": "松山區",
+        "village": "富錦里",
+        "count": 23
+      },
+      {
+        "city": "臺北市",
+        "district": "松山區",
+        "village": "復建里",
+        "count": 26
+      },
+      {
+        "city": "臺北市",
+        "district": "松山區",
+        "village": "復盛里",
+        "count": 40
+      },
+      {
+        "city": "臺北市",
+        "district": "松山區",
+        "village": "復勢里",
+        "count": 40
+      },
+      {
+        "city": "臺北市",
+        "district": "松山區",
+        "village": "復源里",
+        "count": 15
+      },
+      {
+        "city": "臺北市",
+        "district": "松山區",
+        "village": "敦化里",
+        "count": 42
+      },
+      {
+        "city": "臺北市",
+        "district": "松山區",
+        "village": "慈祐里",
+        "count": 53
+      },
+      {
+        "city": "臺北市",
+        "district": "松山區",
+        "village": "新東里",
+        "count": 36
+      },
+      {
+        "city": "臺北市",
+        "district": "松山區",
+        "village": "新益里",
+        "count": 36
+      },
+      {
+        "city": "臺北市",
+        "district": "松山區",
+        "village": "新聚里",
+        "count": 47
+      },
+      {
+        "city": "臺北市",
+        "district": "松山區",
+        "village": "福成里",
+        "count": 17
+      },
+      {
+        "city": "臺北市",
+        "district": "松山區",
+        "village": "精忠里",
+        "count": 58
+      },
+      {
+        "city": "臺北市",
+        "district": "松山區",
+        "village": "龍田里",
+        "count": 29
+      },
+      {
+        "city": "臺北市",
+        "district": "松山區",
+        "village": "鵬程里",
+        "count": 29
+      },
+      {
+        "city": "臺北市",
+        "district": "信義區",
+        "village": "三張里",
+        "count": 70
+      },
+      {
+        "city": "臺北市",
+        "district": "信義區",
+        "village": "三犁里",
+        "count": 51
+      },
+      {
+        "city": "臺北市",
+        "district": "信義區",
+        "village": "大仁里",
+        "count": 41
+      },
+      {
+        "city": "臺北市",
+        "district": "信義區",
+        "village": "大道里",
+        "count": 39
+      },
+      {
+        "city": "臺北市",
+        "district": "信義區",
+        "village": "中行里",
+        "count": 49
+      },
+      {
+        "city": "臺北市",
+        "district": "信義區",
+        "village": "中坡里",
+        "count": 24
+      },
+      {
+        "city": "臺北市",
+        "district": "信義區",
+        "village": "中興里",
+        "count": 17
+      },
+      {
+        "city": "臺北市",
+        "district": "信義區",
+        "village": "五全里",
+        "count": 26
+      },
+      {
+        "city": "臺北市",
+        "district": "信義區",
+        "village": "五常里",
+        "count": 25
+      },
+      {
+        "city": "臺北市",
+        "district": "信義區",
+        "village": "六合里",
+        "count": 58
+      },
+      {
+        "city": "臺北市",
+        "district": "信義區",
+        "village": "六藝里",
+        "count": 25
+      },
+      {
+        "city": "臺北市",
+        "district": "信義區",
+        "village": "四育里",
+        "count": 39
+      },
+      {
+        "city": "臺北市",
+        "district": "信義區",
+        "village": "四維里",
+        "count": 15
+      },
+      {
+        "city": "臺北市",
+        "district": "信義區",
+        "village": "正和里",
+        "count": 25
+      },
+      {
+        "city": "臺北市",
+        "district": "信義區",
+        "village": "永吉里",
+        "count": 38
+      },
+      {
+        "city": "臺北市",
+        "district": "信義區",
+        "village": "永春里",
+        "count": 34
+      },
+      {
+        "city": "臺北市",
+        "district": "信義區",
+        "village": "安康里",
+        "count": 94
+      },
+      {
+        "city": "臺北市",
+        "district": "信義區",
+        "village": "西村里",
+        "count": 69
+      },
+      {
+        "city": "臺北市",
+        "district": "信義區",
+        "village": "松友里",
+        "count": 27
+      },
+      {
+        "city": "臺北市",
+        "district": "信義區",
+        "village": "松光里",
+        "count": 43
+      },
+      {
+        "city": "臺北市",
+        "district": "信義區",
+        "village": "松隆里",
+        "count": 44
+      },
+      {
+        "city": "臺北市",
+        "district": "信義區",
+        "village": "長春里",
+        "count": 28
+      },
+      {
+        "city": "臺北市",
+        "district": "信義區",
+        "village": "泰和里",
+        "count": 37
+      },
+      {
+        "city": "臺北市",
+        "district": "信義區",
+        "village": "國業里",
+        "count": 25
+      },
+      {
+        "city": "臺北市",
+        "district": "信義區",
+        "village": "富台里",
+        "count": 35
+      },
+      {
+        "city": "臺北市",
+        "district": "信義區",
+        "village": "惠安里",
+        "count": 30
+      },
+      {
+        "city": "臺北市",
+        "district": "信義區",
+        "village": "敦厚里",
+        "count": 36
+      },
+      {
+        "city": "臺北市",
+        "district": "信義區",
+        "village": "景勤里",
+        "count": 30
+      },
+      {
+        "city": "臺北市",
+        "district": "信義區",
+        "village": "景新里",
+        "count": 46
+      },
+      {
+        "city": "臺北市",
+        "district": "信義區",
+        "village": "景聯里",
+        "count": 19
+      },
+      {
+        "city": "臺北市",
+        "district": "信義區",
+        "village": "雅祥里",
+        "count": 42
+      },
+      {
+        "city": "臺北市",
+        "district": "信義區",
+        "village": "新仁里",
+        "count": 60
+      },
+      {
+        "city": "臺北市",
+        "district": "信義區",
+        "village": "嘉興里",
+        "count": 15
+      },
+      {
+        "city": "臺北市",
+        "district": "信義區",
+        "village": "廣居里",
+        "count": 39
+      },
+      {
+        "city": "臺北市",
+        "district": "信義區",
+        "village": "黎平里",
+        "count": 38
+      },
+      {
+        "city": "臺北市",
+        "district": "信義區",
+        "village": "黎安里",
+        "count": 25
+      },
+      {
+        "city": "臺北市",
+        "district": "信義區",
+        "village": "黎忠里",
+        "count": 23
+      },
+      {
+        "city": "臺北市",
+        "district": "信義區",
+        "village": "黎順里",
+        "count": 27
+      },
+      {
+        "city": "臺北市",
+        "district": "信義區",
+        "village": "興隆里",
+        "count": 23
+      },
+      {
+        "city": "臺北市",
+        "district": "信義區",
+        "village": "興雅里",
+        "count": 53
+      },
+      {
+        "city": "臺北市",
+        "district": "信義區",
+        "village": "雙和里",
+        "count": 37
+      },
+      {
+        "city": "臺北市",
+        "district": "南港區",
+        "village": "九如里",
+        "count": 119
+      },
+      {
+        "city": "臺北市",
+        "district": "南港區",
+        "village": "三重里",
+        "count": 162
+      },
+      {
+        "city": "臺北市",
+        "district": "南港區",
+        "village": "中南里",
+        "count": 46
+      },
+      {
+        "city": "臺北市",
+        "district": "南港區",
+        "village": "中研里",
+        "count": 88
+      },
+      {
+        "city": "臺北市",
+        "district": "南港區",
+        "village": "仁福里",
+        "count": 8
+      },
+      {
+        "city": "臺北市",
+        "district": "南港區",
+        "village": "玉成里",
+        "count": 70
+      },
+      {
+        "city": "臺北市",
+        "district": "南港區",
+        "village": "合成里",
+        "count": 52
+      },
+      {
+        "city": "臺北市",
+        "district": "南港區",
+        "village": "成福里",
+        "count": 60
+      },
+      {
+        "city": "臺北市",
+        "district": "南港區",
+        "village": "百福里",
+        "count": 31
+      },
+      {
+        "city": "臺北市",
+        "district": "南港區",
+        "village": "西新里",
+        "count": 78
+      },
+      {
+        "city": "臺北市",
+        "district": "南港區",
+        "village": "東明里",
+        "count": 67
+      },
+      {
+        "city": "臺北市",
+        "district": "南港區",
+        "village": "東新里",
+        "count": 66
+      },
+      {
+        "city": "臺北市",
+        "district": "南港區",
+        "village": "南港里",
+        "count": 67
+      },
+      {
+        "city": "臺北市",
+        "district": "南港區",
+        "village": "重陽里",
+        "count": 80
+      },
+      {
+        "city": "臺北市",
+        "district": "南港區",
+        "village": "新光里",
+        "count": 47
+      },
+      {
+        "city": "臺北市",
+        "district": "南港區",
+        "village": "新富里",
+        "count": 35
+      },
+      {
+        "city": "臺北市",
+        "district": "南港區",
+        "village": "萬福里",
+        "count": 33
+      },
+      {
+        "city": "臺北市",
+        "district": "南港區",
+        "village": "聯成里",
+        "count": 31
+      },
+      {
+        "city": "臺北市",
+        "district": "南港區",
+        "village": "鴻福里",
+        "count": 28
+      },
+      {
+        "city": "臺北市",
+        "district": "南港區",
+        "village": "舊莊里",
+        "count": 110
+      },
+      {
+        "city": "臺北市",
+        "district": "萬華區",
+        "village": "仁德里",
+        "count": 39
+      },
+      {
+        "city": "臺北市",
+        "district": "萬華區",
+        "village": "日祥里",
+        "count": 15
+      },
+      {
+        "city": "臺北市",
+        "district": "萬華區",
+        "village": "日善里",
+        "count": 39
+      },
+      {
+        "city": "臺北市",
+        "district": "萬華區",
+        "village": "全德里",
+        "count": 20
+      },
+      {
+        "city": "臺北市",
+        "district": "萬華區",
+        "village": "西門里",
+        "count": 37
+      },
+      {
+        "city": "臺北市",
+        "district": "萬華區",
+        "village": "孝德里",
+        "count": 22
+      },
+      {
+        "city": "臺北市",
+        "district": "萬華區",
+        "village": "和平里",
+        "count": 55
+      },
+      {
+        "city": "臺北市",
+        "district": "萬華區",
+        "village": "和德里",
+        "count": 44
+      },
+      {
+        "city": "臺北市",
+        "district": "萬華區",
+        "village": "忠貞里",
+        "count": 14
+      },
+      {
+        "city": "臺北市",
+        "district": "萬華區",
+        "village": "忠德里",
+        "count": 37
+      },
+      {
+        "city": "臺北市",
+        "district": "萬華區",
+        "village": "青山里",
+        "count": 61
+      },
+      {
+        "city": "臺北市",
+        "district": "萬華區",
+        "village": "保德里",
+        "count": 21
+      },
+      {
+        "city": "臺北市",
+        "district": "萬華區",
+        "village": "柳鄉里",
+        "count": 41
+      },
+      {
+        "city": "臺北市",
+        "district": "萬華區",
+        "village": "凌霄里",
+        "count": 6
+      },
+      {
+        "city": "臺北市",
+        "district": "萬華區",
+        "village": "頂碩里",
+        "count": 53
+      },
+      {
+        "city": "臺北市",
+        "district": "萬華區",
+        "village": "富民里",
+        "count": 32
+      },
+      {
+        "city": "臺北市",
+        "district": "萬華區",
+        "village": "富福里",
+        "count": 47
+      },
+      {
+        "city": "臺北市",
+        "district": "萬華區",
+        "village": "菜園里",
+        "count": 42
+      },
+      {
+        "city": "臺北市",
+        "district": "萬華區",
+        "village": "華中里",
+        "count": 29
+      },
+      {
+        "city": "臺北市",
+        "district": "萬華區",
+        "village": "華江里",
+        "count": 59
+      },
+      {
+        "city": "臺北市",
+        "district": "萬華區",
+        "village": "新安里",
+        "count": 28
+      },
+      {
+        "city": "臺北市",
+        "district": "萬華區",
+        "village": "新和里",
+        "count": 20
+      },
+      {
+        "city": "臺北市",
+        "district": "萬華區",
+        "village": "新忠里",
+        "count": 11
+      },
+      {
+        "city": "臺北市",
+        "district": "萬華區",
+        "village": "新起里",
+        "count": 37
+      },
+      {
+        "city": "臺北市",
+        "district": "萬華區",
+        "village": "萬壽里",
+        "count": 44
+      },
+      {
+        "city": "臺北市",
+        "district": "萬華區",
+        "village": "壽德里",
+        "count": 30
+      },
+      {
+        "city": "臺北市",
+        "district": "萬華區",
+        "village": "榮德里",
+        "count": 28
+      },
+      {
+        "city": "臺北市",
+        "district": "萬華區",
+        "village": "福星里",
+        "count": 47
+      },
+      {
+        "city": "臺北市",
+        "district": "萬華區",
+        "village": "福音里",
+        "count": 31
+      },
+      {
+        "city": "臺北市",
+        "district": "萬華區",
+        "village": "綠堤里",
+        "count": 29
+      },
+      {
+        "city": "臺北市",
+        "district": "萬華區",
+        "village": "銘德里",
+        "count": 21
+      },
+      {
+        "city": "臺北市",
+        "district": "萬華區",
+        "village": "糖蔀里",
+        "count": 42
+      },
+      {
+        "city": "臺北市",
+        "district": "萬華區",
+        "village": "興德里",
+        "count": 33
+      },
+      {
+        "city": "臺北市",
+        "district": "萬華區",
+        "village": "錦德里",
+        "count": 39
+      },
+      {
+        "city": "臺北市",
+        "district": "萬華區",
+        "village": "雙園里",
+        "count": 42
+      },
+      {
+        "city": "臺北市",
+        "district": "萬華區",
+        "village": "騰雲里",
+        "count": 12
+      }
+    ],
+    "byHydrantType": [
+      {
+        "hydrantType": "underground",
+        "count": 27902
+      },
+      {
+        "hydrantType": "above_ground",
+        "count": 2542
+      }
+    ],
+    "byAreaScope": [
+      {
+        "areaScope": "new_taipei_official_scope",
+        "count": 8535
+      },
+      {
+        "areaScope": "new_taipei_other",
+        "count": 4
+      },
+      {
+        "areaScope": "taipei_city",
+        "count": 21905
+      }
+    ]
+  },
   "dengueRecordCount": 254
 }

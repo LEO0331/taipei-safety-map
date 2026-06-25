@@ -1,6 +1,7 @@
 import { countBy } from '../src/lib/safetyData.ts';
 import { loadConvertedData, sources, writeJson } from './shared.ts';
 import { readFile, stat } from 'node:fs/promises';
+import type { FireHydrantSummary } from '../src/types.ts';
 
 const {
   shelters,
@@ -39,6 +40,24 @@ const medicalFacilitySummary = {
   recordsWithoutDistrict: medicalFacilities.filter((item) => !item.district).length,
   byDistrict: medicalFacilitiesByDistrict,
 };
+const [fireHydrantSummary, fireHydrantConversion, fireHydrantFile, fireHydrantFetchStatus] = await Promise.all([
+  readFile('public/data/fire-hydrant-summary.json', 'utf8').then((value) => JSON.parse(value) as FireHydrantSummary),
+  readFile('public/data/fire-hydrant-conversion.json', 'utf8').then(
+    (value) =>
+      JSON.parse(value) as {
+        inputRows: number;
+        outputRows: number;
+        duplicateRows: number;
+        coordinateConflicts: number;
+        coordinateConflictExamples: string[];
+        areaParseWarnings: string[];
+      },
+  ),
+  stat('data/raw/fire-hydrants/fire-hydrants.csv').catch(() => null),
+  readFile('data/raw/fire-hydrants/fetch-status.json', 'utf8')
+    .then((value) => JSON.parse(value) as { failure?: string | null })
+    .catch(() => null),
+]);
 
 await writeJson('public/data/safety-dashboard-summary.json', {
   districtSummaries,
@@ -47,6 +66,7 @@ await writeJson('public/data/safety-dashboard-summary.json', {
   evacuationGateCount: evacuationGates.length,
   evacuationGateSummary,
   medicalFacilitySummary,
+  fireHydrantSummary,
   dengueRecordCount: dengueRecords.length,
 });
 await writeJson('public/data/conversion-report.json', {
@@ -116,6 +136,18 @@ await writeJson('public/data/conversion-report.json', {
         ? 'Latest clinic download failed; existing generated data was retained.'
         : 'Clinic location records with WGS84 coordinates.',
     },
+    {
+      name: '大臺北地區消防栓分布點位圖',
+      url: 'https://data.taipei/dataset/detail?id=c106a00b-5a21-4393-b213-475a0ece9f2b',
+      downloadUrl:
+        'https://data.taipei/api/frontstage/tpeod/dataset/resource.download?rid=b9f8154d-c627-48a8-b3ef-512ed9cde9e7',
+      downloadedAt: fireHydrantFile?.mtime.toISOString() ?? null,
+      fileSize: fireHydrantFile?.size,
+      encoding: 'UTF-8-SIG',
+      notes: fireHydrantFetchStatus?.failure
+        ? `Latest fire hydrant download failed: ${fireHydrantFetchStatus.failure}. Existing generated data was retained.`
+        : 'Greater Taipei hydrant records from 北水處; full hydrant JSON is lazy-loaded and not PWA-cached.',
+    },
   ],
   shelters: {
     inputRows: shelters.length,
@@ -165,6 +197,13 @@ await writeJson('public/data/conversion-report.json', {
       .slice(0, 5)
       .map((item) => `${item.facilityName}: ${item.districtCode ?? 'missing code'}`),
   },
+  fireHydrants: {
+    ...fireHydrantConversion,
+    validCoordinates: fireHydrantSummary.validCoordinateCount,
+    missingCoordinates: fireHydrantSummary.totalRecords - fireHydrantSummary.validCoordinateCount - fireHydrantSummary.outlierCoordinateCount,
+    unparsedCoordinates: 0,
+    outlierCoordinates: fireHydrantSummary.outlierCoordinateCount,
+  },
   notes: [
     'Residential burglary records remain blurred and are never geocoded into exact household-level markers.',
     `Burglary time periods: ${Object.keys(countBy(burglaries, (record) => record.timePeriod)).join(', ')}`,
@@ -172,6 +211,7 @@ await writeJson('public/data/conversion-report.json', {
     'Dengue records are shown only as district/village survey aggregates.',
     'Evacuation gate records do not represent real-time operating status or safe routes.',
     'Medical facility records do not represent real-time opening, emergency-service, or care availability.',
+    'Fire hydrant records do not represent real-time availability, fire-response deployment, or fire-safety level.',
   ],
 });
 

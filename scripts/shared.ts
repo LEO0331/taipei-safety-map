@@ -17,6 +17,9 @@ import type {
   AirRaidShelter,
   DengueSurveyRecord,
   EvacuationGate,
+  FireHydrant,
+  FireHydrantAreaScope,
+  FireHydrantType,
   MedicalFacility,
   MedicalFacilityType,
   ResidentialBurglaryRecord,
@@ -32,6 +35,14 @@ export const DENGUE_SOURCE = '臺北市登革熱病媒蚊密度調查結果';
 export const EVACUATION_GATE_SOURCE = '臺北市疏散門資訊';
 export const MEDICAL_HOSPITAL_SOURCE = '臺北市公私立醫療院所－臺北市醫院清冊';
 export const MEDICAL_CLINIC_SOURCE = '臺北市公私立醫療院所－臺北市診所清冊';
+export const FIRE_HYDRANT_SOURCE = '大臺北地區消防栓分布點位圖';
+export const FIRE_HYDRANT_AGENCY = '臺北自來水事業處';
+export const FIRE_HYDRANT_BOUNDS = {
+  minLng: 121.3,
+  maxLng: 121.75,
+  minLat: 24.85,
+  maxLat: 25.25,
+};
 const utf8Decoder = new TextDecoder('utf-8', { fatal: false });
 const big5Decoder = new TextDecoder('big5', { fatal: false });
 
@@ -318,6 +329,85 @@ export function convertMedicalFacilityRow(
   };
 }
 
+export function classifyFireHydrantType(raw: string | undefined): FireHydrantType {
+  const text = raw?.trim() ?? '';
+  if (!text) return 'unknown';
+  if (text.includes('地下')) return 'underground';
+  if (text.includes('地上')) return 'above_ground';
+  return 'other';
+}
+
+const newTaipeiOfficialHydrantDistricts = new Set(['三重區', '中和區', '永和區', '新店區', '汐止區']);
+
+export function parseHydrantArea(raw: unknown): {
+  areaRaw?: string;
+  city?: string;
+  district?: string;
+  village?: string;
+  areaScope: FireHydrantAreaScope;
+  isTaipeiCity: boolean;
+  isNewTaipei: boolean;
+  warning?: string;
+} {
+  const areaRaw = emptyToUndefined(String(raw ?? ''));
+  const match = areaRaw?.match(/^(臺北市|新北市)([^區]+區)?(.*)$/);
+  const city = match?.[1];
+  const district = match?.[2];
+  const village = emptyToUndefined(match?.[3]);
+  const isTaipeiCity = city === '臺北市';
+  const isNewTaipei = city === '新北市';
+  const areaScope: FireHydrantAreaScope = isTaipeiCity
+    ? 'taipei_city'
+    : isNewTaipei && district && newTaipeiOfficialHydrantDistricts.has(district)
+      ? 'new_taipei_official_scope'
+      : isNewTaipei
+        ? 'new_taipei_other'
+        : 'unknown';
+  return {
+    areaRaw,
+    city,
+    district,
+    village,
+    areaScope,
+    isTaipeiCity,
+    isNewTaipei,
+    warning: city && district ? undefined : areaRaw,
+  };
+}
+
+export function convertFireHydrantRow(row: Record<string, string>, index: number): FireHydrant {
+  const longitude = parsePossiblyInvalidNumber(row['WGS84經度']);
+  const latitude = parsePossiblyInvalidNumber(row['WGS84緯度']);
+  const coordinateStatus =
+    longitude.status !== 'valid' || latitude.status !== 'valid'
+      ? longitude.status === 'unparsed' || latitude.status === 'unparsed'
+        ? 'unparsed'
+        : 'missing'
+      : isOutsideFireHydrantBounds(longitude.value, latitude.value)
+        ? 'outlier'
+        : 'valid';
+  const area = parseHydrantArea(row['所在地區']);
+  const wpid = emptyToUndefined(row.WPID);
+  return {
+    id: `fire-hydrant-${wpid ?? index + 1}`,
+    layer: 'fire_hydrant',
+    sourceSequenceNumber: parseNumber(row['序號']),
+    mapSheetNumber: emptyToUndefined(row['圖號']),
+    hydrantNumber: emptyToUndefined(row['編號']),
+    wpid,
+    xTwd97: parseNumber(row['97X座標']),
+    yTwd97: parseNumber(row['97Y座標']),
+    longitude: longitude.value,
+    latitude: latitude.value,
+    coordinateStatus,
+    hydrantTypeRaw: emptyToUndefined(row['型式']),
+    hydrantType: classifyFireHydrantType(row['型式']),
+    ...area,
+    source: FIRE_HYDRANT_SOURCE,
+    sourceAgency: FIRE_HYDRANT_AGENCY,
+  };
+}
+
 export async function loadConvertedData() {
   const [shelters, burglaries, aeds, dengueRecords, evacuationGates, medicalFacilities] = await Promise.all([
     readJsonFile<AirRaidShelter[]>(`${PUBLIC_DATA_DIR}/air-raid-shelters.json`),
@@ -337,6 +427,24 @@ export async function loadConvertedData() {
     districtSummaries: buildDistrictSafetySummary(shelters, burglaries),
     dengueDistrictSummaries: buildDengueDistrictSummaries(dengueRecords),
   };
+}
+
+function parsePossiblyInvalidNumber(value: string | undefined): { status: 'valid' | 'missing' | 'unparsed'; value?: number } {
+  const text = value?.trim();
+  if (!text || text.toLowerCase() === 'nan') return { status: 'missing' };
+  const number = Number(text.replace(/,/g, ''));
+  return Number.isFinite(number) ? { status: 'valid', value: number } : { status: 'unparsed' };
+}
+
+function isOutsideFireHydrantBounds(longitude: number | undefined, latitude: number | undefined): boolean {
+  return (
+    longitude === undefined ||
+    latitude === undefined ||
+    longitude < FIRE_HYDRANT_BOUNDS.minLng ||
+    longitude > FIRE_HYDRANT_BOUNDS.maxLng ||
+    latitude < FIRE_HYDRANT_BOUNDS.minLat ||
+    latitude > FIRE_HYDRANT_BOUNDS.maxLat
+  );
 }
 
 async function readJsonFile<T>(path: string): Promise<T> {

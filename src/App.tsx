@@ -2,7 +2,9 @@ import L from 'leaflet';
 import { useEffect, useMemo, useState } from 'react';
 import { CircleMarker, MapContainer, Marker, Popup, TileLayer, useMap, useMapEvents } from 'react-leaflet';
 import { loadSafetyData } from './lib/loadSafetyData';
+import { loadFireHydrants } from './lib/loadSafetyData';
 import {
+  TAIPEI_DISTRICT_CENTROIDS,
   TAIPEI_DISTRICTS,
   TIME_PERIODS,
   calculateDistanceMeters,
@@ -21,6 +23,9 @@ import type {
   DengueDistrictSummary,
   DistrictSafetySummary,
   EvacuationGate,
+  FireHydrant,
+  FireHydrantAreaScope,
+  FireHydrantType,
   Language,
   MedicalFacility,
   MedicalFacilityType,
@@ -69,6 +74,12 @@ const clinicIcon = L.divIcon({
   iconSize: [34, 34],
   iconAnchor: [17, 17],
 });
+const hydrantIcon = L.divIcon({
+  className: 'shield-marker hydrant-marker',
+  html: '<span>🚰</span>',
+  iconSize: [34, 34],
+  iconAnchor: [17, 17],
+});
 
 const userIcon = L.divIcon({
   className: 'user-marker',
@@ -82,12 +93,22 @@ const detailedShelterZoom = 15;
 const maxDetailedShelterMarkers = 900;
 const maxVisibleBurglaryRecords = 100;
 const radiusOptions: SelectOption[] = [
+  { value: '100', label: '100m' },
   { value: '300', label: '300m' },
   { value: '500', label: '500m' },
   { value: '1000', label: '1km' },
   { value: '2000', label: '2km' },
   { value: '5000', label: '5km' },
 ];
+const hydrantDistrictCentroids: Record<string, { latitude: number; longitude: number }> = {
+  ...TAIPEI_DISTRICT_CENTROIDS,
+  三重區: { latitude: 25.0615, longitude: 121.4881 },
+  中和區: { latitude: 24.9994, longitude: 121.4983 },
+  永和區: { latitude: 25.0097, longitude: 121.5148 },
+  新店區: { latitude: 24.9676, longitude: 121.5412 },
+  汐止區: { latitude: 25.0642, longitude: 121.6587 },
+  蘆洲區: { latitude: 25.0855, longitude: 121.4706 },
+};
 const monthOptions = Array.from({ length: 12 }, (_, index) => index + 1);
 const capacityOptions: SelectOption<CapacityRange>[] = [
   { value: 'all', label: 'All' },
@@ -190,8 +211,17 @@ function SafetyMap({
   const [showAeds, setShowAeds] = useState(true);
   const [showEvacuationGates, setShowEvacuationGates] = useState(true);
   const [showMedicalFacilities, setShowMedicalFacilities] = useState(false);
+  const [showFireHydrants, setShowFireHydrants] = useState(false);
+  const [showExactHydrants, setShowExactHydrants] = useState(false);
+  const [taipeiCityOnlyHydrants, setTaipeiCityOnlyHydrants] = useState(true);
   const [medicalFacilityType, setMedicalFacilityType] = useState<MedicalFacilityType | 'all'>('all');
   const [medicalCategory, setMedicalCategory] = useState('all');
+  const [hydrantType, setHydrantType] = useState<FireHydrantType | 'all'>('all');
+  const [hydrantCity, setHydrantCity] = useState('all');
+  const [hydrantDistrict, setHydrantDistrict] = useState('all');
+  const [hydrantVillage, setHydrantVillage] = useState('all');
+  const [areaScope, setAreaScope] = useState<FireHydrantAreaScope | 'all'>('all');
+  const [fireHydrants, setFireHydrants] = useState<FireHydrant[] | null>(null);
   const [showBurglaries, setShowBurglaries] = useState(true);
   const [showDengue, setShowDengue] = useState(true);
   const [riversidePark, setRiversidePark] = useState('all');
@@ -280,6 +310,64 @@ function SafetyMap({
       }),
     [data.medicalFacilities, district, medicalCategory, medicalFacilityType, search, t.clinic, t.hospital, validOnly],
   );
+  const filteredFireHydrants = useMemo(() => {
+    const records = fireHydrants ?? [];
+    const query = search.trim().toLowerCase();
+    return records.filter((hydrant) => {
+      const haystack = [
+        hydrant.wpid,
+        hydrant.mapSheetNumber,
+        hydrant.hydrantNumber,
+        hydrant.city,
+        hydrant.district,
+        hydrant.village,
+        hydrant.areaRaw,
+        hydrant.hydrantTypeRaw,
+      ]
+        .join(' ')
+        .toLowerCase();
+      return (
+        (!taipeiCityOnlyHydrants || hydrant.isTaipeiCity) &&
+        (hydrantCity === 'all' || hydrant.city === hydrantCity) &&
+        (hydrantDistrict === 'all' || hydrant.district === hydrantDistrict) &&
+        (hydrantVillage === 'all' || hydrant.village === hydrantVillage) &&
+        (hydrantType === 'all' || hydrant.hydrantType === hydrantType) &&
+        (areaScope === 'all' || hydrant.areaScope === areaScope) &&
+        (!query || haystack.includes(query)) &&
+        (!validOnly || hydrant.coordinateStatus === 'valid')
+      );
+    });
+  }, [
+    areaScope,
+    fireHydrants,
+    hydrantCity,
+    hydrantDistrict,
+    hydrantType,
+    hydrantVillage,
+    search,
+    taipeiCityOnlyHydrants,
+    validOnly,
+  ]);
+  const hydrantCities = useMemo(
+    () => [...new Set((fireHydrants ?? []).flatMap((item) => (item.city ? [item.city] : [])))].sort(),
+    [fireHydrants],
+  );
+  const hydrantDistricts = useMemo(
+    () =>
+      [...new Set((fireHydrants ?? []).flatMap((item) => (item.city === hydrantCity || hydrantCity === 'all') && item.district ? [item.district] : []))].sort(),
+    [fireHydrants, hydrantCity],
+  );
+  const hydrantVillages = useMemo(
+    () =>
+      [
+        ...new Set(
+          (fireHydrants ?? []).flatMap((item) =>
+            (hydrantDistrict === 'all' || item.district === hydrantDistrict) && item.village ? [item.village] : [],
+          ),
+        ),
+      ].sort(),
+    [fireHydrants, hydrantDistrict],
+  );
 
   const nearbyShelters = useMemo(() => {
     if (!userPosition) return [];
@@ -345,6 +433,22 @@ function SafetyMap({
       .filter((item) => item.distance <= radius)
       .sort((a, b) => a.distance - b.distance);
   }, [filteredMedicalFacilities, radius, userPosition]);
+  const nearbyFireHydrants = useMemo(() => {
+    if (!userPosition) return [];
+    return filteredFireHydrants
+      .filter(hasValidPoint)
+      .map((hydrant) => ({
+        hydrant,
+        distance: calculateDistanceMeters(
+          userPosition.latitude,
+          userPosition.longitude,
+          hydrant.latitude,
+          hydrant.longitude,
+        ),
+      }))
+      .filter((item) => item.distance <= radius)
+      .sort((a, b) => a.distance - b.distance);
+  }, [filteredFireHydrants, radius, userPosition]);
 
   const visibleShelters = useMemo(
     () => filteredShelters.filter(hasValidCoordinate).filter((shelter) => isInViewport(shelter, viewport.bounds)),
@@ -379,6 +483,30 @@ function SafetyMap({
     () => buildShelterMapClusters(visibleMedicalFacilities, viewport.zoom),
     [visibleMedicalFacilities, viewport.zoom],
   );
+  const visibleFireHydrants = useMemo(
+    () => filteredFireHydrants.filter(hasValidPoint).filter((item) => isInViewport(item, viewport.bounds)),
+    [filteredFireHydrants, viewport.bounds],
+  );
+  const fireHydrantClusters = useMemo(
+    () => buildShelterMapClusters(visibleFireHydrants, viewport.zoom),
+    [visibleFireHydrants, viewport.zoom],
+  );
+  const hydrantDistrictSummaries = useMemo(
+    () =>
+      data.fireHydrantSummary.byDistrict
+        .filter((item) => (!taipeiCityOnlyHydrants || item.city === '臺北市'))
+        .filter((item) => hydrantCity === 'all' || item.city === hydrantCity)
+        .filter((item) => hydrantDistrict === 'all' || item.district === hydrantDistrict)
+        .flatMap((item) => {
+          const centroid = hydrantDistrictCentroids[item.district];
+          return centroid ? [{ ...item, ...centroid }] : [];
+        }),
+    [data.fireHydrantSummary.byDistrict, hydrantCity, hydrantDistrict, taipeiCityOnlyHydrants],
+  );
+
+  async function ensureFireHydrants() {
+    if (!fireHydrants) setFireHydrants(await loadFireHydrants());
+  }
 
   function requestLocation() {
     if (!navigator.geolocation) {
@@ -413,6 +541,17 @@ function SafetyMap({
             onChange={(event) => setShowMedicalFacilities(event.target.checked)}
           />
           {t.medicalFacilities}
+        </label>
+        <label className="checkbox-row">
+          <input
+            type="checkbox"
+            checked={showFireHydrants}
+            onChange={(event) => {
+              setShowFireHydrants(event.target.checked);
+              if (event.target.checked && showExactHydrants) void ensureFireHydrants();
+            }}
+          />
+          {t.fireHydrants}
         </label>
         <label className="checkbox-row">
           <input
@@ -459,9 +598,72 @@ function SafetyMap({
           {t.search}
           <input
             value={search}
-            placeholder={t.searchPlaceholder}
+            placeholder={showFireHydrants ? t.fireHydrantSearchPlaceholder : t.searchPlaceholder}
             onChange={(event) => setSearch(event.target.value)}
           />
+        </label>
+        <label className="checkbox-row">
+          <input
+            type="checkbox"
+            checked={taipeiCityOnlyHydrants}
+            onChange={(event) => setTaipeiCityOnlyHydrants(event.target.checked)}
+          />
+          {t.taipeiCityOnly}
+        </label>
+        <label className="checkbox-row">
+          <input
+            type="checkbox"
+            checked={showExactHydrants}
+            onChange={(event) => {
+              setShowExactHydrants(event.target.checked);
+              if (event.target.checked) void ensureFireHydrants();
+            }}
+          />
+          {t.showExactFireHydrantPoints}
+        </label>
+        <label>
+          {t.hydrantType}
+          <select value={hydrantType} onChange={(event) => setHydrantType(event.target.value as FireHydrantType | 'all')}>
+            <option value="all">{t.all}</option>
+            <option value="underground">{t.undergroundHydrant}</option>
+            <option value="above_ground">{t.aboveGroundHydrant}</option>
+          </select>
+        </label>
+        <label>
+          {t.city}
+          <select value={hydrantCity} onChange={(event) => setHydrantCity(event.target.value)}>
+            <option value="all">{t.all}</option>
+            {(hydrantCities.length ? hydrantCities : data.fireHydrantSummary.byCity.map((item) => item.city)).map((city) => (
+              <option key={city}>{city}</option>
+            ))}
+          </select>
+        </label>
+        <label>
+          {t.district}
+          <select value={hydrantDistrict} onChange={(event) => setHydrantDistrict(event.target.value)}>
+            <option value="all">{t.all}</option>
+            {(hydrantDistricts.length ? hydrantDistricts : data.fireHydrantSummary.byDistrict.map((item) => item.district)).map((name) => (
+              <option key={name}>{name}</option>
+            ))}
+          </select>
+        </label>
+        <label>
+          {t.village}
+          <select value={hydrantVillage} onChange={(event) => setHydrantVillage(event.target.value)}>
+            <option value="all">{t.all}</option>
+            {hydrantVillages.map((name) => (
+              <option key={name}>{name}</option>
+            ))}
+          </select>
+        </label>
+        <label>
+          {t.areaScope}
+          <select value={areaScope} onChange={(event) => setAreaScope(event.target.value as FireHydrantAreaScope | 'all')}>
+            <option value="all">{t.all}</option>
+            <option value="taipei_city">{t.taipeiCityScope}</option>
+            <option value="new_taipei_official_scope">{t.newTaipeiOfficialScope}</option>
+            <option value="new_taipei_other">{t.newTaipeiOtherScope}</option>
+          </select>
         </label>
         <label>
           {t.medicalFacilityType}
@@ -625,6 +827,49 @@ function SafetyMap({
                     </Popup>
                   </CircleMarker>
                 )))}
+          {showFireHydrants &&
+            (!showExactHydrants
+              ? hydrantDistrictSummaries.map((summary) => (
+                  <CircleMarker
+                    key={`hydrant-district-${summary.city}-${summary.district}`}
+                    center={[summary.latitude, summary.longitude]}
+                    radius={Math.min(26, 6 + Math.sqrt(summary.count) / 2)}
+                    pathOptions={{ color: '#dc2626', fillColor: '#f87171', fillOpacity: 0.26, weight: 2 }}
+                  >
+                    <Popup>
+                      <div className="popup-stack">
+                        <strong>{summary.district}</strong>
+                        <span>{t.city}: {summary.city}</span>
+                        <span>{t.fireHydrants}: {summary.count.toLocaleString()}</span>
+                        <span>{t.undergroundHydrant}: {summary.undergroundHydrantCount.toLocaleString()}</span>
+                        <span>{t.aboveGroundHydrant}: {summary.aboveGroundHydrantCount.toLocaleString()}</span>
+                        <small>{t.fireHydrantNotice}</small>
+                      </div>
+                    </Popup>
+                  </CircleMarker>
+                ))
+              : viewport.zoom >= detailedShelterZoom
+                ? visibleFireHydrants.map((hydrant) => (
+                    <Marker key={hydrant.id} position={[hydrant.latitude, hydrant.longitude]} icon={hydrantIcon}>
+                      <Popup>
+                        <FireHydrantPopup hydrant={hydrant} language={language} />
+                      </Popup>
+                    </Marker>
+                  ))
+                : fireHydrantClusters.map((cluster) => (
+                    <CircleMarker
+                      key={`hydrant-${cluster.id}`}
+                      center={[cluster.latitude, cluster.longitude]}
+                      radius={Math.min(24, 7 + Math.sqrt(cluster.count) * 1.8)}
+                      pathOptions={{ color: '#dc2626', fillColor: '#f87171', fillOpacity: 0.32, weight: 2 }}
+                    >
+                      <Popup>
+                        <strong>
+                          {t.fireHydrants}: {cluster.count.toLocaleString()}
+                        </strong>
+                      </Popup>
+                    </CircleMarker>
+                  )))}
           {!nearbyMode && showBurglaries && data.districtSummaries.map((summary) => {
             if (!summary.burglaryRecordCount) return null;
             return (
@@ -710,6 +955,17 @@ function SafetyMap({
         >
           {t.showNearbyMedicalFacilities}
         </button>
+        <button
+          type="button"
+          onClick={() => {
+            setShowFireHydrants(true);
+            setShowExactHydrants(true);
+            void ensureFireHydrants();
+            requestLocation();
+          }}
+        >
+          {t.showNearbyFireHydrants}
+        </button>
         <label>
           {t.nearbyRadius}
           <select value={radius} onChange={(event) => setRadius(Number(event.target.value))}>
@@ -730,6 +986,21 @@ function SafetyMap({
               <span>{formatDistance(distance, language)}</span>
               <small>{aed.aedPlacementLocation ?? aed.address}</small>
               <a href={googleMapsUrl(aed.latitude, aed.longitude)} target="_blank" rel="noreferrer">
+                {t.openGoogleMaps}
+              </a>
+            </li>
+          ))}
+        </ol>
+        <p className="notice">{t.fireHydrantNotice}</p>
+        <h2>{t.nearbyFireHydrants}</h2>
+        <ol className="nearby-list">
+          {nearbyFireHydrants.slice(0, 20).map(({ hydrant, distance }) => (
+            <li key={hydrant.id}>
+              <strong>{hydrant.wpid ?? hydrant.hydrantNumber ?? t.fireHydrant}</strong>
+              <span>{formatDistance(distance, language)}</span>
+              <small>{hydrant.hydrantType === 'underground' ? t.undergroundHydrant : t.aboveGroundHydrant}</small>
+              <small>{[hydrant.city, hydrant.district, hydrant.village].filter(Boolean).join(' ')}</small>
+              <a href={googleMapsUrl(hydrant.latitude, hydrant.longitude)} target="_blank" rel="noreferrer">
                 {t.openGoogleMaps}
               </a>
             </li>
@@ -1073,6 +1344,27 @@ function SafetyOverview({ data, language }: { data: SafetyDataBundle; language: 
     [t.hasValidCoordinates]: data.medicalFacilities.filter((item) => item.coordinateStatus === 'valid').length,
     [t.invalidCoordinates]: data.medicalFacilities.filter((item) => item.coordinateStatus !== 'valid').length,
   };
+  const hydrantSummary = data.fireHydrantSummary;
+  const hydrantsByCity = Object.fromEntries(hydrantSummary.byCity.map((item) => [item.city, item.count]));
+  const hydrantsByDistrict = Object.fromEntries(hydrantSummary.byDistrict.map((item) => [`${item.city} ${item.district}`, item.count]));
+  const hydrantsByType = {
+    [t.undergroundHydrant]: hydrantSummary.undergroundHydrantCount,
+    [t.aboveGroundHydrant]: hydrantSummary.aboveGroundHydrantCount,
+  };
+  const hydrantsByScope = Object.fromEntries(
+    hydrantSummary.byAreaScope.map((item) => [formatAreaScope(item.areaScope, language), item.count]),
+  );
+  const hydrantCoordinateStatus = {
+    [t.hasValidCoordinates]: hydrantSummary.validCoordinateCount,
+    [t.invalidCoordinates]: hydrantSummary.totalRecords - hydrantSummary.validCoordinateCount,
+  };
+  const topHydrantDistrict = [...hydrantSummary.byDistrict].sort((a, b) => b.count - a.count)[0];
+  const topHydrantVillage = Object.fromEntries(
+    [...hydrantSummary.byVillage]
+      .sort((a, b) => b.count - a.count)
+      .slice(0, 20)
+      .map((item) => [`${item.city} ${item.district} ${item.village}`, item.count]),
+  );
   const gatesByRiversidePark = countBy(data.evacuationGates, (item) => item.riversidePark);
   const topRiversidePark = mostCommonEntry(gatesByRiversidePark);
   const riversideParkAvailability = {
@@ -1107,6 +1399,14 @@ function SafetyOverview({ data, language }: { data: SafetyDataBundle; language: 
           value={data.burglaries.filter((record) => record.district).length.toLocaleString()}
         />
         <Metric label={t.aedLocationCount} value={data.aeds.length.toLocaleString()} />
+        <Metric label={t.fireHydrantCount} value={hydrantSummary.totalRecords.toLocaleString()} />
+        <Metric label={t.taipeiCityHydrantCount} value={hydrantSummary.taipeiCityCount.toLocaleString()} />
+        <Metric label={t.newTaipeiHydrantCount} value={hydrantSummary.newTaipeiCount.toLocaleString()} />
+        <Metric label={t.undergroundHydrantCount} value={hydrantSummary.undergroundHydrantCount.toLocaleString()} />
+        <Metric label={t.aboveGroundHydrantCount} value={hydrantSummary.aboveGroundHydrantCount.toLocaleString()} />
+        <Metric label={t.topDistrictByHydrantCount} value={topHydrantDistrict ? `${topHydrantDistrict.city} ${topHydrantDistrict.district}` : '-'} />
+        <Metric label={t.topHydrantType} value={hydrantSummary.undergroundHydrantCount >= hydrantSummary.aboveGroundHydrantCount ? t.undergroundHydrant : t.aboveGroundHydrant} />
+        <Metric label={t.villagesCovered} value={hydrantSummary.villageCount.toLocaleString()} />
         <Metric label={t.medicalFacilityCount} value={data.medicalFacilities.length.toLocaleString()} />
         <Metric label={t.hospitalCount} value={hospitals.length.toLocaleString()} />
         <Metric label={t.clinicCount} value={clinics.length.toLocaleString()} />
@@ -1145,6 +1445,12 @@ function SafetyOverview({ data, language }: { data: SafetyDataBundle; language: 
         <BarChart title={t.burglaryRecordsByTimePeriod} values={burglaryByPeriod} />
         <BarChart title={t.burglaryRecordsByDistrict} values={burglaryByDistrict} />
         <BarChart title={t.aedLocationsByDistrict} values={aedByDistrict} />
+        <BarChart title={t.fireHydrantsByCity} values={hydrantsByCity} />
+        <BarChart title={t.fireHydrantsByDistrict} values={hydrantsByDistrict} />
+        <BarChart title={t.fireHydrantsByHydrantType} values={hydrantsByType} />
+        <BarChart title={t.fireHydrantsByAreaScope} values={hydrantsByScope} />
+        <BarChart title={t.topVillagesByHydrantCount} values={topHydrantVillage} />
+        <BarChart title={t.fireHydrantCoordinateStatus} values={hydrantCoordinateStatus} />
         <BarChart title={t.hospitalsByDistrict} values={hospitalsByDistrict} />
         <BarChart title={t.clinicsByDistrict} values={clinicsByDistrict} />
         <BarChart title={t.medicalFacilitiesByDistrict} values={medicalFacilitiesByDistrict} />
@@ -1170,6 +1476,7 @@ function DataNotes({ data, language }: { data: SafetyDataBundle; language: Langu
       <p>{t.shelterAvailabilityNotice}</p>
       <p>{t.evacuationGateDataNote}</p>
       <p>{t.medicalFacilityDataNote}</p>
+      <p>{t.fireHydrantDataNote}</p>
       <dl>
         {data.conversionReport.sources.map((source) => (
           <div key={source.name}>
@@ -1259,6 +1566,33 @@ function MedicalFacilityPopup({ facility, language }: { facility: MedicalFacilit
       <span className="notice">{t.medicalFacilityNotice}</span>
       {facility.latitude !== undefined && facility.longitude !== undefined && (
         <a href={googleMapsUrl(facility.latitude, facility.longitude)} target="_blank" rel="noreferrer">
+          {t.openGoogleMaps}
+        </a>
+      )}
+    </div>
+  );
+}
+
+function FireHydrantPopup({ hydrant, language }: { hydrant: FireHydrant; language: Language }) {
+  const t = translations[language];
+  return (
+    <div className="popup-stack">
+      <strong>{t.fireHydrant}</strong>
+      {hydrant.wpid && <span>{t.wpid}: {hydrant.wpid}</span>}
+      {hydrant.mapSheetNumber && <span>{t.mapSheetNumber}: {hydrant.mapSheetNumber}</span>}
+      {hydrant.hydrantNumber && <span>{t.hydrantNumber}: {hydrant.hydrantNumber}</span>}
+      <span>{t.hydrantType}: {hydrant.hydrantType === 'underground' ? t.undergroundHydrant : t.aboveGroundHydrant}</span>
+      {hydrant.city && <span>{t.city}: {hydrant.city}</span>}
+      {hydrant.district && <span>{t.district}: {hydrant.district}</span>}
+      {hydrant.village && <span>{t.village}: {hydrant.village}</span>}
+      {hydrant.areaRaw && <span>{t.areaRaw}: {hydrant.areaRaw}</span>}
+      {hydrant.longitude !== undefined && <span>{t.wgs84Longitude}: {hydrant.longitude}</span>}
+      {hydrant.latitude !== undefined && <span>{t.wgs84Latitude}: {hydrant.latitude}</span>}
+      {hydrant.xTwd97 !== undefined && <span>{t.xTwd97}: {hydrant.xTwd97}</span>}
+      {hydrant.yTwd97 !== undefined && <span>{t.yTwd97}: {hydrant.yTwd97}</span>}
+      <span className="notice">{t.fireHydrantNotice}</span>
+      {hydrant.latitude !== undefined && hydrant.longitude !== undefined && (
+        <a href={googleMapsUrl(hydrant.latitude, hydrant.longitude)} target="_blank" rel="noreferrer">
           {t.openGoogleMaps}
         </a>
       )}
@@ -1467,6 +1801,14 @@ function formatAverage(values: number[]): string {
 
 function formatOptional(value: number | undefined): string {
   return value === undefined ? '-' : value.toFixed(2);
+}
+
+function formatAreaScope(scope: FireHydrantAreaScope, language: Language): string {
+  const t = translations[language];
+  if (scope === 'taipei_city') return t.taipeiCityScope;
+  if (scope === 'new_taipei_official_scope') return t.newTaipeiOfficialScope;
+  if (scope === 'new_taipei_other') return t.newTaipeiOtherScope;
+  return t.unknownScope;
 }
 
 const localizedUiText: Record<

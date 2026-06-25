@@ -195,6 +195,10 @@ input {
   border-color: #7c3aed;
 }
 
+.hydrant-marker span {
+  border-color: #dc2626;
+}
+
 .popup-stack {
   display: grid;
   gap: 4px;

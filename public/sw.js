@@ -14,7 +14,9 @@ const DATA_FILES = [
   cacheUrl('data/evacuation-gates.json'),
   cacheUrl('data/evacuation-gate-summary.json'),
   cacheUrl('data/medical-facilities.json'),
-  cacheUrl('data/medical-facility-summary.json')
+  cacheUrl('data/medical-facility-summary.json'),
+  cacheUrl('data/fire-hydrant-summary.json'),
+  cacheUrl('data/conversion-report.json')
 ];
 
 self.addEventListener('install', (event) => {

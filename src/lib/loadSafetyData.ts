@@ -6,6 +6,8 @@ import type {
   DengueSurveyRecord,
   DistrictSafetySummary,
   EvacuationGate,
+  FireHydrant,
+  FireHydrantSummary,
   MedicalFacility,
   ResidentialBurglaryRecord,
   SafetyDataBundle,
@@ -32,6 +34,7 @@ export async function loadSafetyData(): Promise<SafetyDataBundle> {
     loadJson<{
       districtSummaries: DistrictSafetySummary[];
       dengueDistrictSummaries: DengueDistrictSummary[];
+      fireHydrantSummary: FireHydrantSummary;
     }>('safety-dashboard-summary.json'),
     loadJson<ConversionReport>('conversion-report.json'),
   ]);
@@ -42,9 +45,14 @@ export async function loadSafetyData(): Promise<SafetyDataBundle> {
     aeds,
     evacuationGates,
     medicalFacilities,
+    fireHydrantSummary: dashboard.fireHydrantSummary,
     dengueRecords,
     dengueDistrictSummaries: dashboard.dengueDistrictSummaries,
     districtSummaries: dashboard.districtSummaries,
     conversionReport,
   };
+}
+
+export async function loadFireHydrants(): Promise<FireHydrant[]> {
+  return loadJson<FireHydrant[]>('fire-hydrants.json');
 }

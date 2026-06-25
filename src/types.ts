@@ -1,4 +1,4 @@
-export type CoordinateStatus = 'valid' | 'missing' | 'outlier';
+export type CoordinateStatus = 'valid' | 'missing' | 'outlier' | 'unparsed';
 
 export type CoordinateSystem = 'wgs84' | 'twd97_tm2' | 'unknown';
 export type SafetyLayer =
@@ -7,7 +7,8 @@ export type SafetyLayer =
   | 'aed_location'
   | 'dengue_vector_density'
   | 'evacuation_gate'
-  | 'medical_facility';
+  | 'medical_facility'
+  | 'fire_hydrant';
 
 export type AirRaidShelter = {
   id: string;
@@ -135,6 +136,66 @@ export type MedicalFacilitySummary = {
   byMedicalCategory: Array<{ medicalCategory: string; count: number }>;
 };
 
+export type FireHydrantType = 'underground' | 'above_ground' | 'other' | 'unknown';
+export type FireHydrantAreaScope =
+  | 'taipei_city'
+  | 'new_taipei_official_scope'
+  | 'new_taipei_other'
+  | 'unknown';
+
+export type FireHydrant = {
+  id: string;
+  layer: 'fire_hydrant';
+  sourceSequenceNumber?: number;
+  mapSheetNumber?: string;
+  hydrantNumber?: string;
+  wpid?: string;
+  xTwd97?: number;
+  yTwd97?: number;
+  longitude?: number;
+  latitude?: number;
+  coordinateStatus: CoordinateStatus;
+  hydrantTypeRaw?: string;
+  hydrantType: FireHydrantType;
+  areaRaw?: string;
+  city?: string;
+  district?: string;
+  village?: string;
+  areaScope: FireHydrantAreaScope;
+  isTaipeiCity: boolean;
+  isNewTaipei: boolean;
+  source: string;
+  sourceAgency: string;
+};
+
+export type FireHydrantSummary = {
+  totalRecords: number;
+  validCoordinateCount: number;
+  outlierCoordinateCount: number;
+  taipeiCityCount: number;
+  newTaipeiCount: number;
+  newTaipeiOfficialScopeCount: number;
+  newTaipeiOtherCount: number;
+  undergroundHydrantCount: number;
+  aboveGroundHydrantCount: number;
+  otherHydrantTypeCount: number;
+  unknownHydrantTypeCount: number;
+  cityCount: number;
+  districtCount: number;
+  villageCount: number;
+  byCity: Array<{ city: string; count: number }>;
+  byDistrict: Array<{
+    city: string;
+    district: string;
+    count: number;
+    undergroundHydrantCount: number;
+    aboveGroundHydrantCount: number;
+  }>;
+  byVillage: Array<{ city: string; district: string; village: string; count: number }>;
+  byHydrantType: Array<{ hydrantType: FireHydrantType; hydrantTypeRaw?: string; count: number }>;
+  byAreaScope: Array<{ areaScope: FireHydrantAreaScope; count: number }>;
+};
+
 export type DengueSurveyRecord = {
   id: string;
   layer: 'dengue_vector_density';
@@ -189,6 +250,7 @@ export type SafetyDataBundle = {
   aeds: AedLocation[];
   evacuationGates: EvacuationGate[];
   medicalFacilities: MedicalFacility[];
+  fireHydrantSummary: FireHydrantSummary;
   dengueRecords: DengueSurveyRecord[];
   dengueDistrictSummaries: DengueDistrictSummary[];
   districtSummaries: DistrictSafetySummary[];
@@ -250,6 +312,18 @@ export type ConversionReport = {
     outlierCoordinates: number;
     recordsWithoutDistrict: number;
     unmappedDistrictExamples: string[];
+  };
+  fireHydrants?: {
+    inputRows: number;
+    outputRows: number;
+    duplicateRows: number;
+    coordinateConflicts: number;
+    validCoordinates: number;
+    missingCoordinates: number;
+    unparsedCoordinates: number;
+    outlierCoordinates: number;
+    areaParseWarnings: string[];
+    coordinateConflictExamples: string[];
   };
   notes: string[];
 };
