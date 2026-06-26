@@ -39,6 +39,7 @@ import type {
 
 type Tab = 'map' | 'nearby' | 'burglary' | 'health' | 'overview' | 'notes';
 type CapacityRange = 'all' | 'under100' | '100-499' | '500-999' | '1000plus';
+type DenseLayer = 'aeds' | 'medical' | 'fireHydrants' | 'airRaidShelters' | 'evacuationGates' | 'cctv';
 type MapViewport = {
   bounds: L.LatLngBounds | null;
   zoom: number;
@@ -218,9 +219,9 @@ function SafetyMap({
   const [search, setSearch] = useState('');
   const [capacityRange, setCapacityRange] = useState<CapacityRange>('all');
   const [validOnly, setValidOnly] = useState(true);
-  const [showShelters, setShowShelters] = useState(true);
+  const [showShelters, setShowShelters] = useState(false);
   const [showAeds, setShowAeds] = useState(true);
-  const [showEvacuationGates, setShowEvacuationGates] = useState(true);
+  const [showEvacuationGates, setShowEvacuationGates] = useState(false);
   const [showMedicalFacilities, setShowMedicalFacilities] = useState(false);
   const [showFireHydrants, setShowFireHydrants] = useState(false);
   const [showEmergencyShelters, setShowEmergencyShelters] = useState(true);
@@ -633,6 +634,15 @@ function SafetyMap({
     if (!fireHydrants) setFireHydrants(await loadFireHydrants());
   }
 
+  function showOnlyDenseLayer(layer: DenseLayer) {
+    setShowAeds(layer === 'aeds');
+    setShowMedicalFacilities(layer === 'medical');
+    setShowFireHydrants(layer === 'fireHydrants');
+    setShowShelters(layer === 'airRaidShelters');
+    setShowEvacuationGates(layer === 'evacuationGates');
+    setShowCctvFacilities(layer === 'cctv');
+  }
+
   function requestLocation() {
     if (!navigator.geolocation) {
       setGeoMessage(uiText.geolocationUnsupported);
@@ -656,14 +666,14 @@ function SafetyMap({
     <main className="workspace">
       <section className="filter-panel">
         <label className="checkbox-row">
-          <input type="checkbox" checked={showAeds} onChange={(event) => setShowAeds(event.target.checked)} />
+          <input type="checkbox" checked={showAeds} onChange={(event) => (event.target.checked ? showOnlyDenseLayer('aeds') : setShowAeds(false))} />
           {t.aedLocations}
         </label>
         <label className="checkbox-row">
           <input
             type="checkbox"
             checked={showMedicalFacilities}
-            onChange={(event) => setShowMedicalFacilities(event.target.checked)}
+            onChange={(event) => (event.target.checked ? showOnlyDenseLayer('medical') : setShowMedicalFacilities(false))}
           />
           {t.medicalFacilities}
         </label>
@@ -672,7 +682,8 @@ function SafetyMap({
             type="checkbox"
             checked={showFireHydrants}
             onChange={(event) => {
-              setShowFireHydrants(event.target.checked);
+              if (event.target.checked) showOnlyDenseLayer('fireHydrants');
+              else setShowFireHydrants(false);
               if (event.target.checked && showExactHydrants) void ensureFireHydrants();
             }}
           />
@@ -682,7 +693,7 @@ function SafetyMap({
           <input
             type="checkbox"
             checked={showShelters}
-            onChange={(event) => setShowShelters(event.target.checked)}
+            onChange={(event) => (event.target.checked ? showOnlyDenseLayer('airRaidShelters') : setShowShelters(false))}
           />
           {t.airRaidShelters}
         </label>
@@ -698,7 +709,7 @@ function SafetyMap({
           <input
             type="checkbox"
             checked={showEvacuationGates}
-            onChange={(event) => setShowEvacuationGates(event.target.checked)}
+            onChange={(event) => (event.target.checked ? showOnlyDenseLayer('evacuationGates') : setShowEvacuationGates(false))}
           />
           {t.evacuationGates}
         </label>
@@ -706,7 +717,7 @@ function SafetyMap({
           <input
             type="checkbox"
             checked={showCctvFacilities}
-            onChange={(event) => setShowCctvFacilities(event.target.checked)}
+            onChange={(event) => (event.target.checked ? showOnlyDenseLayer('cctv') : setShowCctvFacilities(false))}
           />
           {t.cctvFacilities}
         </label>
@@ -1186,20 +1197,39 @@ function SafetyMap({
       </section>
 
       <aside className="side-panel">
-        <button type="button" className="primary-action" onClick={requestLocation}>
+        <button
+          type="button"
+          className="primary-action"
+          onClick={() => {
+            showOnlyDenseLayer('aeds');
+            requestLocation();
+          }}
+        >
           {t.showNearbyAeds}
         </button>
-        <button type="button" onClick={requestLocation}>
+        <button
+          type="button"
+          onClick={() => {
+            showOnlyDenseLayer('airRaidShelters');
+            requestLocation();
+          }}
+        >
           {t.showNearbyShelters}
         </button>
-        <button type="button" onClick={requestLocation}>
+        <button
+          type="button"
+          onClick={() => {
+            showOnlyDenseLayer('evacuationGates');
+            requestLocation();
+          }}
+        >
           {t.showNearbyEvacuationGates}
         </button>
         <button
           type="button"
           onClick={() => {
             setMedicalFacilityType('hospital');
-            setShowMedicalFacilities(true);
+            showOnlyDenseLayer('medical');
             requestLocation();
           }}
         >
@@ -1209,7 +1239,7 @@ function SafetyMap({
           type="button"
           onClick={() => {
             setMedicalFacilityType('clinic');
-            setShowMedicalFacilities(true);
+            showOnlyDenseLayer('medical');
             requestLocation();
           }}
         >
@@ -1219,7 +1249,7 @@ function SafetyMap({
           type="button"
           onClick={() => {
             setMedicalFacilityType('all');
-            setShowMedicalFacilities(true);
+            showOnlyDenseLayer('medical');
             requestLocation();
           }}
         >
@@ -1228,7 +1258,7 @@ function SafetyMap({
         <button
           type="button"
           onClick={() => {
-            setShowFireHydrants(true);
+            showOnlyDenseLayer('fireHydrants');
             setShowExactHydrants(true);
             void ensureFireHydrants();
             requestLocation();
