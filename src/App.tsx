@@ -40,6 +40,8 @@ import type {
 type Tab = 'map' | 'nearby' | 'burglary' | 'health' | 'overview' | 'notes';
 type CapacityRange = 'all' | 'under100' | '100-499' | '500-999' | '1000plus';
 type DenseLayer = 'aeds' | 'medical' | 'fireHydrants' | 'airRaidShelters' | 'evacuationGates' | 'cctv';
+const tileAttribution = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>';
+const tileUrl = 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png';
 type MapViewport = {
   bounds: L.LatLngBounds | null;
   zoom: number;
@@ -220,11 +222,11 @@ function SafetyMap({
   const [capacityRange, setCapacityRange] = useState<CapacityRange>('all');
   const [validOnly, setValidOnly] = useState(true);
   const [showShelters, setShowShelters] = useState(false);
-  const [showAeds, setShowAeds] = useState(true);
+  const [showAeds, setShowAeds] = useState(false);
   const [showEvacuationGates, setShowEvacuationGates] = useState(false);
   const [showMedicalFacilities, setShowMedicalFacilities] = useState(false);
   const [showFireHydrants, setShowFireHydrants] = useState(false);
-  const [showEmergencyShelters, setShowEmergencyShelters] = useState(true);
+  const [showEmergencyShelters, setShowEmergencyShelters] = useState(false);
   const [showCctvFacilities, setShowCctvFacilities] = useState(false);
   const [showExactHydrants, setShowExactHydrants] = useState(false);
   const [taipeiCityOnlyHydrants, setTaipeiCityOnlyHydrants] = useState(true);
@@ -246,8 +248,8 @@ function SafetyMap({
   const [cctvCity, setCctvCity] = useState('all');
   const [cctvCoordinateStatus, setCctvCoordinateStatus] = useState<CoordinateStatus | 'all'>('valid');
   const [fireHydrants, setFireHydrants] = useState<FireHydrant[] | null>(null);
-  const [showBurglaries, setShowBurglaries] = useState(true);
-  const [showDengue, setShowDengue] = useState(true);
+  const [showBurglaries, setShowBurglaries] = useState(false);
+  const [showDengue, setShowDengue] = useState(false);
   const [riversidePark, setRiversidePark] = useState('all');
   const [hasLocationDescription, setHasLocationDescription] = useState(false);
   const [radius, setRadius] = useState(500);
@@ -958,8 +960,8 @@ function SafetyMap({
           <MapSizeSync />
           <ViewportTracker onChange={setViewport} />
           <TileLayer
-            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            attribution={tileAttribution}
+            url={tileUrl}
           />
           {showShelters && (shouldRenderDetailedShelters
             ? visibleShelters.map((shelter) => (
@@ -1486,8 +1488,8 @@ function BurglaryRecords({ data, language }: { data: SafetyDataBundle; language:
         <MapContainer center={taipeiCenter} zoom={12} scrollWheelZoom className="map-canvas">
           <MapSizeSync />
           <TileLayer
-            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            attribution={tileAttribution}
+            url={tileUrl}
           />
           {data.districtSummaries.map((summary) => {
             const count = countsByDistrict[summary.district] ?? 0;
@@ -1607,8 +1609,8 @@ function PublicHealth({ data, language }: { data: SafetyDataBundle; language: La
           <MapContainer center={taipeiCenter} zoom={11} scrollWheelZoom className="map-canvas">
             <MapSizeSync />
             <TileLayer
-              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              attribution={tileAttribution}
+              url={tileUrl}
             />
             {summaries.map((summary) =>
               summary.recordCount ? (
