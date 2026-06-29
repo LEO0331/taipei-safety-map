@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-29T01:13:57.198Z",
+  "generatedAt": "2026-06-29T06:11:17.119Z",
   "sources": [
     {
       "name": "北市警政APP_防空避難設備位置",
@@ -91,6 +91,15 @@
       "fileSize": 9542,
       "encoding": "UTF-8-SIG",
       "notes": "Historical natural-disaster work/school suspension messages from 人事處; raw decision text is preserved and classifications are auxiliary only."
+    },
+    {
+      "name": "臺北市自行車竊盜點位資訊",
+      "url": "https://data.taipei/dataset/detail?id=5c5e9e13-9803-47c0-bbd2-1a4b3c11c49b",
+      "downloadUrl": "",
+      "downloadedAt": "2026-06-29T06:07:58.908Z",
+      "fileSize": 255306,
+      "encoding": "CP950 / Big5-family",
+      "notes": "Historical bicycle theft public-safety records from 警察局刑警大隊; incident locations are pre-fuzzed text and are never geocoded into exact markers."
     }
   ],
   "shelters": {
@@ -105,6 +114,17 @@
     "outputRows": 4394,
     "recordsWithoutDistrict": 1,
     "dateParseWarnings": 0
+  },
+  "bicycleThefts": {
+    "inputRows": 3928,
+    "outputRows": 3928,
+    "fileSize": 255306,
+    "encoding": "CP950 / Big5 with UTF-8-SIG fallback",
+    "duplicateRows": 0,
+    "dateParseWarnings": [],
+    "timeBandParseWarnings": [],
+    "locationParseWarnings": [],
+    "duplicateExamples": []
   },
   "aeds": {
     "inputRows": 2728,
@@ -195,6 +215,7 @@
   },
   "notes": [
     "Residential burglary records remain blurred and are never geocoded into exact household-level markers.",
+    "Bicycle theft records use pre-fuzzed address text and are shown only as district, road, and fuzzy-location summaries.",
     "Burglary time periods: morning, early_morning, afternoon, evening, night",
     "AED availability is not real-time.",
     "Dengue records are shown only as district/village survey aggregates.",

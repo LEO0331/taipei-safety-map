@@ -1,7 +1,7 @@
 import { countBy } from '../src/lib/safetyData.ts';
 import { loadConvertedData, sources, writeJson } from './shared.ts';
 import { readFile, stat } from 'node:fs/promises';
-import type { EmergencyShelterSummary, FireHydrantSummary, NaturalDisasterSuspensionSummary, TrafficCctvSummary } from '../src/types.ts';
+import type { BicycleTheftSummary, EmergencyShelterSummary, FireHydrantSummary, NaturalDisasterSuspensionSummary, TrafficCctvSummary } from '../src/types.ts';
 
 const {
   shelters,
@@ -113,11 +113,28 @@ const [naturalDisasterSuspensionSummary, naturalDisasterSuspensionConversion, na
   ),
   stat('data/raw/natural-disaster-work-school-suspension-records/natural-disaster-work-school-suspension-records.csv').catch(() => null),
 ]);
+const [bicycleTheftSummary, bicycleTheftConversion, bicycleTheftFile] = await Promise.all([
+  readFile('public/data/bicycle-theft-summary.json', 'utf8').then((value) => JSON.parse(value) as BicycleTheftSummary),
+  readFile('public/data/bicycle-theft-conversion.json', 'utf8').then(
+    (value) =>
+      JSON.parse(value) as {
+        inputRows: number;
+        outputRows: number;
+        duplicateRows: number;
+        dateParseWarnings: string[];
+        timeBandParseWarnings: string[];
+        locationParseWarnings: string[];
+        duplicateExamples: string[];
+      },
+  ),
+  stat('data/raw/bicycle-theft-records/bicycle-theft-records.csv').catch(() => null),
+]);
 
 await writeJson('public/data/safety-dashboard-summary.json', {
   districtSummaries,
   dengueDistrictSummaries,
   aedCount: aeds.length,
+  bicycleTheftSummary,
   evacuationGateCount: evacuationGates.length,
   evacuationGateSummary,
   medicalFacilitySummary,
@@ -240,6 +257,16 @@ await writeJson('public/data/conversion-report.json', {
       notes:
         'Historical natural-disaster work/school suspension messages from 人事處; raw decision text is preserved and classifications are auxiliary only.',
     },
+    {
+      name: '臺北市自行車竊盜點位資訊',
+      url: 'https://data.taipei/dataset/detail?id=5c5e9e13-9803-47c0-bbd2-1a4b3c11c49b',
+      downloadUrl: '',
+      downloadedAt: bicycleTheftFile?.mtime.toISOString() ?? null,
+      fileSize: bicycleTheftFile?.size,
+      encoding: 'CP950 / Big5-family',
+      notes:
+        'Historical bicycle theft public-safety records from 警察局刑警大隊; incident locations are pre-fuzzed text and are never geocoded into exact markers.',
+    },
   ],
   shelters: {
     inputRows: shelters.length,
@@ -254,6 +281,7 @@ await writeJson('public/data/conversion-report.json', {
     recordsWithoutDistrict: burglaries.filter((record) => !record.district).length,
     dateParseWarnings: burglaries.filter((record) => !record.year).length,
   },
+  bicycleThefts: bicycleTheftConversion,
   aeds: {
     inputRows: aeds.length,
     outputRows: aeds.length,
@@ -307,6 +335,7 @@ await writeJson('public/data/conversion-report.json', {
   naturalDisasterSuspensions: naturalDisasterSuspensionConversion,
   notes: [
     'Residential burglary records remain blurred and are never geocoded into exact household-level markers.',
+    'Bicycle theft records use pre-fuzzed address text and are shown only as district, road, and fuzzy-location summaries.',
     `Burglary time periods: ${Object.keys(countBy(burglaries, (record) => record.timePeriod)).join(', ')}`,
     'AED availability is not real-time.',
     'Dengue records are shown only as district/village survey aggregates.',

@@ -19,6 +19,7 @@ import { timePeriodLabels, translations } from './lib/translations';
 import type {
   AedLocation,
   AirRaidShelter,
+  BicycleTheftLocationFuzzinessLevel,
   BurglaryTimePeriod,
   CoordinateStatus,
   DengueDistrictSummary,
@@ -29,6 +30,7 @@ import type {
   FireHydrant,
   FireHydrantAreaScope,
   FireHydrantType,
+  IncidentTimeOfDayCategory,
   Language,
   MedicalFacility,
   MedicalFacilityType,
@@ -40,7 +42,7 @@ import type {
   TrafficCctvFacility,
 } from './types';
 
-type Tab = 'map' | 'nearby' | 'burglary' | 'health' | 'disaster' | 'overview' | 'notes';
+type Tab = 'map' | 'nearby' | 'burglary' | 'bike' | 'health' | 'disaster' | 'overview' | 'notes';
 type CapacityRange = 'all' | 'under100' | '100-499' | '500-999' | '1000plus';
 type DenseLayer = 'aeds' | 'medical' | 'fireHydrants' | 'airRaidShelters' | 'evacuationGates' | 'cctv';
 const tileAttribution = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>';
@@ -158,6 +160,108 @@ const suspensionStatuses: WorkOrSchoolSuspensionStatus[] = [
   'mixed_or_unclear',
   'unknown',
 ];
+const timeOfDayCategories: IncidentTimeOfDayCategory[] = [
+  'late_night',
+  'early_morning',
+  'morning',
+  'midday',
+  'afternoon',
+  'evening',
+  'night',
+  'cross_midnight',
+  'unknown',
+];
+const locationFuzzinessLevels: BicycleTheftLocationFuzzinessLevel[] = [
+  'address_range',
+  'road_or_area_text',
+  'facility_or_landmark_text',
+  'district_only',
+  'unknown',
+];
+const bicycleLabels = {
+  zh: {
+    all: '全部',
+    title: '自行車竊盜點位資訊',
+    subtitle: '整理臺北市自行車竊盜歷史紀錄，依行政區、年份、月份、發生時段與模糊地點文字提供資料查詢與趨勢整理。',
+    directory: '自行車竊盜紀錄清單',
+    district: '行政區',
+    year: '年度',
+    month: '月份',
+    quarter: '季度',
+    timeBand: '發生時段',
+    timeOfDay: '時段分類',
+    road: '道路',
+    village: '里',
+    fuzziness: '地點模糊程度',
+    hasAddressRange: '含地址範圍',
+    search: '搜尋',
+    searchPlaceholder: '搜尋行政區、道路、模糊地點、日期或發生時段',
+    date: '日期',
+    caseType: '案類',
+    location: '模糊發生地點',
+    recordCount: '歷史紀錄數',
+    historicalCount: '自行車竊盜歷史紀錄數',
+    dataDateRange: '資料日期範圍',
+    districtsCovered: '涵蓋行政區數',
+    fuzzyLocationCount: '模糊地點數',
+    recordsWithParsedRoadName: '可解析道路紀錄數',
+    topDistrict: '紀錄最多行政區',
+    topTimeBand: '最常見發生時段',
+    topTimeOfDay: '最常見時段分類',
+    latestRecordDate: '最新紀錄日期',
+    currentYearRecordCount: '本年度紀錄數',
+    byYear: '各年度自行車竊盜紀錄數',
+    byMonth: '各月份自行車竊盜紀錄數',
+    byDistrict: '各行政區自行車竊盜紀錄數',
+    byTimeBand: '各發生時段自行車竊盜紀錄數',
+    byTimeOfDay: '各時段分類自行車竊盜紀錄數',
+    topRoads: '較多歷史紀錄的道路',
+    topBuckets: '較多歷史紀錄的模糊地點',
+    mapNotice: '自行車竊盜資料未提供經緯度，且發生地點為預先模糊處理之地址文字。地圖以行政區彙總呈現，不代表精確案發地址、即時治安狀態或目前犯罪風險。',
+    dataNote: '本資料為歷史治安公開資料，僅供資料查詢與趨勢整理，不代表即時治安狀態、目前犯罪風險、精確案發地址、路線安全保證、警政通報、法律意見或防竊建議。',
+  },
+  en: {
+    all: 'All',
+    title: 'Bicycle Theft Records',
+    subtitle: 'Explore Taipei historical bicycle theft records by district, year, month, incident time band, and fuzzy location text.',
+    directory: 'Bicycle Theft Record Directory',
+    district: 'District',
+    year: 'Year',
+    month: 'Month',
+    quarter: 'Quarter',
+    timeBand: 'Incident time band',
+    timeOfDay: 'Time-of-day category',
+    road: 'Road',
+    village: 'Village',
+    fuzziness: 'Location fuzziness',
+    hasAddressRange: 'Has address range',
+    search: 'Search',
+    searchPlaceholder: 'Search district, road, fuzzy location, date, or time band',
+    date: 'Date',
+    caseType: 'Case type',
+    location: 'Fuzzy incident location',
+    recordCount: 'Historical record count',
+    historicalCount: 'Historical bicycle theft record count',
+    dataDateRange: 'Data date range',
+    districtsCovered: 'Districts covered',
+    fuzzyLocationCount: 'Fuzzy location count',
+    recordsWithParsedRoadName: 'Records with parsed road name',
+    topDistrict: 'Top district by records',
+    topTimeBand: 'Most common time band',
+    topTimeOfDay: 'Most common time-of-day category',
+    latestRecordDate: 'Latest record date',
+    currentYearRecordCount: 'Current-year record count',
+    byYear: 'Bicycle theft records by year',
+    byMonth: 'Bicycle theft records by month',
+    byDistrict: 'Bicycle theft records by district',
+    byTimeBand: 'Bicycle theft records by incident time band',
+    byTimeOfDay: 'Bicycle theft records by time of day',
+    topRoads: 'Roads with more historical records',
+    topBuckets: 'Fuzzy locations with more historical records',
+    mapNotice: 'Bicycle theft data does not provide coordinates, and incident locations are pre-fuzzed address text. The map shows district-level summaries and does not represent exact incident addresses, real-time public-safety status, or current crime risk.',
+    dataNote: 'This data is historical public-safety open data for lookup and trend organization only. It does not represent real-time public-safety status, current crime risk, exact incident address, route-safety guarantee, police reporting, legal advice, or theft-prevention advice.',
+  },
+} as const;
 const disasterLabels = {
   zh: {
     all: '全部',
@@ -293,6 +397,7 @@ function App() {
             ['map', t.safetyMap],
             ['nearby', t.nearbyFacilities],
             ['burglary', t.burglaryRecords],
+            ['bike', language === 'zh' ? '自行車竊盜' : 'Bicycle Theft'],
             ['health', t.publicHealth],
             ['disaster', language === 'zh' ? '停班停課紀錄' : 'Closure Records'],
             ['overview', t.safetyOverview],
@@ -313,6 +418,7 @@ function App() {
       {activeTab === 'map' && <SafetyMap data={data} language={language} />}
       {activeTab === 'nearby' && <SafetyMap data={data} language={language} nearbyMode />}
       {activeTab === 'burglary' && <BurglaryRecords data={data} language={language} />}
+      {activeTab === 'bike' && <BicycleTheftRecords data={data} language={language} />}
       {activeTab === 'health' && <PublicHealth data={data} language={language} />}
       {activeTab === 'disaster' && <NaturalDisasterSuspensions data={data} language={language} />}
       {activeTab === 'overview' && <SafetyOverview data={data} language={language} />}
@@ -1654,6 +1760,167 @@ function BurglaryRecords({ data, language }: { data: SafetyDataBundle; language:
   );
 }
 
+function BicycleTheftRecords({ data, language }: { data: SafetyDataBundle; language: Language }) {
+  const labels = bicycleLabels[language];
+  const [district, setDistrict] = useState('all');
+  const [year, setYear] = useState('all');
+  const [month, setMonth] = useState('all');
+  const [timeBand, setTimeBand] = useState('all');
+  const [timeOfDay, setTimeOfDay] = useState<IncidentTimeOfDayCategory | 'all'>('all');
+  const [road, setRoad] = useState('all');
+  const [village, setVillage] = useState('all');
+  const [fuzziness, setFuzziness] = useState<BicycleTheftLocationFuzzinessLevel | 'all'>('all');
+  const [addressRangeOnly, setAddressRangeOnly] = useState(false);
+  const [search, setSearch] = useState('');
+  const years = [...new Set(data.bicycleThefts.flatMap((record) => (record.year ? [record.year] : [])))].sort((a, b) => a - b);
+  const timeBands = [...new Set(data.bicycleThefts.flatMap((record) => (record.incidentTimeBand ? [record.incidentTimeBand] : [])))].sort();
+  const roads = data.bicycleTheftSummary.byRoadName.slice(0, 80).map((item) => item.roadName);
+  const villages = [...new Set(data.bicycleThefts.flatMap((record) => (record.village ? [record.village] : [])))].sort();
+  const filtered = data.bicycleThefts.filter((record) => {
+    const haystack = [
+      record.caseTypeRaw,
+      record.date,
+      record.year,
+      record.district,
+      record.village,
+      record.roadName,
+      record.incidentLocationRaw,
+      record.incidentTimeBand,
+    ]
+      .join(' ')
+      .toLowerCase();
+    return (
+      (district === 'all' || record.district === district) &&
+      (year === 'all' || record.year === Number(year)) &&
+      (month === 'all' || record.month === Number(month)) &&
+      (timeBand === 'all' || record.incidentTimeBand === timeBand) &&
+      (timeOfDay === 'all' || record.timeOfDayCategory === timeOfDay) &&
+      (road === 'all' || record.roadName === road) &&
+      (village === 'all' || record.village === village) &&
+      (fuzziness === 'all' || record.locationFuzzinessLevel === fuzziness) &&
+      (!addressRangeOnly || record.hasAddressRange) &&
+      (!search.trim() || haystack.includes(search.trim().toLowerCase()))
+    );
+  });
+  const countsByDistrict = countBy(filtered, (record) => record.district);
+  const summary = data.bicycleTheftSummary;
+  const topDistrict = summary.byDistrict.slice().sort((a, b) => b.recordCount - a.recordCount)[0];
+  const topTimeBand = summary.byIncidentTimeBand.slice().sort((a, b) => b.recordCount - a.recordCount)[0];
+  const topTimeOfDay = summary.byTimeOfDayCategory.slice().sort((a, b) => b.recordCount - a.recordCount)[0];
+  const currentYearCount = summary.maxYear
+    ? summary.byYear.find((item) => item.year === summary.maxYear)?.recordCount ?? 0
+    : 0;
+
+  return (
+    <main className="overview">
+      <section className="filter-panel health-filters">
+        <label>{labels.district}<select value={district} onChange={(event) => setDistrict(event.target.value)}><option value="all">{labels.all}</option>{TAIPEI_DISTRICTS.map((value) => <option key={value}>{value}</option>)}</select></label>
+        <label>{labels.year}<select value={year} onChange={(event) => setYear(event.target.value)}><option value="all">{labels.all}</option>{years.map((value) => <option key={value}>{value}</option>)}</select></label>
+        <label>{labels.month}<select value={month} onChange={(event) => setMonth(event.target.value)}><option value="all">{labels.all}</option>{monthOptions.map((value) => <option key={value}>{value}</option>)}</select></label>
+        <label>{labels.timeBand}<select value={timeBand} onChange={(event) => setTimeBand(event.target.value)}><option value="all">{labels.all}</option>{timeBands.map((value) => <option key={value}>{value}</option>)}</select></label>
+        <label>{labels.timeOfDay}<select value={timeOfDay} onChange={(event) => setTimeOfDay(event.target.value as IncidentTimeOfDayCategory | 'all')}><option value="all">{labels.all}</option>{timeOfDayCategories.map((value) => <option key={value} value={value}>{formatTimeOfDay(value, language)}</option>)}</select></label>
+        <label>{labels.road}<select value={road} onChange={(event) => setRoad(event.target.value)}><option value="all">{labels.all}</option>{roads.map((value) => <option key={value}>{value}</option>)}</select></label>
+        <label>{labels.village}<select value={village} onChange={(event) => setVillage(event.target.value)}><option value="all">{labels.all}</option>{villages.map((value) => <option key={value}>{value}</option>)}</select></label>
+        <label>{labels.fuzziness}<select value={fuzziness} onChange={(event) => setFuzziness(event.target.value as BicycleTheftLocationFuzzinessLevel | 'all')}><option value="all">{labels.all}</option>{locationFuzzinessLevels.map((value) => <option key={value} value={value}>{formatLocationFuzziness(value, language)}</option>)}</select></label>
+        <label>{labels.search}<input value={search} placeholder={labels.searchPlaceholder} onChange={(event) => setSearch(event.target.value)} /></label>
+        <label className="checkbox-row"><input type="checkbox" checked={addressRangeOnly} onChange={(event) => setAddressRangeOnly(event.target.checked)} />{labels.hasAddressRange}</label>
+      </section>
+      <h1>{labels.title}</h1>
+      <p>{labels.subtitle}</p>
+      <p className="notice">{labels.mapNotice}</p>
+      <section className="summary-grid">
+        <Metric label={labels.historicalCount} value={summary.totalRecords.toLocaleString()} />
+        <Metric label={labels.dataDateRange} value={`${summary.minDate ?? '-'} - ${summary.maxDate ?? '-'}`} />
+        <Metric label={labels.districtsCovered} value={summary.districtCount.toLocaleString()} />
+        <Metric label={labels.fuzzyLocationCount} value={summary.uniqueFuzzyLocationCount.toLocaleString()} />
+        <Metric label={labels.recordsWithParsedRoadName} value={summary.recordsWithParsedRoadName.toLocaleString()} />
+        <Metric label={labels.topDistrict} value={topDistrict?.district ?? '-'} />
+        <Metric label={labels.topTimeBand} value={topTimeBand?.incidentTimeBand ?? '-'} />
+        <Metric label={labels.topTimeOfDay} value={topTimeOfDay ? formatTimeOfDay(topTimeOfDay.timeOfDayCategory, language) : '-'} />
+        <Metric label={labels.latestRecordDate} value={summary.maxDate ?? '-'} />
+        <Metric label={labels.currentYearRecordCount} value={currentYearCount.toLocaleString()} />
+      </section>
+      <section className="public-health-grid">
+        <div className="map-stage">
+          <MapContainer center={taipeiCenter} zoom={11} scrollWheelZoom className="map-canvas">
+            <MapSizeSync />
+            <TileLayer attribution={tileAttribution} url={tileUrl} />
+            {TAIPEI_DISTRICTS.map((name) => {
+              const count = countsByDistrict[name] ?? 0;
+              if (!count) return null;
+              const center = TAIPEI_DISTRICT_CENTROIDS[name];
+              const records = filtered.filter((record) => record.district === name);
+              const topRoads = Object.entries(countBy(records, (record) => record.roadName)).sort((a, b) => b[1] - a[1]).slice(0, 3);
+              const topBands = Object.entries(countBy(records, (record) => record.incidentTimeBand)).sort((a, b) => b[1] - a[1]).slice(0, 3);
+              return (
+                <CircleMarker
+                  key={name}
+                  center={[center.latitude, center.longitude]}
+                  radius={Math.min(26, 7 + Math.sqrt(count) * 0.9)}
+                  pathOptions={{ color: '#be123c', fillColor: '#fb7185', fillOpacity: 0.32, weight: 2 }}
+                >
+                  <Popup>
+                    <div className="popup-stack">
+                      <strong>{language === 'zh' ? '自行車竊盜' : 'Bicycle Theft'}</strong>
+                      <span>{labels.district}: {name}</span>
+                      <span>{labels.recordCount}: {count.toLocaleString()}</span>
+                      <span>{labels.timeBand}: {topBands.map(([label, value]) => `${label} ${value}`).join(' / ') || '-'}</span>
+                      <span>{labels.road}: {topRoads.map(([label, value]) => `${label} ${value}`).join(' / ') || '-'}</span>
+                    </div>
+                  </Popup>
+                </CircleMarker>
+              );
+            })}
+          </MapContainer>
+        </div>
+        <div className="health-table">
+          <p className="notice">{labels.dataNote}</p>
+          <RankingTable counts={countsByDistrict} label={labels.district} valueLabel={labels.recordCount} />
+        </div>
+      </section>
+      <section className="chart-grid">
+        <BarChart title={labels.byYear} values={Object.fromEntries(summary.byYear.map((item) => [String(item.year), item.recordCount]))} />
+        <BarChart title={labels.byMonth} values={Object.fromEntries(summary.byMonth.map((item) => [String(item.month), item.recordCount]))} />
+        <BarChart title={labels.byDistrict} values={Object.fromEntries(summary.byDistrict.map((item) => [item.district, item.recordCount]))} />
+        <BarChart title={labels.byTimeBand} values={Object.fromEntries(summary.byIncidentTimeBand.map((item) => [item.incidentTimeBand, item.recordCount]))} />
+        <BarChart title={labels.byTimeOfDay} values={Object.fromEntries(summary.byTimeOfDayCategory.map((item) => [formatTimeOfDay(item.timeOfDayCategory, language), item.recordCount]))} />
+        <BarChart title={labels.topRoads} values={Object.fromEntries(summary.byRoadName.slice(0, 20).map((item) => [item.roadName, item.recordCount]))} />
+      </section>
+      <h2>{labels.topBuckets}</h2>
+      <table>
+        <thead><tr><th>{labels.district}</th><th>{labels.road}</th><th>{labels.location}</th><th>{labels.recordCount}</th></tr></thead>
+        <tbody>
+          {summary.byLocationBucket.slice(0, 30).map((bucket) => (
+            <tr key={bucket.locationBucketKey}>
+              <td>{bucket.district ?? '-'}</td>
+              <td>{bucket.roadName ?? '-'}</td>
+              <td>{bucket.sampleLocationText ?? bucket.locationBucketKey}</td>
+              <td>{bucket.recordCount}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <h2>{labels.directory}</h2>
+      <p>{labels.recordCount}: {filtered.length.toLocaleString()}</p>
+      <table>
+        <thead><tr><th>{labels.date}</th><th>{labels.caseType}</th><th>{labels.district}</th><th>{labels.timeBand}</th><th>{labels.location}</th><th>{labels.road}</th></tr></thead>
+        <tbody>
+          {filtered.slice().reverse().slice(0, 100).map((record) => (
+            <tr key={record.id}>
+              <td>{record.date ?? '-'}</td>
+              <td>{record.caseTypeRaw ?? '-'}</td>
+              <td>{record.district ?? '-'}</td>
+              <td>{record.incidentTimeBand ?? '-'}</td>
+              <td>{record.incidentLocationRaw ?? '-'}</td>
+              <td>{record.roadName ?? '-'}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </main>
+  );
+}
+
 function PublicHealth({ data, language }: { data: SafetyDataBundle; language: Language }) {
   const t = translations[language];
   const [district, setDistrict] = useState('all');
@@ -2080,6 +2347,8 @@ function SafetyOverview({ data, language }: { data: SafetyDataBundle; language: 
     .at(-1);
   const disasterSummary = data.naturalDisasterSuspensionSummary;
   const disasterLabelsForOverview = disasterLabels[language];
+  const bikeSummary = data.bicycleTheftSummary;
+  const bikeLabelsForOverview = bicycleLabels[language];
 
   return (
     <main className="overview">
@@ -2088,6 +2357,10 @@ function SafetyOverview({ data, language }: { data: SafetyDataBundle; language: 
         <Metric label={t.totalShelterCapacity} value={totalCapacity.toLocaleString()} />
         <Metric label={t.topShelterCapacityDistrict} value={topCapacity?.[0] ?? '-'} />
         <Metric label={t.totalBurglaryRecords} value={data.burglaries.length.toLocaleString()} />
+        <Metric label={bikeLabelsForOverview.historicalCount} value={bikeSummary.totalRecords.toLocaleString()} />
+        <Metric label={bikeLabelsForOverview.fuzzyLocationCount} value={bikeSummary.uniqueFuzzyLocationCount.toLocaleString()} />
+        <Metric label={bikeLabelsForOverview.topDistrict} value={bikeSummary.byDistrict.slice().sort((a, b) => b.recordCount - a.recordCount)[0]?.district ?? '-'} />
+        <Metric label={bikeLabelsForOverview.topTimeBand} value={bikeSummary.byIncidentTimeBand.slice().sort((a, b) => b.recordCount - a.recordCount)[0]?.incidentTimeBand ?? '-'} />
         <Metric label={t.latestBurglaryMonth} value={latest ? `${latest.year}-${String(latest.month).padStart(2, '0')}` : '-'} />
         <Metric label={t.mostCommonBurglaryTimePeriod} value={commonPeriod?.[0] ?? '-'} />
         <Metric label={t.topBurglaryDistrict} value={topBurglary?.[0] ?? '-'} />
@@ -2159,6 +2432,9 @@ function SafetyOverview({ data, language }: { data: SafetyDataBundle; language: 
         <BarChart title={t.burglaryRecordsByMonth} values={burglaryByMonth} />
         <BarChart title={t.burglaryRecordsByTimePeriod} values={burglaryByPeriod} />
         <BarChart title={t.burglaryRecordsByDistrict} values={burglaryByDistrict} />
+        <BarChart title={bikeLabelsForOverview.byYear} values={Object.fromEntries(bikeSummary.byYear.map((item) => [String(item.year), item.recordCount]))} />
+        <BarChart title={bikeLabelsForOverview.byDistrict} values={Object.fromEntries(bikeSummary.byDistrict.map((item) => [item.district, item.recordCount]))} />
+        <BarChart title={bikeLabelsForOverview.byTimeBand} values={Object.fromEntries(bikeSummary.byIncidentTimeBand.map((item) => [item.incidentTimeBand, item.recordCount]))} />
         <BarChart title={t.aedLocationsByDistrict} values={aedByDistrict} />
         <BarChart title={t.fireHydrantsByCity} values={hydrantsByCity} />
         <BarChart title={t.fireHydrantsByDistrict} values={hydrantsByDistrict} />
@@ -2201,6 +2477,7 @@ function DataNotes({ data, language }: { data: SafetyDataBundle; language: Langu
       <h2>{t.dataNotes}</h2>
       <p>{t.dataDisclaimer}</p>
       <p>{t.burglaryPrivacyNotice}</p>
+      <p>{bicycleLabels[language].dataNote}</p>
       <p>{t.shelterAvailabilityNotice}</p>
       <p>{t.evacuationGateDataNote}</p>
       <p>{t.medicalFacilityDataNote}</p>
@@ -2689,6 +2966,54 @@ function formatSuspensionStatus(status: WorkOrSchoolSuspensionStatus, language: 
     },
   };
   return labels[language][status];
+}
+
+function formatTimeOfDay(category: IncidentTimeOfDayCategory, language: Language): string {
+  const labels: Record<Language, Record<IncidentTimeOfDayCategory, string>> = {
+    zh: {
+      late_night: '深夜',
+      early_morning: '清晨',
+      morning: '上午',
+      midday: '中午',
+      afternoon: '下午',
+      evening: '傍晚',
+      night: '夜間',
+      cross_midnight: '跨日',
+      unknown: '未知',
+    },
+    en: {
+      late_night: 'Late night',
+      early_morning: 'Early morning',
+      morning: 'Morning',
+      midday: 'Midday',
+      afternoon: 'Afternoon',
+      evening: 'Evening',
+      night: 'Night',
+      cross_midnight: 'Cross-midnight',
+      unknown: 'Unknown',
+    },
+  };
+  return labels[language][category];
+}
+
+function formatLocationFuzziness(level: BicycleTheftLocationFuzzinessLevel, language: Language): string {
+  const labels: Record<Language, Record<BicycleTheftLocationFuzzinessLevel, string>> = {
+    zh: {
+      address_range: '地址範圍',
+      road_or_area_text: '道路或地區文字',
+      facility_or_landmark_text: '設施或地標文字',
+      district_only: '僅行政區',
+      unknown: '未知',
+    },
+    en: {
+      address_range: 'Address range',
+      road_or_area_text: 'Road or area text',
+      facility_or_landmark_text: 'Facility or landmark text',
+      district_only: 'District only',
+      unknown: 'Unknown',
+    },
+  };
+  return labels[language][level];
 }
 
 const localizedUiText: Record<

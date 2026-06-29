@@ -5,6 +5,7 @@ export type SafetyLayer =
   | 'air_raid_shelter'
   | 'emergency_shelter'
   | 'residential_burglary_record'
+  | 'bicycle_theft_records'
   | 'aed_location'
   | 'dengue_vector_density'
   | 'evacuation_gate'
@@ -57,6 +58,99 @@ export type ResidentialBurglaryRecord = {
   locationText: string;
   district?: string;
   source: string;
+};
+
+export type BicycleTheftCaseType = 'bicycle_theft' | 'other' | 'unknown';
+export type IncidentTimeOfDayCategory =
+  | 'late_night'
+  | 'early_morning'
+  | 'morning'
+  | 'midday'
+  | 'afternoon'
+  | 'evening'
+  | 'night'
+  | 'cross_midnight'
+  | 'unknown';
+export type BicycleTheftLocationPrecision =
+  | 'district_centroid'
+  | 'fuzzy_address_text'
+  | 'road_or_segment_level'
+  | 'unknown';
+export type BicycleTheftLocationFuzzinessLevel =
+  | 'address_range'
+  | 'road_or_area_text'
+  | 'facility_or_landmark_text'
+  | 'district_only'
+  | 'unknown';
+
+export type BicycleTheftRecord = {
+  id: string;
+  module: 'bicycle_theft_records';
+  sourceRecordNumber?: number;
+  caseTypeRaw?: string;
+  caseType: BicycleTheftCaseType;
+  incidentDateRaw?: string;
+  rocYear?: number;
+  year?: number;
+  month?: number;
+  day?: number;
+  date?: string;
+  monthKey?: string;
+  quarter?: string;
+  weekday?: number;
+  incidentTimeBandRaw?: string;
+  incidentTimeBand?: string;
+  timeBandStartHour?: number;
+  timeBandEndHour?: number;
+  crossesMidnight: boolean;
+  timeOfDayCategory: IncidentTimeOfDayCategory;
+  incidentLocationRaw?: string;
+  locationTextNormalized?: string;
+  district?: string;
+  village?: string;
+  roadName?: string;
+  locationFuzzinessLevel: BicycleTheftLocationFuzzinessLevel;
+  hasAddressRange: boolean;
+  addressRangeText?: string;
+  locationBucketKey?: string;
+  eventGroupKey?: string;
+  locationPrecision: BicycleTheftLocationPrecision;
+  latitude?: number;
+  longitude?: number;
+  source: string;
+  sourceAgency: string;
+};
+
+export type BicycleTheftSummary = {
+  totalRecords: number;
+  uniqueFuzzyLocationCount: number;
+  minDate?: string;
+  maxDate?: string;
+  minYear?: number;
+  maxYear?: number;
+  districtCount: number;
+  recordsWithParsedDistrict: number;
+  recordsWithParsedRoadName: number;
+  recordsWithAddressRange: number;
+  byYear: Array<{ year: number; recordCount: number }>;
+  byMonth: Array<{ month: number; recordCount: number }>;
+  byYearMonth: Array<{ monthKey: string; recordCount: number }>;
+  byDistrict: Array<{
+    district: string;
+    recordCount: number;
+    topTimeOfDayCategories: Array<{ timeOfDayCategory: IncidentTimeOfDayCategory; count: number }>;
+  }>;
+  byIncidentTimeBand: Array<{ incidentTimeBand: string; recordCount: number }>;
+  byTimeOfDayCategory: Array<{ timeOfDayCategory: IncidentTimeOfDayCategory; recordCount: number }>;
+  byRoadName: Array<{ roadName: string; recordCount: number }>;
+  byLocationBucket: Array<{
+    locationBucketKey: string;
+    district?: string;
+    roadName?: string;
+    sampleLocationText?: string;
+    recordCount: number;
+  }>;
+  latestRecords: BicycleTheftRecord[];
 };
 
 export type DistrictSafetySummary = {
@@ -491,6 +585,8 @@ export type Language = 'zh' | 'en';
 export type SafetyDataBundle = {
   shelters: AirRaidShelter[];
   burglaries: ResidentialBurglaryRecord[];
+  bicycleThefts: BicycleTheftRecord[];
+  bicycleTheftSummary: BicycleTheftSummary;
   aeds: AedLocation[];
   evacuationGates: EvacuationGate[];
   medicalFacilities: MedicalFacility[];
@@ -605,6 +701,15 @@ export type ConversionReport = {
     duplicateRows: number;
     duplicateExamples: string[];
     mixedOrUnclearExamples: string[];
+  };
+  bicycleThefts?: {
+    inputRows: number;
+    outputRows: number;
+    duplicateRows: number;
+    dateParseWarnings: string[];
+    timeBandParseWarnings: string[];
+    locationParseWarnings: string[];
+    duplicateExamples: string[];
   };
   notes: string[];
 };

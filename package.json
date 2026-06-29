@@ -9,7 +9,7 @@
     "preview": "vite preview",
     "test": "vitest run",
     "fetch:data": "tsx scripts/fetchSafetyData.ts && tsx scripts/fetchAedLocations.ts && tsx scripts/fetchDengueVectorDensity.ts && tsx scripts/fetchEvacuationGates.ts && tsx scripts/fetchMedicalFacilities.ts && tsx scripts/fetchFireHydrants.ts && tsx scripts/fetchEmergencyShelters.ts && tsx scripts/fetchTrafficCctvFacilities.ts",
-    "convert:data": "tsx scripts/convertShelters.ts && tsx scripts/convertResidentialBurglaries.ts && tsx scripts/convertAedLocations.ts && tsx scripts/convertDengueVectorDensity.ts && tsx scripts/convertEvacuationGates.ts && tsx scripts/convertMedicalFacilities.ts && tsx scripts/convertFireHydrants.ts && tsx scripts/convertEmergencyShelters.ts && tsx scripts/convertTrafficCctvFacilities.ts && tsx scripts/convertNaturalDisasterSuspensions.ts && tsx scripts/buildSafetySummaries.ts",
+    "convert:data": "tsx scripts/convertShelters.ts && tsx scripts/convertResidentialBurglaries.ts && tsx scripts/convertBicycleTheftRecords.ts && tsx scripts/convertAedLocations.ts && tsx scripts/convertDengueVectorDensity.ts && tsx scripts/convertEvacuationGates.ts && tsx scripts/convertMedicalFacilities.ts && tsx scripts/convertFireHydrants.ts && tsx scripts/convertEmergencyShelters.ts && tsx scripts/convertTrafficCctvFacilities.ts && tsx scripts/convertNaturalDisasterSuspensions.ts && tsx scripts/buildSafetySummaries.ts",
     "data:convert:aed": "tsx scripts/convertAedLocations.ts",
     "data:convert:dengue": "tsx scripts/convertDengueVectorDensity.ts",
     "data:fetch:aed": "tsx scripts/fetchAedLocations.ts",
@@ -24,7 +24,8 @@
     "data:fetch:emergency-shelters": "tsx scripts/fetchEmergencyShelters.ts",
     "data:convert:traffic-cctv": "tsx scripts/convertTrafficCctvFacilities.ts && tsx scripts/buildSafetySummaries.ts",
     "data:fetch:traffic-cctv": "tsx scripts/fetchTrafficCctvFacilities.ts",
-    "data:convert:disaster-suspensions": "tsx scripts/convertNaturalDisasterSuspensions.ts && tsx scripts/buildSafetySummaries.ts"
+    "data:convert:disaster-suspensions": "tsx scripts/convertNaturalDisasterSuspensions.ts && tsx scripts/buildSafetySummaries.ts",
+    "data:convert:bicycle-theft": "tsx scripts/convertBicycleTheftRecords.ts && tsx scripts/buildSafetySummaries.ts"
   },
   "dependencies": {
     "leaflet": "^1.9.4",

@@ -4,6 +4,7 @@ import { join } from 'node:path';
 import { tmpdir } from 'node:os';
 import {
   convertAedRow,
+  convertBicycleTheftRow,
   convertEmergencyShelterRow,
   convertEvacuationGateRow,
   convertFireHydrantRow,
@@ -11,6 +12,7 @@ import {
   convertShelterRow,
   convertTrafficCctvRow,
   convertNaturalDisasterSuspensionRow,
+  parseIncidentTimeBand,
   decodeCsvBuffer,
   classifyNaturalDisasterType,
   classifySuspensionMessage,
@@ -340,5 +342,35 @@ describe('CSV script helpers', () => {
       decisionCategory: 'citywide_full_suspension',
       suspensionMessageRaw: '10月16日停止辦公上課。',
     });
+  });
+
+  it('converts bicycle theft rows without exact coordinates', () => {
+    expect(parseIncidentTimeBand('23~01')).toMatchObject({
+      incidentTimeBand: '23~01',
+      crossesMidnight: true,
+      timeOfDayCategory: 'cross_midnight',
+    });
+
+    const record = convertBicycleTheftRow(
+        {
+          編號: '1',
+          案類: '自行車竊盜',
+          發生日期: '1040101',
+          發生時段: '16~18',
+          發生地點: '台北市大安區住安里四維路124巷1~30號',
+        },
+        0,
+      );
+    expect(record).toMatchObject({
+      date: '2015-01-01',
+      district: '大安區',
+      village: '住安里',
+      roadName: '四維路',
+      hasAddressRange: true,
+      addressRangeText: '1~30號',
+      locationPrecision: 'road_or_segment_level',
+    });
+    expect(record).not.toHaveProperty('latitude');
+    expect(record).not.toHaveProperty('longitude');
   });
 });

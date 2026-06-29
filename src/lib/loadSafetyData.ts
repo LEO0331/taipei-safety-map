@@ -1,6 +1,8 @@
 import type {
   AedLocation,
   AirRaidShelter,
+  BicycleTheftRecord,
+  BicycleTheftSummary,
   ConversionReport,
   DengueDistrictSummary,
   DengueSurveyRecord,
@@ -34,6 +36,7 @@ export async function loadSafetyData(): Promise<SafetyDataBundle> {
   const [
     shelters,
     burglaries,
+    bicycleThefts,
     aeds,
     evacuationGates,
     medicalFacilities,
@@ -47,6 +50,7 @@ export async function loadSafetyData(): Promise<SafetyDataBundle> {
   ] = await Promise.all([
     loadJson<AirRaidShelter[]>('air-raid-shelters.json'),
     loadJson<ResidentialBurglaryRecord[]>('residential-burglary-records.json'),
+    loadJson<BicycleTheftRecord[]>('bicycle-theft-records.json'),
     loadJson<AedLocation[]>('aed-locations.json'),
     loadJson<EvacuationGate[]>('evacuation-gates.json'),
     loadJson<MedicalFacility[]>('medical-facilities.json'),
@@ -61,6 +65,7 @@ export async function loadSafetyData(): Promise<SafetyDataBundle> {
       fireHydrantSummary: FireHydrantSummary;
       emergencyShelterSummary: EmergencyShelterSummary;
       trafficCctvSummary: TrafficCctvSummary;
+      bicycleTheftSummary: BicycleTheftSummary;
       naturalDisasterSuspensionSummary: NaturalDisasterSuspensionSummary;
     }>('safety-dashboard-summary.json'),
     loadJson<ConversionReport>('conversion-report.json'),
@@ -69,6 +74,8 @@ export async function loadSafetyData(): Promise<SafetyDataBundle> {
   return {
     shelters,
     burglaries,
+    bicycleThefts,
+    bicycleTheftSummary: dashboard.bicycleTheftSummary,
     aeds,
     evacuationGates,
     medicalFacilities,

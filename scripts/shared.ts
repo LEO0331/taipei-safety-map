@@ -15,6 +15,9 @@ import {
 import type {
   AedLocation,
   AirRaidShelter,
+  BicycleTheftCaseType,
+  BicycleTheftLocationFuzzinessLevel,
+  BicycleTheftRecord,
   CoordinateStatus,
   DengueSurveyRecord,
   DisasterApplicabilityStatus,
@@ -24,6 +27,7 @@ import type {
   FireHydrant,
   FireHydrantAreaScope,
   FireHydrantType,
+  IncidentTimeOfDayCategory,
   MedicalFacility,
   MedicalFacilityType,
   NaturalDisasterType,
@@ -40,6 +44,8 @@ export const RAW_DIR = 'data/raw/safety';
 export const PUBLIC_DATA_DIR = 'public/data';
 export const SHELTER_SOURCE = '北市警政APP_防空避難設備位置';
 export const BURGLARY_SOURCE = '臺北市住宅竊盜點位資訊';
+export const BICYCLE_THEFT_SOURCE = '臺北市自行車竊盜點位資訊';
+export const BICYCLE_THEFT_AGENCY = '臺北市政府警察局刑事警察大隊';
 export const AED_SOURCE = '臺北市AED自動體外心臟去顫器設置地點';
 export const DENGUE_SOURCE = '臺北市登革熱病媒蚊密度調查結果';
 export const EVACUATION_GATE_SOURCE = '臺北市疏散門資訊';
@@ -203,6 +209,155 @@ export function convertBurglaryRow(row: Record<string, string>, index: number): 
     locationText,
     district: extractDistrictFromLocation(locationText),
     source: BURGLARY_SOURCE,
+  };
+}
+
+export function classifyBicycleTheftCaseType(raw: string | undefined): BicycleTheftCaseType {
+  const text = raw?.trim() ?? '';
+  if (!text) return 'unknown';
+  return text.includes('自行車竊盜') ? 'bicycle_theft' : 'other';
+}
+
+export function classifyIncidentTimeOfDayCategory(
+  startHour: number | undefined,
+  endHour: number | undefined,
+  crossesMidnight: boolean,
+): IncidentTimeOfDayCategory {
+  if (startHour === undefined || endHour === undefined) return 'unknown';
+  if (crossesMidnight) return 'cross_midnight';
+  if (startHour >= 0 && startHour < 5) return 'late_night';
+  if (startHour >= 5 && startHour < 8) return 'early_morning';
+  if (startHour >= 8 && startHour < 12) return 'morning';
+  if (startHour >= 12 && startHour < 14) return 'midday';
+  if (startHour >= 14 && startHour < 18) return 'afternoon';
+  if (startHour >= 18 && startHour < 21) return 'evening';
+  if (startHour >= 21 && startHour <= 23) return 'night';
+  return 'unknown';
+}
+
+export function parseRocCompactDate(raw: unknown) {
+  const incidentDateRaw = emptyToUndefined(String(raw ?? ''));
+  const match = incidentDateRaw?.match(/^(\d{3})(\d{2})(\d{2})$/);
+  if (!match) return { incidentDateRaw, warning: incidentDateRaw ? `Unparsed date: ${incidentDateRaw}` : undefined };
+  const rocYear = parseIntegerValue(match[1]);
+  const month = parseIntegerValue(match[2]);
+  const day = parseIntegerValue(match[3]);
+  const year = rocYear === undefined ? undefined : rocYear + 1911;
+  if (year === undefined || month === undefined || day === undefined || !isValidGregorianDate(year, month, day)) {
+    return { incidentDateRaw, rocYear, year, month, day, warning: `Invalid date: ${incidentDateRaw}` };
+  }
+  const date = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+  return {
+    incidentDateRaw,
+    rocYear,
+    year,
+    month,
+    day,
+    date,
+    monthKey: `${year}-${String(month).padStart(2, '0')}`,
+    quarter: `${year}-Q${Math.ceil(month / 3)}`,
+    weekday: new Date(Date.UTC(year, month - 1, day)).getUTCDay(),
+  };
+}
+
+export function parseIncidentTimeBand(raw: unknown) {
+  const incidentTimeBandRaw = emptyToUndefined(String(raw ?? ''));
+  const match = incidentTimeBandRaw?.match(/^(\d{1,2})\s*~\s*(\d{1,2})$/);
+  if (!match) {
+    return {
+      incidentTimeBandRaw,
+      crossesMidnight: false,
+      timeOfDayCategory: 'unknown' as const,
+      warning: incidentTimeBandRaw ? `Unparsed time band: ${incidentTimeBandRaw}` : undefined,
+    };
+  }
+  const timeBandStartHour = Number(match[1]);
+  const timeBandEndHour = Number(match[2]);
+  const valid = timeBandStartHour >= 0 && timeBandStartHour <= 23 && timeBandEndHour >= 0 && timeBandEndHour <= 24;
+  const crossesMidnight = valid && (timeBandEndHour < timeBandStartHour || (timeBandEndHour === 0 && timeBandStartHour > 0));
+  return {
+    incidentTimeBandRaw,
+    incidentTimeBand: `${String(timeBandStartHour).padStart(2, '0')}~${String(timeBandEndHour).padStart(2, '0')}`,
+    timeBandStartHour: valid ? timeBandStartHour : undefined,
+    timeBandEndHour: valid ? timeBandEndHour : undefined,
+    crossesMidnight,
+    timeOfDayCategory: classifyIncidentTimeOfDayCategory(
+      valid ? timeBandStartHour : undefined,
+      valid ? timeBandEndHour : undefined,
+      crossesMidnight,
+    ),
+    warning: valid ? undefined : `Invalid time band: ${incidentTimeBandRaw}`,
+  };
+}
+
+export function parseBicycleTheftLocation(raw: unknown): {
+  incidentLocationRaw?: string;
+  locationTextNormalized?: string;
+  district?: string;
+  village?: string;
+  roadName?: string;
+  locationFuzzinessLevel: BicycleTheftLocationFuzzinessLevel;
+  hasAddressRange: boolean;
+  addressRangeText?: string;
+  locationBucketKey?: string;
+  warning?: string;
+} {
+  const incidentLocationRaw = emptyToUndefined(String(raw ?? ''));
+  const locationTextNormalized = incidentLocationRaw?.replace(/\s+/g, '').replaceAll('台北市', '臺北市');
+  const district = locationTextNormalized ? extractDistrictFromLocation(locationTextNormalized) : undefined;
+  const afterDistrict = district && locationTextNormalized ? locationTextNormalized.split(district)[1] : locationTextNormalized;
+  const village = afterDistrict?.match(/^([\u4e00-\u9fff]{2,4}里)/)?.[1];
+  const afterVillage = village && afterDistrict ? afterDistrict.slice(village.length) : afterDistrict;
+  const roadName = afterVillage?.match(/^([\u4e00-\u9fff]{1,8}(?:路|街|大道|巷)(?:\d段)?)/)?.[1];
+  const addressRangeText = locationTextNormalized?.match(/\d+~\d+號(?:外)?/)?.[0];
+  const hasAddressRange = Boolean(addressRangeText);
+  const isLandmark = /學校|公園|市場|捷運|車站|大學|高中|國中|國小/.test(locationTextNormalized ?? '');
+  const locationFuzzinessLevel: BicycleTheftLocationFuzzinessLevel = hasAddressRange
+    ? 'address_range'
+    : roadName
+      ? 'road_or_area_text'
+      : isLandmark
+        ? 'facility_or_landmark_text'
+        : district
+          ? 'district_only'
+          : 'unknown';
+  const locationBucketKey = [district, roadName, addressRangeText ?? (!roadName ? locationTextNormalized : undefined)]
+    .filter(Boolean)
+    .join('|') || undefined;
+
+  return {
+    incidentLocationRaw,
+    locationTextNormalized,
+    district,
+    village,
+    roadName,
+    locationFuzzinessLevel,
+    hasAddressRange,
+    addressRangeText,
+    locationBucketKey,
+    warning: district ? undefined : `District not parsed: ${incidentLocationRaw ?? ''}`,
+  };
+}
+
+export function convertBicycleTheftRow(row: Record<string, string>, index: number): BicycleTheftRecord {
+  const date = parseRocCompactDate(row['發生日期']);
+  const time = parseIncidentTimeBand(row['發生時段']);
+  const location = parseBicycleTheftLocation(row['發生地點']);
+  const sourceRecordNumber = parseIntegerValue(row['編號']);
+  const caseTypeRaw = emptyToUndefined(row['案類']);
+  return {
+    id: `bicycle-theft-${sourceRecordNumber ?? index + 1}`,
+    module: 'bicycle_theft_records',
+    sourceRecordNumber,
+    caseTypeRaw,
+    caseType: classifyBicycleTheftCaseType(caseTypeRaw),
+    ...date,
+    ...time,
+    ...location,
+    eventGroupKey: [date.date, time.incidentTimeBand, location.locationBucketKey].filter(Boolean).join('|') || undefined,
+    locationPrecision: location.roadName ? 'road_or_segment_level' : location.district ? 'district_centroid' : 'fuzzy_address_text',
+    source: BICYCLE_THEFT_SOURCE,
+    sourceAgency: BICYCLE_THEFT_AGENCY,
   };
 }
 
@@ -740,9 +895,10 @@ export function convertNaturalDisasterSuspensionRow(row: Record<string, string>,
 }
 
 export async function loadConvertedData() {
-  const [shelters, burglaries, aeds, dengueRecords, evacuationGates, medicalFacilities, emergencyShelters, trafficCctvFacilities] = await Promise.all([
+  const [shelters, burglaries, bicycleThefts, aeds, dengueRecords, evacuationGates, medicalFacilities, emergencyShelters, trafficCctvFacilities] = await Promise.all([
     readJsonFile<AirRaidShelter[]>(`${PUBLIC_DATA_DIR}/air-raid-shelters.json`),
     readJsonFile<ResidentialBurglaryRecord[]>(`${PUBLIC_DATA_DIR}/residential-burglary-records.json`),
+    readJsonFile<BicycleTheftRecord[]>(`${PUBLIC_DATA_DIR}/bicycle-theft-records.json`),
     readJsonFile<AedLocation[]>(`${PUBLIC_DATA_DIR}/aed-locations.json`),
     readJsonFile<DengueSurveyRecord[]>(`${PUBLIC_DATA_DIR}/dengue-vector-density-records.json`),
     readJsonFile<EvacuationGate[]>(`${PUBLIC_DATA_DIR}/evacuation-gates.json`),
@@ -753,6 +909,7 @@ export async function loadConvertedData() {
   return {
     shelters,
     burglaries,
+    bicycleThefts,
     aeds,
     dengueRecords,
     evacuationGates,
