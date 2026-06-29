@@ -1,0 +1,1220 @@
+{
+  "totalRecords": 123,
+  "uniqueDisasterNameCount": 56,
+  "eventGroupCount": 65,
+  "minDate": "1998-10-16",
+  "maxDate": "2025-11-12",
+  "minYear": 1998,
+  "maxYear": 2025,
+  "byYear": [
+    {
+      "year": 1998,
+      "recordCount": 2,
+      "eventGroupCount": 2,
+      "citywideFullSuspensionCount": 1,
+      "normalWorkSchoolCount": 0,
+      "localExceptionCount": 1
+    },
+    {
+      "year": 1999,
+      "recordCount": 1,
+      "eventGroupCount": 1,
+      "citywideFullSuspensionCount": 1,
+      "normalWorkSchoolCount": 0,
+      "localExceptionCount": 0
+    },
+    {
+      "year": 2000,
+      "recordCount": 6,
+      "eventGroupCount": 2,
+      "citywideFullSuspensionCount": 1,
+      "normalWorkSchoolCount": 0,
+      "localExceptionCount": 4
+    },
+    {
+      "year": 2001,
+      "recordCount": 3,
+      "eventGroupCount": 2,
+      "citywideFullSuspensionCount": 3,
+      "normalWorkSchoolCount": 0,
+      "localExceptionCount": 0
+    },
+    {
+      "year": 2002,
+      "recordCount": 1,
+      "eventGroupCount": 1,
+      "citywideFullSuspensionCount": 1,
+      "normalWorkSchoolCount": 0,
+      "localExceptionCount": 0
+    },
+    {
+      "year": 2004,
+      "recordCount": 3,
+      "eventGroupCount": 2,
+      "citywideFullSuspensionCount": 3,
+      "normalWorkSchoolCount": 0,
+      "localExceptionCount": 0
+    },
+    {
+      "year": 2005,
+      "recordCount": 1,
+      "eventGroupCount": 1,
+      "citywideFullSuspensionCount": 1,
+      "normalWorkSchoolCount": 0,
+      "localExceptionCount": 0
+    },
+    {
+      "year": 2006,
+      "recordCount": 1,
+      "eventGroupCount": 1,
+      "citywideFullSuspensionCount": 1,
+      "normalWorkSchoolCount": 0,
+      "localExceptionCount": 0
+    },
+    {
+      "year": 2007,
+      "recordCount": 6,
+      "eventGroupCount": 4,
+      "citywideFullSuspensionCount": 2,
+      "normalWorkSchoolCount": 0,
+      "localExceptionCount": 0
+    },
+    {
+      "year": 2008,
+      "recordCount": 7,
+      "eventGroupCount": 4,
+      "citywideFullSuspensionCount": 3,
+      "normalWorkSchoolCount": 0,
+      "localExceptionCount": 0
+    },
+    {
+      "year": 2009,
+      "recordCount": 2,
+      "eventGroupCount": 1,
+      "citywideFullSuspensionCount": 1,
+      "normalWorkSchoolCount": 0,
+      "localExceptionCount": 0
+    },
+    {
+      "year": 2010,
+      "recordCount": 2,
+      "eventGroupCount": 2,
+      "citywideFullSuspensionCount": 0,
+      "normalWorkSchoolCount": 0,
+      "localExceptionCount": 1
+    },
+    {
+      "year": 2011,
+      "recordCount": 4,
+      "eventGroupCount": 2,
+      "citywideFullSuspensionCount": 0,
+      "normalWorkSchoolCount": 1,
+      "localExceptionCount": 1
+    },
+    {
+      "year": 2012,
+      "recordCount": 10,
+      "eventGroupCount": 4,
+      "citywideFullSuspensionCount": 2,
+      "normalWorkSchoolCount": 6,
+      "localExceptionCount": 0
+    },
+    {
+      "year": 2013,
+      "recordCount": 7,
+      "eventGroupCount": 4,
+      "citywideFullSuspensionCount": 1,
+      "normalWorkSchoolCount": 3,
+      "localExceptionCount": 0
+    },
+    {
+      "year": 2014,
+      "recordCount": 3,
+      "eventGroupCount": 2,
+      "citywideFullSuspensionCount": 1,
+      "normalWorkSchoolCount": 1,
+      "localExceptionCount": 0
+    },
+    {
+      "year": 2015,
+      "recordCount": 10,
+      "eventGroupCount": 5,
+      "citywideFullSuspensionCount": 2,
+      "normalWorkSchoolCount": 1,
+      "localExceptionCount": 0
+    },
+    {
+      "year": 2016,
+      "recordCount": 12,
+      "eventGroupCount": 4,
+      "citywideFullSuspensionCount": 3,
+      "normalWorkSchoolCount": 4,
+      "localExceptionCount": 0
+    },
+    {
+      "year": 2017,
+      "recordCount": 7,
+      "eventGroupCount": 4,
+      "citywideFullSuspensionCount": 0,
+      "normalWorkSchoolCount": 4,
+      "localExceptionCount": 1
+    },
+    {
+      "year": 2018,
+      "recordCount": 2,
+      "eventGroupCount": 1,
+      "citywideFullSuspensionCount": 0,
+      "normalWorkSchoolCount": 1,
+      "localExceptionCount": 0
+    },
+    {
+      "year": 2019,
+      "recordCount": 8,
+      "eventGroupCount": 4,
+      "citywideFullSuspensionCount": 2,
+      "normalWorkSchoolCount": 4,
+      "localExceptionCount": 0
+    },
+    {
+      "year": 2020,
+      "recordCount": 1,
+      "eventGroupCount": 1,
+      "citywideFullSuspensionCount": 0,
+      "normalWorkSchoolCount": 0,
+      "localExceptionCount": 0
+    },
+    {
+      "year": 2021,
+      "recordCount": 3,
+      "eventGroupCount": 1,
+      "citywideFullSuspensionCount": 0,
+      "normalWorkSchoolCount": 2,
+      "localExceptionCount": 0
+    },
+    {
+      "year": 2022,
+      "recordCount": 2,
+      "eventGroupCount": 1,
+      "citywideFullSuspensionCount": 0,
+      "normalWorkSchoolCount": 0,
+      "localExceptionCount": 0
+    },
+    {
+      "year": 2023,
+      "recordCount": 2,
+      "eventGroupCount": 1,
+      "citywideFullSuspensionCount": 1,
+      "normalWorkSchoolCount": 1,
+      "localExceptionCount": 0
+    },
+    {
+      "year": 2024,
+      "recordCount": 10,
+      "eventGroupCount": 5,
+      "citywideFullSuspensionCount": 5,
+      "normalWorkSchoolCount": 2,
+      "localExceptionCount": 3
+    },
+    {
+      "year": 2025,
+      "recordCount": 7,
+      "eventGroupCount": 3,
+      "citywideFullSuspensionCount": 0,
+      "normalWorkSchoolCount": 2,
+      "localExceptionCount": 4
+    }
+  ],
+  "byMonth": [
+    {
+      "month": 3,
+      "recordCount": 1
+    },
+    {
+      "month": 4,
+      "recordCount": 1
+    },
+    {
+      "month": 6,
+      "recordCount": 5
+    },
+    {
+      "month": 7,
+      "recordCount": 24
+    },
+    {
+      "month": 8,
+      "recordCount": 35
+    },
+    {
+      "month": 9,
+      "recordCount": 32
+    },
+    {
+      "month": 10,
+      "recordCount": 17
+    },
+    {
+      "month": 11,
+      "recordCount": 8
+    }
+  ],
+  "byDisasterType": [
+    {
+      "disasterType": "typhoon",
+      "count": 113,
+      "eventGroupCount": 58
+    },
+    {
+      "disasterType": "earthquake",
+      "count": 2,
+      "eventGroupCount": 2
+    },
+    {
+      "disasterType": "tsunami_warning",
+      "count": 1,
+      "eventGroupCount": 1
+    },
+    {
+      "disasterType": "heavy_rain",
+      "count": 7,
+      "eventGroupCount": 4
+    }
+  ],
+  "byDecisionCategory": [
+    {
+      "decisionCategory": "citywide_full_suspension",
+      "count": 35
+    },
+    {
+      "decisionCategory": "school_only_suspension",
+      "count": 3
+    },
+    {
+      "decisionCategory": "citywide_partial_day_suspension",
+      "count": 9
+    },
+    {
+      "decisionCategory": "local_or_area_suspension",
+      "count": 5
+    },
+    {
+      "decisionCategory": "standard_met",
+      "count": 15
+    },
+    {
+      "decisionCategory": "normal_with_local_exceptions",
+      "count": 8
+    },
+    {
+      "decisionCategory": "standard_not_met",
+      "count": 16
+    },
+    {
+      "decisionCategory": "normal_work_school",
+      "count": 32
+    }
+  ],
+  "byDisasterName": [
+    {
+      "disasterName": "鳳凰颱風",
+      "disasterType": "typhoon",
+      "count": 5,
+      "firstDate": "2008-07-28",
+      "lastDate": "2025-11-12"
+    },
+    {
+      "disasterName": "象神颱風",
+      "disasterType": "typhoon",
+      "count": 4,
+      "firstDate": "2000-11-01",
+      "lastDate": "2000-11-04"
+    },
+    {
+      "disasterName": "辛樂克颱風",
+      "disasterType": "typhoon",
+      "count": 4,
+      "firstDate": "2002-09-06",
+      "lastDate": "2008-09-14"
+    },
+    {
+      "disasterName": "泰利颱風",
+      "disasterType": "typhoon",
+      "count": 4,
+      "firstDate": "2007-08-31",
+      "lastDate": "2012-06-21"
+    },
+    {
+      "disasterName": "梅姬颱風",
+      "disasterType": "typhoon",
+      "count": 4,
+      "firstDate": "2010-10-22",
+      "lastDate": "2016-09-28"
+    },
+    {
+      "disasterName": "南瑪都颱風",
+      "disasterType": "typhoon",
+      "count": 3,
+      "firstDate": "2011-08-28",
+      "lastDate": "2011-08-30"
+    },
+    {
+      "disasterName": "蘇拉颱風",
+      "disasterType": "typhoon",
+      "count": 3,
+      "firstDate": "2012-08-01",
+      "lastDate": "2012-08-03"
+    },
+    {
+      "disasterName": "天秤颱風",
+      "disasterType": "typhoon",
+      "count": 3,
+      "firstDate": "2012-08-23",
+      "lastDate": "2012-08-28"
+    },
+    {
+      "disasterName": "康芮颱風",
+      "disasterType": "typhoon",
+      "count": 3,
+      "firstDate": "2013-08-29",
+      "lastDate": "2024-11-01"
+    },
+    {
+      "disasterName": "蘇迪勒颱風",
+      "disasterType": "typhoon",
+      "count": 3,
+      "firstDate": "2015-08-07",
+      "lastDate": "2015-08-09"
+    },
+    {
+      "disasterName": "杜鵑颱風",
+      "disasterType": "typhoon",
+      "count": 3,
+      "firstDate": "2015-09-27",
+      "lastDate": "2015-09-29"
+    },
+    {
+      "disasterName": "尼伯特颱風",
+      "disasterType": "typhoon",
+      "count": 3,
+      "firstDate": "2016-07-07",
+      "lastDate": "2016-07-09"
+    },
+    {
+      "disasterName": "莫蘭蒂颱風",
+      "disasterType": "typhoon",
+      "count": 3,
+      "firstDate": "2016-09-13",
+      "lastDate": "2016-09-15"
+    },
+    {
+      "disasterName": "馬勒卡颱風",
+      "disasterType": "typhoon",
+      "count": 3,
+      "firstDate": "2016-09-16",
+      "lastDate": "2016-09-18"
+    },
+    {
+      "disasterName": "尼莎颱風",
+      "disasterType": "typhoon",
+      "count": 3,
+      "firstDate": "2017-07-28",
+      "lastDate": "2017-07-30"
+    },
+    {
+      "disasterName": "丹娜絲颱風",
+      "disasterType": "typhoon",
+      "count": 3,
+      "firstDate": "2019-07-18",
+      "lastDate": "2025-07-07"
+    },
+    {
+      "disasterName": "利奇馬颱風",
+      "disasterType": "typhoon",
+      "count": 3,
+      "firstDate": "2019-08-08",
+      "lastDate": "2019-08-09"
+    },
+    {
+      "disasterName": "璨樹颱風",
+      "disasterType": "typhoon",
+      "count": 3,
+      "firstDate": "2021-09-11",
+      "lastDate": "2021-09-13"
+    },
+    {
+      "disasterName": "凱米颱風",
+      "disasterType": "typhoon",
+      "count": 3,
+      "firstDate": "2024-07-24",
+      "lastDate": "2024-07-26"
+    },
+    {
+      "disasterName": "山陀兒颱風",
+      "disasterType": "typhoon",
+      "count": 3,
+      "firstDate": "2024-10-02",
+      "lastDate": "2024-10-04"
+    },
+    {
+      "disasterName": "1020豪雨",
+      "disasterType": "heavy_rain",
+      "count": 3,
+      "firstDate": "2025-10-21",
+      "lastDate": "2025-10-23"
+    },
+    {
+      "disasterName": "碧利斯颱風",
+      "disasterType": "typhoon",
+      "count": 2,
+      "firstDate": "2000-08-22",
+      "lastDate": "2000-08-23"
+    },
+    {
+      "disasterName": "納莉颱風",
+      "disasterType": "typhoon",
+      "count": 2,
+      "firstDate": "2001-09-17",
+      "lastDate": "2001-09-18"
+    },
+    {
+      "disasterName": "艾利颱風",
+      "disasterType": "typhoon",
+      "count": 2,
+      "firstDate": "2004-08-24",
+      "lastDate": "2004-08-25"
+    },
+    {
+      "disasterName": "海棠颱風",
+      "disasterType": "typhoon",
+      "count": 2,
+      "firstDate": "2005-07-18",
+      "lastDate": "2017-07-31"
+    },
+    {
+      "disasterName": "聖帕颱風",
+      "disasterType": "typhoon",
+      "count": 2,
+      "firstDate": "2007-08-17",
+      "lastDate": "2007-08-18"
+    },
+    {
+      "disasterName": "柯羅莎颱風",
+      "disasterType": "typhoon",
+      "count": 2,
+      "firstDate": "2007-10-06",
+      "lastDate": "2007-10-07"
+    },
+    {
+      "disasterName": "薔蜜颱風",
+      "disasterType": "typhoon",
+      "count": 2,
+      "firstDate": "2008-09-28",
+      "lastDate": "2008-09-29"
+    },
+    {
+      "disasterName": "莫拉克颱風",
+      "disasterType": "typhoon",
+      "count": 2,
+      "firstDate": "2009-08-07",
+      "lastDate": "2009-08-08"
+    },
+    {
+      "disasterName": "本市超大豪雨",
+      "disasterType": "heavy_rain",
+      "count": 2,
+      "firstDate": "2012-06-12",
+      "lastDate": "2012-06-13"
+    },
+    {
+      "disasterName": "蘇力颱風",
+      "disasterType": "typhoon",
+      "count": 2,
+      "firstDate": "2013-07-12",
+      "lastDate": "2013-07-13"
+    },
+    {
+      "disasterName": "潭美颱風",
+      "disasterType": "typhoon",
+      "count": 2,
+      "firstDate": "2013-08-21",
+      "lastDate": "2013-08-22"
+    },
+    {
+      "disasterName": "菲特颱風",
+      "disasterType": "typhoon",
+      "count": 2,
+      "firstDate": "2013-10-06",
+      "lastDate": "2013-10-07"
+    },
+    {
+      "disasterName": "昌鴻颱風",
+      "disasterType": "typhoon",
+      "count": 2,
+      "firstDate": "2015-07-10",
+      "lastDate": "2015-07-11"
+    },
+    {
+      "disasterName": "天鴿颱風",
+      "disasterType": "typhoon",
+      "count": 2,
+      "firstDate": "2017-08-21",
+      "lastDate": "2017-08-22"
+    },
+    {
+      "disasterName": "瑪莉亞颱風",
+      "disasterType": "typhoon",
+      "count": 2,
+      "firstDate": "2018-07-10",
+      "lastDate": "2018-07-11"
+    },
+    {
+      "disasterName": "白鹿颱風",
+      "disasterType": "typhoon",
+      "count": 2,
+      "firstDate": "2019-08-24",
+      "lastDate": "2019-08-25"
+    },
+    {
+      "disasterName": "米塔颱風",
+      "disasterType": "typhoon",
+      "count": 2,
+      "firstDate": "2019-09-30",
+      "lastDate": "2019-10-01"
+    },
+    {
+      "disasterName": "軒嵐諾颱風",
+      "disasterType": "typhoon",
+      "count": 2,
+      "firstDate": "2022-09-03",
+      "lastDate": "2022-09-04"
+    },
+    {
+      "disasterName": "卡努颱風",
+      "disasterType": "typhoon",
+      "count": 2,
+      "firstDate": "2023-08-03",
+      "lastDate": "2023-08-04"
+    },
+    {
+      "disasterName": "瑞伯颱風",
+      "disasterType": "typhoon",
+      "count": 1,
+      "firstDate": "1998-10-16",
+      "lastDate": "1998-10-16"
+    },
+    {
+      "disasterName": "芭比絲颱風",
+      "disasterType": "typhoon",
+      "count": 1,
+      "firstDate": "1998-10-27",
+      "lastDate": "1998-10-27"
+    },
+    {
+      "disasterName": "九二一大地震",
+      "disasterType": "earthquake",
+      "count": 1,
+      "firstDate": "1999-09-21",
+      "lastDate": "1999-09-21"
+    },
+    {
+      "disasterName": "桃芝颱風",
+      "disasterType": "typhoon",
+      "count": 1,
+      "firstDate": "2001-07-30",
+      "lastDate": "2001-07-30"
+    },
+    {
+      "disasterName": "納坦颱風",
+      "disasterType": "typhoon",
+      "count": 1,
+      "firstDate": "2004-10-25",
+      "lastDate": "2004-10-25"
+    },
+    {
+      "disasterName": "馬莎颱風",
+      "disasterType": "typhoon",
+      "count": 1,
+      "firstDate": "2006-08-05",
+      "lastDate": "2006-08-05"
+    },
+    {
+      "disasterName": "韋帕颱風",
+      "disasterType": "typhoon",
+      "count": 1,
+      "firstDate": "2007-09-18",
+      "lastDate": "2007-09-18"
+    },
+    {
+      "disasterName": "凡那比颱風",
+      "disasterType": "typhoon",
+      "count": 1,
+      "firstDate": "2010-09-19",
+      "lastDate": "2010-09-19"
+    },
+    {
+      "disasterName": "海嘯警報",
+      "disasterType": "tsunami_warning",
+      "count": 1,
+      "firstDate": "2011-03-11",
+      "lastDate": "2011-03-11"
+    },
+    {
+      "disasterName": "麥德姆颱風",
+      "disasterType": "typhoon",
+      "count": 1,
+      "firstDate": "2014-07-23",
+      "lastDate": "2014-07-23"
+    },
+    {
+      "disasterName": "蓮花颱風",
+      "disasterType": "typhoon",
+      "count": 1,
+      "firstDate": "2015-07-07",
+      "lastDate": "2015-07-07"
+    },
+    {
+      "disasterName": "天鵝颱風",
+      "disasterType": "typhoon",
+      "count": 1,
+      "firstDate": "2015-08-22",
+      "lastDate": "2015-08-22"
+    },
+    {
+      "disasterName": "本市大豪雨",
+      "disasterType": "heavy_rain",
+      "count": 1,
+      "firstDate": "2017-06-02",
+      "lastDate": "2017-06-02"
+    },
+    {
+      "disasterName": "閃電颱風",
+      "disasterType": "typhoon",
+      "count": 1,
+      "firstDate": "2020-11-07",
+      "lastDate": "2020-11-07"
+    },
+    {
+      "disasterName": "0403花蓮地震",
+      "disasterType": "earthquake",
+      "count": 1,
+      "firstDate": "2024-04-03",
+      "lastDate": "2024-04-03"
+    },
+    {
+      "disasterName": "1023豪雨",
+      "disasterType": "heavy_rain",
+      "count": 1,
+      "firstDate": "2024-10-25",
+      "lastDate": "2024-10-25"
+    }
+  ],
+  "byMentionedDistrict": [
+    {
+      "district": "士林區",
+      "count": 5
+    },
+    {
+      "district": "北投區",
+      "count": 2
+    }
+  ],
+  "latestRecords": [
+    {
+      "id": "natural-disaster-suspension-123",
+      "module": "natural_disaster_work_school_suspension_records",
+      "rocYear": 114,
+      "year": 2025,
+      "month": 11,
+      "day": 12,
+      "date": "2025-11-12",
+      "dateDisplay": "2025-11-12",
+      "monthKey": "2025-11",
+      "quarter": "2025-Q4",
+      "disasterName": "鳳凰颱風",
+      "disasterNameNormalized": "鳳凰颱風",
+      "disasterType": "typhoon",
+      "suspensionMessageRaw": "11月12日照常上班及上課。",
+      "decisionCategory": "normal_work_school",
+      "workSuspensionStatus": "normal",
+      "schoolSuspensionStatus": "normal",
+      "isCitywide": false,
+      "isPartialDay": false,
+      "hasLocalException": false,
+      "hasSchoolOnlyException": false,
+      "hasMountainAreaException": false,
+      "hasNormalWorkSchool": true,
+      "hasSuspension": false,
+      "messageKeywordTags": [
+        "normal"
+      ],
+      "mentionedDistricts": [],
+      "mentionedSchoolsOrAreas": [],
+      "eventGroupKey": "2025-鳳凰颱風",
+      "source": "臺北市歷次天然災害停止上班上課訊息",
+      "sourceAgency": "臺北市政府人事處"
+    },
+    {
+      "id": "natural-disaster-suspension-122",
+      "module": "natural_disaster_work_school_suspension_records",
+      "rocYear": 114,
+      "year": 2025,
+      "month": 11,
+      "day": 11,
+      "date": "2025-11-11",
+      "dateDisplay": "2025-11-11",
+      "monthKey": "2025-11",
+      "quarter": "2025-Q4",
+      "disasterName": "鳳凰颱風",
+      "disasterNameNormalized": "鳳凰颱風",
+      "disasterType": "typhoon",
+      "suspensionMessageRaw": "11月11日照常上班及上課。臺北市士林區永福里、新安里、陽明里、公館里、菁山里、平等里、溪山里、翠山里及臺北市北投區湖田里、湖山里、大屯里、泉源里停止上班、停止上課。",
+      "decisionCategory": "normal_with_local_exceptions",
+      "workSuspensionStatus": "local_exception",
+      "schoolSuspensionStatus": "local_exception",
+      "isCitywide": false,
+      "isPartialDay": false,
+      "hasLocalException": true,
+      "hasSchoolOnlyException": false,
+      "hasMountainAreaException": true,
+      "hasNormalWorkSchool": true,
+      "hasSuspension": true,
+      "messageKeywordTags": [
+        "work_suspension",
+        "school_suspension",
+        "normal",
+        "local_area",
+        "mountain_area"
+      ],
+      "mentionedDistricts": [
+        "士林區",
+        "北投區"
+      ],
+      "mentionedSchoolsOrAreas": [
+        "臺北市士林區永福里",
+        "新安里",
+        "陽明里",
+        "公館里",
+        "菁山里",
+        "平等里",
+        "溪山里",
+        "翠山里及臺北市北投區湖田里",
+        "湖山里",
+        "大屯里",
+        "泉源里"
+      ],
+      "eventGroupKey": "2025-鳳凰颱風",
+      "source": "臺北市歷次天然災害停止上班上課訊息",
+      "sourceAgency": "臺北市政府人事處"
+    },
+    {
+      "id": "natural-disaster-suspension-121",
+      "module": "natural_disaster_work_school_suspension_records",
+      "rocYear": 114,
+      "year": 2025,
+      "month": 10,
+      "day": 23,
+      "date": "2025-10-23",
+      "dateDisplay": "2025-10-23",
+      "monthKey": "2025-10",
+      "quarter": "2025-Q4",
+      "disasterName": "1020豪雨",
+      "disasterNameNormalized": "1020豪雨",
+      "disasterType": "heavy_rain",
+      "suspensionMessageRaw": "10月23日照常上班及上課。臺北市士林區陽明山國民小學停止上班、停止上課。",
+      "decisionCategory": "normal_with_local_exceptions",
+      "workSuspensionStatus": "local_exception",
+      "schoolSuspensionStatus": "local_exception",
+      "isCitywide": false,
+      "isPartialDay": false,
+      "hasLocalException": true,
+      "hasSchoolOnlyException": false,
+      "hasMountainAreaException": true,
+      "hasNormalWorkSchool": true,
+      "hasSuspension": true,
+      "messageKeywordTags": [
+        "work_suspension",
+        "school_suspension",
+        "normal",
+        "local_area",
+        "mountain_area"
+      ],
+      "mentionedDistricts": [
+        "士林區"
+      ],
+      "mentionedSchoolsOrAreas": [
+        "臺北市士林區陽明山國民小學"
+      ],
+      "eventGroupKey": "2025-1020豪雨",
+      "source": "臺北市歷次天然災害停止上班上課訊息",
+      "sourceAgency": "臺北市政府人事處"
+    },
+    {
+      "id": "natural-disaster-suspension-120",
+      "module": "natural_disaster_work_school_suspension_records",
+      "rocYear": 114,
+      "year": 2025,
+      "month": 10,
+      "day": 22,
+      "date": "2025-10-22",
+      "dateDisplay": "2025-10-22",
+      "monthKey": "2025-10",
+      "quarter": "2025-Q4",
+      "disasterName": "1020豪雨",
+      "disasterNameNormalized": "1020豪雨",
+      "disasterType": "heavy_rain",
+      "suspensionMessageRaw": "10月22日照常上班及上課。臺北市湖田實驗國民小學、臺北市士林區陽明山國民小學、臺北市士林區平等國民小學、臺北市溪山實驗國民小學、台北復臨美國學校停止上班、停止上課。",
+      "decisionCategory": "normal_with_local_exceptions",
+      "workSuspensionStatus": "local_exception",
+      "schoolSuspensionStatus": "local_exception",
+      "isCitywide": false,
+      "isPartialDay": false,
+      "hasLocalException": true,
+      "hasSchoolOnlyException": false,
+      "hasMountainAreaException": true,
+      "hasNormalWorkSchool": true,
+      "hasSuspension": true,
+      "messageKeywordTags": [
+        "work_suspension",
+        "school_suspension",
+        "normal",
+        "local_area",
+        "mountain_area"
+      ],
+      "mentionedDistricts": [
+        "士林區"
+      ],
+      "mentionedSchoolsOrAreas": [
+        "臺北市湖田實驗國民小學",
+        "臺北市士林區陽明山國民小學",
+        "臺北市士林區平等國民小學",
+        "臺北市溪山實驗國民小學"
+      ],
+      "eventGroupKey": "2025-1020豪雨",
+      "source": "臺北市歷次天然災害停止上班上課訊息",
+      "sourceAgency": "臺北市政府人事處"
+    },
+    {
+      "id": "natural-disaster-suspension-119",
+      "module": "natural_disaster_work_school_suspension_records",
+      "rocYear": 114,
+      "year": 2025,
+      "month": 10,
+      "day": 21,
+      "date": "2025-10-21",
+      "dateDisplay": "2025-10-21",
+      "monthKey": "2025-10",
+      "quarter": "2025-Q4",
+      "disasterName": "1020豪雨",
+      "disasterNameNormalized": "1020豪雨",
+      "disasterType": "heavy_rain",
+      "suspensionMessageRaw": "10月21日照常上班及上課。臺北市湖田實驗國民小學、臺北市士林區陽明山國民小學、臺北市士林區平等國民小學、臺北市溪山實驗國民小學、臺北市士林區雙溪國民小學停止上班、停止上課。",
+      "decisionCategory": "normal_with_local_exceptions",
+      "workSuspensionStatus": "local_exception",
+      "schoolSuspensionStatus": "local_exception",
+      "isCitywide": false,
+      "isPartialDay": false,
+      "hasLocalException": true,
+      "hasSchoolOnlyException": false,
+      "hasMountainAreaException": true,
+      "hasNormalWorkSchool": true,
+      "hasSuspension": true,
+      "messageKeywordTags": [
+        "work_suspension",
+        "school_suspension",
+        "normal",
+        "local_area",
+        "mountain_area"
+      ],
+      "mentionedDistricts": [
+        "士林區"
+      ],
+      "mentionedSchoolsOrAreas": [
+        "臺北市湖田實驗國民小學",
+        "臺北市士林區陽明山國民小學",
+        "臺北市士林區平等國民小學",
+        "臺北市溪山實驗國民小學",
+        "臺北市士林區雙溪國民小學"
+      ],
+      "eventGroupKey": "2025-1020豪雨",
+      "source": "臺北市歷次天然災害停止上班上課訊息",
+      "sourceAgency": "臺北市政府人事處"
+    },
+    {
+      "id": "natural-disaster-suspension-118",
+      "module": "natural_disaster_work_school_suspension_records",
+      "rocYear": 114,
+      "year": 2025,
+      "month": 7,
+      "day": 7,
+      "date": "2025-07-07",
+      "dateDisplay": "2025-07-07",
+      "monthKey": "2025-07",
+      "quarter": "2025-Q3",
+      "disasterName": "丹娜絲颱風",
+      "disasterNameNormalized": "丹娜絲颱風",
+      "disasterType": "typhoon",
+      "suspensionMessageRaw": "7月7日照常上班及上課。",
+      "decisionCategory": "normal_work_school",
+      "workSuspensionStatus": "normal",
+      "schoolSuspensionStatus": "normal",
+      "isCitywide": false,
+      "isPartialDay": false,
+      "hasLocalException": false,
+      "hasSchoolOnlyException": false,
+      "hasMountainAreaException": false,
+      "hasNormalWorkSchool": true,
+      "hasSuspension": false,
+      "messageKeywordTags": [
+        "normal"
+      ],
+      "mentionedDistricts": [],
+      "mentionedSchoolsOrAreas": [],
+      "eventGroupKey": "2025-丹娜絲颱風",
+      "source": "臺北市歷次天然災害停止上班上課訊息",
+      "sourceAgency": "臺北市政府人事處"
+    },
+    {
+      "id": "natural-disaster-suspension-117",
+      "module": "natural_disaster_work_school_suspension_records",
+      "rocYear": 114,
+      "year": 2025,
+      "month": 7,
+      "day": 6,
+      "date": "2025-07-06",
+      "dateDisplay": "2025-07-06",
+      "monthKey": "2025-07",
+      "quarter": "2025-Q3",
+      "disasterName": "丹娜絲颱風",
+      "disasterNameNormalized": "丹娜絲颱風",
+      "disasterType": "typhoon",
+      "suspensionMessageRaw": "7月6日未達停止上班及上課標準。",
+      "decisionCategory": "standard_not_met",
+      "workSuspensionStatus": "standard_not_met",
+      "schoolSuspensionStatus": "standard_not_met",
+      "isCitywide": false,
+      "isPartialDay": false,
+      "hasLocalException": false,
+      "hasSchoolOnlyException": false,
+      "hasMountainAreaException": false,
+      "hasNormalWorkSchool": false,
+      "hasSuspension": true,
+      "messageKeywordTags": [
+        "work_suspension",
+        "school_suspension",
+        "standard_not_met"
+      ],
+      "mentionedDistricts": [],
+      "mentionedSchoolsOrAreas": [],
+      "eventGroupKey": "2025-丹娜絲颱風",
+      "source": "臺北市歷次天然災害停止上班上課訊息",
+      "sourceAgency": "臺北市政府人事處"
+    },
+    {
+      "id": "natural-disaster-suspension-116",
+      "module": "natural_disaster_work_school_suspension_records",
+      "rocYear": 113,
+      "year": 2024,
+      "month": 11,
+      "day": 1,
+      "date": "2024-11-01",
+      "dateDisplay": "2024-11-01",
+      "monthKey": "2024-11",
+      "quarter": "2024-Q4",
+      "disasterName": "康芮颱風",
+      "disasterNameNormalized": "康芮颱風",
+      "disasterType": "typhoon",
+      "suspensionMessageRaw": "11月1日照常上班及上課。臺北市私立立人國際國民中小學 （小學部）停止上班、停止上課。臺北市指南實驗國民小學附設幼兒園照常上班、停止上課。",
+      "decisionCategory": "normal_with_local_exceptions",
+      "workSuspensionStatus": "local_exception",
+      "schoolSuspensionStatus": "local_exception",
+      "isCitywide": false,
+      "isPartialDay": false,
+      "hasLocalException": true,
+      "hasSchoolOnlyException": false,
+      "hasMountainAreaException": false,
+      "hasNormalWorkSchool": true,
+      "hasSuspension": true,
+      "messageKeywordTags": [
+        "work_suspension",
+        "school_suspension",
+        "normal",
+        "local_area"
+      ],
+      "mentionedDistricts": [],
+      "mentionedSchoolsOrAreas": [
+        "臺北市指南實驗國民小學"
+      ],
+      "eventGroupKey": "2024-康芮颱風",
+      "source": "臺北市歷次天然災害停止上班上課訊息",
+      "sourceAgency": "臺北市政府人事處"
+    },
+    {
+      "id": "natural-disaster-suspension-115",
+      "module": "natural_disaster_work_school_suspension_records",
+      "rocYear": 113,
+      "year": 2024,
+      "month": 10,
+      "day": 31,
+      "date": "2024-10-31",
+      "dateDisplay": "2024-10-31",
+      "monthKey": "2024-10",
+      "quarter": "2024-Q4",
+      "disasterName": "康芮颱風",
+      "disasterNameNormalized": "康芮颱風",
+      "disasterType": "typhoon",
+      "suspensionMessageRaw": "10月31日停止上班及上課。",
+      "decisionCategory": "citywide_full_suspension",
+      "workSuspensionStatus": "suspended",
+      "schoolSuspensionStatus": "suspended",
+      "isCitywide": true,
+      "isPartialDay": false,
+      "hasLocalException": false,
+      "hasSchoolOnlyException": false,
+      "hasMountainAreaException": false,
+      "hasNormalWorkSchool": false,
+      "hasSuspension": true,
+      "messageKeywordTags": [
+        "work_suspension",
+        "school_suspension",
+        "citywide"
+      ],
+      "mentionedDistricts": [],
+      "mentionedSchoolsOrAreas": [],
+      "eventGroupKey": "2024-康芮颱風",
+      "source": "臺北市歷次天然災害停止上班上課訊息",
+      "sourceAgency": "臺北市政府人事處"
+    },
+    {
+      "id": "natural-disaster-suspension-114",
+      "module": "natural_disaster_work_school_suspension_records",
+      "rocYear": 113,
+      "year": 2024,
+      "month": 10,
+      "day": 25,
+      "date": "2024-10-25",
+      "dateDisplay": "2024-10-25",
+      "monthKey": "2024-10",
+      "quarter": "2024-Q4",
+      "disasterName": "1023豪雨",
+      "disasterNameNormalized": "1023豪雨",
+      "disasterType": "heavy_rain",
+      "suspensionMessageRaw": "10月25日照常上班及上課。臺北市北投區湖田里、臺北市士林區陽明山國民小學、臺北市湖田實驗國民小學、臺北市立格致國民中學、臺北市華岡藝術學校停止上班、停止上課。",
+      "decisionCategory": "normal_with_local_exceptions",
+      "workSuspensionStatus": "local_exception",
+      "schoolSuspensionStatus": "local_exception",
+      "isCitywide": false,
+      "isPartialDay": false,
+      "hasLocalException": true,
+      "hasSchoolOnlyException": false,
+      "hasMountainAreaException": true,
+      "hasNormalWorkSchool": true,
+      "hasSuspension": true,
+      "messageKeywordTags": [
+        "work_suspension",
+        "school_suspension",
+        "normal",
+        "local_area",
+        "mountain_area"
+      ],
+      "mentionedDistricts": [
+        "士林區",
+        "北投區"
+      ],
+      "mentionedSchoolsOrAreas": [
+        "臺北市北投區湖田里",
+        "臺北市士林區陽明山國民小學",
+        "臺北市湖田實驗國民小學",
+        "臺北市立格致國民中學"
+      ],
+      "eventGroupKey": "2024-1023豪雨",
+      "source": "臺北市歷次天然災害停止上班上課訊息",
+      "sourceAgency": "臺北市政府人事處"
+    }
+  ],
+  "notableMultiDayEvents": [
+    {
+      "disasterName": "象神颱風",
+      "disasterType": "typhoon",
+      "startDate": "2000-11-01",
+      "endDate": "2000-11-04",
+      "recordCount": 4
+    },
+    {
+      "disasterName": "辛樂克颱風",
+      "disasterType": "typhoon",
+      "startDate": "2008-09-12",
+      "endDate": "2008-09-14",
+      "recordCount": 3
+    },
+    {
+      "disasterName": "南瑪都颱風",
+      "disasterType": "typhoon",
+      "startDate": "2011-08-28",
+      "endDate": "2011-08-30",
+      "recordCount": 3
+    },
+    {
+      "disasterName": "蘇拉颱風",
+      "disasterType": "typhoon",
+      "startDate": "2012-08-01",
+      "endDate": "2012-08-03",
+      "recordCount": 3
+    },
+    {
+      "disasterName": "天秤颱風",
+      "disasterType": "typhoon",
+      "startDate": "2012-08-23",
+      "endDate": "2012-08-28",
+      "recordCount": 3
+    },
+    {
+      "disasterName": "蘇迪勒颱風",
+      "disasterType": "typhoon",
+      "startDate": "2015-08-07",
+      "endDate": "2015-08-09",
+      "recordCount": 3
+    },
+    {
+      "disasterName": "杜鵑颱風",
+      "disasterType": "typhoon",
+      "startDate": "2015-09-27",
+      "endDate": "2015-09-29",
+      "recordCount": 3
+    },
+    {
+      "disasterName": "尼伯特颱風",
+      "disasterType": "typhoon",
+      "startDate": "2016-07-07",
+      "endDate": "2016-07-09",
+      "recordCount": 3
+    },
+    {
+      "disasterName": "莫蘭蒂颱風",
+      "disasterType": "typhoon",
+      "startDate": "2016-09-13",
+      "endDate": "2016-09-15",
+      "recordCount": 3
+    },
+    {
+      "disasterName": "馬勒卡颱風",
+      "disasterType": "typhoon",
+      "startDate": "2016-09-16",
+      "endDate": "2016-09-18",
+      "recordCount": 3
+    },
+    {
+      "disasterName": "梅姬颱風",
+      "disasterType": "typhoon",
+      "startDate": "2016-09-26",
+      "endDate": "2016-09-28",
+      "recordCount": 3
+    },
+    {
+      "disasterName": "尼莎颱風",
+      "disasterType": "typhoon",
+      "startDate": "2017-07-28",
+      "endDate": "2017-07-30",
+      "recordCount": 3
+    }
+  ]
+}

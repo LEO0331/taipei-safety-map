@@ -20,6 +20,9 @@ const DATA_FILES = [
   cacheUrl('data/emergency-shelter-summary.json'),
   cacheUrl('data/traffic-cctv-facilities.json'),
   cacheUrl('data/traffic-cctv-summary.json'),
+  cacheUrl('data/natural-disaster-work-school-suspension-records.json'),
+  cacheUrl('data/natural-disaster-work-school-suspension-summary.json'),
+  cacheUrl('data/natural-disaster-work-school-suspension-event-groups.json'),
   cacheUrl('data/conversion-report.json')
 ];
 

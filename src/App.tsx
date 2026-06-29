@@ -32,12 +32,15 @@ import type {
   Language,
   MedicalFacility,
   MedicalFacilityType,
+  NaturalDisasterType,
+  WorkOrSchoolSuspensionStatus,
+  WorkSchoolSuspensionDecisionCategory,
   ResidentialBurglaryRecord,
   SafetyDataBundle,
   TrafficCctvFacility,
 } from './types';
 
-type Tab = 'map' | 'nearby' | 'burglary' | 'health' | 'overview' | 'notes';
+type Tab = 'map' | 'nearby' | 'burglary' | 'health' | 'disaster' | 'overview' | 'notes';
 type CapacityRange = 'all' | 'under100' | '100-499' | '500-999' | '1000plus';
 type DenseLayer = 'aeds' | 'medical' | 'fireHydrants' | 'airRaidShelters' | 'evacuationGates' | 'cctv';
 const tileAttribution = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>';
@@ -131,6 +134,118 @@ const capacityOptions: SelectOption<CapacityRange>[] = [
   { value: '1000plus', label: '1,000+' },
 ];
 const disasterStatuses: DisasterApplicabilityStatus[] = ['yes', 'no', 'backup', 'old_settlement', 'unknown'];
+const naturalDisasterTypes: NaturalDisasterType[] = ['typhoon', 'heavy_rain', 'earthquake', 'tsunami_warning', 'cold_wave', 'other', 'unknown'];
+const decisionCategories: WorkSchoolSuspensionDecisionCategory[] = [
+  'citywide_full_suspension',
+  'citywide_partial_day_suspension',
+  'standard_met',
+  'standard_not_met',
+  'normal_work_school',
+  'normal_with_local_exceptions',
+  'school_only_suspension',
+  'local_or_area_suspension',
+  'mixed_or_unclear',
+  'unknown',
+];
+const suspensionStatuses: WorkOrSchoolSuspensionStatus[] = [
+  'suspended',
+  'normal',
+  'partial_day_suspended',
+  'local_exception',
+  'school_only',
+  'standard_met',
+  'standard_not_met',
+  'mixed_or_unclear',
+  'unknown',
+];
+const disasterLabels = {
+  zh: {
+    all: '全部',
+    title: '天然災害停班停課紀錄',
+    year: '年度',
+    month: '月份',
+    date: '日期',
+    disasterName: '天然災害名稱',
+    disasterType: '災害類型',
+    decisionCategory: '停班停課分類',
+    workStatus: '上班狀態',
+    schoolStatus: '上課狀態',
+    mentionedDistrict: '提及行政區',
+    search: '搜尋',
+    searchPlaceholder: '搜尋災害名稱、停班停課內容、年份或提及地點',
+    citywide: '全市性',
+    partialDay: '部分時段',
+    localException: '局部例外',
+    schoolOnly: '僅停課或學校例外',
+    mountainArea: '山區例外',
+    historicalRecordCount: '歷史紀錄數',
+    dataDateRange: '資料日期範圍',
+    disasterNameCount: '災害名稱數',
+    eventGroupCount: '事件分組數',
+    typhoonRecordCount: '颱風紀錄數',
+    heavyRainRecordCount: '豪雨紀錄數',
+    citywideSuspensionCount: '全市停班停課紀錄數',
+    normalWorkSchoolCount: '照常上班上課紀錄數',
+    localExceptionCount: '局部例外紀錄數',
+    latestRecordDate: '最新紀錄日期',
+    recordsByYear: '各年度紀錄數',
+    recordsByMonth: '各月份紀錄數',
+    recordsByDisasterType: '各災害類型紀錄數',
+    recordsByDecisionCategory: '各停班停課分類紀錄數',
+    timeline: '停班停課時間軸',
+    eventGroups: '事件分組',
+    directory: '天然災害停班停課紀錄清單',
+    recordCount: '紀錄數',
+    suspensionMessage: '臺北市停止上班上課情形',
+    disclaimer:
+      '天然災害停班停課紀錄為臺北市公開資料中的歷史訊息，僅供查詢歷次天然災害期間停止上班上課公告紀錄與趨勢整理，不代表即時停班停課資訊、目前災害狀態、氣象預報、交通安全、避難指示或緊急應變指令。',
+    timelineNote: '歷史訊息中的「停止辦公上課」與「停止上班上課」用語會因年代與官方表述而不同，本網站保留原文並提供輔助分類。',
+    eventGroupNotice: '事件分組僅依年份與災害名稱整理歷史停班停課訊息，不代表災害強度、損失程度、影響範圍或風險等級。',
+  },
+  en: {
+    all: 'All',
+    title: 'Natural Disaster Work/School Suspension Records',
+    year: 'Year',
+    month: 'Month',
+    date: 'Date',
+    disasterName: 'Disaster name',
+    disasterType: 'Disaster type',
+    decisionCategory: 'Decision category',
+    workStatus: 'Work status',
+    schoolStatus: 'School status',
+    mentionedDistrict: 'Mentioned district',
+    search: 'Search',
+    searchPlaceholder: 'Search disaster name, suspension message, year, or mentioned place',
+    citywide: 'Citywide',
+    partialDay: 'Partial day',
+    localException: 'Local exception',
+    schoolOnly: 'School-only or school exception',
+    mountainArea: 'Mountain-area exception',
+    historicalRecordCount: 'Historical record count',
+    dataDateRange: 'Data date range',
+    disasterNameCount: 'Disaster name count',
+    eventGroupCount: 'Event group count',
+    typhoonRecordCount: 'Typhoon record count',
+    heavyRainRecordCount: 'Heavy-rain record count',
+    citywideSuspensionCount: 'Citywide suspension count',
+    normalWorkSchoolCount: 'Normal work/school count',
+    localExceptionCount: 'Local exception count',
+    latestRecordDate: 'Latest record date',
+    recordsByYear: 'Records by year',
+    recordsByMonth: 'Records by month',
+    recordsByDisasterType: 'Records by disaster type',
+    recordsByDecisionCategory: 'Records by decision category',
+    timeline: 'Suspension Timeline',
+    eventGroups: 'Event Groups',
+    directory: 'Natural Disaster Suspension Record Directory',
+    recordCount: 'Record count',
+    suspensionMessage: 'Suspension message',
+    disclaimer:
+      'Natural disaster work/school suspension records are historical public-data messages from Taipei. They are provided only for looking up past suspension announcements and organizing historical trends. They do not represent real-time work/school suspension information, current disaster status, weather forecasts, traffic safety, evacuation instructions, or emergency-response orders.',
+    timelineNote: 'Historical messages may use different official wording across periods. This site preserves the original text and provides auxiliary classification.',
+    eventGroupNotice: 'Event groups organize historical suspension messages only by year and disaster name. They do not represent disaster intensity, damage level, impact area, or risk level.',
+  },
+} as const;
 
 function App() {
   const [language, setLanguage] = useState<Language>('zh');
@@ -179,6 +294,7 @@ function App() {
             ['nearby', t.nearbyFacilities],
             ['burglary', t.burglaryRecords],
             ['health', t.publicHealth],
+            ['disaster', language === 'zh' ? '停班停課紀錄' : 'Closure Records'],
             ['overview', t.safetyOverview],
             ['notes', t.dataNotes],
           ] as const
@@ -198,6 +314,7 @@ function App() {
       {activeTab === 'nearby' && <SafetyMap data={data} language={language} nearbyMode />}
       {activeTab === 'burglary' && <BurglaryRecords data={data} language={language} />}
       {activeTab === 'health' && <PublicHealth data={data} language={language} />}
+      {activeTab === 'disaster' && <NaturalDisasterSuspensions data={data} language={language} />}
       {activeTab === 'overview' && <SafetyOverview data={data} language={language} />}
       {activeTab === 'notes' && <DataNotes data={data} language={language} />}
 
@@ -1658,6 +1775,195 @@ function PublicHealth({ data, language }: { data: SafetyDataBundle; language: La
   );
 }
 
+function NaturalDisasterSuspensions({ data, language }: { data: SafetyDataBundle; language: Language }) {
+  const labels = disasterLabels[language];
+  const [year, setYear] = useState('all');
+  const [month, setMonth] = useState('all');
+  const [disasterType, setDisasterType] = useState<NaturalDisasterType | 'all'>('all');
+  const [disasterName, setDisasterName] = useState('all');
+  const [decisionCategory, setDecisionCategory] = useState<WorkSchoolSuspensionDecisionCategory | 'all'>('all');
+  const [workStatus, setWorkStatus] = useState<WorkOrSchoolSuspensionStatus | 'all'>('all');
+  const [schoolStatus, setSchoolStatus] = useState<WorkOrSchoolSuspensionStatus | 'all'>('all');
+  const [mentionedDistrict, setMentionedDistrict] = useState('all');
+  const [citywideOnly, setCitywideOnly] = useState(false);
+  const [partialOnly, setPartialOnly] = useState(false);
+  const [localOnly, setLocalOnly] = useState(false);
+  const [schoolOnly, setSchoolOnly] = useState(false);
+  const [mountainOnly, setMountainOnly] = useState(false);
+  const [search, setSearch] = useState('');
+  const years = [...new Set(data.naturalDisasterSuspensionRecords.flatMap((item) => (item.year ? [item.year] : [])))].sort((a, b) => a - b);
+  const disasterNames = [...new Set(data.naturalDisasterSuspensionRecords.flatMap((item) => (item.disasterName ? [item.disasterName] : [])))].sort();
+  const filtered = data.naturalDisasterSuspensionRecords.filter((record) => {
+    const haystack = [
+      record.disasterName,
+      record.suspensionMessageRaw,
+      record.date,
+      record.year,
+      ...record.mentionedDistricts,
+      ...record.mentionedSchoolsOrAreas,
+    ]
+      .join(' ')
+      .toLowerCase();
+    return (
+      (year === 'all' || record.year === Number(year)) &&
+      (month === 'all' || record.month === Number(month)) &&
+      (disasterType === 'all' || record.disasterType === disasterType) &&
+      (disasterName === 'all' || record.disasterName === disasterName) &&
+      (decisionCategory === 'all' || record.decisionCategory === decisionCategory) &&
+      (workStatus === 'all' || record.workSuspensionStatus === workStatus) &&
+      (schoolStatus === 'all' || record.schoolSuspensionStatus === schoolStatus) &&
+      (mentionedDistrict === 'all' || record.mentionedDistricts.includes(mentionedDistrict)) &&
+      (!citywideOnly || record.isCitywide) &&
+      (!partialOnly || record.isPartialDay) &&
+      (!localOnly || record.hasLocalException) &&
+      (!schoolOnly || record.hasSchoolOnlyException) &&
+      (!mountainOnly || record.hasMountainAreaException) &&
+      (!search.trim() || haystack.includes(search.trim().toLowerCase()))
+    );
+  });
+  const summary = data.naturalDisasterSuspensionSummary;
+  const typhoonCount = summary.byDisasterType.find((item) => item.disasterType === 'typhoon')?.count ?? 0;
+  const heavyRainCount = summary.byDisasterType.find((item) => item.disasterType === 'heavy_rain')?.count ?? 0;
+  const citywideCount = summary.byDecisionCategory.find((item) => item.decisionCategory === 'citywide_full_suspension')?.count ?? 0;
+  const normalCount = summary.byDecisionCategory.find((item) => item.decisionCategory === 'normal_work_school')?.count ?? 0;
+  const localCount = data.naturalDisasterSuspensionRecords.filter((item) => item.hasLocalException).length;
+
+  return (
+    <main className="overview">
+      <section className="filter-panel health-filters">
+        <label>
+          {labels.year}
+          <select value={year} onChange={(event) => setYear(event.target.value)}>
+            <option value="all">{labels.all}</option>
+            {years.map((value) => <option key={value}>{value}</option>)}
+          </select>
+        </label>
+        <label>
+          {labels.month}
+          <select value={month} onChange={(event) => setMonth(event.target.value)}>
+            <option value="all">{labels.all}</option>
+            {monthOptions.map((value) => <option key={value}>{value}</option>)}
+          </select>
+        </label>
+        <label>
+          {labels.disasterType}
+          <select value={disasterType} onChange={(event) => setDisasterType(event.target.value as NaturalDisasterType | 'all')}>
+            <option value="all">{labels.all}</option>
+            {naturalDisasterTypes.map((value) => <option key={value} value={value}>{formatNaturalDisasterType(value, language)}</option>)}
+          </select>
+        </label>
+        <label>
+          {labels.disasterName}
+          <select value={disasterName} onChange={(event) => setDisasterName(event.target.value)}>
+            <option value="all">{labels.all}</option>
+            {disasterNames.map((value) => <option key={value}>{value}</option>)}
+          </select>
+        </label>
+        <label>
+          {labels.decisionCategory}
+          <select value={decisionCategory} onChange={(event) => setDecisionCategory(event.target.value as WorkSchoolSuspensionDecisionCategory | 'all')}>
+            <option value="all">{labels.all}</option>
+            {decisionCategories.map((value) => <option key={value} value={value}>{formatDecisionCategory(value, language)}</option>)}
+          </select>
+        </label>
+        <label>
+          {labels.workStatus}
+          <select value={workStatus} onChange={(event) => setWorkStatus(event.target.value as WorkOrSchoolSuspensionStatus | 'all')}>
+            <option value="all">{labels.all}</option>
+            {suspensionStatuses.map((value) => <option key={value} value={value}>{formatSuspensionStatus(value, language)}</option>)}
+          </select>
+        </label>
+        <label>
+          {labels.schoolStatus}
+          <select value={schoolStatus} onChange={(event) => setSchoolStatus(event.target.value as WorkOrSchoolSuspensionStatus | 'all')}>
+            <option value="all">{labels.all}</option>
+            {suspensionStatuses.map((value) => <option key={value} value={value}>{formatSuspensionStatus(value, language)}</option>)}
+          </select>
+        </label>
+        <label>
+          {labels.mentionedDistrict}
+          <select value={mentionedDistrict} onChange={(event) => setMentionedDistrict(event.target.value)}>
+            <option value="all">{labels.all}</option>
+            {TAIPEI_DISTRICTS.map((value) => <option key={value}>{value}</option>)}
+          </select>
+        </label>
+        <label>{labels.search}<input value={search} placeholder={labels.searchPlaceholder} onChange={(event) => setSearch(event.target.value)} /></label>
+        <label className="checkbox-row"><input type="checkbox" checked={citywideOnly} onChange={(event) => setCitywideOnly(event.target.checked)} />{labels.citywide}</label>
+        <label className="checkbox-row"><input type="checkbox" checked={partialOnly} onChange={(event) => setPartialOnly(event.target.checked)} />{labels.partialDay}</label>
+        <label className="checkbox-row"><input type="checkbox" checked={localOnly} onChange={(event) => setLocalOnly(event.target.checked)} />{labels.localException}</label>
+        <label className="checkbox-row"><input type="checkbox" checked={schoolOnly} onChange={(event) => setSchoolOnly(event.target.checked)} />{labels.schoolOnly}</label>
+        <label className="checkbox-row"><input type="checkbox" checked={mountainOnly} onChange={(event) => setMountainOnly(event.target.checked)} />{labels.mountainArea}</label>
+      </section>
+      <h1>{labels.title}</h1>
+      <p className="notice">{labels.disclaimer}</p>
+      <section className="summary-grid">
+        <Metric label={labels.historicalRecordCount} value={summary.totalRecords.toLocaleString()} />
+        <Metric label={labels.dataDateRange} value={`${summary.minDate ?? '-'} - ${summary.maxDate ?? '-'}`} />
+        <Metric label={labels.disasterNameCount} value={summary.uniqueDisasterNameCount.toLocaleString()} />
+        <Metric label={labels.eventGroupCount} value={summary.eventGroupCount.toLocaleString()} />
+        <Metric label={labels.typhoonRecordCount} value={typhoonCount.toLocaleString()} />
+        <Metric label={labels.heavyRainRecordCount} value={heavyRainCount.toLocaleString()} />
+        <Metric label={labels.citywideSuspensionCount} value={citywideCount.toLocaleString()} />
+        <Metric label={labels.normalWorkSchoolCount} value={normalCount.toLocaleString()} />
+        <Metric label={labels.localExceptionCount} value={localCount.toLocaleString()} />
+        <Metric label={labels.latestRecordDate} value={summary.maxDate ?? '-'} />
+      </section>
+      <section className="chart-grid">
+        <BarChart title={labels.recordsByYear} values={Object.fromEntries(summary.byYear.map((item) => [String(item.year), item.recordCount]))} />
+        <BarChart title={labels.recordsByMonth} values={Object.fromEntries(summary.byMonth.map((item) => [String(item.month), item.recordCount]))} />
+        <BarChart title={labels.recordsByDisasterType} values={Object.fromEntries(summary.byDisasterType.map((item) => [formatNaturalDisasterType(item.disasterType, language), item.count]))} />
+        <BarChart title={labels.recordsByDecisionCategory} values={Object.fromEntries(summary.byDecisionCategory.map((item) => [formatDecisionCategory(item.decisionCategory, language), item.count]))} />
+      </section>
+      <h2>{labels.timeline}</h2>
+      <p className="notice">{labels.timelineNote}</p>
+      <div className="record-list">
+        {filtered.slice().reverse().slice(0, 30).map((record) => (
+          <article key={`timeline-${record.id}`}>
+            <strong>{record.date ?? '-'} · {record.disasterName ?? '-'}</strong>
+            <span>{formatNaturalDisasterType(record.disasterType, language)} · {formatDecisionCategory(record.decisionCategory, language)}</span>
+            <small>{record.suspensionMessageRaw}</small>
+          </article>
+        ))}
+      </div>
+      <h2>{labels.eventGroups}</h2>
+      <p className="notice">{labels.eventGroupNotice}</p>
+      <div className="record-list">
+        {data.naturalDisasterSuspensionEventGroups.slice().reverse().slice(0, 20).map((group) => (
+          <article key={group.eventGroupKey}>
+            <strong>{group.disasterName}</strong>
+            <span>{formatNaturalDisasterType(group.disasterType, language)} · {group.startDate ?? '-'} - {group.endDate ?? '-'} · {group.recordCount}</span>
+            <small>{group.decisionCategories.map((item) => `${formatDecisionCategory(item.decisionCategory, language)} ${item.count}`).join(' / ')}</small>
+          </article>
+        ))}
+      </div>
+      <h2>{labels.directory}</h2>
+      <p>{labels.recordCount}: {filtered.length.toLocaleString()}</p>
+      <table>
+        <thead>
+          <tr>
+            <th>{labels.date}</th>
+            <th>{labels.disasterName}</th>
+            <th>{labels.disasterType}</th>
+            <th>{labels.decisionCategory}</th>
+            <th>{labels.suspensionMessage}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {filtered.slice().reverse().slice(0, 100).map((record) => (
+            <tr key={record.id}>
+              <td>{record.date ?? '-'}</td>
+              <td>{record.disasterName ?? '-'}</td>
+              <td>{formatNaturalDisasterType(record.disasterType, language)}</td>
+              <td>{formatDecisionCategory(record.decisionCategory, language)}</td>
+              <td>{record.suspensionMessageRaw ?? '-'}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </main>
+  );
+}
+
 function SafetyOverview({ data, language }: { data: SafetyDataBundle; language: Language }) {
   const t = translations[language];
   const totalCapacity = data.shelters.reduce((sum, shelter) => sum + (shelter.capacity ?? 0), 0);
@@ -1772,6 +2078,8 @@ function SafetyOverview({ data, language }: { data: SafetyDataBundle; language: 
     .flatMap((item) => (item.surveyYear && item.surveyMonth ? [`${item.surveyYear}-${String(item.surveyMonth).padStart(2, '0')}`] : []))
     .sort()
     .at(-1);
+  const disasterSummary = data.naturalDisasterSuspensionSummary;
+  const disasterLabelsForOverview = disasterLabels[language];
 
   return (
     <main className="overview">
@@ -1839,6 +2147,10 @@ function SafetyOverview({ data, language }: { data: SafetyDataBundle; language: 
         />
         <Metric label={t.latestDengueSurveyMonth} value={latestDengueMonth ?? '-'} />
         <Metric label={t.dengueSurveyRecordCount} value={data.dengueRecords.length.toLocaleString()} />
+        <Metric label={disasterLabelsForOverview.historicalRecordCount} value={disasterSummary.totalRecords.toLocaleString()} />
+        <Metric label={disasterLabelsForOverview.dataDateRange} value={`${disasterSummary.minDate ?? '-'} - ${disasterSummary.maxDate ?? '-'}`} />
+        <Metric label={disasterLabelsForOverview.disasterNameCount} value={disasterSummary.uniqueDisasterNameCount.toLocaleString()} />
+        <Metric label={disasterLabelsForOverview.eventGroupCount} value={disasterSummary.eventGroupCount.toLocaleString()} />
       </section>
       <section className="chart-grid">
         <BarChart title={t.sheltersByDistrict} values={shelterDistricts} />
@@ -1873,6 +2185,9 @@ function SafetyOverview({ data, language }: { data: SafetyDataBundle; language: 
         <BarChart title={t.riversideParkAvailability} values={riversideParkAvailability} />
         <BarChart title={t.locationDescriptionAvailability} values={locationDescriptionAvailability} />
         <BarChart title={t.dengueSurveyRecordsByDistrict} values={dengueByDistrict} />
+        <BarChart title={disasterLabelsForOverview.recordsByYear} values={Object.fromEntries(disasterSummary.byYear.map((item) => [String(item.year), item.recordCount]))} />
+        <BarChart title={disasterLabelsForOverview.recordsByDisasterType} values={Object.fromEntries(disasterSummary.byDisasterType.map((item) => [formatNaturalDisasterType(item.disasterType, language), item.count]))} />
+        <BarChart title={disasterLabelsForOverview.recordsByDecisionCategory} values={Object.fromEntries(disasterSummary.byDecisionCategory.map((item) => [formatDecisionCategory(item.decisionCategory, language), item.count]))} />
         <ComparisonChart title={t.shelterCapacityVsBurglaryRecords} summaries={data.districtSummaries} notice={t.noCausationNotice} />
       </section>
     </main>
@@ -1894,6 +2209,7 @@ function DataNotes({ data, language }: { data: SafetyDataBundle; language: Langu
       <p>{t.emergencyShelterUseNote}</p>
       <p>{t.cctvDataNote}</p>
       <p>{t.cctvLiveImageApplicationNote}</p>
+      <p>{disasterLabels[language].disclaimer}</p>
       <dl>
         {data.conversionReport.sources.map((source) => (
           <div key={source.name}>
@@ -2291,6 +2607,88 @@ function formatCoordinateStatus(status: CoordinateStatus, language: Language): s
     outlier: t.outlierCoordinates,
   };
   return labels[status];
+}
+
+function formatNaturalDisasterType(type: NaturalDisasterType, language: Language): string {
+  const labels: Record<Language, Record<NaturalDisasterType, string>> = {
+    zh: {
+      typhoon: '颱風',
+      heavy_rain: '豪雨',
+      earthquake: '地震',
+      tsunami_warning: '海嘯警報',
+      cold_wave: '寒流或低溫',
+      other: '其他',
+      unknown: '未知',
+    },
+    en: {
+      typhoon: 'Typhoon',
+      heavy_rain: 'Heavy rain',
+      earthquake: 'Earthquake',
+      tsunami_warning: 'Tsunami warning',
+      cold_wave: 'Cold wave / low temperature',
+      other: 'Other',
+      unknown: 'Unknown',
+    },
+  };
+  return labels[language][type];
+}
+
+function formatDecisionCategory(category: WorkSchoolSuspensionDecisionCategory, language: Language): string {
+  const labels: Record<Language, Record<WorkSchoolSuspensionDecisionCategory, string>> = {
+    zh: {
+      citywide_full_suspension: '全市停止上班上課',
+      citywide_partial_day_suspension: '全市部分時段停止上班上課',
+      standard_met: '達停班停課標準',
+      standard_not_met: '未達停班停課標準',
+      normal_work_school: '照常上班上課',
+      normal_with_local_exceptions: '照常上班上課但有局部例外',
+      school_only_suspension: '僅停課或學校例外',
+      local_or_area_suspension: '局部地區停止',
+      mixed_or_unclear: '混合或不明確',
+      unknown: '未知',
+    },
+    en: {
+      citywide_full_suspension: 'Citywide full suspension',
+      citywide_partial_day_suspension: 'Citywide partial-day suspension',
+      standard_met: 'Standard met',
+      standard_not_met: 'Standard not met',
+      normal_work_school: 'Normal work/school',
+      normal_with_local_exceptions: 'Normal with local exceptions',
+      school_only_suspension: 'School-only or school exception',
+      local_or_area_suspension: 'Local or area suspension',
+      mixed_or_unclear: 'Mixed or unclear',
+      unknown: 'Unknown',
+    },
+  };
+  return labels[language][category];
+}
+
+function formatSuspensionStatus(status: WorkOrSchoolSuspensionStatus, language: Language): string {
+  const labels: Record<Language, Record<WorkOrSchoolSuspensionStatus, string>> = {
+    zh: {
+      suspended: '停止',
+      normal: '照常',
+      partial_day_suspended: '部分時段停止',
+      local_exception: '局部例外',
+      school_only: '僅學校',
+      standard_met: '達標準',
+      standard_not_met: '未達標準',
+      mixed_or_unclear: '混合或不明確',
+      unknown: '未知',
+    },
+    en: {
+      suspended: 'Suspended',
+      normal: 'Normal',
+      partial_day_suspended: 'Partial-day suspended',
+      local_exception: 'Local exception',
+      school_only: 'School-only',
+      standard_met: 'Standard met',
+      standard_not_met: 'Standard not met',
+      mixed_or_unclear: 'Mixed or unclear',
+      unknown: 'Unknown',
+    },
+  };
+  return labels[language][status];
 }
 
 const localizedUiText: Record<

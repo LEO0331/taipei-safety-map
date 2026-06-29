@@ -26,8 +26,13 @@ import type {
   FireHydrantType,
   MedicalFacility,
   MedicalFacilityType,
+  NaturalDisasterType,
+  NaturalDisasterWorkSchoolSuspensionRecord,
   ResidentialBurglaryRecord,
+  SuspensionMessageKeywordTag,
   TrafficCctvFacility,
+  WorkOrSchoolSuspensionStatus,
+  WorkSchoolSuspensionDecisionCategory,
 } from '../src/types.ts';
 import { TAIPEI_BOUNDS, TAIPEI_DISTRICTS, TAIPEI_DISTRICT_CODE_MAP } from '../src/lib/safetyData.ts';
 
@@ -46,6 +51,8 @@ export const EMERGENCY_SHELTER_SOURCE = '臺北市可供避難收容處所一覽
 export const EMERGENCY_SHELTER_AGENCY = '臺北市政府教育局';
 export const TRAFFIC_CCTV_SOURCE = '臺北市CCTV設施';
 export const TRAFFIC_CCTV_AGENCY = '臺北市政府交通局交通管制工程處';
+export const NATURAL_DISASTER_SUSPENSION_SOURCE = '臺北市歷次天然災害停止上班上課訊息';
+export const NATURAL_DISASTER_SUSPENSION_AGENCY = '臺北市政府人事處';
 export const FIRE_HYDRANT_BOUNDS = {
   minLng: 121.3,
   maxLng: 121.75,
@@ -547,6 +554,191 @@ export function convertTrafficCctvRow(row: Record<string, string>, index: number
   };
 }
 
+export function parseIntegerValue(raw: unknown): number | undefined {
+  const text = String(raw ?? '').replaceAll(',', '').trim();
+  if (!text || text === '-' || text === '--' || text.toLowerCase() === 'nan') return undefined;
+  const value = Number.parseInt(text, 10);
+  return Number.isInteger(value) ? value : undefined;
+}
+
+export function parseRocDateParts(rocYearRaw: unknown, monthRaw: unknown, dayRaw: unknown) {
+  const rocYear = parseIntegerValue(rocYearRaw);
+  const month = parseIntegerValue(monthRaw);
+  const day = parseIntegerValue(dayRaw);
+  const year = rocYear === undefined ? undefined : rocYear + 1911;
+  if (year === undefined || month === undefined || day === undefined) {
+    return { rocYear, year, month, day, warning: `Missing date part: ${[rocYearRaw, monthRaw, dayRaw].join('/')}` };
+  }
+  if (!isValidGregorianDate(year, month, day)) {
+    return { rocYear, year, month, day, warning: `Invalid date: ${[rocYearRaw, monthRaw, dayRaw].join('/')}` };
+  }
+  const date = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+  return {
+    rocYear,
+    year,
+    month,
+    day,
+    date,
+    dateDisplay: `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`,
+    monthKey: `${year}-${String(month).padStart(2, '0')}`,
+    quarter: `${year}-Q${Math.ceil(month / 3)}`,
+  };
+}
+
+export function normalizeDisasterName(raw: unknown): string | undefined {
+  return emptyToUndefined(String(raw ?? '').replace(/\s+/g, ' '));
+}
+
+export function classifyNaturalDisasterType(disasterName: string | undefined): NaturalDisasterType {
+  const text = disasterName?.trim() ?? '';
+  if (!text) return 'unknown';
+  if (text.includes('颱風')) return 'typhoon';
+  if (text.includes('豪雨') || text.includes('大雨') || text.includes('水災')) return 'heavy_rain';
+  if (text.includes('地震')) return 'earthquake';
+  if (text.includes('海嘯')) return 'tsunami_warning';
+  if (text.includes('寒流') || text.includes('低溫')) return 'cold_wave';
+  return 'other';
+}
+
+export function classifySuspensionMessage(messageRaw: string | undefined): {
+  decisionCategory: WorkSchoolSuspensionDecisionCategory;
+  workSuspensionStatus: WorkOrSchoolSuspensionStatus;
+  schoolSuspensionStatus: WorkOrSchoolSuspensionStatus;
+  isCitywide: boolean;
+  isPartialDay: boolean;
+  hasLocalException: boolean;
+  hasSchoolOnlyException: boolean;
+  hasMountainAreaException: boolean;
+  hasNormalWorkSchool: boolean;
+  hasSuspension: boolean;
+  messageKeywordTags: SuspensionMessageKeywordTag[];
+} {
+  const text = messageRaw?.replace(/\s+/g, ' ').trim() ?? '';
+  if (!text) {
+    return {
+      decisionCategory: 'unknown',
+      workSuspensionStatus: 'unknown',
+      schoolSuspensionStatus: 'unknown',
+      isCitywide: false,
+      isPartialDay: false,
+      hasLocalException: false,
+      hasSchoolOnlyException: false,
+      hasMountainAreaException: false,
+      hasNormalWorkSchool: false,
+      hasSuspension: false,
+      messageKeywordTags: ['unknown'],
+    };
+  }
+
+  const hasNormalWorkSchool = /照常(上班及上課|上班上課|辦公、照常上課|辦公上課)/.test(text);
+  const hasSuspension = /(停止辦公上課|停止上班上課|停止辦公、停止上課|停止上班、停止上課|停止上課|停止辦公|停止上班)/.test(text);
+  const isPartialDay = /(下午|上午|晚上|中午|時起|起停止)/.test(text);
+  const standardMet = /(已達停止辦公及上課標準|已達停止上班及上課標準)/.test(text);
+  const standardNotMet = /(未達停止辦公及上課標準|未達停止上班及上課標準)/.test(text);
+  const hasMountainAreaException = /(山區|陽明山|湖田|菁山|平等|溪山)/.test(text);
+  const hasLocalException = hasMountainAreaException || /(淹水地區|社子地區|湖田里|國民小學|國小|國民中學|國中|高中|學校|里)/.test(text);
+  const schoolOnly = /停止上課/.test(text) && !/(停止辦公|停止上班)/.test(text);
+  const tags = new Set<SuspensionMessageKeywordTag>();
+  if (hasSuspension) tags.add('work_suspension').add('school_suspension');
+  if (hasNormalWorkSchool) tags.add('normal');
+  if (isPartialDay) tags.add('partial_day');
+  if (standardMet) tags.add('standard_met');
+  if (standardNotMet) tags.add('standard_not_met');
+  if (schoolOnly) tags.add('school_only');
+  if (hasLocalException) tags.add('local_area');
+  if (hasMountainAreaException) tags.add('mountain_area');
+
+  let decisionCategory: WorkSchoolSuspensionDecisionCategory = 'mixed_or_unclear';
+  let workSuspensionStatus: WorkOrSchoolSuspensionStatus = 'mixed_or_unclear';
+  let schoolSuspensionStatus: WorkOrSchoolSuspensionStatus = 'mixed_or_unclear';
+
+  if (standardMet) {
+    decisionCategory = 'standard_met';
+    workSuspensionStatus = 'standard_met';
+    schoolSuspensionStatus = 'standard_met';
+  } else if (standardNotMet) {
+    decisionCategory = 'standard_not_met';
+    workSuspensionStatus = 'standard_not_met';
+    schoolSuspensionStatus = 'standard_not_met';
+  } else if (hasNormalWorkSchool && hasSuspension) {
+    decisionCategory = 'normal_with_local_exceptions';
+    workSuspensionStatus = 'local_exception';
+    schoolSuspensionStatus = 'local_exception';
+  } else if (hasNormalWorkSchool) {
+    decisionCategory = 'normal_work_school';
+    workSuspensionStatus = 'normal';
+    schoolSuspensionStatus = 'normal';
+  } else if (schoolOnly) {
+    decisionCategory = 'school_only_suspension';
+    workSuspensionStatus = 'normal';
+    schoolSuspensionStatus = 'school_only';
+  } else if (hasSuspension && hasLocalException) {
+    decisionCategory = 'local_or_area_suspension';
+    workSuspensionStatus = 'local_exception';
+    schoolSuspensionStatus = 'local_exception';
+  } else if (hasSuspension && isPartialDay) {
+    decisionCategory = 'citywide_partial_day_suspension';
+    workSuspensionStatus = 'partial_day_suspended';
+    schoolSuspensionStatus = 'partial_day_suspended';
+    tags.add('citywide');
+  } else if (hasSuspension) {
+    decisionCategory = 'citywide_full_suspension';
+    workSuspensionStatus = 'suspended';
+    schoolSuspensionStatus = 'suspended';
+    tags.add('citywide');
+  }
+
+  return {
+    decisionCategory,
+    workSuspensionStatus,
+    schoolSuspensionStatus,
+    isCitywide: decisionCategory.startsWith('citywide'),
+    isPartialDay,
+    hasLocalException,
+    hasSchoolOnlyException: schoolOnly,
+    hasMountainAreaException,
+    hasNormalWorkSchool,
+    hasSuspension,
+    messageKeywordTags: tags.size ? [...tags] : ['other'],
+  };
+}
+
+export function extractMentionedDistricts(text: string | undefined): string[] {
+  return TAIPEI_DISTRICTS.filter((district) => text?.includes(district));
+}
+
+export function extractMentionedSchoolsOrAreas(text: string | undefined): string[] {
+  if (!text) return [];
+  const matches = text.match(/[\u4e00-\u9fff]{2,12}(?:國民小學|實驗國民小學|國民中學|高中|國小|國中|里|地區)/g) ?? [];
+  return [...new Set(matches)];
+}
+
+export function buildEventGroupKey(disasterNameNormalized: string | undefined, year: number | undefined): string {
+  return `${year ?? 'unknown'}-${disasterNameNormalized ?? 'unknown'}`;
+}
+
+export function convertNaturalDisasterSuspensionRow(row: Record<string, string>, index: number): NaturalDisasterWorkSchoolSuspensionRecord {
+  const parsedDate = parseRocDateParts(row['民國年'], row['月'], row['日']);
+  const disasterName = normalizeDisasterName(row['天然災害名稱']);
+  const suspensionMessageRaw = emptyToUndefined(row['臺北市停止上班上課情形']);
+  const classification = classifySuspensionMessage(suspensionMessageRaw);
+  return {
+    id: `natural-disaster-suspension-${index + 1}`,
+    module: 'natural_disaster_work_school_suspension_records',
+    ...parsedDate,
+    disasterName,
+    disasterNameNormalized: disasterName,
+    disasterType: classifyNaturalDisasterType(disasterName),
+    suspensionMessageRaw,
+    ...classification,
+    mentionedDistricts: extractMentionedDistricts(suspensionMessageRaw),
+    mentionedSchoolsOrAreas: extractMentionedSchoolsOrAreas(suspensionMessageRaw),
+    eventGroupKey: buildEventGroupKey(disasterName, parsedDate.year),
+    source: NATURAL_DISASTER_SUSPENSION_SOURCE,
+    sourceAgency: NATURAL_DISASTER_SUSPENSION_AGENCY,
+  };
+}
+
 export async function loadConvertedData() {
   const [shelters, burglaries, aeds, dengueRecords, evacuationGates, medicalFacilities, emergencyShelters, trafficCctvFacilities] = await Promise.all([
     readJsonFile<AirRaidShelter[]>(`${PUBLIC_DATA_DIR}/air-raid-shelters.json`),
@@ -599,6 +791,13 @@ function isOutsideTaipeiBounds(longitude: number | undefined, latitude: number |
     latitude < TAIPEI_BOUNDS.minLat ||
     latitude > TAIPEI_BOUNDS.maxLat
   );
+}
+
+function isValidGregorianDate(year: number, month: number, day: number): boolean {
+  if (!Number.isInteger(year) || !Number.isInteger(month) || !Number.isInteger(day)) return false;
+  if (year < 1900 || month < 1 || month > 12 || day < 1 || day > 31) return false;
+  const date = new Date(Date.UTC(year, month - 1, day));
+  return date.getUTCFullYear() === year && date.getUTCMonth() === month - 1 && date.getUTCDate() === day;
 }
 
 async function readJsonFile<T>(path: string): Promise<T> {

@@ -3,7 +3,7 @@ import type { BurglaryTimePeriod, Language } from '../types';
 export const translations = {
   zh: {
     appTitle: '台北公共安全地圖',
-    appSubtitle: '查詢 AED、醫療院所、消防栓、防空避難設備、避難收容處所、疏散門、CCTV設施與公共安全資料',
+    appSubtitle: '查詢 AED、醫療院所、消防栓、防空避難設備、避難收容處所、疏散門、CCTV設施、天然災害停班停課歷史訊息與公共安全資料',
     shelterMap: '安全地圖',
     safetyMap: '安全地圖',
     nearbyFacilities: '附近設施',
@@ -295,9 +295,9 @@ export const translations = {
     burglaryPrivacyNotice: '住宅竊盜資料之地址已由資料來源預先模糊處理，本網站不提供住戶層級定位。',
     shelterAvailabilityNotice: '防空避難設備實際開放狀況、入口位置與容量請以主管機關及現場公告為準。',
     dataDisclaimer:
-      '本網站呈現公開資料中的 AED 設置地點、醫療院所位置、消防栓點位、防空避難設備位置、避難收容處所、疏散門位置、CCTV設備點位、住宅竊盜歷史紀錄與登革熱病媒蚊密度調查結果。各設施之即時可用狀態、營業或開放時間、現場可及性、急診服務、消防救災資訊、收容處所開設情形、災害應變資訊、CCTV即時影像與官方資訊請以主管機關及現場公告為準。住宅竊盜資料為歷史紀錄，不代表即時風險或犯罪預測。登革熱病媒蚊資料為調查結果，不代表即時疫情風險或病例分布。如遇緊急狀況，請立即撥打 119 或相關緊急電話。',
+      '本網站呈現公開資料中的 AED 設置地點、醫療院所位置、消防栓點位、防空避難設備位置、避難收容處所、疏散門位置、CCTV設備點位、住宅竊盜歷史紀錄、登革熱病媒蚊密度調查結果與天然災害停班停課歷史訊息。各資料僅供公共安全資料探索與背景觀察，不構成即時警報、災害預警、避難指示、醫療建議、治安判斷、路線安全保證或緊急應變指令。最新與正式資訊請以主管機關、119、110、中央氣象署、行政院人事行政總處及臺北市政府官方公告為準。',
     footer:
-      '資料來源：臺北市AED自動體外心臟去顫器設置地點、臺北市公私立醫療院所、大臺北地區消防栓分布點位圖、北市警政APP_防空避難設備位置、臺北市可供避難收容處所一覽表、臺北市疏散門資訊、臺北市CCTV設施、臺北市住宅竊盜點位資訊、臺北市登革熱病媒蚊密度調查結果。實際可用狀態、營業或開放時間、現場可及性、急診服務、消防救災資訊、收容處所開設情形、災害應變資訊、CCTV即時影像、官方資訊與防疫資訊請以主管機關及現場公告為準。',
+      '資料來源：臺北市AED自動體外心臟去顫器設置地點、臺北市公私立醫療院所、大臺北地區消防栓分布點位圖、北市警政APP_防空避難設備位置、臺北市可供避難收容處所一覽表、臺北市疏散門資訊、臺北市CCTV設施、臺北市住宅竊盜點位資訊、臺北市登革熱病媒蚊密度調查結果、臺北市歷次天然災害停止上班上課訊息。資料僅供公共安全資料探索與背景觀察，不構成即時警報、災害預警、避難指示、醫療建議、治安判斷、路線安全保證或緊急應變指令。',
     all: '全部',
     search: '搜尋',
     searchPlaceholder: '搜尋場所、地址、行政區、醫療院所或關鍵字',
@@ -307,7 +307,7 @@ export const translations = {
   },
   en: {
     appTitle: 'Taipei Public Safety Map',
-    appSubtitle: 'Find AEDs, medical facilities, fire hydrants, air-raid shelters, emergency shelters, evacuation gates, CCTV facilities, and public-safety data',
+    appSubtitle: 'Find AEDs, medical facilities, fire hydrants, air-raid shelters, emergency shelters, evacuation gates, CCTV facilities, historical natural-disaster closure messages, and public-safety data',
     shelterMap: 'Safety Map',
     safetyMap: 'Safety Map',
     nearbyFacilities: 'Nearby Facilities',
@@ -603,9 +603,9 @@ export const translations = {
     shelterAvailabilityNotice:
       'Actual shelter availability, entrance location, and capacity should be verified with official sources and on-site notices.',
     dataDisclaimer:
-      'This site presents public-data records for AED placement locations, medical facilities, fire hydrants, air-raid shelters, emergency shelters, evacuation gates, CCTV equipment locations, historical residential burglary records, and dengue vector density survey results. Real-time availability, opening hours, medical services, emergency services, on-site accessibility, fire-response information, shelter opening status, disaster-response information, CCTV live video, and official information should be verified with official sources and on-site notices. Burglary records are historical records and do not represent real-time risk or crime prediction. Dengue vector data is based on survey results and does not represent real-time outbreak risk or case distribution. In an emergency, call 119 or the relevant emergency number immediately.',
+      'This site presents Taipei public-data records for AED placement locations, medical facilities, fire hydrants, air-raid shelters, emergency shelters, evacuation gates, CCTV equipment locations, historical residential burglary records, dengue vector density survey results, and historical natural-disaster work/school suspension messages. The data is for public-safety exploration and background observation only and does not constitute real-time alerts, disaster warnings, evacuation instructions, medical advice, crime-risk judgment, route-safety guarantees, or emergency-response orders.',
     footer:
-      'Data sources: Taipei AED placement location dataset, Taipei public/private medical institution dataset, Greater Taipei fire hydrant location dataset, Taipei Police APP air-raid shelter location dataset, Taipei emergency shelter directory, Taipei evacuation gate information dataset, Taipei CCTV facility dataset, Taipei residential burglary location dataset, and Taipei dengue vector density survey dataset. Actual availability, opening hours, on-site accessibility, emergency services, fire-response information, shelter opening status, disaster-response information, CCTV live video, official information, and public-health information should be verified with official sources and on-site notices.',
+      'Data sources: Taipei AED placement location dataset, Taipei public/private medical institution dataset, Greater Taipei fire hydrant location dataset, Taipei Police APP air-raid shelter location dataset, Taipei emergency shelter directory, Taipei evacuation gate information dataset, Taipei CCTV facility dataset, Taipei residential burglary location dataset, Taipei dengue vector density survey dataset, and Taipei historical natural-disaster work/school suspension messages. The data is for public-safety exploration and background observation only and does not constitute real-time alerts, disaster warnings, evacuation instructions, medical advice, crime-risk judgment, route-safety guarantees, or emergency-response orders.',
     all: 'All',
     search: 'Search',
     searchPlaceholder: 'Search place, address, district, medical facility, or keyword',

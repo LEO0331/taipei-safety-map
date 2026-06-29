@@ -1,0 +1,11 @@
+{
+  "inputRows": 123,
+  "outputRows": 123,
+  "fileSize": 9542,
+  "encoding": "UTF-8-SIG with Big5 fallback",
+  "dateParseWarnings": [],
+  "invalidNumberExamples": [],
+  "duplicateRows": 0,
+  "duplicateExamples": [],
+  "mixedOrUnclearExamples": []
+}

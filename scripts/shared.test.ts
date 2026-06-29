@@ -10,7 +10,10 @@ import {
   convertMedicalFacilityRow,
   convertShelterRow,
   convertTrafficCctvRow,
+  convertNaturalDisasterSuspensionRow,
   decodeCsvBuffer,
+  classifyNaturalDisasterType,
+  classifySuspensionMessage,
   normalizeDistrictCode,
   parseCameraLocationCode,
   parseDisasterApplicability,
@@ -310,5 +313,32 @@ describe('CSV script helpers', () => {
 
     expect(convertTrafficCctvRow({ WGSX: 'x', WGSY: '25' }, 1).coordinateStatus).toBe('unparsed');
     expect(convertTrafficCctvRow({ WGSX: '120', WGSY: '25' }, 2).coordinateStatus).toBe('outlier');
+  });
+
+  it('converts natural disaster suspension rows and preserves raw messages', () => {
+    expect(classifyNaturalDisasterType('1020豪雨')).toBe('heavy_rain');
+    expect(classifyNaturalDisasterType('九二一大地震')).toBe('earthquake');
+    expect(classifyNaturalDisasterType('海嘯警報')).toBe('tsunami_warning');
+    expect(classifySuspensionMessage('未達停止辦公及上課標準。')).toMatchObject({
+      decisionCategory: 'standard_not_met',
+      workSuspensionStatus: 'standard_not_met',
+    });
+    expect(
+      convertNaturalDisasterSuspensionRow(
+        {
+          民國年: '87',
+          月: '10',
+          日: '16',
+          天然災害名稱: '瑞伯颱風',
+          臺北市停止上班上課情形: '10月16日停止辦公上課。',
+        },
+        0,
+      ),
+    ).toMatchObject({
+      date: '1998-10-16',
+      disasterType: 'typhoon',
+      decisionCategory: 'citywide_full_suspension',
+      suspensionMessageRaw: '10月16日停止辦公上課。',
+    });
   });
 });

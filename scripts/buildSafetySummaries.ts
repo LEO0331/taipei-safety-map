@@ -1,7 +1,7 @@
 import { countBy } from '../src/lib/safetyData.ts';
 import { loadConvertedData, sources, writeJson } from './shared.ts';
 import { readFile, stat } from 'node:fs/promises';
-import type { EmergencyShelterSummary, FireHydrantSummary, TrafficCctvSummary } from '../src/types.ts';
+import type { EmergencyShelterSummary, FireHydrantSummary, NaturalDisasterSuspensionSummary, TrafficCctvSummary } from '../src/types.ts';
 
 const {
   shelters,
@@ -95,6 +95,24 @@ const [trafficCctvSummary, trafficCctvConversion, trafficCctvFile, trafficCctvFe
     .then((value) => JSON.parse(value) as { failure?: string | null })
     .catch(() => null),
 ]);
+const [naturalDisasterSuspensionSummary, naturalDisasterSuspensionConversion, naturalDisasterSuspensionFile] = await Promise.all([
+  readFile('public/data/natural-disaster-work-school-suspension-summary.json', 'utf8').then(
+    (value) => JSON.parse(value) as NaturalDisasterSuspensionSummary,
+  ),
+  readFile('public/data/natural-disaster-work-school-suspension-conversion.json', 'utf8').then(
+    (value) =>
+      JSON.parse(value) as {
+        inputRows: number;
+        outputRows: number;
+        dateParseWarnings: string[];
+        invalidNumberExamples: string[];
+        duplicateRows: number;
+        duplicateExamples: string[];
+        mixedOrUnclearExamples: string[];
+      },
+  ),
+  stat('data/raw/natural-disaster-work-school-suspension-records/natural-disaster-work-school-suspension-records.csv').catch(() => null),
+]);
 
 await writeJson('public/data/safety-dashboard-summary.json', {
   districtSummaries,
@@ -106,6 +124,7 @@ await writeJson('public/data/safety-dashboard-summary.json', {
   fireHydrantSummary,
   emergencyShelterSummary,
   trafficCctvSummary,
+  naturalDisasterSuspensionSummary,
   dengueRecordCount: dengueRecords.length,
 });
 await writeJson('public/data/conversion-report.json', {
@@ -211,6 +230,16 @@ await writeJson('public/data/conversion-report.json', {
         ? `Latest CCTV download failed: ${trafficCctvFetchStatus.failure}. Existing generated data was retained.`
         : 'Traffic CCTV equipment location records from 交通局交工處; no live video, camera direction, or monitoring coverage is provided.',
     },
+    {
+      name: '臺北市歷次天然災害停止上班上課訊息',
+      url: 'https://data.taipei/dataset/detail?id=83b013c2-35f3-4470-98d7-03dd68a372cb',
+      downloadUrl: '',
+      downloadedAt: naturalDisasterSuspensionFile?.mtime.toISOString() ?? null,
+      fileSize: naturalDisasterSuspensionFile?.size,
+      encoding: 'UTF-8-SIG',
+      notes:
+        'Historical natural-disaster work/school suspension messages from 人事處; raw decision text is preserved and classifications are auxiliary only.',
+    },
   ],
   shelters: {
     inputRows: shelters.length,
@@ -275,6 +304,7 @@ await writeJson('public/data/conversion-report.json', {
     unparsedCoordinates: trafficCctvSummary.unparsedCoordinateCount,
     outlierCoordinates: trafficCctvSummary.outlierCoordinateCount,
   },
+  naturalDisasterSuspensions: naturalDisasterSuspensionConversion,
   notes: [
     'Residential burglary records remain blurred and are never geocoded into exact household-level markers.',
     `Burglary time periods: ${Object.keys(countBy(burglaries, (record) => record.timePeriod)).join(', ')}`,
@@ -285,6 +315,7 @@ await writeJson('public/data/conversion-report.json', {
     'Fire hydrant records do not represent real-time availability, fire-response deployment, or fire-safety level.',
     'Emergency shelter records do not represent real-time opening status, remaining capacity, or official evacuation instructions.',
     'CCTV records do not provide live video, camera direction, monitoring coverage, or public-safety scoring.',
+    'Natural disaster suspension records are historical administrative messages and do not represent real-time closure status, forecasts, or emergency instructions.',
   ],
 });
 

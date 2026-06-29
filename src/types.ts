@@ -10,7 +10,8 @@ export type SafetyLayer =
   | 'evacuation_gate'
   | 'medical_facility'
   | 'fire_hydrant'
-  | 'traffic_cctv';
+  | 'traffic_cctv'
+  | 'natural_disaster_work_school_suspension_records';
 
 export type LocationPrecision = 'exact' | 'district_centroid' | 'address_only' | 'missing';
 
@@ -356,6 +357,135 @@ export type DengueDistrictSummary = {
   bySurveyType: Array<{ surveyType: string; count: number }>;
 };
 
+export type NaturalDisasterType =
+  | 'typhoon'
+  | 'heavy_rain'
+  | 'earthquake'
+  | 'tsunami_warning'
+  | 'cold_wave'
+  | 'other'
+  | 'unknown';
+
+export type WorkSchoolSuspensionDecisionCategory =
+  | 'citywide_full_suspension'
+  | 'citywide_partial_day_suspension'
+  | 'standard_met'
+  | 'standard_not_met'
+  | 'normal_work_school'
+  | 'normal_with_local_exceptions'
+  | 'school_only_suspension'
+  | 'local_or_area_suspension'
+  | 'mixed_or_unclear'
+  | 'unknown';
+
+export type WorkOrSchoolSuspensionStatus =
+  | 'suspended'
+  | 'normal'
+  | 'partial_day_suspended'
+  | 'local_exception'
+  | 'school_only'
+  | 'standard_met'
+  | 'standard_not_met'
+  | 'mixed_or_unclear'
+  | 'unknown';
+
+export type SuspensionMessageKeywordTag =
+  | 'citywide'
+  | 'school_only'
+  | 'local_area'
+  | 'mountain_area'
+  | 'partial_day'
+  | 'normal'
+  | 'standard_met'
+  | 'standard_not_met'
+  | 'work_suspension'
+  | 'school_suspension'
+  | 'other'
+  | 'unknown';
+
+export type NaturalDisasterWorkSchoolSuspensionRecord = {
+  id: string;
+  module: 'natural_disaster_work_school_suspension_records';
+  rocYear?: number;
+  year?: number;
+  month?: number;
+  day?: number;
+  date?: string;
+  dateDisplay?: string;
+  monthKey?: string;
+  quarter?: string;
+  disasterName?: string;
+  disasterNameNormalized?: string;
+  disasterType: NaturalDisasterType;
+  suspensionMessageRaw?: string;
+  decisionCategory: WorkSchoolSuspensionDecisionCategory;
+  workSuspensionStatus: WorkOrSchoolSuspensionStatus;
+  schoolSuspensionStatus: WorkOrSchoolSuspensionStatus;
+  isCitywide: boolean;
+  isPartialDay: boolean;
+  hasLocalException: boolean;
+  hasSchoolOnlyException: boolean;
+  hasMountainAreaException: boolean;
+  hasNormalWorkSchool: boolean;
+  hasSuspension: boolean;
+  mentionedDistricts: string[];
+  mentionedSchoolsOrAreas: string[];
+  messageKeywordTags: SuspensionMessageKeywordTag[];
+  eventGroupKey: string;
+  source: string;
+  sourceAgency: string;
+};
+
+export type NaturalDisasterSuspensionEventGroup = {
+  eventGroupKey: string;
+  disasterName: string;
+  disasterNameNormalized: string;
+  disasterType: NaturalDisasterType;
+  startDate?: string;
+  endDate?: string;
+  recordCount: number;
+  years: number[];
+  decisionCategories: Array<{ decisionCategory: WorkSchoolSuspensionDecisionCategory; count: number }>;
+  records: NaturalDisasterWorkSchoolSuspensionRecord[];
+};
+
+export type NaturalDisasterSuspensionSummary = {
+  totalRecords: number;
+  uniqueDisasterNameCount: number;
+  eventGroupCount: number;
+  minDate?: string;
+  maxDate?: string;
+  minYear?: number;
+  maxYear?: number;
+  byYear: Array<{
+    year: number;
+    recordCount: number;
+    eventGroupCount: number;
+    citywideFullSuspensionCount: number;
+    normalWorkSchoolCount: number;
+    localExceptionCount: number;
+  }>;
+  byMonth: Array<{ month: number; recordCount: number }>;
+  byDisasterType: Array<{ disasterType: NaturalDisasterType; count: number; eventGroupCount: number }>;
+  byDecisionCategory: Array<{ decisionCategory: WorkSchoolSuspensionDecisionCategory; count: number }>;
+  byDisasterName: Array<{
+    disasterName: string;
+    disasterType: NaturalDisasterType;
+    count: number;
+    firstDate?: string;
+    lastDate?: string;
+  }>;
+  byMentionedDistrict: Array<{ district: string; count: number }>;
+  latestRecords: NaturalDisasterWorkSchoolSuspensionRecord[];
+  notableMultiDayEvents: Array<{
+    disasterName: string;
+    disasterType: NaturalDisasterType;
+    startDate?: string;
+    endDate?: string;
+    recordCount: number;
+  }>;
+};
+
 export type Language = 'zh' | 'en';
 
 export type SafetyDataBundle = {
@@ -369,6 +499,9 @@ export type SafetyDataBundle = {
   emergencyShelterSummary: EmergencyShelterSummary;
   trafficCctvFacilities: TrafficCctvFacility[];
   trafficCctvSummary: TrafficCctvSummary;
+  naturalDisasterSuspensionRecords: NaturalDisasterWorkSchoolSuspensionRecord[];
+  naturalDisasterSuspensionSummary: NaturalDisasterSuspensionSummary;
+  naturalDisasterSuspensionEventGroups: NaturalDisasterSuspensionEventGroup[];
   dengueRecords: DengueSurveyRecord[];
   dengueDistrictSummaries: DengueDistrictSummary[];
   districtSummaries: DistrictSafetySummary[];
@@ -463,6 +596,15 @@ export type ConversionReport = {
     invalidCoordinateExamples: string[];
     outlierCoordinateExamples: string[];
     duplicateExamples: string[];
+  };
+  naturalDisasterSuspensions?: {
+    inputRows: number;
+    outputRows: number;
+    dateParseWarnings: string[];
+    invalidNumberExamples: string[];
+    duplicateRows: number;
+    duplicateExamples: string[];
+    mixedOrUnclearExamples: string[];
   };
   notes: string[];
 };
