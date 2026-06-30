@@ -9,6 +9,7 @@ import {
   convertEvacuationGateRow,
   convertFireHydrantRow,
   convertMedicalFacilityRow,
+  convertMotorcycleTheftRow,
   convertShelterRow,
   convertTrafficCctvRow,
   convertNaturalDisasterSuspensionRow,
@@ -368,6 +369,31 @@ describe('CSV script helpers', () => {
       roadName: '四維路',
       hasAddressRange: true,
       addressRangeText: '1~30號',
+      locationPrecision: 'road_or_segment_level',
+    });
+    expect(record).not.toHaveProperty('latitude');
+    expect(record).not.toHaveProperty('longitude');
+  });
+
+  it('converts motorcycle theft rows without exact coordinates', () => {
+    const record = convertMotorcycleTheftRow(
+      {
+        編號: '1',
+        案類: '機車竊盜',
+        發生日期: '1070101',
+        發生時段: '02-04',
+        發生地點: '臺北市中山區新生北路3段31 - 60號',
+      },
+      0,
+    );
+    expect(record).toMatchObject({
+      date: '2018-01-01',
+      incidentTimeBand: '02~04',
+      district: '中山區',
+      roadName: '新生北路3段',
+      hasAddressRange: true,
+      addressRangeText: '31-60號',
+      caseType: 'motorcycle_theft',
       locationPrecision: 'road_or_segment_level',
     });
     expect(record).not.toHaveProperty('latitude');

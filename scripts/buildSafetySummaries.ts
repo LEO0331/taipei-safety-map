@@ -1,7 +1,14 @@
 import { countBy } from '../src/lib/safetyData.ts';
 import { loadConvertedData, sources, writeJson } from './shared.ts';
 import { readFile, stat } from 'node:fs/promises';
-import type { BicycleTheftSummary, EmergencyShelterSummary, FireHydrantSummary, NaturalDisasterSuspensionSummary, TrafficCctvSummary } from '../src/types.ts';
+import type {
+  BicycleTheftSummary,
+  EmergencyShelterSummary,
+  FireHydrantSummary,
+  MotorcycleTheftSummary,
+  NaturalDisasterSuspensionSummary,
+  TrafficCctvSummary,
+} from '../src/types.ts';
 
 const {
   shelters,
@@ -129,12 +136,29 @@ const [bicycleTheftSummary, bicycleTheftConversion, bicycleTheftFile] = await Pr
   ),
   stat('data/raw/bicycle-theft-records/bicycle-theft-records.csv').catch(() => null),
 ]);
+const [motorcycleTheftSummary, motorcycleTheftConversion, motorcycleTheftFile] = await Promise.all([
+  readFile('public/data/motorcycle-theft-summary.json', 'utf8').then((value) => JSON.parse(value) as MotorcycleTheftSummary),
+  readFile('public/data/motorcycle-theft-conversion.json', 'utf8').then(
+    (value) =>
+      JSON.parse(value) as {
+        inputRows: number;
+        outputRows: number;
+        duplicateRows: number;
+        dateParseWarnings: string[];
+        timeBandParseWarnings: string[];
+        locationParseWarnings: string[];
+        duplicateExamples: string[];
+      },
+  ),
+  stat('data/raw/motorcycle-theft-records/motorcycle-theft-records.csv').catch(() => null),
+]);
 
 await writeJson('public/data/safety-dashboard-summary.json', {
   districtSummaries,
   dengueDistrictSummaries,
   aedCount: aeds.length,
   bicycleTheftSummary,
+  motorcycleTheftSummary,
   evacuationGateCount: evacuationGates.length,
   evacuationGateSummary,
   medicalFacilitySummary,
@@ -267,6 +291,16 @@ await writeJson('public/data/conversion-report.json', {
       notes:
         'Historical bicycle theft public-safety records from 警察局刑警大隊; incident locations are pre-fuzzed text and are never geocoded into exact markers.',
     },
+    {
+      name: '臺北市機車竊盜點位資訊',
+      url: 'https://data.taipei/dataset/detail?id=3a0e2289-a605-4eac-af30-f4af613f456d',
+      downloadUrl: '',
+      downloadedAt: motorcycleTheftFile?.mtime.toISOString() ?? null,
+      fileSize: motorcycleTheftFile?.size,
+      encoding: 'CP950 / Big5-family',
+      notes:
+        'Historical motorcycle theft public-safety records from 警察局刑警大隊; incident locations are pre-fuzzed text and are never geocoded into exact markers.',
+    },
   ],
   shelters: {
     inputRows: shelters.length,
@@ -282,6 +316,7 @@ await writeJson('public/data/conversion-report.json', {
     dateParseWarnings: burglaries.filter((record) => !record.year).length,
   },
   bicycleThefts: bicycleTheftConversion,
+  motorcycleThefts: motorcycleTheftConversion,
   aeds: {
     inputRows: aeds.length,
     outputRows: aeds.length,
@@ -336,6 +371,7 @@ await writeJson('public/data/conversion-report.json', {
   notes: [
     'Residential burglary records remain blurred and are never geocoded into exact household-level markers.',
     'Bicycle theft records use pre-fuzzed address text and are shown only as district, road, and fuzzy-location summaries.',
+    'Motorcycle theft records use pre-fuzzed address text and are shown only as district, road, and fuzzy-location summaries.',
     `Burglary time periods: ${Object.keys(countBy(burglaries, (record) => record.timePeriod)).join(', ')}`,
     'AED availability is not real-time.',
     'Dengue records are shown only as district/village survey aggregates.',

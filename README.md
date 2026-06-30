@@ -2,7 +2,7 @@
 
 A mobile-first bilingual Vite + React + TypeScript + Leaflet app for public safety information in Taipei.
 
-The app combines AED locations, medical facilities, fire hydrants, air-raid shelters, emergency shelters, evacuation gates, CCTV equipment locations, historical residential burglary records, bicycle theft records, dengue vector-density survey results, and historical natural-disaster work/school suspension messages. It does not provide real-time availability, remaining shelter capacity, live CCTV video, medical advice, fire-response instructions, evacuation instructions, current closure status, forecasts, crime-risk scoring, route-safety guarantees, legal advice, crime prediction, or outbreak-risk prediction.
+The app combines AED locations, medical facilities, fire hydrants, air-raid shelters, emergency shelters, evacuation gates, CCTV equipment locations, historical residential burglary records, bicycle theft records, motorcycle theft records, dengue vector-density survey results, and historical natural-disaster work/school suspension messages. It does not provide real-time availability, remaining shelter capacity, live CCTV video, medical advice, fire-response instructions, evacuation instructions, current closure status, forecasts, crime-risk scoring, route-safety guarantees, legal advice, insurance advice, theft-prevention advice, crime prediction, or outbreak-risk prediction.
 
 Fire & emergency facilities: AEDs, medical facilities, and fire hydrants / 消防與緊急設施：AED、醫療院所與消防栓
 
@@ -10,7 +10,7 @@ Shelters & disaster response facilities: air-raid shelters, emergency shelters, 
 
 Traffic monitoring facilities: CCTV equipment locations / 交通監控設施：CCTV設備點位
 
-Crime records and public safety: historical bicycle theft records with district, time-band, and fuzzy-location summaries / 治安紀錄與生活安全：自行車竊盜歷史紀錄、行政區、發生時段與模糊地點彙總
+Crime records and public safety: historical bicycle and motorcycle theft records with district, time-band, and fuzzy-location summaries / 治安紀錄與生活安全：自行車與機車竊盜歷史紀錄、行政區、發生時段與模糊地點彙總
 
 Disaster information history: historical natural-disaster work/school suspension messages / 災害資訊歷史：歷次天然災害停止上班上課訊息
 
@@ -19,6 +19,7 @@ Disaster information history: historical natural-disaster work/school suspension
 - `北市警政APP_防空避難設備位置`: public shelter facilities with coordinates and capacity.
 - `臺北市住宅竊盜點位資訊`: historical residential burglary records. Source location text is pre-blurred to avoid exposing personally identifiable information.
 - `臺北市自行車竊盜點位資訊`: historical bicycle theft records with CP950 / Big5-family encoding, compact ROC dates, incident time bands, and pre-fuzzed location text.
+- `臺北市機車竊盜點位資訊`: historical motorcycle theft records with CP950 / Big5-family encoding, compact ROC dates, incident time bands, and pre-fuzzed location text.
 - `臺北市AED自動體外心臟去顫器設置地點`: public AED placement locations with coordinates and placement descriptions.
 - `臺北市登革熱病媒蚊密度調查結果`: public-health survey results aggregated by district and village.
 - `臺北市疏散門資訊`: WGS84 evacuation-gate location records with riverside park, name, and location description.
@@ -31,6 +32,8 @@ Disaster information history: historical natural-disaster work/school suspension
 Burglary records are never geocoded to exact household-level markers. The app uses district-level aggregation, blurred location text, and fixed district centroids.
 
 Bicycle theft records are never geocoded to exact markers. The app parses compact ROC dates, incident time bands, district, village, road names, and address ranges, then shows district centroid bubbles, road summaries, and fuzzy-location buckets. It does not represent current crime risk, exact incident addresses, route safety, legal advice, or theft-prevention advice.
+
+Motorcycle theft records are never geocoded to exact markers. The app parses compact ROC dates, incident time bands, district, village, road names, and address ranges, then shows district centroid bubbles, road summaries, and fuzzy-location buckets. It does not represent current crime risk, exact incident addresses, route safety, legal advice, insurance advice, or theft-prevention advice.
 
 Dengue survey records do not include coordinates. The app uses district centroids for aggregate bubbles and never represents them as exact village or survey locations. The Breteau index generally represents positive water-holding containers per 100 surveyed households; the container index generally represents the proportion of inspected containers that were positive. Refer to official public-health sources for interpretation.
 
@@ -80,6 +83,7 @@ data/raw/emergency-shelters/emergency-shelters.csv
 data/raw/traffic-cctv/traffic-cctv.csv
 data/raw/natural-disaster-work-school-suspension-records/natural-disaster-work-school-suspension-records.csv
 data/raw/bicycle-theft-records/bicycle-theft-records.csv
+data/raw/motorcycle-theft-records/motorcycle-theft-records.csv
 ```
 
 ## Coordinate Handling
@@ -93,6 +97,8 @@ CCTV CSVs are Big5 / CP950 with UTF-8 fallback. Conversion parses `流水號`, `
 Natural-disaster suspension CSVs are UTF-8-SIG with Big5 fallback. Conversion parses `民國年`, `月`, `日`, `天然災害名稱`, and `臺北市停止上班上課情形`; raw decision text is preserved exactly and classification is only an auxiliary filter.
 
 Bicycle theft CSVs are CP950 / Big5-family with UTF-8-SIG fallback. Conversion parses `編號`, `案類`, compact ROC `發生日期`, `發生時段`, and fuzzy `發生地點`; it extracts district, village, road, and address-range text where practical, but never geocodes or creates exact incident points.
+
+Motorcycle theft CSVs are CP950 / Big5-family with UTF-8-SIG fallback. Conversion parses `編號`, `案類`, compact ROC `發生日期`, `發生時段`, and fuzzy `發生地點`; it extracts district, village, road, and address-range text where practical, but never geocodes or creates exact incident points.
 
 `fire-hydrants.json` is intentionally not precached because it is large. The app caches `fire-hydrant-summary.json` and lazy-loads exact hydrant points only when the hydrant layer or nearby hydrant lookup is used.
 

@@ -1,0 +1,26 @@
+{
+  "inputRows": 2597,
+  "outputRows": 2597,
+  "fileSize": 158598,
+  "encoding": "CP950 / Big5 with UTF-8-SIG fallback",
+  "duplicateRows": 0,
+  "dateParseWarnings": [
+    "motorcycle-theft-1801"
+  ],
+  "timeBandParseWarnings": [
+    "00-002"
+  ],
+  "locationParseWarnings": [
+    "臺北市羅斯福路六段與景華街口",
+    "臺北市環河南路及環河北路沿線",
+    "臺北市內湖路一段737巷50弄31 - 60號",
+    "臺北市承德路七段與公館路口旁人行道機車格",
+    "臺北市民權西路附近",
+    "臺北市環河南路1段1 - 30號",
+    "臺北市行天宮附近",
+    "臺北市甘州街與歸綏街口之停車格",
+    "臺北市中坡北路37巷1 - 30號",
+    "臺北市忠孝東路7段124巷的橋上"
+  ],
+  "duplicateExamples": []
+}

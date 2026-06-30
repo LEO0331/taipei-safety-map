@@ -42,7 +42,7 @@ import type {
   TrafficCctvFacility,
 } from './types';
 
-type Tab = 'map' | 'nearby' | 'burglary' | 'bike' | 'health' | 'disaster' | 'overview' | 'notes';
+type Tab = 'map' | 'nearby' | 'burglary' | 'bike' | 'motorcycle' | 'health' | 'disaster' | 'overview' | 'notes';
 type CapacityRange = 'all' | 'under100' | '100-499' | '500-999' | '1000plus';
 type DenseLayer = 'aeds' | 'medical' | 'fireHydrants' | 'airRaidShelters' | 'evacuationGates' | 'cctv';
 const tileAttribution = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>';
@@ -182,6 +182,7 @@ const bicycleLabels = {
   zh: {
     all: '全部',
     title: '自行車竊盜點位資訊',
+    shortTitle: '自行車竊盜',
     subtitle: '整理臺北市自行車竊盜歷史紀錄，依行政區、年份、月份、發生時段與模糊地點文字提供資料查詢與趨勢整理。',
     directory: '自行車竊盜紀錄清單',
     district: '行政區',
@@ -223,6 +224,7 @@ const bicycleLabels = {
   en: {
     all: 'All',
     title: 'Bicycle Theft Records',
+    shortTitle: 'Bicycle Theft',
     subtitle: 'Explore Taipei historical bicycle theft records by district, year, month, incident time band, and fuzzy location text.',
     directory: 'Bicycle Theft Record Directory',
     district: 'District',
@@ -260,6 +262,38 @@ const bicycleLabels = {
     topBuckets: 'Fuzzy locations with more historical records',
     mapNotice: 'Bicycle theft data does not provide coordinates, and incident locations are pre-fuzzed address text. The map shows district-level summaries and does not represent exact incident addresses, real-time public-safety status, or current crime risk.',
     dataNote: 'This data is historical public-safety open data for lookup and trend organization only. It does not represent real-time public-safety status, current crime risk, exact incident address, route-safety guarantee, police reporting, legal advice, or theft-prevention advice.',
+  },
+} as const;
+const motorcycleLabels = {
+  zh: {
+    ...bicycleLabels.zh,
+    title: '機車竊盜點位資訊',
+    shortTitle: '機車竊盜',
+    subtitle: '整理臺北市機車竊盜歷史紀錄，依行政區、年份、月份、發生時段與模糊地點文字提供資料查詢與趨勢整理。',
+    directory: '機車竊盜紀錄清單',
+    historicalCount: '機車竊盜歷史紀錄數',
+    byYear: '各年度機車竊盜紀錄數',
+    byMonth: '各月份機車竊盜紀錄數',
+    byDistrict: '各行政區機車竊盜紀錄數',
+    byTimeBand: '各發生時段機車竊盜紀錄數',
+    byTimeOfDay: '各時段分類機車竊盜紀錄數',
+    mapNotice: '機車竊盜資料未提供經緯度，且發生地點為預先模糊處理之地址文字。地圖以行政區彙總呈現，不代表精確案發地址、即時治安狀態或目前犯罪風險。',
+    dataNote: '本資料為歷史治安公開資料，僅供資料查詢與趨勢整理，不代表即時治安狀態、目前犯罪風險、精確案發地址、路線安全保證、警政通報、法律意見、保險意見或防竊建議。',
+  },
+  en: {
+    ...bicycleLabels.en,
+    title: 'Motorcycle Theft Records',
+    shortTitle: 'Motorcycle Theft',
+    subtitle: 'Explore Taipei historical motorcycle theft records by district, year, month, incident time band, and fuzzy location text.',
+    directory: 'Motorcycle Theft Record Directory',
+    historicalCount: 'Historical motorcycle theft record count',
+    byYear: 'Motorcycle theft records by year',
+    byMonth: 'Motorcycle theft records by month',
+    byDistrict: 'Motorcycle theft records by district',
+    byTimeBand: 'Motorcycle theft records by incident time band',
+    byTimeOfDay: 'Motorcycle theft records by time of day',
+    mapNotice: 'Motorcycle theft data does not provide coordinates, and incident locations are pre-fuzzed address text. The map shows district-level summaries and does not represent exact incident addresses, real-time public-safety status, or current crime risk.',
+    dataNote: 'This data is historical public-safety open data for lookup and trend organization only. It does not represent real-time public-safety status, current crime risk, exact incident address, route-safety guarantee, police reporting, legal advice, insurance advice, or theft-prevention advice.',
   },
 } as const;
 const disasterLabels = {
@@ -398,6 +432,7 @@ function App() {
             ['nearby', t.nearbyFacilities],
             ['burglary', t.burglaryRecords],
             ['bike', language === 'zh' ? '自行車竊盜' : 'Bicycle Theft'],
+            ['motorcycle', language === 'zh' ? '機車竊盜' : 'Motorcycle Theft'],
             ['health', t.publicHealth],
             ['disaster', language === 'zh' ? '停班停課紀錄' : 'Closure Records'],
             ['overview', t.safetyOverview],
@@ -419,6 +454,7 @@ function App() {
       {activeTab === 'nearby' && <SafetyMap data={data} language={language} nearbyMode />}
       {activeTab === 'burglary' && <BurglaryRecords data={data} language={language} />}
       {activeTab === 'bike' && <BicycleTheftRecords data={data} language={language} />}
+      {activeTab === 'motorcycle' && <BicycleTheftRecords data={data} language={language} mode="motorcycle" />}
       {activeTab === 'health' && <PublicHealth data={data} language={language} />}
       {activeTab === 'disaster' && <NaturalDisasterSuspensions data={data} language={language} />}
       {activeTab === 'overview' && <SafetyOverview data={data} language={language} />}
@@ -1760,8 +1796,18 @@ function BurglaryRecords({ data, language }: { data: SafetyDataBundle; language:
   );
 }
 
-function BicycleTheftRecords({ data, language }: { data: SafetyDataBundle; language: Language }) {
-  const labels = bicycleLabels[language];
+function BicycleTheftRecords({
+  data,
+  language,
+  mode = 'bicycle',
+}: {
+  data: SafetyDataBundle;
+  language: Language;
+  mode?: 'bicycle' | 'motorcycle';
+}) {
+  const labels = mode === 'motorcycle' ? motorcycleLabels[language] : bicycleLabels[language];
+  const records = mode === 'motorcycle' ? data.motorcycleThefts : data.bicycleThefts;
+  const summary = mode === 'motorcycle' ? data.motorcycleTheftSummary : data.bicycleTheftSummary;
   const [district, setDistrict] = useState('all');
   const [year, setYear] = useState('all');
   const [month, setMonth] = useState('all');
@@ -1772,11 +1818,11 @@ function BicycleTheftRecords({ data, language }: { data: SafetyDataBundle; langu
   const [fuzziness, setFuzziness] = useState<BicycleTheftLocationFuzzinessLevel | 'all'>('all');
   const [addressRangeOnly, setAddressRangeOnly] = useState(false);
   const [search, setSearch] = useState('');
-  const years = [...new Set(data.bicycleThefts.flatMap((record) => (record.year ? [record.year] : [])))].sort((a, b) => a - b);
-  const timeBands = [...new Set(data.bicycleThefts.flatMap((record) => (record.incidentTimeBand ? [record.incidentTimeBand] : [])))].sort();
-  const roads = data.bicycleTheftSummary.byRoadName.slice(0, 80).map((item) => item.roadName);
-  const villages = [...new Set(data.bicycleThefts.flatMap((record) => (record.village ? [record.village] : [])))].sort();
-  const filtered = data.bicycleThefts.filter((record) => {
+  const years = [...new Set(records.flatMap((record) => (record.year ? [record.year] : [])))].sort((a, b) => a - b);
+  const timeBands = [...new Set(records.flatMap((record) => (record.incidentTimeBand ? [record.incidentTimeBand] : [])))].sort();
+  const roads = summary.byRoadName.slice(0, 80).map((item) => item.roadName);
+  const villages = [...new Set(records.flatMap((record) => (record.village ? [record.village] : [])))].sort();
+  const filtered = records.filter((record) => {
     const haystack = [
       record.caseTypeRaw,
       record.date,
@@ -1803,7 +1849,6 @@ function BicycleTheftRecords({ data, language }: { data: SafetyDataBundle; langu
     );
   });
   const countsByDistrict = countBy(filtered, (record) => record.district);
-  const summary = data.bicycleTheftSummary;
   const topDistrict = summary.byDistrict.slice().sort((a, b) => b.recordCount - a.recordCount)[0];
   const topTimeBand = summary.byIncidentTimeBand.slice().sort((a, b) => b.recordCount - a.recordCount)[0];
   const topTimeOfDay = summary.byTimeOfDayCategory.slice().sort((a, b) => b.recordCount - a.recordCount)[0];
@@ -1861,7 +1906,7 @@ function BicycleTheftRecords({ data, language }: { data: SafetyDataBundle; langu
                 >
                   <Popup>
                     <div className="popup-stack">
-                      <strong>{language === 'zh' ? '自行車竊盜' : 'Bicycle Theft'}</strong>
+                      <strong>{labels.shortTitle}</strong>
                       <span>{labels.district}: {name}</span>
                       <span>{labels.recordCount}: {count.toLocaleString()}</span>
                       <span>{labels.timeBand}: {topBands.map(([label, value]) => `${label} ${value}`).join(' / ') || '-'}</span>
@@ -2349,6 +2394,8 @@ function SafetyOverview({ data, language }: { data: SafetyDataBundle; language: 
   const disasterLabelsForOverview = disasterLabels[language];
   const bikeSummary = data.bicycleTheftSummary;
   const bikeLabelsForOverview = bicycleLabels[language];
+  const motorcycleSummary = data.motorcycleTheftSummary;
+  const motorcycleLabelsForOverview = motorcycleLabels[language];
 
   return (
     <main className="overview">
@@ -2361,6 +2408,10 @@ function SafetyOverview({ data, language }: { data: SafetyDataBundle; language: 
         <Metric label={bikeLabelsForOverview.fuzzyLocationCount} value={bikeSummary.uniqueFuzzyLocationCount.toLocaleString()} />
         <Metric label={bikeLabelsForOverview.topDistrict} value={bikeSummary.byDistrict.slice().sort((a, b) => b.recordCount - a.recordCount)[0]?.district ?? '-'} />
         <Metric label={bikeLabelsForOverview.topTimeBand} value={bikeSummary.byIncidentTimeBand.slice().sort((a, b) => b.recordCount - a.recordCount)[0]?.incidentTimeBand ?? '-'} />
+        <Metric label={motorcycleLabelsForOverview.historicalCount} value={motorcycleSummary.totalRecords.toLocaleString()} />
+        <Metric label={motorcycleLabelsForOverview.fuzzyLocationCount} value={motorcycleSummary.uniqueFuzzyLocationCount.toLocaleString()} />
+        <Metric label={motorcycleLabelsForOverview.topDistrict} value={motorcycleSummary.byDistrict.slice().sort((a, b) => b.recordCount - a.recordCount)[0]?.district ?? '-'} />
+        <Metric label={motorcycleLabelsForOverview.topTimeBand} value={motorcycleSummary.byIncidentTimeBand.slice().sort((a, b) => b.recordCount - a.recordCount)[0]?.incidentTimeBand ?? '-'} />
         <Metric label={t.latestBurglaryMonth} value={latest ? `${latest.year}-${String(latest.month).padStart(2, '0')}` : '-'} />
         <Metric label={t.mostCommonBurglaryTimePeriod} value={commonPeriod?.[0] ?? '-'} />
         <Metric label={t.topBurglaryDistrict} value={topBurglary?.[0] ?? '-'} />
@@ -2435,6 +2486,9 @@ function SafetyOverview({ data, language }: { data: SafetyDataBundle; language: 
         <BarChart title={bikeLabelsForOverview.byYear} values={Object.fromEntries(bikeSummary.byYear.map((item) => [String(item.year), item.recordCount]))} />
         <BarChart title={bikeLabelsForOverview.byDistrict} values={Object.fromEntries(bikeSummary.byDistrict.map((item) => [item.district, item.recordCount]))} />
         <BarChart title={bikeLabelsForOverview.byTimeBand} values={Object.fromEntries(bikeSummary.byIncidentTimeBand.map((item) => [item.incidentTimeBand, item.recordCount]))} />
+        <BarChart title={motorcycleLabelsForOverview.byYear} values={Object.fromEntries(motorcycleSummary.byYear.map((item) => [String(item.year), item.recordCount]))} />
+        <BarChart title={motorcycleLabelsForOverview.byDistrict} values={Object.fromEntries(motorcycleSummary.byDistrict.map((item) => [item.district, item.recordCount]))} />
+        <BarChart title={motorcycleLabelsForOverview.byTimeBand} values={Object.fromEntries(motorcycleSummary.byIncidentTimeBand.map((item) => [item.incidentTimeBand, item.recordCount]))} />
         <BarChart title={t.aedLocationsByDistrict} values={aedByDistrict} />
         <BarChart title={t.fireHydrantsByCity} values={hydrantsByCity} />
         <BarChart title={t.fireHydrantsByDistrict} values={hydrantsByDistrict} />
@@ -2478,6 +2532,7 @@ function DataNotes({ data, language }: { data: SafetyDataBundle; language: Langu
       <p>{t.dataDisclaimer}</p>
       <p>{t.burglaryPrivacyNotice}</p>
       <p>{bicycleLabels[language].dataNote}</p>
+      <p>{motorcycleLabels[language].dataNote}</p>
       <p>{t.shelterAvailabilityNotice}</p>
       <p>{t.evacuationGateDataNote}</p>
       <p>{t.medicalFacilityDataNote}</p>

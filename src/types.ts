@@ -6,6 +6,7 @@ export type SafetyLayer =
   | 'emergency_shelter'
   | 'residential_burglary_record'
   | 'bicycle_theft_records'
+  | 'motorcycle_theft_record'
   | 'aed_location'
   | 'dengue_vector_density'
   | 'evacuation_gate'
@@ -61,6 +62,7 @@ export type ResidentialBurglaryRecord = {
 };
 
 export type BicycleTheftCaseType = 'bicycle_theft' | 'other' | 'unknown';
+export type MotorcycleTheftCaseType = 'motorcycle_theft' | 'other' | 'unknown';
 export type IncidentTimeOfDayCategory =
   | 'late_night'
   | 'early_morning'
@@ -151,6 +153,15 @@ export type BicycleTheftSummary = {
     recordCount: number;
   }>;
   latestRecords: BicycleTheftRecord[];
+};
+
+export type MotorcycleTheftRecord = Omit<BicycleTheftRecord, 'module' | 'caseType'> & {
+  module: 'motorcycle_theft_record';
+  caseType: MotorcycleTheftCaseType;
+};
+
+export type MotorcycleTheftSummary = Omit<BicycleTheftSummary, 'latestRecords'> & {
+  latestRecords: MotorcycleTheftRecord[];
 };
 
 export type DistrictSafetySummary = {
@@ -587,6 +598,8 @@ export type SafetyDataBundle = {
   burglaries: ResidentialBurglaryRecord[];
   bicycleThefts: BicycleTheftRecord[];
   bicycleTheftSummary: BicycleTheftSummary;
+  motorcycleThefts: MotorcycleTheftRecord[];
+  motorcycleTheftSummary: MotorcycleTheftSummary;
   aeds: AedLocation[];
   evacuationGates: EvacuationGate[];
   medicalFacilities: MedicalFacility[];
@@ -703,6 +716,15 @@ export type ConversionReport = {
     mixedOrUnclearExamples: string[];
   };
   bicycleThefts?: {
+    inputRows: number;
+    outputRows: number;
+    duplicateRows: number;
+    dateParseWarnings: string[];
+    timeBandParseWarnings: string[];
+    locationParseWarnings: string[];
+    duplicateExamples: string[];
+  };
+  motorcycleThefts?: {
     inputRows: number;
     outputRows: number;
     duplicateRows: number;
