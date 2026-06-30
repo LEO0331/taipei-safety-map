@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-30T02:14:53.781Z",
+  "generatedAt": "2026-06-30T07:25:56.033Z",
   "sources": [
     {
       "name": "北市警政APP_防空避難設備位置",
@@ -109,6 +109,15 @@
       "fileSize": 158598,
       "encoding": "CP950 / Big5-family",
       "notes": "Historical motorcycle theft public-safety records from 警察局刑警大隊; incident locations are pre-fuzzed text and are never geocoded into exact markers."
+    },
+    {
+      "name": "臺北市政府警察局錄影監視系統設置區位",
+      "url": "https://data.taipei/dataset/detail?id=e9b913ee-6df8-4663-bee5-aef6729d4389",
+      "downloadUrl": "https://data.taipei/api/frontstage/tpeod/dataset/resource.download?rid=5929d4ff-b7c5-4fa1-94e3-9d45576e8f37",
+      "downloadedAt": "2026-06-30T07:14:35.350Z",
+      "fileSize": 1314763,
+      "encoding": "UTF-8-SIG",
+      "notes": "Police CCTV installation-location records from 警察局; the dataset has no official coordinates, so the app shows district summaries and an address-based directory only."
     }
   ],
   "shelters": {
@@ -160,6 +169,59 @@
       "臺北市忠孝東路7段124巷的橋上"
     ],
     "duplicateExamples": []
+  },
+  "policeCctvInstallationLocations": {
+    "inputRows": 15416,
+    "outputRows": 15416,
+    "fileSize": 1314763,
+    "encoding": "UTF-8-SIG with Big5 fallback",
+    "duplicateRows": 0,
+    "duplicateSequenceNumbers": [],
+    "duplicateAddresses": [
+      "興城街75號前燈桿",
+      "民權西路136號前燈桿",
+      "承德路2段與民權西路東南角",
+      "重慶北路2段171號〈家樂福〉",
+      "錦西街178號",
+      "承德路2段132號(分隔島)",
+      "萬全街42號",
+      "民生西路,寧夏路45巷口燈桿",
+      "承德路2段159號前分隔島",
+      "錦西街100號前號誌桿(西南角)",
+      "重慶北路2段與民權西路南端分隔島號誌",
+      "民權西路184巷59-1號旁",
+      "承德路2段156號對面分隔島",
+      "民權西路102巷與4弄口",
+      "承德路3段51巷23號右前",
+      "台北橋上橋處-西往東/東往西(分隔島)",
+      "承德路3段51巷20號前燈桿",
+      "蘭州街89巷11號燈桿",
+      "昌吉街100號",
+      "延平北路4段50號前號誌桿"
+    ],
+    "duplicatePoliceUnitAddresses": [
+      "大同分局 寧夏路派出所|承德路2段156號對面分隔島|北",
+      "大同分局 重慶北路派出所|承德路與敦煌路東側中央分隔島燈桿|西",
+      "萬華分局 漢中街派出所|康定路25巷2-5號|東",
+      "萬華分局 漢中街派出所|漢中街122號4樓頂|北",
+      "萬華分局 東園街派出所|環河南路3段325號前(分隔島上)|南",
+      "萬華分局 大理街派出所|西園路2段96巷34號|東南",
+      "萬華分局 武昌街派出所|北市萬華區武昌街2段，漢中街50巷13號對面（路口監控）|東",
+      "萬華分局 武昌街派出所|中華路1段98之1號|南",
+      "萬華分局 青年路派出所|國興路72號前|西",
+      "中山分局 中山一派出所|市民大道2段99號|西",
+      "中山分局 中山一派出所|南京西路23巷前西側中央分隔島|東",
+      "中山分局 中山二派出所|民生東路1段與新生北路2段西北角(民生抽水站)|南",
+      "中山分局 中山二派出所|中山國小3號捷運站出口號誌(民權東路1段)|東",
+      "中山分局 長春路派出所|松江路146號|南",
+      "中山分局 長安東路派出所|八德路2段與建國北路1段口|西南",
+      "大安分局 新生南路派出所|忠孝東路3段217巷2弄1號旁|北",
+      "大安分局 新生南路派出所|信義路3段109號前(西北側)|西",
+      "大安分局 新生南路派出所|信義路3段147巷5弄1號|東",
+      "大安分局 新生南路派出所|信義路3段73巷5號|南",
+      "大安分局 新生南路派出所|仁愛路3段20巷口|南"
+    ],
+    "addressParseWarnings": []
   },
   "aeds": {
     "inputRows": 2728,
@@ -252,6 +314,7 @@
     "Residential burglary records remain blurred and are never geocoded into exact household-level markers.",
     "Bicycle theft records use pre-fuzzed address text and are shown only as district, road, and fuzzy-location summaries.",
     "Motorcycle theft records use pre-fuzzed address text and are shown only as district, road, and fuzzy-location summaries.",
+    "Police CCTV installation-location records are shown as district summaries and address lookup records because the source has no official coordinates.",
     "Burglary time periods: morning, early_morning, afternoon, evening, night",
     "AED availability is not real-time.",
     "Dengue records are shown only as district/village survey aggregates.",

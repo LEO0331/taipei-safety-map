@@ -18,6 +18,8 @@ import type {
   NaturalDisasterSuspensionEventGroup,
   NaturalDisasterSuspensionSummary,
   NaturalDisasterWorkSchoolSuspensionRecord,
+  PoliceCctvInstallationLocationRecord,
+  PoliceCctvInstallationLocationSummary,
   ResidentialBurglaryRecord,
   SafetyDataBundle,
   TrafficCctvFacility,
@@ -40,6 +42,7 @@ export async function loadSafetyData(): Promise<SafetyDataBundle> {
     burglaries,
     bicycleThefts,
     motorcycleThefts,
+    policeCctvInstallationLocations,
     aeds,
     evacuationGates,
     medicalFacilities,
@@ -55,6 +58,7 @@ export async function loadSafetyData(): Promise<SafetyDataBundle> {
     loadJson<ResidentialBurglaryRecord[]>('residential-burglary-records.json'),
     loadJson<BicycleTheftRecord[]>('bicycle-theft-records.json'),
     loadJson<MotorcycleTheftRecord[]>('motorcycle-theft-records.json'),
+    loadJson<PoliceCctvInstallationLocationRecord[]>('police-cctv-installation-locations.json'),
     loadJson<AedLocation[]>('aed-locations.json'),
     loadJson<EvacuationGate[]>('evacuation-gates.json'),
     loadJson<MedicalFacility[]>('medical-facilities.json'),
@@ -71,6 +75,7 @@ export async function loadSafetyData(): Promise<SafetyDataBundle> {
       trafficCctvSummary: TrafficCctvSummary;
       bicycleTheftSummary: BicycleTheftSummary;
       motorcycleTheftSummary: MotorcycleTheftSummary;
+      policeCctvInstallationLocationSummary: PoliceCctvInstallationLocationSummary;
       naturalDisasterSuspensionSummary: NaturalDisasterSuspensionSummary;
     }>('safety-dashboard-summary.json'),
     loadJson<ConversionReport>('conversion-report.json'),
@@ -83,6 +88,8 @@ export async function loadSafetyData(): Promise<SafetyDataBundle> {
     bicycleTheftSummary: dashboard.bicycleTheftSummary,
     motorcycleThefts,
     motorcycleTheftSummary: dashboard.motorcycleTheftSummary,
+    policeCctvInstallationLocations,
+    policeCctvInstallationLocationSummary: dashboard.policeCctvInstallationLocationSummary,
     aeds,
     evacuationGates,
     medicalFacilities,

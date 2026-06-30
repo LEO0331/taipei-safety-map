@@ -10,6 +10,7 @@ import {
   convertFireHydrantRow,
   convertMedicalFacilityRow,
   convertMotorcycleTheftRow,
+  convertPoliceCctvInstallationLocationRow,
   convertShelterRow,
   convertTrafficCctvRow,
   convertNaturalDisasterSuspensionRow,
@@ -395,6 +396,34 @@ describe('CSV script helpers', () => {
       addressRangeText: '31-60號',
       caseType: 'motorcycle_theft',
       locationPrecision: 'road_or_segment_level',
+    });
+    expect(record).not.toHaveProperty('latitude');
+    expect(record).not.toHaveProperty('longitude');
+  });
+
+  it('converts police CCTV rows without exact coordinates', () => {
+    const record = convertPoliceCctvInstallationLocationRow(
+      {
+        縣市別代碼: '10001',
+        編號: 'LAAA001-01',
+        所屬單位: '大同分局 寧夏路派出所',
+        安裝地址: '民生西路231號',
+        攝影方向: '西',
+      },
+      0,
+    );
+    expect(record).toMatchObject({
+      safetyLayer: 'police_cctv_installation_location',
+      cityCountyCode: '10001',
+      sourceSequenceNumber: 'LAAA001-01',
+      policeUnit: '大同分局 寧夏路派出所',
+      district: '大同區',
+      roadName: '民生西路',
+      hasInstallationAddress: true,
+      hasCameraDirection: true,
+      hasParsedDistrict: true,
+      hasParsedRoadName: true,
+      locationPrecision: 'address_only',
     });
     expect(record).not.toHaveProperty('latitude');
     expect(record).not.toHaveProperty('longitude');

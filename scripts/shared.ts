@@ -1,3 +1,4 @@
+import { createHash } from 'node:crypto';
 import { mkdir, readFile, stat, writeFile } from 'node:fs/promises';
 import { dirname } from 'node:path';
 import {
@@ -34,6 +35,7 @@ import type {
   MotorcycleTheftRecord,
   NaturalDisasterType,
   NaturalDisasterWorkSchoolSuspensionRecord,
+  PoliceCctvInstallationLocationRecord,
   ResidentialBurglaryRecord,
   SuspensionMessageKeywordTag,
   TrafficCctvFacility,
@@ -61,6 +63,8 @@ export const EMERGENCY_SHELTER_SOURCE = '臺北市可供避難收容處所一覽
 export const EMERGENCY_SHELTER_AGENCY = '臺北市政府教育局';
 export const TRAFFIC_CCTV_SOURCE = '臺北市CCTV設施';
 export const TRAFFIC_CCTV_AGENCY = '臺北市政府交通局交通管制工程處';
+export const POLICE_CCTV_SOURCE = '臺北市政府警察局錄影監視系統設置區位';
+export const POLICE_CCTV_AGENCY = '臺北市政府警察局';
 export const NATURAL_DISASTER_SUSPENSION_SOURCE = '臺北市歷次天然災害停止上班上課訊息';
 export const NATURAL_DISASTER_SUSPENSION_AGENCY = '臺北市政府人事處';
 export const FIRE_HYDRANT_BOUNDS = {
@@ -390,6 +394,99 @@ export function convertMotorcycleTheftRow(row: Record<string, string>, index: nu
     locationPrecision: location.roadName ? 'road_or_segment_level' : location.district ? 'district_centroid' : 'fuzzy_address_text',
     source: MOTORCYCLE_THEFT_SOURCE,
     sourceAgency: MOTORCYCLE_THEFT_AGENCY,
+  };
+}
+
+export function cleanText(raw: unknown): string | undefined {
+  const text = String(raw ?? '')
+    .replace(/\u3000/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+  return text && !['-', '--', 'NaN', 'NULL', 'null'].includes(text) ? text : undefined;
+}
+
+export function parseCodeText(raw: unknown): string | undefined {
+  return cleanText(raw);
+}
+
+export function normalizePoliceUnit(raw: unknown): string | undefined {
+  return cleanText(raw);
+}
+
+function extractDistrictFromPoliceUnit(policeUnit: string | undefined): string | undefined {
+  if (!policeUnit) return undefined;
+  return TAIPEI_DISTRICTS.find((district) => policeUnit.includes(district.replace('區', '')));
+}
+
+export function parsePoliceCctvInstallationAddress(raw: unknown) {
+  const installationAddress = cleanText(raw);
+  const installationAddressNormalized = installationAddress?.replaceAll('台北市', '臺北市').replace(/\s+/g, '');
+  const district = installationAddressNormalized ? extractDistrictFromLocation(installationAddressNormalized) : undefined;
+  const roadName = installationAddressNormalized?.match(/([\u4e00-\u9fff]{1,10}(?:路|街|大道|巷)(?:[一二三四五六七八九十\d]+段)?)/)?.[1];
+  return {
+    installationAddress,
+    installationAddressNormalized,
+    district,
+    roadName,
+    warning: installationAddress && !district ? `District not parsed: ${installationAddress}` : undefined,
+  };
+}
+
+export function normalizeCameraDirection(raw: unknown): string | undefined {
+  return cleanText(raw);
+}
+
+export function createPoliceCctvMapQuery(record: { installationAddress?: string; policeUnit?: string }): string | undefined {
+  if (!record.installationAddress) return undefined;
+  return record.installationAddress.includes('臺北') || record.installationAddress.includes('台北')
+    ? record.installationAddress
+    : `臺北市 ${record.installationAddress}`;
+}
+
+export function extractCameraDirectionKeywords(text: string | undefined): string[] {
+  if (!text) return [];
+  return ['東', '西', '南', '北', '路口', '巷口', '人行道', '車道', '廣場', '公園'].filter((keyword) => text.includes(keyword));
+}
+
+function hashSourceRecord(parts: Array<string | undefined>): string {
+  return createHash('sha1').update(parts.map((part) => part ?? '').join('|')).digest('hex').slice(0, 16);
+}
+
+export function convertPoliceCctvInstallationLocationRow(row: Record<string, string>, index: number): PoliceCctvInstallationLocationRecord {
+  const cityCountyCode = parseCodeText(row['縣市別代碼']);
+  const sourceSequenceNumber = parseCodeText(row['編號']);
+  const policeUnit = normalizePoliceUnit(row['所屬單位']);
+  const address = parsePoliceCctvInstallationAddress(row['安裝地址']);
+  const district = address.district ?? extractDistrictFromPoliceUnit(policeUnit);
+  const cameraDirection = normalizeCameraDirection(row['攝影方向']);
+  const sourceRecordHash = hashSourceRecord([
+    cityCountyCode,
+    sourceSequenceNumber,
+    policeUnit,
+    address.installationAddress,
+    cameraDirection,
+  ]);
+  return {
+    id: `police-cctv-${sourceSequenceNumber ?? index + 1}`,
+    safetyLayer: 'police_cctv_installation_location',
+    cityCountyCode,
+    cityCountyCodeNormalized: cityCountyCode,
+    sourceSequenceNumber,
+    policeUnit,
+    policeUnitNormalized: policeUnit,
+    ...address,
+    district,
+    cameraDirection,
+    cameraDirectionNormalized: cameraDirection,
+    hasInstallationAddress: Boolean(address.installationAddress),
+    hasCameraDirection: Boolean(cameraDirection),
+    hasParsedDistrict: Boolean(district),
+    hasParsedRoadName: Boolean(address.roadName),
+    locationPrecision: address.installationAddress ? (district ? 'address_only' : 'unparsed_address') : 'missing',
+    googleMapsQuery: createPoliceCctvMapQuery({ installationAddress: address.installationAddress, policeUnit }),
+    sourceRecordHash,
+    source: POLICE_CCTV_SOURCE,
+    sourceAgency: POLICE_CCTV_AGENCY,
   };
 }
 
@@ -927,11 +1024,24 @@ export function convertNaturalDisasterSuspensionRow(row: Record<string, string>,
 }
 
 export async function loadConvertedData() {
-  const [shelters, burglaries, bicycleThefts, motorcycleThefts, aeds, dengueRecords, evacuationGates, medicalFacilities, emergencyShelters, trafficCctvFacilities] = await Promise.all([
+  const [
+    shelters,
+    burglaries,
+    bicycleThefts,
+    motorcycleThefts,
+    policeCctvInstallationLocations,
+    aeds,
+    dengueRecords,
+    evacuationGates,
+    medicalFacilities,
+    emergencyShelters,
+    trafficCctvFacilities,
+  ] = await Promise.all([
     readJsonFile<AirRaidShelter[]>(`${PUBLIC_DATA_DIR}/air-raid-shelters.json`),
     readJsonFile<ResidentialBurglaryRecord[]>(`${PUBLIC_DATA_DIR}/residential-burglary-records.json`),
     readJsonFile<BicycleTheftRecord[]>(`${PUBLIC_DATA_DIR}/bicycle-theft-records.json`),
     readJsonFile<MotorcycleTheftRecord[]>(`${PUBLIC_DATA_DIR}/motorcycle-theft-records.json`),
+    readJsonFile<PoliceCctvInstallationLocationRecord[]>(`${PUBLIC_DATA_DIR}/police-cctv-installation-locations.json`),
     readJsonFile<AedLocation[]>(`${PUBLIC_DATA_DIR}/aed-locations.json`),
     readJsonFile<DengueSurveyRecord[]>(`${PUBLIC_DATA_DIR}/dengue-vector-density-records.json`),
     readJsonFile<EvacuationGate[]>(`${PUBLIC_DATA_DIR}/evacuation-gates.json`),
@@ -944,6 +1054,7 @@ export async function loadConvertedData() {
     burglaries,
     bicycleThefts,
     motorcycleThefts,
+    policeCctvInstallationLocations,
     aeds,
     dengueRecords,
     evacuationGates,

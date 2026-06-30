@@ -42,7 +42,7 @@ import type {
   TrafficCctvFacility,
 } from './types';
 
-type Tab = 'map' | 'nearby' | 'burglary' | 'bike' | 'motorcycle' | 'health' | 'disaster' | 'overview' | 'notes';
+type Tab = 'map' | 'nearby' | 'burglary' | 'bike' | 'motorcycle' | 'policeCctv' | 'health' | 'disaster' | 'overview' | 'notes';
 type CapacityRange = 'all' | 'under100' | '100-499' | '500-999' | '1000plus';
 type DenseLayer = 'aeds' | 'medical' | 'fireHydrants' | 'airRaidShelters' | 'evacuationGates' | 'cctv';
 const tileAttribution = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>';
@@ -296,6 +296,90 @@ const motorcycleLabels = {
     dataNote: 'This data is historical public-safety open data for lookup and trend organization only. It does not represent real-time public-safety status, current crime risk, exact incident address, route-safety guarantee, police reporting, legal advice, insurance advice, or theft-prevention advice.',
   },
 } as const;
+const policeCctvLabels = {
+  zh: {
+    all: '全部',
+    title: '警察局錄影監視系統設置區位',
+    subtitle: '整理臺北市政府警察局錄影監視系統設置區位公開資料，依所屬單位、安裝地址、攝影方向與行政區提供查詢與統計。',
+    directory: '警察局錄影監視系統設置區位清單',
+    districtDistribution: '警察局監視器行政區分布',
+    policeUnit: '所屬單位',
+    district: '行政區',
+    road: '道路',
+    cameraDirectionKeyword: '攝影方向關鍵字',
+    search: '搜尋',
+    searchPlaceholder: '搜尋所屬單位、安裝地址、攝影方向、行政區或編號',
+    hasInstallationAddress: '有安裝地址',
+    hasCameraDirection: '有攝影方向',
+    hasParsedDistrict: '有解析行政區',
+    hasParsedRoadName: '有解析道路',
+    recordCount: '紀錄數',
+    cityCountyCode: '縣市別代碼',
+    sourceSequenceNumber: '編號',
+    installationAddress: '安裝地址',
+    cameraDirection: '攝影方向',
+    mapLookup: '地圖查詢',
+    installationRecordCount: '警察局監視器設置紀錄數',
+    policeUnitCount: '所屬單位數',
+    uniqueInstallationAddressCount: '不重複安裝地址數',
+    recordsWithCameraDirection: '有攝影方向紀錄',
+    recordsWithParsedDistrict: '有解析行政區紀錄',
+    recordsWithParsedRoadName: '有解析道路紀錄',
+    topDistrict: '紀錄最多行政區',
+    topPoliceUnit: '紀錄最多所屬單位',
+    byDistrict: '各行政區警察局監視器紀錄數',
+    byPoliceUnit: '各所屬單位警察局監視器紀錄數',
+    cameraDirectionAvailability: '攝影方向有無',
+    topRoads: '道路紀錄數',
+    keywordSummary: '攝影方向關鍵字統計',
+    parsingQuality: '地點解析品質',
+    mapNotice: '警察局錄影監視系統設置區位資料未提供官方經緯度，地圖以行政區彙總呈現，不代表精確設備位置、即時運作狀態或攝影範圍。',
+    popupNotice: '本圖以行政區彙總設置區位紀錄，不代表精確設備位置、即時運作狀態或攝影範圍。',
+    dataNote: '警察局錄影監視系統設置區位資料提供臺北市政府警察局錄影監視系統設置區位公開紀錄，欄位包含縣市別代碼、編號、所屬單位、安裝地址與攝影方向。本網站解析安裝地址中的行政區與道路名稱，並以行政區彙總呈現。資料未提供官方經緯度，因此預設不顯示精確點位。',
+    interpretationNote: '本資料為錄影監視系統設置區位公開紀錄，僅供資料查詢與統計整理，不代表即時影像、即時運作狀態、完整監視器清冊、精確攝影範圍、犯罪預測、治安風險判定、路線安全保證、隱私或法律意見、警政通報或官方保證。實際設備狀態、調閱程序、警政勤務、監視器管理與最新資訊請以臺北市政府警察局及主管機關公告為準。',
+  },
+  en: {
+    all: 'All',
+    title: 'Police CCTV Installation Locations',
+    subtitle: 'Explore Taipei City Police Department CCTV installation-location public records by police unit, installation address, camera direction, and district.',
+    directory: 'Police CCTV Installation Directory',
+    districtDistribution: 'Police CCTV District Distribution',
+    policeUnit: 'Police unit',
+    district: 'District',
+    road: 'Road',
+    cameraDirectionKeyword: 'Camera direction keyword',
+    search: 'Search',
+    searchPlaceholder: 'Search police unit, installation address, camera direction, district, or sequence number',
+    hasInstallationAddress: 'Has installation address',
+    hasCameraDirection: 'Has camera direction',
+    hasParsedDistrict: 'Has parsed district',
+    hasParsedRoadName: 'Has parsed road',
+    recordCount: 'Record count',
+    cityCountyCode: 'City/county code',
+    sourceSequenceNumber: 'Sequence number',
+    installationAddress: 'Installation address',
+    cameraDirection: 'Camera direction',
+    mapLookup: 'Map lookup',
+    installationRecordCount: 'Police CCTV installation record count',
+    policeUnitCount: 'Police unit count',
+    uniqueInstallationAddressCount: 'Unique installation address count',
+    recordsWithCameraDirection: 'Records with camera direction',
+    recordsWithParsedDistrict: 'Records with parsed district',
+    recordsWithParsedRoadName: 'Records with parsed road',
+    topDistrict: 'Top district by record count',
+    topPoliceUnit: 'Top police unit by record count',
+    byDistrict: 'Police CCTV records by district',
+    byPoliceUnit: 'Police CCTV records by police unit',
+    cameraDirectionAvailability: 'Camera direction availability',
+    topRoads: 'Top roads by record count',
+    keywordSummary: 'Camera direction keyword summary',
+    parsingQuality: 'Location parsing quality',
+    mapNotice: 'Police CCTV installation-location data does not provide official coordinates. The map shows district-level summaries and does not represent exact device locations, real-time operational status, or camera field of view.',
+    popupNotice: 'This map summarizes installation-location records by district and does not represent exact device locations, real-time operational status, or camera field of view.',
+    dataNote: 'Police CCTV installation-location data provides Taipei City Police Department public records for video-surveillance system installation locations. Fields include city/county code, sequence number, police unit, installation address, and camera direction. This site parses district and road name from installation addresses and presents district-level summaries. The data does not provide official coordinates, so exact points are not shown by default.',
+    interpretationNote: 'This data is public record information for video-surveillance system installation locations and is for lookup and statistical organization only. It does not represent live video, real-time operational status, a complete camera inventory, exact field of view, crime prediction, public-safety risk determination, route-safety guarantee, privacy or legal advice, police notification, or official guarantee. Actual equipment status, footage request procedures, policing operations, CCTV management, and latest information should be verified with Taipei City Police Department and competent-authority announcements.',
+  },
+} as const;
 const disasterLabels = {
   zh: {
     all: '全部',
@@ -433,6 +517,7 @@ function App() {
             ['burglary', t.burglaryRecords],
             ['bike', language === 'zh' ? '自行車竊盜' : 'Bicycle Theft'],
             ['motorcycle', language === 'zh' ? '機車竊盜' : 'Motorcycle Theft'],
+            ['policeCctv', language === 'zh' ? '警察局監視器' : 'Police CCTV'],
             ['health', t.publicHealth],
             ['disaster', language === 'zh' ? '停班停課紀錄' : 'Closure Records'],
             ['overview', t.safetyOverview],
@@ -455,6 +540,7 @@ function App() {
       {activeTab === 'burglary' && <BurglaryRecords data={data} language={language} />}
       {activeTab === 'bike' && <BicycleTheftRecords data={data} language={language} />}
       {activeTab === 'motorcycle' && <BicycleTheftRecords data={data} language={language} mode="motorcycle" />}
+      {activeTab === 'policeCctv' && <PoliceCctvInstallationLocations data={data} language={language} />}
       {activeTab === 'health' && <PublicHealth data={data} language={language} />}
       {activeTab === 'disaster' && <NaturalDisasterSuspensions data={data} language={language} />}
       {activeTab === 'overview' && <SafetyOverview data={data} language={language} />}
@@ -1966,6 +2052,147 @@ function BicycleTheftRecords({
   );
 }
 
+function PoliceCctvInstallationLocations({ data, language }: { data: SafetyDataBundle; language: Language }) {
+  const labels = policeCctvLabels[language];
+  const [district, setDistrict] = useState('all');
+  const [policeUnit, setPoliceUnit] = useState('all');
+  const [road, setRoad] = useState('all');
+  const [keyword, setKeyword] = useState('all');
+  const [hasAddress, setHasAddress] = useState(false);
+  const [hasDirection, setHasDirection] = useState(false);
+  const [hasDistrict, setHasDistrict] = useState(false);
+  const [hasRoad, setHasRoad] = useState(false);
+  const [search, setSearch] = useState('');
+  const records = data.policeCctvInstallationLocations;
+  const summary = data.policeCctvInstallationLocationSummary;
+  const policeUnits = summary.byPoliceUnit.map((item) => item.policeUnit);
+  const roads = summary.byRoadName.slice(0, 80).map((item) => item.roadName);
+  const keywords = summary.byCameraDirectionKeyword.map((item) => item.keyword);
+  const filtered = records.filter((record) => {
+    const haystack = [
+      record.policeUnit,
+      record.installationAddress,
+      record.cameraDirection,
+      record.district,
+      record.roadName,
+      record.sourceSequenceNumber,
+    ]
+      .join(' ')
+      .toLowerCase();
+    return (
+      (district === 'all' || record.district === district) &&
+      (policeUnit === 'all' || record.policeUnit === policeUnit) &&
+      (road === 'all' || record.roadName === road) &&
+      (keyword === 'all' || record.cameraDirectionNormalized?.includes(keyword)) &&
+      (!hasAddress || record.hasInstallationAddress) &&
+      (!hasDirection || record.hasCameraDirection) &&
+      (!hasDistrict || record.hasParsedDistrict) &&
+      (!hasRoad || record.hasParsedRoadName) &&
+      (!search.trim() || haystack.includes(search.trim().toLowerCase()))
+    );
+  });
+  const countsByDistrict = countBy(filtered, (record) => record.district);
+  const topDistrict = summary.byDistrict[0];
+  const topPoliceUnit = summary.byPoliceUnit[0];
+
+  return (
+    <main className="overview">
+      <section className="filter-panel health-filters">
+        <label>{labels.district}<select value={district} onChange={(event) => setDistrict(event.target.value)}><option value="all">{labels.all}</option>{TAIPEI_DISTRICTS.map((value) => <option key={value}>{value}</option>)}</select></label>
+        <label>{labels.policeUnit}<select value={policeUnit} onChange={(event) => setPoliceUnit(event.target.value)}><option value="all">{labels.all}</option>{policeUnits.map((value) => <option key={value}>{value}</option>)}</select></label>
+        <label>{labels.road}<select value={road} onChange={(event) => setRoad(event.target.value)}><option value="all">{labels.all}</option>{roads.map((value) => <option key={value}>{value}</option>)}</select></label>
+        <label>{labels.cameraDirectionKeyword}<select value={keyword} onChange={(event) => setKeyword(event.target.value)}><option value="all">{labels.all}</option>{keywords.map((value) => <option key={value}>{value}</option>)}</select></label>
+        <label>{labels.search}<input value={search} placeholder={labels.searchPlaceholder} onChange={(event) => setSearch(event.target.value)} /></label>
+        <label className="checkbox-row"><input type="checkbox" checked={hasAddress} onChange={(event) => setHasAddress(event.target.checked)} />{labels.hasInstallationAddress}</label>
+        <label className="checkbox-row"><input type="checkbox" checked={hasDirection} onChange={(event) => setHasDirection(event.target.checked)} />{labels.hasCameraDirection}</label>
+        <label className="checkbox-row"><input type="checkbox" checked={hasDistrict} onChange={(event) => setHasDistrict(event.target.checked)} />{labels.hasParsedDistrict}</label>
+        <label className="checkbox-row"><input type="checkbox" checked={hasRoad} onChange={(event) => setHasRoad(event.target.checked)} />{labels.hasParsedRoadName}</label>
+      </section>
+      <h1>{labels.title}</h1>
+      <p>{labels.subtitle}</p>
+      <p className="notice">{labels.mapNotice}</p>
+      <section className="summary-grid">
+        <Metric label={labels.installationRecordCount} value={summary.totalRecords.toLocaleString()} />
+        <Metric label={labels.district} value={summary.districtCount.toLocaleString()} />
+        <Metric label={labels.policeUnitCount} value={summary.policeUnitCount.toLocaleString()} />
+        <Metric label={labels.uniqueInstallationAddressCount} value={summary.uniqueInstallationAddressCount.toLocaleString()} />
+        <Metric label={labels.recordsWithCameraDirection} value={summary.recordsWithCameraDirection.toLocaleString()} />
+        <Metric label={labels.recordsWithParsedDistrict} value={summary.recordsWithParsedDistrict.toLocaleString()} />
+        <Metric label={labels.recordsWithParsedRoadName} value={summary.recordsWithParsedRoadName.toLocaleString()} />
+        <Metric label={labels.topDistrict} value={topDistrict?.district ?? '-'} />
+        <Metric label={labels.topPoliceUnit} value={topPoliceUnit?.policeUnit ?? '-'} />
+      </section>
+      <section className="public-health-grid">
+        <div className="map-stage">
+          <MapContainer center={taipeiCenter} zoom={11} scrollWheelZoom className="map-canvas">
+            <MapSizeSync />
+            <TileLayer attribution={tileAttribution} url={tileUrl} />
+            {TAIPEI_DISTRICTS.map((name) => {
+              const count = countsByDistrict[name] ?? 0;
+              if (!count) return null;
+              const center = TAIPEI_DISTRICT_CENTROIDS[name];
+              const matching = filtered.filter((record) => record.district === name);
+              const topUnits = Object.entries(countBy(matching, (record) => record.policeUnit)).sort((a, b) => b[1] - a[1]).slice(0, 3);
+              return (
+                <CircleMarker
+                  key={name}
+                  center={[center.latitude, center.longitude]}
+                  radius={Math.min(28, 7 + Math.sqrt(count) * 0.8)}
+                  pathOptions={{ color: '#155e75', fillColor: '#22d3ee', fillOpacity: 0.3, weight: 2 }}
+                >
+                  <Popup>
+                    <div className="popup-stack">
+                      <strong>{labels.districtDistribution}</strong>
+                      <span>{labels.district}: {name}</span>
+                      <span>{labels.recordCount}: {count.toLocaleString()}</span>
+                      <span>{labels.policeUnit}: {topUnits.map(([unit, value]) => `${unit} ${value}`).join(' / ') || '-'}</span>
+                      <small>{labels.popupNotice}</small>
+                    </div>
+                  </Popup>
+                </CircleMarker>
+              );
+            })}
+          </MapContainer>
+        </div>
+        <div className="health-table">
+          <p className="notice">{labels.interpretationNote}</p>
+          <RankingTable counts={countsByDistrict} label={labels.district} valueLabel={labels.recordCount} />
+        </div>
+      </section>
+      <section className="chart-grid">
+        <BarChart title={labels.byDistrict} values={Object.fromEntries(summary.byDistrict.map((item) => [item.district, item.recordCount]))} />
+        <BarChart title={labels.byPoliceUnit} values={Object.fromEntries(summary.byPoliceUnit.slice(0, 30).map((item) => [item.policeUnit, item.count]))} />
+        <BarChart title={labels.cameraDirectionAvailability} values={{ [labels.hasCameraDirection]: summary.recordsWithCameraDirection, [language === 'zh' ? '無攝影方向' : 'Without camera direction']: summary.totalRecords - summary.recordsWithCameraDirection }} />
+        <BarChart title={labels.topRoads} values={Object.fromEntries(summary.byRoadName.slice(0, 20).map((item) => [item.roadName, item.count]))} />
+        <BarChart title={labels.keywordSummary} values={Object.fromEntries(summary.byCameraDirectionKeyword.map((item) => [item.keyword, item.count]))} />
+        <BarChart title={labels.parsingQuality} values={{
+          [labels.hasParsedDistrict]: summary.locationParsingQuality.parsedDistrict,
+          [language === 'zh' ? '未解析行政區' : 'Unparsed district']: summary.locationParsingQuality.unparsedDistrict,
+          [labels.hasParsedRoadName]: summary.locationParsingQuality.parsedRoadName,
+        }} />
+      </section>
+      <h2>{labels.directory}</h2>
+      <p>{labels.recordCount}: {filtered.length.toLocaleString()}</p>
+      <table>
+        <thead><tr><th>{labels.policeUnit}</th><th>{labels.district}</th><th>{labels.installationAddress}</th><th>{labels.cameraDirection}</th><th>{labels.cityCountyCode}</th><th>{labels.sourceSequenceNumber}</th><th>{labels.mapLookup}</th></tr></thead>
+        <tbody>
+          {filtered.slice(0, 100).map((record) => (
+            <tr key={record.id}>
+              <td>{record.policeUnit ?? '-'}</td>
+              <td>{record.district ?? '-'}</td>
+              <td>{record.installationAddress ?? '-'}</td>
+              <td>{record.cameraDirection ?? '-'}</td>
+              <td>{record.cityCountyCode ?? '-'}</td>
+              <td>{record.sourceSequenceNumber ?? '-'}</td>
+              <td>{record.googleMapsQuery ? <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(record.googleMapsQuery)}`}>{labels.mapLookup}</a> : '-'}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </main>
+  );
+}
+
 function PublicHealth({ data, language }: { data: SafetyDataBundle; language: Language }) {
   const t = translations[language];
   const [district, setDistrict] = useState('all');
@@ -2396,6 +2623,8 @@ function SafetyOverview({ data, language }: { data: SafetyDataBundle; language: 
   const bikeLabelsForOverview = bicycleLabels[language];
   const motorcycleSummary = data.motorcycleTheftSummary;
   const motorcycleLabelsForOverview = motorcycleLabels[language];
+  const policeCctvSummary = data.policeCctvInstallationLocationSummary;
+  const policeCctvLabelsForOverview = policeCctvLabels[language];
 
   return (
     <main className="overview">
@@ -2412,6 +2641,14 @@ function SafetyOverview({ data, language }: { data: SafetyDataBundle; language: 
         <Metric label={motorcycleLabelsForOverview.fuzzyLocationCount} value={motorcycleSummary.uniqueFuzzyLocationCount.toLocaleString()} />
         <Metric label={motorcycleLabelsForOverview.topDistrict} value={motorcycleSummary.byDistrict.slice().sort((a, b) => b.recordCount - a.recordCount)[0]?.district ?? '-'} />
         <Metric label={motorcycleLabelsForOverview.topTimeBand} value={motorcycleSummary.byIncidentTimeBand.slice().sort((a, b) => b.recordCount - a.recordCount)[0]?.incidentTimeBand ?? '-'} />
+        <Metric label={policeCctvLabelsForOverview.installationRecordCount} value={policeCctvSummary.totalRecords.toLocaleString()} />
+        <Metric label={policeCctvLabelsForOverview.policeUnitCount} value={policeCctvSummary.policeUnitCount.toLocaleString()} />
+        <Metric label={policeCctvLabelsForOverview.uniqueInstallationAddressCount} value={policeCctvSummary.uniqueInstallationAddressCount.toLocaleString()} />
+        <Metric label={policeCctvLabelsForOverview.recordsWithCameraDirection} value={policeCctvSummary.recordsWithCameraDirection.toLocaleString()} />
+        <Metric label={policeCctvLabelsForOverview.recordsWithParsedDistrict} value={policeCctvSummary.recordsWithParsedDistrict.toLocaleString()} />
+        <Metric label={policeCctvLabelsForOverview.recordsWithParsedRoadName} value={policeCctvSummary.recordsWithParsedRoadName.toLocaleString()} />
+        <Metric label={policeCctvLabelsForOverview.topDistrict} value={policeCctvSummary.byDistrict[0]?.district ?? '-'} />
+        <Metric label={policeCctvLabelsForOverview.topPoliceUnit} value={policeCctvSummary.byPoliceUnit[0]?.policeUnit ?? '-'} />
         <Metric label={t.latestBurglaryMonth} value={latest ? `${latest.year}-${String(latest.month).padStart(2, '0')}` : '-'} />
         <Metric label={t.mostCommonBurglaryTimePeriod} value={commonPeriod?.[0] ?? '-'} />
         <Metric label={t.topBurglaryDistrict} value={topBurglary?.[0] ?? '-'} />
@@ -2489,6 +2726,9 @@ function SafetyOverview({ data, language }: { data: SafetyDataBundle; language: 
         <BarChart title={motorcycleLabelsForOverview.byYear} values={Object.fromEntries(motorcycleSummary.byYear.map((item) => [String(item.year), item.recordCount]))} />
         <BarChart title={motorcycleLabelsForOverview.byDistrict} values={Object.fromEntries(motorcycleSummary.byDistrict.map((item) => [item.district, item.recordCount]))} />
         <BarChart title={motorcycleLabelsForOverview.byTimeBand} values={Object.fromEntries(motorcycleSummary.byIncidentTimeBand.map((item) => [item.incidentTimeBand, item.recordCount]))} />
+        <BarChart title={policeCctvLabelsForOverview.byDistrict} values={Object.fromEntries(policeCctvSummary.byDistrict.map((item) => [item.district, item.recordCount]))} />
+        <BarChart title={policeCctvLabelsForOverview.byPoliceUnit} values={Object.fromEntries(policeCctvSummary.byPoliceUnit.slice(0, 30).map((item) => [item.policeUnit, item.count]))} />
+        <BarChart title={policeCctvLabelsForOverview.keywordSummary} values={Object.fromEntries(policeCctvSummary.byCameraDirectionKeyword.map((item) => [item.keyword, item.count]))} />
         <BarChart title={t.aedLocationsByDistrict} values={aedByDistrict} />
         <BarChart title={t.fireHydrantsByCity} values={hydrantsByCity} />
         <BarChart title={t.fireHydrantsByDistrict} values={hydrantsByDistrict} />
@@ -2533,6 +2773,8 @@ function DataNotes({ data, language }: { data: SafetyDataBundle; language: Langu
       <p>{t.burglaryPrivacyNotice}</p>
       <p>{bicycleLabels[language].dataNote}</p>
       <p>{motorcycleLabels[language].dataNote}</p>
+      <p>{policeCctvLabels[language].dataNote}</p>
+      <p>{policeCctvLabels[language].interpretationNote}</p>
       <p>{t.shelterAvailabilityNotice}</p>
       <p>{t.evacuationGateDataNote}</p>
       <p>{t.medicalFacilityDataNote}</p>

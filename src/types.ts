@@ -13,6 +13,7 @@ export type SafetyLayer =
   | 'medical_facility'
   | 'fire_hydrant'
   | 'traffic_cctv'
+  | 'police_cctv_installation_location'
   | 'natural_disaster_work_school_suspension_records';
 
 export type LocationPrecision = 'exact' | 'district_centroid' | 'address_only' | 'missing';
@@ -162,6 +163,66 @@ export type MotorcycleTheftRecord = Omit<BicycleTheftRecord, 'module' | 'caseTyp
 
 export type MotorcycleTheftSummary = Omit<BicycleTheftSummary, 'latestRecords'> & {
   latestRecords: MotorcycleTheftRecord[];
+};
+
+export type PublicSafetyInfrastructureLocationPrecision =
+  | 'address_only'
+  | 'district_centroid'
+  | 'unparsed_address'
+  | 'missing';
+
+export type PoliceCctvInstallationLocationRecord = {
+  id: string;
+  safetyLayer: 'police_cctv_installation_location';
+  cityCountyCode?: string;
+  cityCountyCodeNormalized?: string;
+  sourceSequenceNumber?: string;
+  policeUnit?: string;
+  policeUnitNormalized?: string;
+  installationAddress?: string;
+  installationAddressNormalized?: string;
+  cameraDirection?: string;
+  cameraDirectionNormalized?: string;
+  district?: string;
+  roadName?: string;
+  hasInstallationAddress: boolean;
+  hasCameraDirection: boolean;
+  hasParsedDistrict: boolean;
+  hasParsedRoadName: boolean;
+  locationPrecision: PublicSafetyInfrastructureLocationPrecision;
+  latitude?: number;
+  longitude?: number;
+  googleMapsQuery?: string;
+  sourceRecordHash: string;
+  source: string;
+  sourceAgency: string;
+};
+
+export type PoliceCctvInstallationLocationSummary = {
+  totalRecords: number;
+  districtCount: number;
+  policeUnitCount: number;
+  uniqueInstallationAddressCount: number;
+  uniqueCameraDirectionCount: number;
+  recordsWithInstallationAddress: number;
+  recordsWithCameraDirection: number;
+  recordsWithParsedDistrict: number;
+  recordsWithParsedRoadName: number;
+  byDistrict: Array<{
+    district: string;
+    recordCount: number;
+    policeUnitBreakdown: Array<{ policeUnit: string; count: number }>;
+  }>;
+  byPoliceUnit: Array<{ policeUnit: string; count: number; districtCount: number }>;
+  byRoadName: Array<{ roadName: string; count: number }>;
+  byCameraDirectionKeyword: Array<{ keyword: string; count: number }>;
+  locationParsingQuality: {
+    parsedDistrict: number;
+    unparsedDistrict: number;
+    parsedRoadName: number;
+    addressOnly: number;
+    missingAddress: number;
+  };
 };
 
 export type DistrictSafetySummary = {
@@ -600,6 +661,8 @@ export type SafetyDataBundle = {
   bicycleTheftSummary: BicycleTheftSummary;
   motorcycleThefts: MotorcycleTheftRecord[];
   motorcycleTheftSummary: MotorcycleTheftSummary;
+  policeCctvInstallationLocations: PoliceCctvInstallationLocationRecord[];
+  policeCctvInstallationLocationSummary: PoliceCctvInstallationLocationSummary;
   aeds: AedLocation[];
   evacuationGates: EvacuationGate[];
   medicalFacilities: MedicalFacility[];
@@ -732,6 +795,15 @@ export type ConversionReport = {
     timeBandParseWarnings: string[];
     locationParseWarnings: string[];
     duplicateExamples: string[];
+  };
+  policeCctvInstallationLocations?: {
+    inputRows: number;
+    outputRows: number;
+    duplicateRows: number;
+    duplicateSequenceNumbers: string[];
+    duplicateAddresses: string[];
+    duplicatePoliceUnitAddresses: string[];
+    addressParseWarnings: string[];
   };
   notes: string[];
 };
