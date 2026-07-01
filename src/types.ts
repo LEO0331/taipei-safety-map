@@ -14,6 +14,7 @@ export type SafetyLayer =
   | 'fire_hydrant'
   | 'traffic_cctv'
   | 'police_cctv_installation_location'
+  | 'fire_department_donation_in_kind_records'
   | 'natural_disaster_work_school_suspension_records';
 
 export type LocationPrecision = 'exact' | 'district_centroid' | 'address_only' | 'missing';
@@ -222,6 +223,96 @@ export type PoliceCctvInstallationLocationSummary = {
     parsedRoadName: number;
     addressOnly: number;
     missingAddress: number;
+  };
+};
+
+export type FireDepartmentDonationItemCategory =
+  | 'medical_or_rescue_equipment'
+  | 'protective_equipment'
+  | 'vehicle_or_transport'
+  | 'electronics_or_communication'
+  | 'food_or_daily_supplies'
+  | 'training_or_education_materials'
+  | 'cash_equivalent_or_voucher'
+  | 'other_goods'
+  | 'unknown';
+
+export type FireDepartmentDonationPurposeCategory =
+  | 'firefighting'
+  | 'emergency_medical_service'
+  | 'disaster_prevention'
+  | 'public_education'
+  | 'staff_support'
+  | 'general_fire_department_use'
+  | 'other'
+  | 'unknown';
+
+export type FireDepartmentDonationInKindRecord = {
+  id: string;
+  module: 'fire_department_donation_in_kind_records';
+  resourceName?: string;
+  resourceYearRaw?: string;
+  resourceRocYear?: number;
+  resourceYear?: number;
+  sourceSequenceNumber?: number;
+  yearRaw?: string;
+  rocYear?: number;
+  year?: number;
+  monthRaw?: string;
+  month?: number;
+  dayRaw?: string;
+  day?: number;
+  donationDate?: string;
+  donationMonthKey?: string;
+  donationQuarter?: string;
+  donorName?: string;
+  donorNameNormalized?: string;
+  donatedItem?: string;
+  donatedItemNormalized?: string;
+  donatedItemCategory: FireDepartmentDonationItemCategory;
+  donationPurpose?: string;
+  donationPurposeNormalized?: string;
+  donationPurposeCategory: FireDepartmentDonationPurposeCategory;
+  hasMedicalOrRescueKeyword: boolean;
+  hasProtectiveEquipmentKeyword: boolean;
+  hasVehicleOrTransportKeyword: boolean;
+  hasElectronicsOrCommunicationKeyword: boolean;
+  hasFoodOrSuppliesKeyword: boolean;
+  hasTrainingOrEducationKeyword: boolean;
+  possibleReceivingUnit?: string;
+  sourceRecordHash: string;
+  source: string;
+  sourceAgency: string;
+};
+
+export type FireDepartmentDonationInKindSummary = {
+  totalRecords: number;
+  minYear?: number;
+  maxYear?: number;
+  latestYear?: number;
+  minDonationDate?: string;
+  maxDonationDate?: string;
+  uniqueDonorCount: number;
+  uniqueDonatedItemCount: number;
+  uniqueDonationPurposeCount: number;
+  recordsWithDonationDate: number;
+  recordsWithDonorName: number;
+  recordsWithDonatedItem: number;
+  recordsWithDonationPurpose: number;
+  byYear: Array<{ year: number; recordCount: number; uniqueDonorCount: number; uniqueDonatedItemCount: number }>;
+  byMonth: Array<{ donationMonthKey: string; recordCount: number }>;
+  byDonor: Array<{ donorName: string; recordCount: number; firstYear?: number; latestYear?: number }>;
+  byDonatedItemCategory: Array<{ donatedItemCategory: FireDepartmentDonationItemCategory; count: number }>;
+  byDonationPurposeCategory: Array<{ donationPurposeCategory: FireDepartmentDonationPurposeCategory; count: number }>;
+  topDonatedItems: Array<{ donatedItem: string; count: number }>;
+  topDonationPurposes: Array<{ donationPurpose: string; count: number }>;
+  resourceBreakdown: Array<{ resourceName: string; recordCount: number }>;
+  dataQuality: {
+    missingDateCount: number;
+    missingDonorNameCount: number;
+    missingDonatedItemCount: number;
+    missingDonationPurposeCount: number;
+    unsupportedResourceCount: number;
   };
 };
 
@@ -663,6 +754,8 @@ export type SafetyDataBundle = {
   motorcycleTheftSummary: MotorcycleTheftSummary;
   policeCctvInstallationLocations: PoliceCctvInstallationLocationRecord[];
   policeCctvInstallationLocationSummary: PoliceCctvInstallationLocationSummary;
+  fireDepartmentDonationInKindRecords: FireDepartmentDonationInKindRecord[];
+  fireDepartmentDonationInKindSummary: FireDepartmentDonationInKindSummary;
   aeds: AedLocation[];
   evacuationGates: EvacuationGate[];
   medicalFacilities: MedicalFacility[];
@@ -804,6 +897,15 @@ export type ConversionReport = {
     duplicateAddresses: string[];
     duplicatePoliceUnitAddresses: string[];
     addressParseWarnings: string[];
+  };
+  fireDepartmentDonations?: {
+    inputRows: number;
+    outputRows: number;
+    unsupportedResources: string[];
+    invalidYearExamples: string[];
+    invalidDateExamples: string[];
+    duplicateDonorNames: string[];
+    duplicateFallbackKeys: string[];
   };
   notes: string[];
 };

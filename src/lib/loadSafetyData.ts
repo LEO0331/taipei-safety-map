@@ -10,6 +10,8 @@ import type {
   EmergencyShelter,
   EmergencyShelterSummary,
   EvacuationGate,
+  FireDepartmentDonationInKindRecord,
+  FireDepartmentDonationInKindSummary,
   FireHydrant,
   FireHydrantSummary,
   MedicalFacility,
@@ -43,6 +45,7 @@ export async function loadSafetyData(): Promise<SafetyDataBundle> {
     bicycleThefts,
     motorcycleThefts,
     policeCctvInstallationLocations,
+    fireDepartmentDonationInKindRecords,
     aeds,
     evacuationGates,
     medicalFacilities,
@@ -59,6 +62,7 @@ export async function loadSafetyData(): Promise<SafetyDataBundle> {
     loadJson<BicycleTheftRecord[]>('bicycle-theft-records.json'),
     loadJson<MotorcycleTheftRecord[]>('motorcycle-theft-records.json'),
     loadJson<PoliceCctvInstallationLocationRecord[]>('police-cctv-installation-locations.json'),
+    loadJson<FireDepartmentDonationInKindRecord[]>('fire-department-donation-in-kind-records.json'),
     loadJson<AedLocation[]>('aed-locations.json'),
     loadJson<EvacuationGate[]>('evacuation-gates.json'),
     loadJson<MedicalFacility[]>('medical-facilities.json'),
@@ -76,6 +80,7 @@ export async function loadSafetyData(): Promise<SafetyDataBundle> {
       bicycleTheftSummary: BicycleTheftSummary;
       motorcycleTheftSummary: MotorcycleTheftSummary;
       policeCctvInstallationLocationSummary: PoliceCctvInstallationLocationSummary;
+      fireDepartmentDonationInKindSummary: FireDepartmentDonationInKindSummary;
       naturalDisasterSuspensionSummary: NaturalDisasterSuspensionSummary;
     }>('safety-dashboard-summary.json'),
     loadJson<ConversionReport>('conversion-report.json'),
@@ -90,6 +95,8 @@ export async function loadSafetyData(): Promise<SafetyDataBundle> {
     motorcycleTheftSummary: dashboard.motorcycleTheftSummary,
     policeCctvInstallationLocations,
     policeCctvInstallationLocationSummary: dashboard.policeCctvInstallationLocationSummary,
+    fireDepartmentDonationInKindRecords,
+    fireDepartmentDonationInKindSummary: dashboard.fireDepartmentDonationInKindSummary,
     aeds,
     evacuationGates,
     medicalFacilities,

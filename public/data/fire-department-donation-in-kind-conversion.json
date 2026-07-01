@@ -1,0 +1,75 @@
+{
+  "inputRows": 323,
+  "outputRows": 323,
+  "resources": [
+    {
+      "name": "臺北市政府消防局114年度接受各界捐贈實物明細表",
+      "format": "csv",
+      "path": "data/raw/fire-department-donation-in-kind-records/臺北市政府消防局114年度接受各界捐贈實物明細表.csv",
+      "sourceUrl": "https://data.taipei/api/frontstage/tpeod/dataset/resource.download?rid=7aa42753-8711-4e4b-904e-e33b5f649046",
+      "downloadedAt": "2026-07-01T06:09:22.727Z",
+      "fileSize": 11380,
+      "encoding": "UTF-8-SIG",
+      "unsupported": false,
+      "failure": null
+    },
+    {
+      "name": "臺北市政府消防局113年度接受各界捐贈實物明細表",
+      "format": "csv",
+      "path": "data/raw/fire-department-donation-in-kind-records/臺北市政府消防局113年度接受各界捐贈實物明細表.csv",
+      "sourceUrl": "https://data.taipei/api/frontstage/tpeod/dataset/resource.download?rid=10fc9b8e-3051-4909-bdbd-076e2d94455f",
+      "downloadedAt": "2026-07-01T06:09:22.931Z",
+      "fileSize": 9292,
+      "encoding": "UTF-8-SIG",
+      "unsupported": false,
+      "failure": null
+    },
+    {
+      "name": "臺北市政府消防局112年度接受各界捐贈實物明細表",
+      "format": "csv",
+      "path": "data/raw/fire-department-donation-in-kind-records/臺北市政府消防局112年度接受各界捐贈實物明細表.csv",
+      "sourceUrl": "https://data.taipei/api/frontstage/tpeod/dataset/resource.download?rid=e61ab04e-4e93-4600-8794-aed10f9ab3b3",
+      "downloadedAt": "2026-07-01T06:09:23.104Z",
+      "fileSize": 11591,
+      "encoding": "UTF-8-SIG",
+      "unsupported": false,
+      "failure": null
+    }
+  ],
+  "unsupportedResources": [
+    "臺北市政府消防局111年度接受各界捐贈實物明細表",
+    "臺北市政府消防局110年度接受各界捐贈實物明細表"
+  ],
+  "invalidYearExamples": [],
+  "invalidDateExamples": [],
+  "duplicateDonorNames": [
+    "財團法人台北市景福宮",
+    "黃○○",
+    "蘇○○",
+    "陳○○",
+    "慈悟寺",
+    "張○○",
+    "林○○",
+    "羅○○",
+    "鄭○○",
+    "孫○○",
+    "謝○○",
+    "何○○",
+    "吳○○",
+    "財團法人台北市朱厝崙福聚宮",
+    "松山慈惠堂",
+    "趙○○",
+    "文○○",
+    "惠友運動器材股份有限公司",
+    "財團法人台北市覺修宮",
+    "曾○○"
+  ],
+  "duplicateFallbackKeys": [
+    "2025|7|22|林○○|捐贈紅外線熱顯像儀2具|執行救災勤務使用",
+    "2025|7|22|張○○|捐贈紅外線熱顯像儀2具|執行救災勤務使用",
+    "2025|10|22|林○○|捐贈救災及健身器材|同仁訓練使用",
+    "2025|12|24|蔡○○|捐贈消防救災裝備器材1批|執行救災勤務使用",
+    "2025|12|29|林○○|捐贈救護車1輛|執行救護勤務使用",
+    "2023|4|25|林○○|住宅用火災警報器(永揚-光電式YDS-H02)|火災預防使用"
+  ]
+}

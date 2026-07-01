@@ -2,7 +2,7 @@
 
 A mobile-first bilingual Vite + React + TypeScript + Leaflet app for public safety information in Taipei.
 
-The app combines AED locations, medical facilities, fire hydrants, air-raid shelters, emergency shelters, evacuation gates, CCTV equipment locations, police CCTV installation-location records, historical residential burglary records, bicycle theft records, motorcycle theft records, dengue vector-density survey results, and historical natural-disaster work/school suspension messages. It does not provide real-time availability, remaining shelter capacity, live CCTV video, medical advice, fire-response instructions, evacuation instructions, current closure status, forecasts, crime-risk scoring, route-safety guarantees, privacy or legal advice, insurance advice, theft-prevention advice, crime prediction, or outbreak-risk prediction.
+The app combines AED locations, medical facilities, fire hydrants, air-raid shelters, emergency shelters, evacuation gates, CCTV equipment locations, police CCTV installation-location records, Fire Department in-kind donation records, historical residential burglary records, bicycle theft records, motorcycle theft records, dengue vector-density survey results, and historical natural-disaster work/school suspension messages. It does not provide real-time availability, remaining shelter capacity, live CCTV video, medical advice, fire-response instructions, evacuation instructions, current closure status, forecasts, crime-risk scoring, route-safety guarantees, privacy or legal advice, insurance advice, theft-prevention advice, crime prediction, outbreak-risk prediction, donation endorsements, or resource-availability claims.
 
 Fire & emergency facilities: AEDs, medical facilities, and fire hydrants / 消防與緊急設施：AED、醫療院所與消防栓
 
@@ -11,6 +11,8 @@ Shelters & disaster response facilities: air-raid shelters, emergency shelters, 
 Traffic monitoring facilities: CCTV equipment locations / 交通監控設施：CCTV設備點位
 
 Public safety infrastructure: police CCTV installation-location records / 公共安全設施：警察局錄影監視系統設置區位
+
+Fire Department public records: in-kind donation records by year, donor, item, and purpose / 消防局公開紀錄：各年度接受各界捐贈實物明細
 
 Crime records and public safety: historical bicycle and motorcycle theft records with district, time-band, and fuzzy-location summaries / 治安紀錄與生活安全：自行車與機車竊盜歷史紀錄、行政區、發生時段與模糊地點彙總
 
@@ -27,6 +29,7 @@ Disaster information history: historical natural-disaster work/school suspension
 - `臺北市疏散門資訊`: WGS84 evacuation-gate location records with riverside park, name, and location description.
 - `臺北市公私立醫療院所`: separate hospital and clinic resources with WGS84 coordinates.
 - `大臺北地區消防栓分布點位圖`: Greater Taipei hydrant records from 北水處 with WGS84 and TWD97 coordinates.
+- `臺北市政府消防局各年度接受各界捐贈實物明細表`: Fire Department in-kind donation records by year, donor, donated item, and use purpose. Current CSV resources are converted; legacy ODS resources are listed as unsupported.
 - `臺北市可供避難收容處所一覽表`: UTF-8-SIG emergency shelter directory with disaster applicability, listed capacity, area, served villages, and public contact fields.
 - `臺北市CCTV設施`: Big5 / CP950 traffic CCTV equipment locations with sequence number, city, camera location/code, and WGS84 coordinates.
 - `臺北市政府警察局錄影監視系統設置區位`: UTF-8-SIG police CCTV installation-location records with city/county code, sequence number, police unit, installation address, and camera direction. The source has no official coordinates.
@@ -47,6 +50,8 @@ Nearby AED, hospital, clinic, fire-hydrant, air-raid shelter, and evacuation-gat
 CCTV records are shown as traffic monitoring infrastructure points only. The app parses WGS84 coordinates and validates them against Taipei bounds, but does not provide live video access, camera direction, monitoring coverage, camera-feed links, crime-prevention claims, or safety scores. Live traffic image value-added use requires separate official application and usage under the authority rules.
 
 Police CCTV installation-location records are shown as district-level summaries and an address-based directory only. The app parses district and road text from installation addresses but does not geocode, show exact markers, provide live video, infer field of view, or claim real-time operational status.
+
+Fire Department donation records are a no-coordinate public-records module. The app parses ROC years, month/day fields, donor names, donated items, and purpose text into trends and a searchable directory. It does not render map markers, imply official endorsement, or represent current inventory, resource availability, procurement status, tax treatment, or emergency-service readiness.
 
 Natural-disaster suspension records are a no-coordinate history module. Conversion parses ROC dates to Gregorian dates, classifies disaster type from the disaster name, classifies suspension messages heuristically, preserves the raw official message text, and groups events by year plus disaster name. The module does not provide real-time closure status, forecasts, current disaster status, emergency instructions, route safety, or evacuation guidance.
 
@@ -84,6 +89,7 @@ data/raw/evacuation-gates/evacuation-gates.csv
 data/raw/medical-facilities/hospitals.csv
 data/raw/medical-facilities/clinics.csv
 data/raw/fire-hydrants/fire-hydrants.csv
+data/raw/fire-department-donation-in-kind-records/*.csv
 data/raw/emergency-shelters/emergency-shelters.csv
 data/raw/traffic-cctv/traffic-cctv.csv
 data/raw/police-cctv-installation-locations/police-cctv-installation-locations.csv
@@ -95,6 +101,8 @@ data/raw/motorcycle-theft-records/motorcycle-theft-records.csv
 ## Coordinate Handling
 
 Air-raid shelter coordinates are detected as WGS84 when they look like longitude/latitude pairs. TWD97 TM2 / EPSG:3826 coordinates are converted to WGS84 with `proj4`. Medical hospital and clinic CSVs are decoded as Big5 / CP950 with UTF-8 fallback. Fire hydrant CSVs are UTF-8-SIG with Big5 fallback, preserve TWD97 coordinates, classify underground / above-ground hydrants, and validate WGS84 coordinates against Greater Taipei bounds.
+
+Fire Department donation CSVs are UTF-8-SIG with Big5 fallback. Conversion parses ROC years, month/day fields, donor, donated item, and purpose fields; the records have no coordinates and are not geocoded.
 
 Emergency shelter CSVs are UTF-8-SIG with Big5 fallback. Conversion parses `Y` / `N` / `備用` / `老舊聚落`, listed capacity, area, shelter type, served villages, accessibility, indoor/outdoor flags, and relief-station flags. Optional verified coordinates can be added later through `public/data/emergency-shelter-locations.json`; the app does not geocode addresses automatically.
 
@@ -118,4 +126,4 @@ In repository settings, enable Pages with `GitHub Actions` as the source.
 
 ## Disclaimer
 
-This site presents public AED, medical-facility, fire-hydrant, air-raid shelter, emergency shelter, evacuation-gate, and CCTV equipment records, historical burglary records, and dengue vector-density survey results. Fire hydrant, emergency shelter, and CCTV records do not represent real-time availability, fire-response deployment, shelter opening status, remaining capacity, CCTV live video, monitoring coverage, on-site accessibility, or official evacuation instructions. In an emergency, call 119 and follow official authorities and on-site command.
+This site presents public AED, medical-facility, fire-hydrant, air-raid shelter, emergency shelter, evacuation-gate, CCTV equipment, Fire Department donation, historical theft, historical disaster-suspension, and dengue vector-density records. It does not represent real-time availability, fire-response deployment, shelter opening status, remaining capacity, CCTV live video, monitoring coverage, official endorsement, current inventory, or official evacuation instructions. In an emergency, call 119 and follow official authorities and on-site command.

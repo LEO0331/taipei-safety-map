@@ -1,0 +1,1540 @@
+{
+  "totalRecords": 323,
+  "minYear": 2023,
+  "maxYear": 2025,
+  "latestYear": 2025,
+  "minDonationDate": "2023-01-06",
+  "maxDonationDate": "2025-12-31",
+  "uniqueDonorCount": 186,
+  "uniqueDonatedItemCount": 196,
+  "uniqueDonationPurposeCount": 12,
+  "recordsWithDonationDate": 323,
+  "recordsWithDonorName": 323,
+  "recordsWithDonatedItem": 323,
+  "recordsWithDonationPurpose": 323,
+  "byYear": [
+    {
+      "year": 2023,
+      "recordCount": 109,
+      "uniqueDonorCount": 88,
+      "uniqueDonatedItemCount": 70
+    },
+    {
+      "year": 2024,
+      "recordCount": 91,
+      "uniqueDonorCount": 73,
+      "uniqueDonatedItemCount": 61
+    },
+    {
+      "year": 2025,
+      "recordCount": 123,
+      "uniqueDonorCount": 84,
+      "uniqueDonatedItemCount": 72
+    }
+  ],
+  "byMonth": [
+    {
+      "donationMonthKey": "2023-01",
+      "recordCount": 1
+    },
+    {
+      "donationMonthKey": "2023-02",
+      "recordCount": 3
+    },
+    {
+      "donationMonthKey": "2023-03",
+      "recordCount": 7
+    },
+    {
+      "donationMonthKey": "2023-04",
+      "recordCount": 21
+    },
+    {
+      "donationMonthKey": "2023-05",
+      "recordCount": 13
+    },
+    {
+      "donationMonthKey": "2023-06",
+      "recordCount": 6
+    },
+    {
+      "donationMonthKey": "2023-07",
+      "recordCount": 5
+    },
+    {
+      "donationMonthKey": "2023-08",
+      "recordCount": 2
+    },
+    {
+      "donationMonthKey": "2023-09",
+      "recordCount": 3
+    },
+    {
+      "donationMonthKey": "2023-10",
+      "recordCount": 8
+    },
+    {
+      "donationMonthKey": "2023-11",
+      "recordCount": 11
+    },
+    {
+      "donationMonthKey": "2023-12",
+      "recordCount": 29
+    },
+    {
+      "donationMonthKey": "2024-01",
+      "recordCount": 3
+    },
+    {
+      "donationMonthKey": "2024-02",
+      "recordCount": 3
+    },
+    {
+      "donationMonthKey": "2024-03",
+      "recordCount": 7
+    },
+    {
+      "donationMonthKey": "2024-04",
+      "recordCount": 6
+    },
+    {
+      "donationMonthKey": "2024-05",
+      "recordCount": 9
+    },
+    {
+      "donationMonthKey": "2024-06",
+      "recordCount": 5
+    },
+    {
+      "donationMonthKey": "2024-07",
+      "recordCount": 6
+    },
+    {
+      "donationMonthKey": "2024-08",
+      "recordCount": 10
+    },
+    {
+      "donationMonthKey": "2024-09",
+      "recordCount": 4
+    },
+    {
+      "donationMonthKey": "2024-10",
+      "recordCount": 4
+    },
+    {
+      "donationMonthKey": "2024-11",
+      "recordCount": 11
+    },
+    {
+      "donationMonthKey": "2024-12",
+      "recordCount": 23
+    },
+    {
+      "donationMonthKey": "2025-01",
+      "recordCount": 8
+    },
+    {
+      "donationMonthKey": "2025-03",
+      "recordCount": 3
+    },
+    {
+      "donationMonthKey": "2025-04",
+      "recordCount": 5
+    },
+    {
+      "donationMonthKey": "2025-05",
+      "recordCount": 4
+    },
+    {
+      "donationMonthKey": "2025-06",
+      "recordCount": 5
+    },
+    {
+      "donationMonthKey": "2025-07",
+      "recordCount": 16
+    },
+    {
+      "donationMonthKey": "2025-08",
+      "recordCount": 9
+    },
+    {
+      "donationMonthKey": "2025-09",
+      "recordCount": 9
+    },
+    {
+      "donationMonthKey": "2025-10",
+      "recordCount": 16
+    },
+    {
+      "donationMonthKey": "2025-11",
+      "recordCount": 9
+    },
+    {
+      "donationMonthKey": "2025-12",
+      "recordCount": 39
+    }
+  ],
+  "byDonor": [
+    {
+      "donorName": "林○○",
+      "recordCount": 25,
+      "firstYear": 2023,
+      "latestYear": 2025
+    },
+    {
+      "donorName": "陳○○",
+      "recordCount": 12,
+      "firstYear": 2023,
+      "latestYear": 2025
+    },
+    {
+      "donorName": "張○○",
+      "recordCount": 10,
+      "firstYear": 2023,
+      "latestYear": 2025
+    },
+    {
+      "donorName": "財團法人台北市松山慈祐宮",
+      "recordCount": 7,
+      "firstYear": 2023,
+      "latestYear": 2025
+    },
+    {
+      "donorName": "李○○",
+      "recordCount": 6,
+      "firstYear": 2023,
+      "latestYear": 2025
+    },
+    {
+      "donorName": "蘇○○",
+      "recordCount": 5,
+      "firstYear": 2023,
+      "latestYear": 2025
+    },
+    {
+      "donorName": "松山慈惠堂",
+      "recordCount": 5,
+      "firstYear": 2023,
+      "latestYear": 2025
+    },
+    {
+      "donorName": "蔡○○",
+      "recordCount": 5,
+      "firstYear": 2024,
+      "latestYear": 2025
+    },
+    {
+      "donorName": "黃○○",
+      "recordCount": 4,
+      "firstYear": 2023,
+      "latestYear": 2025
+    },
+    {
+      "donorName": "鄭○○",
+      "recordCount": 4,
+      "firstYear": 2025,
+      "latestYear": 2025
+    },
+    {
+      "donorName": "吳○○",
+      "recordCount": 4,
+      "firstYear": 2025,
+      "latestYear": 2025
+    },
+    {
+      "donorName": "臺灣集中保管結算所股份有限公司",
+      "recordCount": 4,
+      "firstYear": 2023,
+      "latestYear": 2025
+    },
+    {
+      "donorName": "慈悟寺",
+      "recordCount": 3,
+      "firstYear": 2023,
+      "latestYear": 2025
+    },
+    {
+      "donorName": "財團法人台北市覺修宮",
+      "recordCount": 3,
+      "firstYear": 2023,
+      "latestYear": 2025
+    },
+    {
+      "donorName": "麗波永康國際診所",
+      "recordCount": 3,
+      "firstYear": 2023,
+      "latestYear": 2025
+    },
+    {
+      "donorName": "松山奉天宮",
+      "recordCount": 3,
+      "firstYear": 2023,
+      "latestYear": 2025
+    },
+    {
+      "donorName": "財團法人台北市南海普陀山慧濟寺",
+      "recordCount": 3,
+      "firstYear": 2023,
+      "latestYear": 2025
+    },
+    {
+      "donorName": "台灣亞衛有限公司",
+      "recordCount": 3,
+      "firstYear": 2023,
+      "latestYear": 2025
+    },
+    {
+      "donorName": "照護世界股份有限公司",
+      "recordCount": 3,
+      "firstYear": 2023,
+      "latestYear": 2025
+    },
+    {
+      "donorName": "晨達企業股份有限公司",
+      "recordCount": 3,
+      "firstYear": 2023,
+      "latestYear": 2025
+    },
+    {
+      "donorName": "王○○",
+      "recordCount": 3,
+      "firstYear": 2023,
+      "latestYear": 2025
+    },
+    {
+      "donorName": "財團法人九府仙師普惠堂",
+      "recordCount": 3,
+      "firstYear": 2023,
+      "latestYear": 2025
+    },
+    {
+      "donorName": "財團法人台北葫蘆寺",
+      "recordCount": 3,
+      "firstYear": 2023,
+      "latestYear": 2025
+    },
+    {
+      "donorName": "簡○○",
+      "recordCount": 3,
+      "firstYear": 2023,
+      "latestYear": 2024
+    },
+    {
+      "donorName": "華碩電腦股份有限公司",
+      "recordCount": 3,
+      "firstYear": 2023,
+      "latestYear": 2024
+    },
+    {
+      "donorName": "台北市消防協會",
+      "recordCount": 3,
+      "firstYear": 2023,
+      "latestYear": 2024
+    },
+    {
+      "donorName": "江○○○",
+      "recordCount": 3,
+      "firstYear": 2023,
+      "latestYear": 2023
+    },
+    {
+      "donorName": "財團法人台北市景福宮",
+      "recordCount": 2,
+      "firstYear": 2023,
+      "latestYear": 2025
+    },
+    {
+      "donorName": "羅○○",
+      "recordCount": 2,
+      "firstYear": 2025,
+      "latestYear": 2025
+    },
+    {
+      "donorName": "孫○○",
+      "recordCount": 2,
+      "firstYear": 2025,
+      "latestYear": 2025
+    },
+    {
+      "donorName": "謝○○",
+      "recordCount": 2,
+      "firstYear": 2024,
+      "latestYear": 2025
+    },
+    {
+      "donorName": "何○○",
+      "recordCount": 2,
+      "firstYear": 2023,
+      "latestYear": 2025
+    },
+    {
+      "donorName": "財團法人台北市朱厝崙福聚宮",
+      "recordCount": 2,
+      "firstYear": 2024,
+      "latestYear": 2025
+    },
+    {
+      "donorName": "趙○○",
+      "recordCount": 2,
+      "firstYear": 2024,
+      "latestYear": 2025
+    },
+    {
+      "donorName": "文○○",
+      "recordCount": 2,
+      "firstYear": 2024,
+      "latestYear": 2025
+    },
+    {
+      "donorName": "惠友運動器材股份有限公司",
+      "recordCount": 2,
+      "firstYear": 2023,
+      "latestYear": 2025
+    },
+    {
+      "donorName": "曾○○",
+      "recordCount": 2,
+      "firstYear": 2023,
+      "latestYear": 2025
+    },
+    {
+      "donorName": "傅○○",
+      "recordCount": 2,
+      "firstYear": 2024,
+      "latestYear": 2025
+    },
+    {
+      "donorName": "財團法人台北市關渡宮",
+      "recordCount": 2,
+      "firstYear": 2024,
+      "latestYear": 2025
+    },
+    {
+      "donorName": "許○○",
+      "recordCount": 2,
+      "firstYear": 2025,
+      "latestYear": 2025
+    },
+    {
+      "donorName": "高○○",
+      "recordCount": 2,
+      "firstYear": 2024,
+      "latestYear": 2025
+    },
+    {
+      "donorName": "周○○",
+      "recordCount": 2,
+      "firstYear": 2024,
+      "latestYear": 2025
+    },
+    {
+      "donorName": "台北市菁英獅子會",
+      "recordCount": 2,
+      "firstYear": 2024,
+      "latestYear": 2024
+    },
+    {
+      "donorName": "台北府城隍廟",
+      "recordCount": 2,
+      "firstYear": 2024,
+      "latestYear": 2024
+    },
+    {
+      "donorName": "財團法人英業達集團公益慈善基金會",
+      "recordCount": 2,
+      "firstYear": 2023,
+      "latestYear": 2024
+    },
+    {
+      "donorName": "王○",
+      "recordCount": 2,
+      "firstYear": 2023,
+      "latestYear": 2024
+    },
+    {
+      "donorName": "士林電機廠股份有限公司",
+      "recordCount": 2,
+      "firstYear": 2023,
+      "latestYear": 2024
+    },
+    {
+      "donorName": "新竹物流股份有限公司",
+      "recordCount": 2,
+      "firstYear": 2023,
+      "latestYear": 2024
+    },
+    {
+      "donorName": "顏○○",
+      "recordCount": 2,
+      "firstYear": 2024,
+      "latestYear": 2024
+    },
+    {
+      "donorName": "財團法人台北市木柵忠順廟",
+      "recordCount": 2,
+      "firstYear": 2023,
+      "latestYear": 2023
+    },
+    {
+      "donorName": "財團法人台北市艋舺龍山寺",
+      "recordCount": 2,
+      "firstYear": 2023,
+      "latestYear": 2023
+    },
+    {
+      "donorName": "財團法人文昌宮慈善事業基金會",
+      "recordCount": 2,
+      "firstYear": 2023,
+      "latestYear": 2023
+    },
+    {
+      "donorName": "膳明欣食品工業有限公司",
+      "recordCount": 2,
+      "firstYear": 2023,
+      "latestYear": 2023
+    },
+    {
+      "donorName": "財團法人臺北市仁愛頤養社會福利基金會",
+      "recordCount": 2,
+      "firstYear": 2023,
+      "latestYear": 2023
+    },
+    {
+      "donorName": "盧○○",
+      "recordCount": 2,
+      "firstYear": 2023,
+      "latestYear": 2023
+    },
+    {
+      "donorName": "財團法人中華民國佛教慈濟慈善基金會",
+      "recordCount": 1,
+      "firstYear": 2025,
+      "latestYear": 2025
+    },
+    {
+      "donorName": "長瀛法律事務所",
+      "recordCount": 1,
+      "firstYear": 2025,
+      "latestYear": 2025
+    },
+    {
+      "donorName": "豐𪝞企業股份有限公司",
+      "recordCount": 1,
+      "firstYear": 2025,
+      "latestYear": 2025
+    },
+    {
+      "donorName": "穎欣國際股份有限公司",
+      "recordCount": 1,
+      "firstYear": 2025,
+      "latestYear": 2025
+    },
+    {
+      "donorName": "台北市消防協會第一辦事處",
+      "recordCount": 1,
+      "firstYear": 2025,
+      "latestYear": 2025
+    },
+    {
+      "donorName": "佛光山寺",
+      "recordCount": 1,
+      "firstYear": 2025,
+      "latestYear": 2025
+    },
+    {
+      "donorName": "財團法人昭華慈善基金會",
+      "recordCount": 1,
+      "firstYear": 2025,
+      "latestYear": 2025
+    },
+    {
+      "donorName": "和碩聯合科技股份有限公司",
+      "recordCount": 1,
+      "firstYear": 2025,
+      "latestYear": 2025
+    },
+    {
+      "donorName": "黎○○",
+      "recordCount": 1,
+      "firstYear": 2025,
+      "latestYear": 2025
+    },
+    {
+      "donorName": "探索國際開發股份有限公司",
+      "recordCount": 1,
+      "firstYear": 2025,
+      "latestYear": 2025
+    },
+    {
+      "donorName": "洪○○",
+      "recordCount": 1,
+      "firstYear": 2025,
+      "latestYear": 2025
+    },
+    {
+      "donorName": "京和防災企業股份有限公司",
+      "recordCount": 1,
+      "firstYear": 2025,
+      "latestYear": 2025
+    },
+    {
+      "donorName": "陳○○及耀陽工程股份有限公司許○○",
+      "recordCount": 1,
+      "firstYear": 2025,
+      "latestYear": 2025
+    },
+    {
+      "donorName": "方○○",
+      "recordCount": 1,
+      "firstYear": 2025,
+      "latestYear": 2025
+    },
+    {
+      "donorName": "台北市西門獅子會",
+      "recordCount": 1,
+      "firstYear": 2025,
+      "latestYear": 2025
+    },
+    {
+      "donorName": "騏瑋實業有限公司",
+      "recordCount": 1,
+      "firstYear": 2025,
+      "latestYear": 2025
+    },
+    {
+      "donorName": "宏緯生物科技有限公司",
+      "recordCount": 1,
+      "firstYear": 2025,
+      "latestYear": 2025
+    },
+    {
+      "donorName": "壹伍壹拾數碼行銷有限公司",
+      "recordCount": 1,
+      "firstYear": 2025,
+      "latestYear": 2025
+    },
+    {
+      "donorName": "財團法人陳重光文教基金會",
+      "recordCount": 1,
+      "firstYear": 2025,
+      "latestYear": 2025
+    },
+    {
+      "donorName": "臺北永明玉龍宮",
+      "recordCount": 1,
+      "firstYear": 2025,
+      "latestYear": 2025
+    },
+    {
+      "donorName": "社團法人台北艋舺扶輪社",
+      "recordCount": 1,
+      "firstYear": 2025,
+      "latestYear": 2025
+    },
+    {
+      "donorName": "潤泰建設股份有限公司",
+      "recordCount": 1,
+      "firstYear": 2025,
+      "latestYear": 2025
+    },
+    {
+      "donorName": "文○",
+      "recordCount": 1,
+      "firstYear": 2025,
+      "latestYear": 2025
+    },
+    {
+      "donorName": "新加坡商揪口有限公司",
+      "recordCount": 1,
+      "firstYear": 2025,
+      "latestYear": 2025
+    },
+    {
+      "donorName": "宏洲科技有限公司",
+      "recordCount": 1,
+      "firstYear": 2025,
+      "latestYear": 2025
+    },
+    {
+      "donorName": "馬尼多媒體有限公司",
+      "recordCount": 1,
+      "firstYear": 2025,
+      "latestYear": 2025
+    },
+    {
+      "donorName": "兆孚有限公司",
+      "recordCount": 1,
+      "firstYear": 2025,
+      "latestYear": 2025
+    },
+    {
+      "donorName": "社團法人動物糧倉扶弱協會",
+      "recordCount": 1,
+      "firstYear": 2025,
+      "latestYear": 2025
+    },
+    {
+      "donorName": "石○○",
+      "recordCount": 1,
+      "firstYear": 2025,
+      "latestYear": 2025
+    },
+    {
+      "donorName": "鄧○○",
+      "recordCount": 1,
+      "firstYear": 2025,
+      "latestYear": 2025
+    },
+    {
+      "donorName": "余○○",
+      "recordCount": 1,
+      "firstYear": 2025,
+      "latestYear": 2025
+    },
+    {
+      "donorName": "沈○○",
+      "recordCount": 1,
+      "firstYear": 2025,
+      "latestYear": 2025
+    },
+    {
+      "donorName": "訊舟科技股份有限公司",
+      "recordCount": 1,
+      "firstYear": 2025,
+      "latestYear": 2025
+    },
+    {
+      "donorName": "杜○○",
+      "recordCount": 1,
+      "firstYear": 2025,
+      "latestYear": 2025
+    },
+    {
+      "donorName": "樟山寺",
+      "recordCount": 1,
+      "firstYear": 2025,
+      "latestYear": 2025
+    },
+    {
+      "donorName": "上魁投資有限公司",
+      "recordCount": 1,
+      "firstYear": 2025,
+      "latestYear": 2025
+    },
+    {
+      "donorName": "大直植福宮管理委員會",
+      "recordCount": 1,
+      "firstYear": 2025,
+      "latestYear": 2025
+    },
+    {
+      "donorName": "怡世界國際移民事業有限公司",
+      "recordCount": 1,
+      "firstYear": 2025,
+      "latestYear": 2025
+    },
+    {
+      "donorName": "癸花國際有限公司",
+      "recordCount": 1,
+      "firstYear": 2025,
+      "latestYear": 2025
+    },
+    {
+      "donorName": "紅睿國際行銷股份有限公司",
+      "recordCount": 1,
+      "firstYear": 2025,
+      "latestYear": 2025
+    },
+    {
+      "donorName": "莊○○",
+      "recordCount": 1,
+      "firstYear": 2025,
+      "latestYear": 2025
+    },
+    {
+      "donorName": "徐○○",
+      "recordCount": 1,
+      "firstYear": 2025,
+      "latestYear": 2025
+    },
+    {
+      "donorName": "魏○○",
+      "recordCount": 1,
+      "firstYear": 2025,
+      "latestYear": 2025
+    },
+    {
+      "donorName": "白○○",
+      "recordCount": 1,
+      "firstYear": 2025,
+      "latestYear": 2025
+    },
+    {
+      "donorName": "大台北區瓦斯股份有限公司",
+      "recordCount": 1,
+      "firstYear": 2025,
+      "latestYear": 2025
+    },
+    {
+      "donorName": "社團法人中華民國（台灣）國際獅子會第一聯合會第三支會（300A3區）",
+      "recordCount": 1,
+      "firstYear": 2025,
+      "latestYear": 2025
+    },
+    {
+      "donorName": "社團法人台北市社新福德功德會",
+      "recordCount": 1,
+      "firstYear": 2024,
+      "latestYear": 2024
+    },
+    {
+      "donorName": "盧○",
+      "recordCount": 1,
+      "firstYear": 2024,
+      "latestYear": 2024
+    },
+    {
+      "donorName": "富御國際商務有限公司",
+      "recordCount": 1,
+      "firstYear": 2024,
+      "latestYear": 2024
+    },
+    {
+      "donorName": "財團法人臺北市海光宮慈善基金會",
+      "recordCount": 1,
+      "firstYear": 2024,
+      "latestYear": 2024
+    },
+    {
+      "donorName": "臺北市葫蘆堵福德文化慈善協會",
+      "recordCount": 1,
+      "firstYear": 2024,
+      "latestYear": 2024
+    },
+    {
+      "donorName": "財團法人台北市中庄仔福德宮",
+      "recordCount": 1,
+      "firstYear": 2024,
+      "latestYear": 2024
+    },
+    {
+      "donorName": "國際扶輪3523地區",
+      "recordCount": 1,
+      "firstYear": 2024,
+      "latestYear": 2024
+    },
+    {
+      "donorName": "新世紀資通股份有限公司",
+      "recordCount": 1,
+      "firstYear": 2024,
+      "latestYear": 2024
+    },
+    {
+      "donorName": "勤力合實業股份有限公司",
+      "recordCount": 1,
+      "firstYear": 2024,
+      "latestYear": 2024
+    },
+    {
+      "donorName": "財團法人佛光山慈悲社會福利基金會",
+      "recordCount": 1,
+      "firstYear": 2024,
+      "latestYear": 2024
+    },
+    {
+      "donorName": "台北市文昌宮",
+      "recordCount": 1,
+      "firstYear": 2024,
+      "latestYear": 2024
+    },
+    {
+      "donorName": "人一醫療器材股份有限公司",
+      "recordCount": 1,
+      "firstYear": 2024,
+      "latestYear": 2024
+    },
+    {
+      "donorName": "合通綠能股份有限公司",
+      "recordCount": 1,
+      "firstYear": 2024,
+      "latestYear": 2024
+    },
+    {
+      "donorName": "財金資訊股份有限公司",
+      "recordCount": 1,
+      "firstYear": 2024,
+      "latestYear": 2024
+    },
+    {
+      "donorName": "亞洲聯合國際貿易有限公司",
+      "recordCount": 1,
+      "firstYear": 2024,
+      "latestYear": 2024
+    },
+    {
+      "donorName": "上洋產業股份有限公司",
+      "recordCount": 1,
+      "firstYear": 2024,
+      "latestYear": 2024
+    },
+    {
+      "donorName": "台北市甘丹東頂顯密佛學研修協會",
+      "recordCount": 1,
+      "firstYear": 2024,
+      "latestYear": 2024
+    },
+    {
+      "donorName": "知常投資有限公司",
+      "recordCount": 1,
+      "firstYear": 2024,
+      "latestYear": 2024
+    },
+    {
+      "donorName": "攝影人數位影像製作股份有限公司",
+      "recordCount": 1,
+      "firstYear": 2024,
+      "latestYear": 2024
+    },
+    {
+      "donorName": "三星營造股份有限公司",
+      "recordCount": 1,
+      "firstYear": 2024,
+      "latestYear": 2024
+    },
+    {
+      "donorName": "訊凱國際股份有限公司",
+      "recordCount": 1,
+      "firstYear": 2024,
+      "latestYear": 2024
+    },
+    {
+      "donorName": "社團法人台北市通化福德財神慈善協會",
+      "recordCount": 1,
+      "firstYear": 2024,
+      "latestYear": 2024
+    },
+    {
+      "donorName": "社團法人國際獅子會台灣總會台北市第三支會",
+      "recordCount": 1,
+      "firstYear": 2024,
+      "latestYear": 2024
+    },
+    {
+      "donorName": "社團法人臺北市艋舺三條路福德協會",
+      "recordCount": 1,
+      "firstYear": 2024,
+      "latestYear": 2024
+    },
+    {
+      "donorName": "楨榕發興業有限公司",
+      "recordCount": 1,
+      "firstYear": 2024,
+      "latestYear": 2024
+    },
+    {
+      "donorName": "財團法人台北市景美集應廟",
+      "recordCount": 1,
+      "firstYear": 2024,
+      "latestYear": 2024
+    },
+    {
+      "donorName": "社團法人臺灣工作犬發展協會",
+      "recordCount": 1,
+      "firstYear": 2024,
+      "latestYear": 2024
+    },
+    {
+      "donorName": "財團法人臺北市北投慈善基金會",
+      "recordCount": 1,
+      "firstYear": 2024,
+      "latestYear": 2024
+    },
+    {
+      "donorName": "國賓大飯店股份有限公司",
+      "recordCount": 1,
+      "firstYear": 2024,
+      "latestYear": 2024
+    },
+    {
+      "donorName": "生阡有限公司",
+      "recordCount": 1,
+      "firstYear": 2024,
+      "latestYear": 2024
+    },
+    {
+      "donorName": "游○○",
+      "recordCount": 1,
+      "firstYear": 2024,
+      "latestYear": 2024
+    },
+    {
+      "donorName": "台旭環境科技中心股份有限公司",
+      "recordCount": 1,
+      "firstYear": 2024,
+      "latestYear": 2024
+    },
+    {
+      "donorName": "劉○○及劉○○○○",
+      "recordCount": 1,
+      "firstYear": 2024,
+      "latestYear": 2024
+    },
+    {
+      "donorName": "磐座建設股份有限公司",
+      "recordCount": 1,
+      "firstYear": 2024,
+      "latestYear": 2024
+    },
+    {
+      "donorName": "阮○○",
+      "recordCount": 1,
+      "firstYear": 2024,
+      "latestYear": 2024
+    },
+    {
+      "donorName": "中悅皇家保全股份有限公司",
+      "recordCount": 1,
+      "firstYear": 2023,
+      "latestYear": 2023
+    },
+    {
+      "donorName": "誠旺旅行社股份有限公司",
+      "recordCount": 1,
+      "firstYear": 2023,
+      "latestYear": 2023
+    },
+    {
+      "donorName": "國際獅子會中華民國總會台北市第二支會",
+      "recordCount": 1,
+      "firstYear": 2023,
+      "latestYear": 2023
+    },
+    {
+      "donorName": "臺灣中研福德宮管理發展委員會",
+      "recordCount": 1,
+      "firstYear": 2023,
+      "latestYear": 2023
+    },
+    {
+      "donorName": "富南愛心基金會",
+      "recordCount": 1,
+      "firstYear": 2023,
+      "latestYear": 2023
+    },
+    {
+      "donorName": "福華大飯店股份有限公司",
+      "recordCount": 1,
+      "firstYear": 2023,
+      "latestYear": 2023
+    },
+    {
+      "donorName": "敦南大樓管理委員會",
+      "recordCount": 1,
+      "firstYear": 2023,
+      "latestYear": 2023
+    },
+    {
+      "donorName": "吸引力生活事業股份有限公司",
+      "recordCount": 1,
+      "firstYear": 2023,
+      "latestYear": 2023
+    },
+    {
+      "donorName": "萬曜事業股份有限公司",
+      "recordCount": 1,
+      "firstYear": 2023,
+      "latestYear": 2023
+    },
+    {
+      "donorName": "不累國際股份有限公司",
+      "recordCount": 1,
+      "firstYear": 2023,
+      "latestYear": 2023
+    },
+    {
+      "donorName": "唯優餐飲有限公司",
+      "recordCount": 1,
+      "firstYear": 2023,
+      "latestYear": 2023
+    },
+    {
+      "donorName": "凱文商行",
+      "recordCount": 1,
+      "firstYear": 2023,
+      "latestYear": 2023
+    },
+    {
+      "donorName": "上盈國際育樂股份有限公司",
+      "recordCount": 1,
+      "firstYear": 2023,
+      "latestYear": 2023
+    },
+    {
+      "donorName": "司派客有限公司",
+      "recordCount": 1,
+      "firstYear": 2023,
+      "latestYear": 2023
+    },
+    {
+      "donorName": "聚唱文化有限公司",
+      "recordCount": 1,
+      "firstYear": 2023,
+      "latestYear": 2023
+    },
+    {
+      "donorName": "忠安消防安全設備有限公司",
+      "recordCount": 1,
+      "firstYear": 2023,
+      "latestYear": 2023
+    },
+    {
+      "donorName": "潤泰旭展股份有限公司",
+      "recordCount": 1,
+      "firstYear": 2023,
+      "latestYear": 2023
+    },
+    {
+      "donorName": "原合股份有限公司",
+      "recordCount": 1,
+      "firstYear": 2023,
+      "latestYear": 2023
+    },
+    {
+      "donorName": "coffe okane寵物友善餐廳",
+      "recordCount": 1,
+      "firstYear": 2023,
+      "latestYear": 2023
+    },
+    {
+      "donorName": "高利有限公司",
+      "recordCount": 1,
+      "firstYear": 2023,
+      "latestYear": 2023
+    },
+    {
+      "donorName": "龍○○",
+      "recordCount": 1,
+      "firstYear": 2023,
+      "latestYear": 2023
+    },
+    {
+      "donorName": "富邦保險代理人股份有限公司",
+      "recordCount": 1,
+      "firstYear": 2023,
+      "latestYear": 2023
+    },
+    {
+      "donorName": "臺北市靈安協會",
+      "recordCount": 1,
+      "firstYear": 2023,
+      "latestYear": 2023
+    },
+    {
+      "donorName": "霏兒琍有限公司",
+      "recordCount": 1,
+      "firstYear": 2023,
+      "latestYear": 2023
+    },
+    {
+      "donorName": "唯愛經典汽車旅館廖烏雪",
+      "recordCount": 1,
+      "firstYear": 2023,
+      "latestYear": 2023
+    },
+    {
+      "donorName": "艾○○",
+      "recordCount": 1,
+      "firstYear": 2023,
+      "latestYear": 2023
+    },
+    {
+      "donorName": "國際富豪汽車股份有限公司",
+      "recordCount": 1,
+      "firstYear": 2023,
+      "latestYear": 2023
+    },
+    {
+      "donorName": "叡築營造廠有限公司",
+      "recordCount": 1,
+      "firstYear": 2023,
+      "latestYear": 2023
+    },
+    {
+      "donorName": "新武堂體育用品社",
+      "recordCount": 1,
+      "firstYear": 2023,
+      "latestYear": 2023
+    },
+    {
+      "donorName": "財團法人台北市陳玉梅紀念慈善基金會",
+      "recordCount": 1,
+      "firstYear": 2023,
+      "latestYear": 2023
+    },
+    {
+      "donorName": "財團法人臺北市陳玉梅紀念慈善基金會",
+      "recordCount": 1,
+      "firstYear": 2023,
+      "latestYear": 2023
+    },
+    {
+      "donorName": "東方寺",
+      "recordCount": 1,
+      "firstYear": 2023,
+      "latestYear": 2023
+    },
+    {
+      "donorName": "法雨山普宜苑",
+      "recordCount": 1,
+      "firstYear": 2023,
+      "latestYear": 2023
+    },
+    {
+      "donorName": "劉○○",
+      "recordCount": 1,
+      "firstYear": 2023,
+      "latestYear": 2023
+    },
+    {
+      "donorName": "郭○○",
+      "recordCount": 1,
+      "firstYear": 2023,
+      "latestYear": 2023
+    },
+    {
+      "donorName": "潘○○○",
+      "recordCount": 1,
+      "firstYear": 2023,
+      "latestYear": 2023
+    },
+    {
+      "donorName": "台灣消防科技文教協會",
+      "recordCount": 1,
+      "firstYear": 2023,
+      "latestYear": 2023
+    },
+    {
+      "donorName": "中石通路整合有限公司",
+      "recordCount": 1,
+      "firstYear": 2023,
+      "latestYear": 2023
+    },
+    {
+      "donorName": "采動科技股份有限公司",
+      "recordCount": 1,
+      "firstYear": 2023,
+      "latestYear": 2023
+    },
+    {
+      "donorName": "復欣實業有限公司",
+      "recordCount": 1,
+      "firstYear": 2023,
+      "latestYear": 2023
+    },
+    {
+      "donorName": "林○○、石○○、鄧○○、陳○○、沈○○",
+      "recordCount": 1,
+      "firstYear": 2023,
+      "latestYear": 2023
+    },
+    {
+      "donorName": "?○○",
+      "recordCount": 1,
+      "firstYear": 2023,
+      "latestYear": 2023
+    },
+    {
+      "donorName": "台北天后宮",
+      "recordCount": 1,
+      "firstYear": 2023,
+      "latestYear": 2023
+    },
+    {
+      "donorName": "豐藝電子股份有限公司",
+      "recordCount": 1,
+      "firstYear": 2023,
+      "latestYear": 2023
+    },
+    {
+      "donorName": "台灣大幸藥品股份有限公司",
+      "recordCount": 1,
+      "firstYear": 2023,
+      "latestYear": 2023
+    },
+    {
+      "donorName": "佶祐建設有限公司",
+      "recordCount": 1,
+      "firstYear": 2023,
+      "latestYear": 2023
+    },
+    {
+      "donorName": "中租迪和股份有限公司",
+      "recordCount": 1,
+      "firstYear": 2023,
+      "latestYear": 2023
+    },
+    {
+      "donorName": "福景宮",
+      "recordCount": 1,
+      "firstYear": 2023,
+      "latestYear": 2023
+    },
+    {
+      "donorName": "博見科技股份有限公司",
+      "recordCount": 1,
+      "firstYear": 2023,
+      "latestYear": 2023
+    },
+    {
+      "donorName": "社團法人台北市北門扶輪社",
+      "recordCount": 1,
+      "firstYear": 2023,
+      "latestYear": 2023
+    }
+  ],
+  "byDonatedItemCategory": [
+    {
+      "donatedItemCategory": "other_goods",
+      "count": 188
+    },
+    {
+      "donatedItemCategory": "medical_or_rescue_equipment",
+      "count": 59
+    },
+    {
+      "donatedItemCategory": "vehicle_or_transport",
+      "count": 54
+    },
+    {
+      "donatedItemCategory": "protective_equipment",
+      "count": 8
+    },
+    {
+      "donatedItemCategory": "electronics_or_communication",
+      "count": 5
+    },
+    {
+      "donatedItemCategory": "training_or_education_materials",
+      "count": 5
+    },
+    {
+      "donatedItemCategory": "food_or_daily_supplies",
+      "count": 4
+    }
+  ],
+  "byDonationPurposeCategory": [
+    {
+      "donationPurposeCategory": "firefighting",
+      "count": 133
+    },
+    {
+      "donationPurposeCategory": "emergency_medical_service",
+      "count": 119
+    },
+    {
+      "donationPurposeCategory": "other",
+      "count": 39
+    },
+    {
+      "donationPurposeCategory": "public_education",
+      "count": 21
+    },
+    {
+      "donationPurposeCategory": "staff_support",
+      "count": 11
+    }
+  ],
+  "topDonatedItems": [
+    {
+      "donatedItem": "捐贈救護車1輛",
+      "count": 17
+    },
+    {
+      "donatedItem": "捐贈消防警備車1輛",
+      "count": 13
+    },
+    {
+      "donatedItem": "捐贈救災及健身器材",
+      "count": 11
+    },
+    {
+      "donatedItem": "捐贈紅外線熱顯像儀2具",
+      "count": 10
+    },
+    {
+      "donatedItem": "捐贈救護車2輛",
+      "count": 9
+    },
+    {
+      "donatedItem": "住宅用火災警報器(威茲馬特-光電式 NB741-S9 )",
+      "count": 9
+    },
+    {
+      "donatedItem": "捐贈大型水箱消防車1輛",
+      "count": 6
+    },
+    {
+      "donatedItem": "捐贈救護車",
+      "count": 6
+    },
+    {
+      "donatedItem": "捐贈小型水箱消防車1輛",
+      "count": 5
+    },
+    {
+      "donatedItem": "住宅用火災警報器(永揚-光電式YDS-H03)",
+      "count": 5
+    },
+    {
+      "donatedItem": "住宅用火災警報器(永揚-光電式YDS-H02)",
+      "count": 5
+    },
+    {
+      "donatedItem": "捐贈抛棄式上聲門導氣管5支",
+      "count": 4
+    },
+    {
+      "donatedItem": "捐贈專業健身器材",
+      "count": 4
+    },
+    {
+      "donatedItem": "住宅用火災警報器(永揚光電式YDSH03)",
+      "count": 4
+    },
+    {
+      "donatedItem": "捐贈消防警備車",
+      "count": 4
+    },
+    {
+      "donatedItem": "捐贈滅火毯3組",
+      "count": 3
+    },
+    {
+      "donatedItem": "捐贈消防救災裝備器材1批",
+      "count": 3
+    },
+    {
+      "donatedItem": "捐贈「12導程心電圖機套組4組」",
+      "count": 3
+    },
+    {
+      "donatedItem": "捐贈紅外線熱顯像無人機1臺",
+      "count": 3
+    },
+    {
+      "donatedItem": "捐贈12導程心電圖機套組",
+      "count": 3
+    },
+    {
+      "donatedItem": "捐贈小型水箱消防車",
+      "count": 3
+    },
+    {
+      "donatedItem": "捐贈救護車(VOLKSWAGEN/KOMBI L HR 2.0 TDI)",
+      "count": 3
+    },
+    {
+      "donatedItem": "捐贈救護車(VOLKSWAGEN/KOMBI L HR 2.0 TDI廂式救護車)",
+      "count": 3
+    },
+    {
+      "donatedItem": "捐贈「骨內血管穿刺系統電鑽1支」",
+      "count": 2
+    },
+    {
+      "donatedItem": "捐贈住宅用火災警報器500只",
+      "count": 2
+    },
+    {
+      "donatedItem": "捐贈「手持式無線超音波（弧形） 1組」",
+      "count": 2
+    },
+    {
+      "donatedItem": "捐贈救災救護器材1批",
+      "count": 2
+    },
+    {
+      "donatedItem": "聯名捐贈本市義勇消防總隊消防帽55頂",
+      "count": 2
+    },
+    {
+      "donatedItem": "捐贈抛棄式上聲門導氣管3支",
+      "count": 2
+    },
+    {
+      "donatedItem": "捐贈抛棄式上聲門導氣管50支",
+      "count": 2
+    }
+  ],
+  "topDonationPurposes": [
+    {
+      "donationPurpose": "執行救護勤務使用",
+      "count": 119
+    },
+    {
+      "donationPurpose": "執行救災勤務使用",
+      "count": 97
+    },
+    {
+      "donationPurpose": "火災預防使用",
+      "count": 37
+    },
+    {
+      "donationPurpose": "執行救災勤務用",
+      "count": 32
+    },
+    {
+      "donationPurpose": "同仁訓練使用",
+      "count": 21
+    },
+    {
+      "donationPurpose": "同仁活動使用",
+      "count": 7
+    },
+    {
+      "donationPurpose": "慰勞同仁",
+      "count": 3
+    },
+    {
+      "donationPurpose": "執行救災訓練用",
+      "count": 3
+    },
+    {
+      "donationPurpose": "執行指揮勤務使用",
+      "count": 1
+    },
+    {
+      "donationPurpose": "同仁健檢使用",
+      "count": 1
+    },
+    {
+      "donationPurpose": "慰勞搜救犬",
+      "count": 1
+    },
+    {
+      "donationPurpose": "執行救災救護勤務使用",
+      "count": 1
+    }
+  ],
+  "resourceBreakdown": [
+    {
+      "resourceName": "臺北市政府消防局114年度接受各界捐贈實物明細表",
+      "recordCount": 123
+    },
+    {
+      "resourceName": "臺北市政府消防局113年度接受各界捐贈實物明細表",
+      "recordCount": 91
+    },
+    {
+      "resourceName": "臺北市政府消防局112年度接受各界捐贈實物明細表",
+      "recordCount": 109
+    }
+  ],
+  "dataQuality": {
+    "missingDateCount": 0,
+    "missingDonorNameCount": 0,
+    "missingDonatedItemCount": 0,
+    "missingDonationPurposeCount": 0,
+    "unsupportedResourceCount": 2
+  }
+}

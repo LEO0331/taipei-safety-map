@@ -25,6 +25,9 @@ import type {
   EmergencyShelter,
   EmergencyShelterType,
   EvacuationGate,
+  FireDepartmentDonationInKindRecord,
+  FireDepartmentDonationItemCategory,
+  FireDepartmentDonationPurposeCategory,
   FireHydrant,
   FireHydrantAreaScope,
   FireHydrantType,
@@ -59,6 +62,8 @@ export const MEDICAL_HOSPITAL_SOURCE = '臺北市公私立醫療院所－臺北�
 export const MEDICAL_CLINIC_SOURCE = '臺北市公私立醫療院所－臺北市診所清冊';
 export const FIRE_HYDRANT_SOURCE = '大臺北地區消防栓分布點位圖';
 export const FIRE_HYDRANT_AGENCY = '臺北自來水事業處';
+export const FIRE_DONATION_SOURCE = '臺北市政府消防局各年度接受各界捐贈實物明細表';
+export const FIRE_DONATION_AGENCY = '臺北市政府消防局';
 export const EMERGENCY_SHELTER_SOURCE = '臺北市可供避難收容處所一覽表';
 export const EMERGENCY_SHELTER_AGENCY = '臺北市政府教育局';
 export const TRAFFIC_CCTV_SOURCE = '臺北市CCTV設施';
@@ -487,6 +492,154 @@ export function convertPoliceCctvInstallationLocationRow(row: Record<string, str
     sourceRecordHash,
     source: POLICE_CCTV_SOURCE,
     sourceAgency: POLICE_CCTV_AGENCY,
+  };
+}
+
+function cleanDonationText(raw: unknown): string | undefined {
+  const text = cleanText(raw);
+  return text === '尚無資料' ? undefined : text;
+}
+
+export function parseIntegerText(raw: unknown): number | undefined {
+  const text = cleanDonationText(raw)?.replace(/,/g, '');
+  if (!text) return undefined;
+  const value = Number.parseInt(text, 10);
+  return Number.isFinite(value) ? value : undefined;
+}
+
+export function parseRocYear(raw: unknown) {
+  const yearRaw = cleanDonationText(raw);
+  const match = yearRaw?.match(/(\d{2,4})/);
+  if (!match) return { yearRaw, warning: yearRaw ? `Invalid year: ${yearRaw}` : undefined };
+  const value = Number(match[1]);
+  const rocYear = value < 1911 ? value : undefined;
+  const year = rocYear ? rocYear + 1911 : value;
+  return year >= 1900 && year <= 2100
+    ? { yearRaw, rocYear, year }
+    : { yearRaw, warning: `Invalid year: ${yearRaw}` };
+}
+
+export function parseResourceYearFromName(resourceName: string | undefined) {
+  return parseRocYear(resourceName?.match(/(\d{2,3})年度/)?.[1]);
+}
+
+export function deriveDonationDate({ year, month, day }: { year?: number; month?: number; day?: number }) {
+  const donationMonthKey = year && month ? `${year}-${String(month).padStart(2, '0')}` : undefined;
+  const donationQuarter = year && month ? `${year}-Q${Math.ceil(month / 3)}` : undefined;
+  if (!year || !month || !day) return { donationMonthKey, donationQuarter };
+  const date = new Date(Date.UTC(year, month - 1, day));
+  const valid = date.getUTCFullYear() === year && date.getUTCMonth() === month - 1 && date.getUTCDate() === day;
+  return {
+    donationDate: valid ? `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}` : undefined,
+    donationMonthKey,
+    donationQuarter,
+    warning: valid ? undefined : `Invalid date: ${year}-${month}-${day}`,
+  };
+}
+
+const FIRE_DONATION_KEYWORDS = {
+  medicalOrRescue: ['救護', '醫療', '急救', 'AED', '擔架'],
+  protectiveEquipment: ['防護', '口罩', '手套', '防火', '消防衣', '安全帽'],
+  vehicleOrTransport: ['車', '機車', '自行車', '運輸'],
+  electronicsOrCommunication: ['電腦', '平板', '通訊', '無線電', '電器', '監視'],
+  foodOrSupplies: ['食品', '飲料', '水', '物資', '日用品'],
+  trainingOrEducation: ['教材', '訓練', '宣導', '書籍'],
+};
+
+function includesAny(text: string | undefined, keywords: string[]): boolean {
+  return Boolean(text && keywords.some((keyword) => text.includes(keyword)));
+}
+
+export function classifyFireDonationItem(raw: string | undefined): FireDepartmentDonationItemCategory {
+  const text = raw?.trim() ?? '';
+  if (!text) return 'unknown';
+  if (includesAny(text, FIRE_DONATION_KEYWORDS.medicalOrRescue)) return 'medical_or_rescue_equipment';
+  if (includesAny(text, FIRE_DONATION_KEYWORDS.protectiveEquipment)) return 'protective_equipment';
+  if (includesAny(text, FIRE_DONATION_KEYWORDS.vehicleOrTransport)) return 'vehicle_or_transport';
+  if (includesAny(text, FIRE_DONATION_KEYWORDS.electronicsOrCommunication)) return 'electronics_or_communication';
+  if (includesAny(text, FIRE_DONATION_KEYWORDS.foodOrSupplies)) return 'food_or_daily_supplies';
+  if (includesAny(text, FIRE_DONATION_KEYWORDS.trainingOrEducation)) return 'training_or_education_materials';
+  if (text.includes('禮券') || text.includes('提貨券') || text.includes('兌換券')) return 'cash_equivalent_or_voucher';
+  return 'other_goods';
+}
+
+export function classifyFireDonationPurpose(raw: string | undefined): FireDepartmentDonationPurposeCategory {
+  const text = raw?.trim() ?? '';
+  if (!text) return 'unknown';
+  if (text.includes('消防') || text.includes('救災') || text.includes('滅火')) return 'firefighting';
+  if (text.includes('救護') || text.includes('緊急醫療') || text.includes('急救')) return 'emergency_medical_service';
+  if (text.includes('防災') || text.includes('災害') || text.includes('避難')) return 'disaster_prevention';
+  if (text.includes('宣導') || text.includes('教育') || text.includes('訓練')) return 'public_education';
+  if (text.includes('慰問') || text.includes('員工') || text.includes('同仁')) return 'staff_support';
+  if (text.includes('消防局') || text.includes('本局') || text.includes('公務')) return 'general_fire_department_use';
+  return 'other';
+}
+
+export function parsePossibleReceivingUnit(rawPurpose: unknown): string | undefined {
+  return cleanDonationText(rawPurpose)?.match(/([\u4e00-\u9fffA-Za-z0-9]+(?:分隊|中隊|大隊|消防局|救災救護指揮中心))/)?.[1];
+}
+
+export function convertFireDepartmentDonationInKindRow(
+  row: Record<string, string>,
+  index: number,
+  resourceName?: string,
+): FireDepartmentDonationInKindRecord {
+  const resourceYear = parseResourceYearFromName(resourceName);
+  const year = parseRocYear(row['年度']);
+  const monthRaw = cleanDonationText(row['月份']);
+  const dayRaw = cleanDonationText(row['日']);
+  const month = parseIntegerText(monthRaw);
+  const day = parseIntegerText(dayRaw);
+  const date = deriveDonationDate({ year: year.year ?? resourceYear.year, month, day });
+  const donorName = cleanDonationText(row['捐贈者']);
+  const donatedItem = cleanDonationText(row['捐贈財物']);
+  const donationPurpose = cleanDonationText(row['捐贈用途']);
+  const keywordText = [donatedItem, donationPurpose].filter(Boolean).join(' ');
+  const sourceSequenceNumber = parseIntegerText(row['項次編號']);
+  const sourceRecordHash = hashSourceRecord([
+    resourceName,
+    String(sourceSequenceNumber ?? ''),
+    String(year.year ?? ''),
+    String(month ?? ''),
+    String(day ?? ''),
+    donorName,
+    donatedItem,
+    donationPurpose,
+  ]);
+  return {
+    id: `fire-donation-${resourceYear.year ?? year.year ?? 'unknown'}-${sourceSequenceNumber ?? index + 1}`,
+    module: 'fire_department_donation_in_kind_records',
+    resourceName,
+    resourceYearRaw: resourceYear.yearRaw,
+    resourceRocYear: resourceYear.rocYear,
+    resourceYear: resourceYear.year,
+    sourceSequenceNumber,
+    yearRaw: year.yearRaw,
+    rocYear: year.rocYear,
+    year: year.year ?? resourceYear.year,
+    monthRaw,
+    month,
+    dayRaw,
+    day,
+    ...date,
+    donorName,
+    donorNameNormalized: donorName,
+    donatedItem,
+    donatedItemNormalized: donatedItem,
+    donatedItemCategory: classifyFireDonationItem(donatedItem),
+    donationPurpose,
+    donationPurposeNormalized: donationPurpose,
+    donationPurposeCategory: classifyFireDonationPurpose(donationPurpose),
+    hasMedicalOrRescueKeyword: includesAny(keywordText, FIRE_DONATION_KEYWORDS.medicalOrRescue),
+    hasProtectiveEquipmentKeyword: includesAny(keywordText, FIRE_DONATION_KEYWORDS.protectiveEquipment),
+    hasVehicleOrTransportKeyword: includesAny(keywordText, FIRE_DONATION_KEYWORDS.vehicleOrTransport),
+    hasElectronicsOrCommunicationKeyword: includesAny(keywordText, FIRE_DONATION_KEYWORDS.electronicsOrCommunication),
+    hasFoodOrSuppliesKeyword: includesAny(keywordText, FIRE_DONATION_KEYWORDS.foodOrSupplies),
+    hasTrainingOrEducationKeyword: includesAny(keywordText, FIRE_DONATION_KEYWORDS.trainingOrEducation),
+    possibleReceivingUnit: parsePossibleReceivingUnit(donationPurpose),
+    sourceRecordHash,
+    source: FIRE_DONATION_SOURCE,
+    sourceAgency: FIRE_DONATION_AGENCY,
   };
 }
 
@@ -1030,6 +1183,7 @@ export async function loadConvertedData() {
     bicycleThefts,
     motorcycleThefts,
     policeCctvInstallationLocations,
+    fireDepartmentDonationInKindRecords,
     aeds,
     dengueRecords,
     evacuationGates,
@@ -1042,6 +1196,7 @@ export async function loadConvertedData() {
     readJsonFile<BicycleTheftRecord[]>(`${PUBLIC_DATA_DIR}/bicycle-theft-records.json`),
     readJsonFile<MotorcycleTheftRecord[]>(`${PUBLIC_DATA_DIR}/motorcycle-theft-records.json`),
     readJsonFile<PoliceCctvInstallationLocationRecord[]>(`${PUBLIC_DATA_DIR}/police-cctv-installation-locations.json`),
+    readJsonFile<FireDepartmentDonationInKindRecord[]>(`${PUBLIC_DATA_DIR}/fire-department-donation-in-kind-records.json`),
     readJsonFile<AedLocation[]>(`${PUBLIC_DATA_DIR}/aed-locations.json`),
     readJsonFile<DengueSurveyRecord[]>(`${PUBLIC_DATA_DIR}/dengue-vector-density-records.json`),
     readJsonFile<EvacuationGate[]>(`${PUBLIC_DATA_DIR}/evacuation-gates.json`),
@@ -1055,6 +1210,7 @@ export async function loadConvertedData() {
     bicycleThefts,
     motorcycleThefts,
     policeCctvInstallationLocations,
+    fireDepartmentDonationInKindRecords,
     aeds,
     dengueRecords,
     evacuationGates,

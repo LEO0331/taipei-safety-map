@@ -42,7 +42,7 @@ import type {
   TrafficCctvFacility,
 } from './types';
 
-type Tab = 'map' | 'nearby' | 'burglary' | 'bike' | 'motorcycle' | 'policeCctv' | 'health' | 'disaster' | 'overview' | 'notes';
+type Tab = 'map' | 'nearby' | 'burglary' | 'bike' | 'motorcycle' | 'policeCctv' | 'fireDonations' | 'health' | 'disaster' | 'overview' | 'notes';
 type CapacityRange = 'all' | 'under100' | '100-499' | '500-999' | '1000plus';
 type DenseLayer = 'aeds' | 'medical' | 'fireHydrants' | 'airRaidShelters' | 'evacuationGates' | 'cctv';
 const tileAttribution = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>';
@@ -380,6 +380,98 @@ const policeCctvLabels = {
     interpretationNote: 'This data is public record information for video-surveillance system installation locations and is for lookup and statistical organization only. It does not represent live video, real-time operational status, a complete camera inventory, exact field of view, crime prediction, public-safety risk determination, route-safety guarantee, privacy or legal advice, police notification, or official guarantee. Actual equipment status, footage request procedures, policing operations, CCTV management, and latest information should be verified with Taipei City Police Department and competent-authority announcements.',
   },
 } as const;
+const fireDonationLabels = {
+  zh: {
+    all: '全部',
+    title: '消防局接受各界捐贈實物明細',
+    subtitle: '整理臺北市政府消防局各年度接受各界捐贈實物公開資料，包含年度、月份、日、捐贈者、捐贈財物與捐贈用途。',
+    shortTitle: '消防捐贈實物',
+    year: '年度',
+    month: '月份',
+    day: '日',
+    donor: '捐贈者',
+    donatedItem: '捐贈財物',
+    donationPurpose: '捐贈用途',
+    itemCategory: '捐贈財物類別',
+    purposeCategory: '捐贈用途類別',
+    sourceResource: '來源檔案',
+    possibleReceivingUnit: '可能受贈單位',
+    search: '搜尋',
+    searchPlaceholder: '搜尋捐贈者、捐贈財物、捐贈用途、年度或可能受贈單位',
+    medical: '救護或醫療相關',
+    protective: '防護裝備相關',
+    vehicle: '車輛或運輸相關',
+    electronics: '電子或通訊相關',
+    food: '食品或物資相關',
+    training: '訓練或宣導相關',
+    recordCount: '捐贈紀錄數',
+    yearRange: '年度範圍',
+    latestYear: '最新年度',
+    uniqueDonorCount: '不重複捐贈者數',
+    uniqueDonatedItemCount: '不重複捐贈財物數',
+    uniqueDonationPurposeCount: '不重複捐贈用途數',
+    recordsWithCompleteDate: '有完整日期紀錄',
+    topDonor: '紀錄最多捐贈者',
+    topItemCategory: '最多捐贈財物類別',
+    topPurposeCategory: '最多捐贈用途類別',
+    byYear: '各年度捐贈紀錄數',
+    byMonth: '各月捐贈紀錄數',
+    itemCategoryDistribution: '捐贈財物類別分布',
+    purposeCategoryDistribution: '捐贈用途類別分布',
+    topDonors: '紀錄最多捐贈者',
+    topItems: '常見捐贈財物',
+    topPurposes: '常見捐贈用途',
+    resourceBreakdown: '來源檔案分布',
+    noMapNotice: '消防局接受各界捐贈實物明細未提供官方經緯度、地址、消防分隊、行政區或受贈單位位置欄位。本模組以年度、月份、捐贈者、捐贈財物與捐贈用途進行統計，不顯示地圖點位，也不自動連結消防分隊或緊急設施。',
+    dataNote: '消防局接受各界捐贈實物明細提供臺北市政府消防局各年度接受各界捐贈實物之公開資料，欄位包含項次編號、年度、月份、日、捐贈者、捐贈財物與捐贈用途。資料未提供官方經緯度、地址、消防分隊、行政區或受贈單位位置欄位，因此不顯示地圖點位。',
+    interpretationNote: '本資料為消防局受贈實物行政公開紀錄，僅供查詢來源欄位與統計整理，不代表即時消防設備庫存、消防分隊現有裝備、採購紀錄、預算支出、災害應變能力評分、公共安全風險判斷、捐贈者背書或受贈物品目前仍在使用。',
+  },
+  en: {
+    all: 'All',
+    title: 'Fire Department In-Kind Donation Records',
+    subtitle: 'Explore Taipei City Fire Department annual public records of in-kind donations, including year, month, day, donor, donated goods, and donation purpose.',
+    shortTitle: 'Fire Dept Donations',
+    year: 'Year',
+    month: 'Month',
+    day: 'Day',
+    donor: 'Donor',
+    donatedItem: 'Donated goods',
+    donationPurpose: 'Donation purpose',
+    itemCategory: 'Donated item category',
+    purposeCategory: 'Donation purpose category',
+    sourceResource: 'Source resource',
+    possibleReceivingUnit: 'Possible receiving unit',
+    search: 'Search',
+    searchPlaceholder: 'Search donor, donated goods, donation purpose, year, or possible receiving unit',
+    medical: 'Medical or rescue related',
+    protective: 'Protective equipment related',
+    vehicle: 'Vehicle or transport related',
+    electronics: 'Electronics or communication related',
+    food: 'Food or supplies related',
+    training: 'Training or education related',
+    recordCount: 'Donation record count',
+    yearRange: 'Year range',
+    latestYear: 'Latest year',
+    uniqueDonorCount: 'Unique donor count',
+    uniqueDonatedItemCount: 'Unique donated item count',
+    uniqueDonationPurposeCount: 'Unique donation purpose count',
+    recordsWithCompleteDate: 'Records with complete date',
+    topDonor: 'Top donor by record count',
+    topItemCategory: 'Top donated item category',
+    topPurposeCategory: 'Top donation purpose category',
+    byYear: 'Donation record count by year',
+    byMonth: 'Donation record count by month',
+    itemCategoryDistribution: 'Donated item category distribution',
+    purposeCategoryDistribution: 'Donation purpose category distribution',
+    topDonors: 'Top donors by record count',
+    topItems: 'Top donated goods',
+    topPurposes: 'Top donation purposes',
+    resourceBreakdown: 'Source resource breakdown',
+    noMapNotice: 'Fire Department in-kind donation records do not provide official coordinates, addresses, fire station, district, or receiving-unit location fields. This module summarizes year, month, donor, donated goods, and donation purpose. It does not show map points and does not automatically link records to fire stations or emergency facilities.',
+    dataNote: 'Fire Department in-kind donation records provide Taipei City Fire Department annual public data on donated goods received from various parties. Fields include sequence number, year, month, day, donor, donated goods, and donation purpose. The data does not provide official coordinates, addresses, fire station, district, or receiving-unit location fields, so no map points are shown.',
+    interpretationNote: 'This data is administrative public record information about in-kind donations received by the Fire Department for source-field lookup and statistical organization only. It does not represent real-time fire equipment inventory, current equipment at any fire station, procurement records, budget expenditure, disaster-response readiness scoring, public-safety risk assessment, donor endorsement, or proof that donated goods are still in use.',
+  },
+} as const;
 const disasterLabels = {
   zh: {
     all: '全部',
@@ -518,6 +610,7 @@ function App() {
             ['bike', language === 'zh' ? '自行車竊盜' : 'Bicycle Theft'],
             ['motorcycle', language === 'zh' ? '機車竊盜' : 'Motorcycle Theft'],
             ['policeCctv', language === 'zh' ? '警察局監視器' : 'Police CCTV'],
+            ['fireDonations', language === 'zh' ? '消防捐贈實物' : 'Fire Dept Donations'],
             ['health', t.publicHealth],
             ['disaster', language === 'zh' ? '停班停課紀錄' : 'Closure Records'],
             ['overview', t.safetyOverview],
@@ -541,6 +634,7 @@ function App() {
       {activeTab === 'bike' && <BicycleTheftRecords data={data} language={language} />}
       {activeTab === 'motorcycle' && <BicycleTheftRecords data={data} language={language} mode="motorcycle" />}
       {activeTab === 'policeCctv' && <PoliceCctvInstallationLocations data={data} language={language} />}
+      {activeTab === 'fireDonations' && <FireDepartmentDonations data={data} language={language} />}
       {activeTab === 'health' && <PublicHealth data={data} language={language} />}
       {activeTab === 'disaster' && <NaturalDisasterSuspensions data={data} language={language} />}
       {activeTab === 'overview' && <SafetyOverview data={data} language={language} />}
@@ -2193,6 +2287,103 @@ function PoliceCctvInstallationLocations({ data, language }: { data: SafetyDataB
   );
 }
 
+function FireDepartmentDonations({ data, language }: { data: SafetyDataBundle; language: Language }) {
+  const labels = fireDonationLabels[language];
+  const [year, setYear] = useState('all');
+  const [month, setMonth] = useState('all');
+  const [donor, setDonor] = useState('all');
+  const [itemCategory, setItemCategory] = useState('all');
+  const [purposeCategory, setPurposeCategory] = useState('all');
+  const [resource, setResource] = useState('all');
+  const [medical, setMedical] = useState(false);
+  const [protective, setProtective] = useState(false);
+  const [search, setSearch] = useState('');
+  const records = data.fireDepartmentDonationInKindRecords;
+  const summary = data.fireDepartmentDonationInKindSummary;
+  const years = [...new Set(records.flatMap((record) => (record.year ? [record.year] : [])))].sort((a, b) => a - b);
+  const donors = summary.byDonor.slice(0, 100).map((item) => item.donorName);
+  const resources = summary.resourceBreakdown.map((item) => item.resourceName);
+  const filtered = records.filter((record) => {
+    const haystack = [record.donorName, record.donatedItem, record.donationPurpose, record.year, record.possibleReceivingUnit, record.resourceName]
+      .join(' ')
+      .toLowerCase();
+    return (
+      (year === 'all' || record.year === Number(year)) &&
+      (month === 'all' || record.month === Number(month)) &&
+      (donor === 'all' || record.donorNameNormalized === donor) &&
+      (itemCategory === 'all' || record.donatedItemCategory === itemCategory) &&
+      (purposeCategory === 'all' || record.donationPurposeCategory === purposeCategory) &&
+      (resource === 'all' || record.resourceName === resource) &&
+      (!medical || record.hasMedicalOrRescueKeyword) &&
+      (!protective || record.hasProtectiveEquipmentKeyword) &&
+      (!search.trim() || haystack.includes(search.trim().toLowerCase()))
+    );
+  });
+  const topItemCategory = summary.byDonatedItemCategory[0]?.donatedItemCategory;
+  const topPurposeCategory = summary.byDonationPurposeCategory[0]?.donationPurposeCategory;
+
+  return (
+    <main className="overview">
+      <section className="filter-panel health-filters">
+        <label>{labels.year}<select value={year} onChange={(event) => setYear(event.target.value)}><option value="all">{labels.all}</option>{years.map((value) => <option key={value}>{value}</option>)}</select></label>
+        <label>{labels.month}<select value={month} onChange={(event) => setMonth(event.target.value)}><option value="all">{labels.all}</option>{monthOptions.map((value) => <option key={value}>{value}</option>)}</select></label>
+        <label>{labels.donor}<select value={donor} onChange={(event) => setDonor(event.target.value)}><option value="all">{labels.all}</option>{donors.map((value) => <option key={value}>{value}</option>)}</select></label>
+        <label>{labels.itemCategory}<select value={itemCategory} onChange={(event) => setItemCategory(event.target.value)}><option value="all">{labels.all}</option>{summary.byDonatedItemCategory.map((item) => <option key={item.donatedItemCategory} value={item.donatedItemCategory}>{formatFireDonationItemCategory(item.donatedItemCategory, language)}</option>)}</select></label>
+        <label>{labels.purposeCategory}<select value={purposeCategory} onChange={(event) => setPurposeCategory(event.target.value)}><option value="all">{labels.all}</option>{summary.byDonationPurposeCategory.map((item) => <option key={item.donationPurposeCategory} value={item.donationPurposeCategory}>{formatFireDonationPurposeCategory(item.donationPurposeCategory, language)}</option>)}</select></label>
+        <label>{labels.sourceResource}<select value={resource} onChange={(event) => setResource(event.target.value)}><option value="all">{labels.all}</option>{resources.map((value) => <option key={value}>{value}</option>)}</select></label>
+        <label>{labels.search}<input value={search} placeholder={labels.searchPlaceholder} onChange={(event) => setSearch(event.target.value)} /></label>
+        <label className="checkbox-row"><input type="checkbox" checked={medical} onChange={(event) => setMedical(event.target.checked)} />{labels.medical}</label>
+        <label className="checkbox-row"><input type="checkbox" checked={protective} onChange={(event) => setProtective(event.target.checked)} />{labels.protective}</label>
+      </section>
+      <h1>{labels.title}</h1>
+      <p>{labels.subtitle}</p>
+      <p className="notice">{labels.noMapNotice}</p>
+      <section className="summary-grid">
+        <Metric label={labels.recordCount} value={summary.totalRecords.toLocaleString()} />
+        <Metric label={labels.yearRange} value={`${summary.minYear ?? '-'} - ${summary.maxYear ?? '-'}`} />
+        <Metric label={labels.latestYear} value={String(summary.latestYear ?? '-')} />
+        <Metric label={labels.uniqueDonorCount} value={summary.uniqueDonorCount.toLocaleString()} />
+        <Metric label={labels.uniqueDonatedItemCount} value={summary.uniqueDonatedItemCount.toLocaleString()} />
+        <Metric label={labels.uniqueDonationPurposeCount} value={summary.uniqueDonationPurposeCount.toLocaleString()} />
+        <Metric label={labels.recordsWithCompleteDate} value={summary.recordsWithDonationDate.toLocaleString()} />
+        <Metric label={labels.topDonor} value={summary.byDonor[0]?.donorName ?? '-'} />
+        <Metric label={labels.topItemCategory} value={topItemCategory ? formatFireDonationItemCategory(topItemCategory, language) : '-'} />
+        <Metric label={labels.topPurposeCategory} value={topPurposeCategory ? formatFireDonationPurposeCategory(topPurposeCategory, language) : '-'} />
+        <Metric label={labels.medical} value={records.filter((record) => record.hasMedicalOrRescueKeyword).length.toLocaleString()} />
+        <Metric label={labels.protective} value={records.filter((record) => record.hasProtectiveEquipmentKeyword).length.toLocaleString()} />
+      </section>
+      <p className="notice">{labels.interpretationNote}</p>
+      <section className="chart-grid">
+        <BarChart title={labels.byYear} values={Object.fromEntries(summary.byYear.map((item) => [String(item.year), item.recordCount]))} />
+        <BarChart title={labels.byMonth} values={Object.fromEntries(summary.byMonth.map((item) => [item.donationMonthKey, item.recordCount]))} />
+        <BarChart title={labels.itemCategoryDistribution} values={Object.fromEntries(summary.byDonatedItemCategory.map((item) => [formatFireDonationItemCategory(item.donatedItemCategory, language), item.count]))} />
+        <BarChart title={labels.purposeCategoryDistribution} values={Object.fromEntries(summary.byDonationPurposeCategory.map((item) => [formatFireDonationPurposeCategory(item.donationPurposeCategory, language), item.count]))} />
+        <BarChart title={labels.topDonors} values={Object.fromEntries(summary.byDonor.slice(0, 20).map((item) => [item.donorName, item.recordCount]))} />
+        <BarChart title={labels.topItems} values={Object.fromEntries(summary.topDonatedItems.slice(0, 20).map((item) => [item.donatedItem, item.count]))} />
+        <BarChart title={labels.topPurposes} values={Object.fromEntries(summary.topDonationPurposes.slice(0, 20).map((item) => [item.donationPurpose, item.count]))} />
+        <BarChart title={labels.resourceBreakdown} values={Object.fromEntries(summary.resourceBreakdown.map((item) => [item.resourceName, item.recordCount]))} />
+      </section>
+      <h2>{language === 'zh' ? '捐贈清冊' : 'Donation Directory'}</h2>
+      <p>{labels.recordCount}: {filtered.length.toLocaleString()}</p>
+      <table>
+        <thead><tr><th>{labels.year}</th><th>{labels.month}</th><th>{labels.day}</th><th>{labels.donor}</th><th>{labels.donatedItem}</th><th>{labels.donationPurpose}</th></tr></thead>
+        <tbody>
+          {filtered.slice(0, 100).map((record) => (
+            <tr key={record.id}>
+              <td>{record.year ?? '-'}</td>
+              <td>{record.month ?? '-'}</td>
+              <td>{record.day ?? '-'}</td>
+              <td>{record.donorName ?? '-'}</td>
+              <td>{record.donatedItem ?? '-'}</td>
+              <td>{record.donationPurpose ?? '-'}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </main>
+  );
+}
+
 function PublicHealth({ data, language }: { data: SafetyDataBundle; language: Language }) {
   const t = translations[language];
   const [district, setDistrict] = useState('all');
@@ -2625,6 +2816,8 @@ function SafetyOverview({ data, language }: { data: SafetyDataBundle; language: 
   const motorcycleLabelsForOverview = motorcycleLabels[language];
   const policeCctvSummary = data.policeCctvInstallationLocationSummary;
   const policeCctvLabelsForOverview = policeCctvLabels[language];
+  const fireDonationSummary = data.fireDepartmentDonationInKindSummary;
+  const fireDonationLabelsForOverview = fireDonationLabels[language];
 
   return (
     <main className="overview">
@@ -2649,6 +2842,11 @@ function SafetyOverview({ data, language }: { data: SafetyDataBundle; language: 
         <Metric label={policeCctvLabelsForOverview.recordsWithParsedRoadName} value={policeCctvSummary.recordsWithParsedRoadName.toLocaleString()} />
         <Metric label={policeCctvLabelsForOverview.topDistrict} value={policeCctvSummary.byDistrict[0]?.district ?? '-'} />
         <Metric label={policeCctvLabelsForOverview.topPoliceUnit} value={policeCctvSummary.byPoliceUnit[0]?.policeUnit ?? '-'} />
+        <Metric label={fireDonationLabelsForOverview.recordCount} value={fireDonationSummary.totalRecords.toLocaleString()} />
+        <Metric label={fireDonationLabelsForOverview.yearRange} value={`${fireDonationSummary.minYear ?? '-'} - ${fireDonationSummary.maxYear ?? '-'}`} />
+        <Metric label={fireDonationLabelsForOverview.uniqueDonorCount} value={fireDonationSummary.uniqueDonorCount.toLocaleString()} />
+        <Metric label={fireDonationLabelsForOverview.recordsWithCompleteDate} value={fireDonationSummary.recordsWithDonationDate.toLocaleString()} />
+        <Metric label={fireDonationLabelsForOverview.topDonor} value={fireDonationSummary.byDonor[0]?.donorName ?? '-'} />
         <Metric label={t.latestBurglaryMonth} value={latest ? `${latest.year}-${String(latest.month).padStart(2, '0')}` : '-'} />
         <Metric label={t.mostCommonBurglaryTimePeriod} value={commonPeriod?.[0] ?? '-'} />
         <Metric label={t.topBurglaryDistrict} value={topBurglary?.[0] ?? '-'} />
@@ -2729,6 +2927,9 @@ function SafetyOverview({ data, language }: { data: SafetyDataBundle; language: 
         <BarChart title={policeCctvLabelsForOverview.byDistrict} values={Object.fromEntries(policeCctvSummary.byDistrict.map((item) => [item.district, item.recordCount]))} />
         <BarChart title={policeCctvLabelsForOverview.byPoliceUnit} values={Object.fromEntries(policeCctvSummary.byPoliceUnit.slice(0, 30).map((item) => [item.policeUnit, item.count]))} />
         <BarChart title={policeCctvLabelsForOverview.keywordSummary} values={Object.fromEntries(policeCctvSummary.byCameraDirectionKeyword.map((item) => [item.keyword, item.count]))} />
+        <BarChart title={fireDonationLabelsForOverview.byYear} values={Object.fromEntries(fireDonationSummary.byYear.map((item) => [String(item.year), item.recordCount]))} />
+        <BarChart title={fireDonationLabelsForOverview.itemCategoryDistribution} values={Object.fromEntries(fireDonationSummary.byDonatedItemCategory.map((item) => [formatFireDonationItemCategory(item.donatedItemCategory, language), item.count]))} />
+        <BarChart title={fireDonationLabelsForOverview.purposeCategoryDistribution} values={Object.fromEntries(fireDonationSummary.byDonationPurposeCategory.map((item) => [formatFireDonationPurposeCategory(item.donationPurposeCategory, language), item.count]))} />
         <BarChart title={t.aedLocationsByDistrict} values={aedByDistrict} />
         <BarChart title={t.fireHydrantsByCity} values={hydrantsByCity} />
         <BarChart title={t.fireHydrantsByDistrict} values={hydrantsByDistrict} />
@@ -2775,6 +2976,8 @@ function DataNotes({ data, language }: { data: SafetyDataBundle; language: Langu
       <p>{motorcycleLabels[language].dataNote}</p>
       <p>{policeCctvLabels[language].dataNote}</p>
       <p>{policeCctvLabels[language].interpretationNote}</p>
+      <p>{fireDonationLabels[language].dataNote}</p>
+      <p>{fireDonationLabels[language].interpretationNote}</p>
       <p>{t.shelterAvailabilityNotice}</p>
       <p>{t.evacuationGateDataNote}</p>
       <p>{t.medicalFacilityDataNote}</p>
@@ -3291,6 +3494,35 @@ function formatTimeOfDay(category: IncidentTimeOfDayCategory, language: Language
     },
   };
   return labels[language][category];
+}
+
+function formatFireDonationItemCategory(category: string, language: Language): string {
+  const labels = {
+    medical_or_rescue_equipment: ['救護或醫療設備', 'Medical or rescue equipment'],
+    protective_equipment: ['防護裝備', 'Protective equipment'],
+    vehicle_or_transport: ['車輛或運輸', 'Vehicle or transport'],
+    electronics_or_communication: ['電子或通訊設備', 'Electronics or communication'],
+    food_or_daily_supplies: ['食品或日用品', 'Food or daily supplies'],
+    training_or_education_materials: ['訓練或教育物資', 'Training or education materials'],
+    cash_equivalent_or_voucher: ['禮券或兌換券', 'Voucher or cash-equivalent'],
+    other_goods: ['其他實物', 'Other goods'],
+    unknown: ['未知', 'Unknown'],
+  } as Record<string, [string, string]>;
+  return labels[category]?.[language === 'zh' ? 0 : 1] ?? category;
+}
+
+function formatFireDonationPurposeCategory(category: string, language: Language): string {
+  const labels = {
+    firefighting: ['消防救災', 'Firefighting'],
+    emergency_medical_service: ['緊急救護', 'Emergency medical service'],
+    disaster_prevention: ['防災', 'Disaster prevention'],
+    public_education: ['宣導教育', 'Public education'],
+    staff_support: ['員工或同仁支持', 'Staff support'],
+    general_fire_department_use: ['消防局一般用途', 'General Fire Department use'],
+    other: ['其他', 'Other'],
+    unknown: ['未知', 'Unknown'],
+  } as Record<string, [string, string]>;
+  return labels[category]?.[language === 'zh' ? 0 : 1] ?? category;
 }
 
 function formatLocationFuzziness(level: BicycleTheftLocationFuzzinessLevel, language: Language): string {

@@ -1,0 +1,59 @@
+{
+  "sourcePage": "https://data.taipei/dataset/detail?id=bcfdd7d7-7edd-441f-a69d-cb77f1ae4352",
+  "resources": [
+    {
+      "name": "臺北市政府消防局114年度接受各界捐贈實物明細表",
+      "format": "csv",
+      "path": "data/raw/fire-department-donation-in-kind-records/臺北市政府消防局114年度接受各界捐贈實物明細表.csv",
+      "sourceUrl": "https://data.taipei/api/frontstage/tpeod/dataset/resource.download?rid=7aa42753-8711-4e4b-904e-e33b5f649046",
+      "downloadedAt": "2026-07-01T06:09:22.727Z",
+      "fileSize": 11380,
+      "encoding": "UTF-8-SIG",
+      "unsupported": false,
+      "failure": null
+    },
+    {
+      "name": "臺北市政府消防局113年度接受各界捐贈實物明細表",
+      "format": "csv",
+      "path": "data/raw/fire-department-donation-in-kind-records/臺北市政府消防局113年度接受各界捐贈實物明細表.csv",
+      "sourceUrl": "https://data.taipei/api/frontstage/tpeod/dataset/resource.download?rid=10fc9b8e-3051-4909-bdbd-076e2d94455f",
+      "downloadedAt": "2026-07-01T06:09:22.931Z",
+      "fileSize": 9292,
+      "encoding": "UTF-8-SIG",
+      "unsupported": false,
+      "failure": null
+    },
+    {
+      "name": "臺北市政府消防局112年度接受各界捐贈實物明細表",
+      "format": "csv",
+      "path": "data/raw/fire-department-donation-in-kind-records/臺北市政府消防局112年度接受各界捐贈實物明細表.csv",
+      "sourceUrl": "https://data.taipei/api/frontstage/tpeod/dataset/resource.download?rid=e61ab04e-4e93-4600-8794-aed10f9ab3b3",
+      "downloadedAt": "2026-07-01T06:09:23.104Z",
+      "fileSize": 11591,
+      "encoding": "UTF-8-SIG",
+      "unsupported": false,
+      "failure": null
+    },
+    {
+      "name": "臺北市政府消防局111年度接受各界捐贈實物明細表",
+      "format": "ods",
+      "path": "data/raw/fire-department-donation-in-kind-records/臺北市政府消防局111年度接受各界捐贈實物明細表.ods",
+      "sourceUrl": "https://data.taipei/api/frontstage/tpeod/dataset/resource.download?rid=47dbc737-c822-4c53-a303-928441b91106",
+      "downloadedAt": "2026-07-01T06:09:23.296Z",
+      "fileSize": 25952,
+      "unsupported": true,
+      "failure": null
+    },
+    {
+      "name": "臺北市政府消防局110年度接受各界捐贈實物明細表",
+      "format": "ods",
+      "path": "data/raw/fire-department-donation-in-kind-records/臺北市政府消防局110年度接受各界捐贈實物明細表.ods",
+      "sourceUrl": "https://data.taipei/api/frontstage/tpeod/dataset/resource.download?rid=a9a87dfa-dd1a-4527-8d52-2b9af4e36ffb",
+      "downloadedAt": "2026-07-01T06:09:23.480Z",
+      "fileSize": 37722,
+      "unsupported": true,
+      "failure": null
+    }
+  ],
+  "notes": "CSV resources are converted. ODS resources are downloaded when available and reported as unsupported by the converter."
+}

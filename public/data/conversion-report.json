@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-30T07:25:56.033Z",
+  "generatedAt": "2026-07-01T06:09:51.801Z",
   "sources": [
     {
       "name": "北市警政APP_防空避難設備位置",
@@ -118,6 +118,15 @@
       "fileSize": 1314763,
       "encoding": "UTF-8-SIG",
       "notes": "Police CCTV installation-location records from 警察局; the dataset has no official coordinates, so the app shows district summaries and an address-based directory only."
+    },
+    {
+      "name": "臺北市政府消防局各年度接受各界捐贈實物明細表",
+      "url": "https://data.taipei/dataset/detail?id=bcfdd7d7-7edd-441f-a69d-cb77f1ae4352",
+      "downloadUrl": "https://data.taipei/api/frontstage/tpeod/dataset/resource.download?rid=7aa42753-8711-4e4b-904e-e33b5f649046",
+      "downloadedAt": "2026-07-01T06:09:22.727Z",
+      "fileSize": 95937,
+      "encoding": "UTF-8-SIG CSV; ODS resources reported unsupported",
+      "notes": "Fire Department annual in-kind donation records from 消防局; CSV annual resources are converted and ODS resources are reported as unsupported without map points."
     }
   ],
   "shelters": {
@@ -223,6 +232,81 @@
     ],
     "addressParseWarnings": []
   },
+  "fireDepartmentDonations": {
+    "inputRows": 323,
+    "outputRows": 323,
+    "resources": [
+      {
+        "name": "臺北市政府消防局114年度接受各界捐贈實物明細表",
+        "format": "csv",
+        "path": "data/raw/fire-department-donation-in-kind-records/臺北市政府消防局114年度接受各界捐贈實物明細表.csv",
+        "sourceUrl": "https://data.taipei/api/frontstage/tpeod/dataset/resource.download?rid=7aa42753-8711-4e4b-904e-e33b5f649046",
+        "downloadedAt": "2026-07-01T06:09:22.727Z",
+        "fileSize": 11380,
+        "encoding": "UTF-8-SIG",
+        "unsupported": false,
+        "failure": null
+      },
+      {
+        "name": "臺北市政府消防局113年度接受各界捐贈實物明細表",
+        "format": "csv",
+        "path": "data/raw/fire-department-donation-in-kind-records/臺北市政府消防局113年度接受各界捐贈實物明細表.csv",
+        "sourceUrl": "https://data.taipei/api/frontstage/tpeod/dataset/resource.download?rid=10fc9b8e-3051-4909-bdbd-076e2d94455f",
+        "downloadedAt": "2026-07-01T06:09:22.931Z",
+        "fileSize": 9292,
+        "encoding": "UTF-8-SIG",
+        "unsupported": false,
+        "failure": null
+      },
+      {
+        "name": "臺北市政府消防局112年度接受各界捐贈實物明細表",
+        "format": "csv",
+        "path": "data/raw/fire-department-donation-in-kind-records/臺北市政府消防局112年度接受各界捐贈實物明細表.csv",
+        "sourceUrl": "https://data.taipei/api/frontstage/tpeod/dataset/resource.download?rid=e61ab04e-4e93-4600-8794-aed10f9ab3b3",
+        "downloadedAt": "2026-07-01T06:09:23.104Z",
+        "fileSize": 11591,
+        "encoding": "UTF-8-SIG",
+        "unsupported": false,
+        "failure": null
+      }
+    ],
+    "unsupportedResources": [
+      "臺北市政府消防局111年度接受各界捐贈實物明細表",
+      "臺北市政府消防局110年度接受各界捐贈實物明細表"
+    ],
+    "invalidYearExamples": [],
+    "invalidDateExamples": [],
+    "duplicateDonorNames": [
+      "財團法人台北市景福宮",
+      "黃○○",
+      "蘇○○",
+      "陳○○",
+      "慈悟寺",
+      "張○○",
+      "林○○",
+      "羅○○",
+      "鄭○○",
+      "孫○○",
+      "謝○○",
+      "何○○",
+      "吳○○",
+      "財團法人台北市朱厝崙福聚宮",
+      "松山慈惠堂",
+      "趙○○",
+      "文○○",
+      "惠友運動器材股份有限公司",
+      "財團法人台北市覺修宮",
+      "曾○○"
+    ],
+    "duplicateFallbackKeys": [
+      "2025|7|22|林○○|捐贈紅外線熱顯像儀2具|執行救災勤務使用",
+      "2025|7|22|張○○|捐贈紅外線熱顯像儀2具|執行救災勤務使用",
+      "2025|10|22|林○○|捐贈救災及健身器材|同仁訓練使用",
+      "2025|12|24|蔡○○|捐贈消防救災裝備器材1批|執行救災勤務使用",
+      "2025|12|29|林○○|捐贈救護車1輛|執行救護勤務使用",
+      "2023|4|25|林○○|住宅用火災警報器(永揚-光電式YDS-H02)|火災預防使用"
+    ]
+  },
   "aeds": {
     "inputRows": 2728,
     "outputRows": 2728,
@@ -315,6 +399,7 @@
     "Bicycle theft records use pre-fuzzed address text and are shown only as district, road, and fuzzy-location summaries.",
     "Motorcycle theft records use pre-fuzzed address text and are shown only as district, road, and fuzzy-location summaries.",
     "Police CCTV installation-location records are shown as district summaries and address lookup records because the source has no official coordinates.",
+    "Fire Department in-kind donation records have no official location fields and are shown as trends and directory records only.",
     "Burglary time periods: morning, early_morning, afternoon, evening, night",
     "AED availability is not real-time.",
     "Dengue records are shown only as district/village survey aggregates.",

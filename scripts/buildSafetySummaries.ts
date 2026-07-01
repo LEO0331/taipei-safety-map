@@ -4,6 +4,7 @@ import { readFile, stat } from 'node:fs/promises';
 import type {
   BicycleTheftSummary,
   EmergencyShelterSummary,
+  FireDepartmentDonationInKindSummary,
   FireHydrantSummary,
   MotorcycleTheftSummary,
   NaturalDisasterSuspensionSummary,
@@ -179,6 +180,26 @@ const [
     .then((value) => JSON.parse(value) as { sourceUrl?: string; failure?: string | null })
     .catch(() => null),
 ]);
+const [fireDepartmentDonationInKindSummary, fireDepartmentDonationInKindConversion, fireDepartmentDonationInKindFetchStatus] = await Promise.all([
+  readFile('public/data/fire-department-donation-in-kind-summary.json', 'utf8').then(
+    (value) => JSON.parse(value) as FireDepartmentDonationInKindSummary,
+  ),
+  readFile('public/data/fire-department-donation-in-kind-conversion.json', 'utf8').then(
+    (value) =>
+      JSON.parse(value) as {
+        inputRows: number;
+        outputRows: number;
+        unsupportedResources: string[];
+        invalidYearExamples: string[];
+        invalidDateExamples: string[];
+        duplicateDonorNames: string[];
+        duplicateFallbackKeys: string[];
+      },
+  ),
+  readFile('data/raw/fire-department-donation-in-kind-records/fetch-status.json', 'utf8')
+    .then((value) => JSON.parse(value) as { resources?: Array<{ name: string; sourceUrl: string; downloadedAt?: string; fileSize?: number; format: string; failure?: string | null }> })
+    .catch(() => null),
+]);
 
 await writeJson('public/data/safety-dashboard-summary.json', {
   districtSummaries,
@@ -187,6 +208,7 @@ await writeJson('public/data/safety-dashboard-summary.json', {
   bicycleTheftSummary,
   motorcycleTheftSummary,
   policeCctvInstallationLocationSummary,
+  fireDepartmentDonationInKindSummary,
   evacuationGateCount: evacuationGates.length,
   evacuationGateSummary,
   medicalFacilitySummary,
@@ -342,6 +364,16 @@ await writeJson('public/data/conversion-report.json', {
         ? `Latest police CCTV installation-location download failed: ${policeCctvInstallationLocationFetchStatus.failure}. Existing generated data was retained.`
         : 'Police CCTV installation-location records from 警察局; the dataset has no official coordinates, so the app shows district summaries and an address-based directory only.',
     },
+    {
+      name: '臺北市政府消防局各年度接受各界捐贈實物明細表',
+      url: 'https://data.taipei/dataset/detail?id=bcfdd7d7-7edd-441f-a69d-cb77f1ae4352',
+      downloadUrl: fireDepartmentDonationInKindFetchStatus?.resources?.[0]?.sourceUrl ?? '',
+      downloadedAt: fireDepartmentDonationInKindFetchStatus?.resources?.[0]?.downloadedAt ?? null,
+      fileSize: fireDepartmentDonationInKindFetchStatus?.resources?.reduce((sum, item) => sum + (item.fileSize ?? 0), 0),
+      encoding: 'UTF-8-SIG CSV; ODS resources reported unsupported',
+      notes:
+        'Fire Department annual in-kind donation records from 消防局; CSV annual resources are converted and ODS resources are reported as unsupported without map points.',
+    },
   ],
   shelters: {
     inputRows: shelters.length,
@@ -359,6 +391,7 @@ await writeJson('public/data/conversion-report.json', {
   bicycleThefts: bicycleTheftConversion,
   motorcycleThefts: motorcycleTheftConversion,
   policeCctvInstallationLocations: policeCctvInstallationLocationConversion,
+  fireDepartmentDonations: fireDepartmentDonationInKindConversion,
   aeds: {
     inputRows: aeds.length,
     outputRows: aeds.length,
@@ -415,6 +448,7 @@ await writeJson('public/data/conversion-report.json', {
     'Bicycle theft records use pre-fuzzed address text and are shown only as district, road, and fuzzy-location summaries.',
     'Motorcycle theft records use pre-fuzzed address text and are shown only as district, road, and fuzzy-location summaries.',
     'Police CCTV installation-location records are shown as district summaries and address lookup records because the source has no official coordinates.',
+    'Fire Department in-kind donation records have no official location fields and are shown as trends and directory records only.',
     `Burglary time periods: ${Object.keys(countBy(burglaries, (record) => record.timePeriod)).join(', ')}`,
     'AED availability is not real-time.',
     'Dengue records are shown only as district/village survey aggregates.',

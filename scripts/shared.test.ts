@@ -7,6 +7,7 @@ import {
   convertBicycleTheftRow,
   convertEmergencyShelterRow,
   convertEvacuationGateRow,
+  convertFireDepartmentDonationInKindRow,
   convertFireHydrantRow,
   convertMedicalFacilityRow,
   convertMotorcycleTheftRow,
@@ -224,6 +225,40 @@ describe('CSV script helpers', () => {
       coordinateStatus: 'unparsed',
       hydrantType: 'above_ground',
     });
+  });
+
+  it('converts Fire Department donation rows without coordinates', () => {
+    const record = convertFireDepartmentDonationInKindRow(
+      {
+        項次編號: '7',
+        年度: '114',
+        月份: '2',
+        日: '28',
+        捐贈者: '王小明',
+        捐贈財物: '救護AED設備一批',
+        捐贈用途: '救護宣導使用',
+      },
+      0,
+      '臺北市政府消防局114年度接受各界捐贈實物明細表',
+    );
+
+    expect(record).toMatchObject({
+      id: 'fire-donation-2025-7',
+      module: 'fire_department_donation_in_kind_records',
+      resourceRocYear: 114,
+      resourceYear: 2025,
+      rocYear: 114,
+      year: 2025,
+      donationDate: '2025-02-28',
+      donationMonthKey: '2025-02',
+      donorName: '王小明',
+      donatedItemCategory: 'medical_or_rescue_equipment',
+      donationPurposeCategory: 'emergency_medical_service',
+      hasMedicalOrRescueKeyword: true,
+      sourceAgency: '臺北市政府消防局',
+    });
+    expect(record).not.toHaveProperty('latitude');
+    expect(record).not.toHaveProperty('longitude');
   });
 
   it('parses and converts emergency shelter rows without coordinates', () => {
