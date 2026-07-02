@@ -1,6 +1,6 @@
 import L from 'leaflet';
 import { useEffect, useMemo, useState } from 'react';
-import { CircleMarker, MapContainer, Marker, Popup, TileLayer, useMap, useMapEvents } from 'react-leaflet';
+import { CircleMarker, MapContainer, Marker, Polyline, Popup, TileLayer, useMap, useMapEvents } from 'react-leaflet';
 import { loadSafetyData } from './lib/loadSafetyData';
 import { loadFireHydrants } from './lib/loadSafetyData';
 import {
@@ -32,6 +32,7 @@ import type {
   FireHydrantType,
   IncidentTimeOfDayCategory,
   Language,
+  ManagedHikingTrailRecord,
   MedicalFacility,
   MedicalFacilityType,
   NaturalDisasterType,
@@ -42,7 +43,7 @@ import type {
   TrafficCctvFacility,
 } from './types';
 
-type Tab = 'map' | 'nearby' | 'burglary' | 'bike' | 'motorcycle' | 'policeCctv' | 'fireDonations' | 'health' | 'disaster' | 'overview' | 'notes';
+type Tab = 'map' | 'nearby' | 'burglary' | 'bike' | 'motorcycle' | 'policeCctv' | 'fireDonations' | 'hikingTrails' | 'health' | 'disaster' | 'overview' | 'notes';
 type CapacityRange = 'all' | 'under100' | '100-499' | '500-999' | '1000plus';
 type DenseLayer = 'aeds' | 'medical' | 'fireHydrants' | 'airRaidShelters' | 'evacuationGates' | 'cctv';
 const tileAttribution = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>';
@@ -95,6 +96,12 @@ const hydrantIcon = L.divIcon({
 const cctvIcon = L.divIcon({
   className: 'shield-marker cctv-marker',
   html: '<span>📹</span>',
+  iconSize: [34, 34],
+  iconAnchor: [17, 17],
+});
+const hikingTrailIcon = L.divIcon({
+  className: 'shield-marker hiking-trail-marker',
+  html: '<span>△</span>',
   iconSize: [34, 34],
   iconAnchor: [17, 17],
 });
@@ -472,6 +479,102 @@ const fireDonationLabels = {
     interpretationNote: 'This data is administrative public record information about in-kind donations received by the Fire Department for source-field lookup and statistical organization only. It does not represent real-time fire equipment inventory, current equipment at any fire station, procurement records, budget expenditure, disaster-response readiness scoring, public-safety risk assessment, donor endorsement, or proof that donated goods are still in use.',
   },
 } as const;
+const hikingTrailLabels = {
+  zh: {
+    all: '全部',
+    title: '列管登山步道',
+    shortTitle: '登山步道',
+    subtitle: '查詢臺北市列管登山步道公開資料，包含行政區、步道路線、長度、步行時間、分級、起迄點座標、階梯、路擋、輪椅通行、通訊情形、流動廁所與無障礙廁所資訊，作為戶外活動與安全準備參考。',
+    district: '行政區',
+    grade: '步道分級',
+    gradeCategory: '分級類別',
+    lengthCategory: '長度類別',
+    walkingTimeCategory: '步行時間類別',
+    maxLength: '最長距離',
+    maxWalkingTime: '最長步行時間',
+    wheelchair: '適合輪椅通行',
+    portableToilet: '有流動廁所',
+    accessibleToilet: '有無障礙廁所',
+    validCoordinates: '起迄點座標有效',
+    connectors: '顯示近似起迄連線',
+    search: '搜尋',
+    searchPlaceholder: '搜尋步道路線、行政區、起點、迄點或分級',
+    recordCount: '步道數',
+    totalLength: '總長度',
+    districtsCovered: '涵蓋行政區數',
+    averageLength: '平均長度',
+    averageWalkingTime: '平均步行時間',
+    wheelchairCount: '適合輪椅通行步道數',
+    portableToiletCount: '有流動廁所步道數',
+    accessibleToiletCount: '有無障礙廁所步道數',
+    mobileSignalCount: '行動電話可通訊步道數',
+    roadblockCount: '步道口有路擋數',
+    trailsByDistrict: '各行政區步道數',
+    lengthByDistrict: '各行政區步道總長度',
+    trailsByGrade: '各步道分級數',
+    trailsByLength: '各長度類別步道數',
+    trailsByTime: '各步行時間類別步道數',
+    mobileSignal: '行動電話通訊情形',
+    toiletLocation: '流動廁所位置',
+    directory: '列管登山步道清單',
+    trailRoute: '步道路線',
+    length: '總長',
+    walkingTime: '單程步行時間',
+    startPoint: '起點',
+    endPoint: '迄點',
+    mapNotice: '本資料提供步道起點與迄點座標，但未提供完整路線軌跡。地圖點位為來源起迄點座標；若顯示連線，僅為起點至迄點的近似連接線，不代表實際步道路徑、導航路線、即時開放狀態、天候、路況或安全保證。',
+    popupNotice: '此點位為來源資料中的步道起點或迄點。請以現場公告、主管機關公告與實際路況確認開放、施工、封閉、廁所、通訊與安全資訊。',
+    dataNote: '臺北市列管登山步道資料提供親山步道系統列管步道資訊。本網站保留來源欄位，並整理為步道起迄點地圖、行政區分布、難度與時間、無障礙與通行輔助、通訊與廁所及步道清單。',
+    interpretationNote: '本資料僅供登山步道資訊查詢與戶外活動準備參考，不代表即時開放狀態、天候狀況、災害風險、救援可達性、完整路線軌跡、無障礙通行保證、個人體能建議、醫療建議、官方路線推薦或安全保證。',
+  },
+  en: {
+    all: 'All',
+    title: 'Managed Hiking Trails',
+    shortTitle: 'Hiking Trails',
+    subtitle: 'Look up Taipei managed hiking trail public data, including district, trail route, length, walking time, grade, start/end coordinates, stairs, roadblocks, wheelchair suitability, mobile signal condition, portable toilets, and accessible toilets as outdoor activity and safety preparation reference.',
+    district: 'District',
+    grade: 'Trail grade',
+    gradeCategory: 'Grade category',
+    lengthCategory: 'Length category',
+    walkingTimeCategory: 'Walking time category',
+    maxLength: 'Maximum length',
+    maxWalkingTime: 'Maximum walking time',
+    wheelchair: 'Wheelchair suitable',
+    portableToilet: 'Has portable toilet',
+    accessibleToilet: 'Has accessible toilet',
+    validCoordinates: 'Valid start/end coordinates',
+    connectors: 'Show approximate connectors',
+    search: 'Search',
+    searchPlaceholder: 'Search trail route, district, start point, end point, or grade',
+    recordCount: 'Trail count',
+    totalLength: 'Total length',
+    districtsCovered: 'Districts covered',
+    averageLength: 'Average length',
+    averageWalkingTime: 'Average walking time',
+    wheelchairCount: 'Wheelchair suitable trail count',
+    portableToiletCount: 'Portable toilet trail count',
+    accessibleToiletCount: 'Accessible toilet trail count',
+    mobileSignalCount: 'Mobile signal available trail count',
+    roadblockCount: 'Trailhead roadblock count',
+    trailsByDistrict: 'Trails by district',
+    lengthByDistrict: 'Total trail length by district',
+    trailsByGrade: 'Trails by trail grade',
+    trailsByLength: 'Trails by length category',
+    trailsByTime: 'Trails by walking time category',
+    mobileSignal: 'Mobile signal condition',
+    toiletLocation: 'Portable toilet location',
+    directory: 'Managed Hiking Trail Directory',
+    trailRoute: 'Trail route',
+    length: 'Length',
+    walkingTime: 'One-way walking time',
+    startPoint: 'Start point',
+    endPoint: 'End point',
+    mapNotice: 'This data provides trail start and end coordinates but does not provide complete route geometry. Map points are source start/end coordinates. If a connector line is shown, it is only an approximate start-to-end connector and does not represent the actual trail path, navigation route, real-time open status, weather, trail condition, or safety guarantee.',
+    popupNotice: 'This point is a trail start or end point from the source data. Please verify opening, construction, closure, toilet, communication, and safety information with on-site notices, competent-authority announcements, and actual trail conditions.',
+    dataNote: 'Taipei managed hiking trail data provides managed trail information for the city hiking trail system. This site preserves source fields and organizes the data into a trail start/end map, district distribution, grade and walking time, accessibility and passage support, mobile signal and toilets, and a trail directory.',
+    interpretationNote: 'This data is for hiking trail lookup and outdoor activity preparation reference only. It does not represent real-time open/closed status, weather conditions, disaster risk, rescue availability, complete route geometry, accessibility guarantee, personal fitness advice, medical advice, official route recommendation, or safety guarantee.',
+  },
+} as const;
 const disasterLabels = {
   zh: {
     all: '全部',
@@ -611,6 +714,7 @@ function App() {
             ['motorcycle', language === 'zh' ? '機車竊盜' : 'Motorcycle Theft'],
             ['policeCctv', language === 'zh' ? '警察局監視器' : 'Police CCTV'],
             ['fireDonations', language === 'zh' ? '消防捐贈實物' : 'Fire Dept Donations'],
+            ['hikingTrails', hikingTrailLabels[language].shortTitle],
             ['health', t.publicHealth],
             ['disaster', language === 'zh' ? '停班停課紀錄' : 'Closure Records'],
             ['overview', t.safetyOverview],
@@ -635,6 +739,7 @@ function App() {
       {activeTab === 'motorcycle' && <BicycleTheftRecords data={data} language={language} mode="motorcycle" />}
       {activeTab === 'policeCctv' && <PoliceCctvInstallationLocations data={data} language={language} />}
       {activeTab === 'fireDonations' && <FireDepartmentDonations data={data} language={language} />}
+      {activeTab === 'hikingTrails' && <ManagedHikingTrails data={data} language={language} />}
       {activeTab === 'health' && <PublicHealth data={data} language={language} />}
       {activeTab === 'disaster' && <NaturalDisasterSuspensions data={data} language={language} />}
       {activeTab === 'overview' && <SafetyOverview data={data} language={language} />}
@@ -2384,6 +2489,135 @@ function FireDepartmentDonations({ data, language }: { data: SafetyDataBundle; l
   );
 }
 
+function ManagedHikingTrails({ data, language }: { data: SafetyDataBundle; language: Language }) {
+  const labels = hikingTrailLabels[language];
+  const [district, setDistrict] = useState('all');
+  const [grade, setGrade] = useState('all');
+  const [gradeCategory, setGradeCategory] = useState('all');
+  const [lengthCategory, setLengthCategory] = useState('all');
+  const [walkingTimeCategory, setWalkingTimeCategory] = useState('all');
+  const [maxLength, setMaxLength] = useState('');
+  const [maxWalkingTime, setMaxWalkingTime] = useState('');
+  const [wheelchairOnly, setWheelchairOnly] = useState(false);
+  const [portableToiletOnly, setPortableToiletOnly] = useState(false);
+  const [accessibleToiletOnly, setAccessibleToiletOnly] = useState(false);
+  const [validCoordinatesOnly, setValidCoordinatesOnly] = useState(true);
+  const [showConnectors, setShowConnectors] = useState(false);
+  const [search, setSearch] = useState('');
+  const records = data.managedHikingTrails;
+  const summary = data.managedHikingTrailSummary;
+  const districts = [...new Set(records.flatMap((record) => (record.district ? [record.district] : [])))].sort();
+  const grades = [...new Set(records.flatMap((record) => (record.trailGrade ? [record.trailGrade] : [])))].sort();
+  const filtered = records.filter((record) => {
+    const haystack = [record.trailRouteName, record.district, record.startPointName, record.endPointName, record.trailGrade, record.mobileSignalCondition, record.portableToiletLocation]
+      .join(' ')
+      .toLowerCase();
+    return (
+      (district === 'all' || record.district === district) &&
+      (grade === 'all' || record.trailGrade === grade) &&
+      (gradeCategory === 'all' || record.trailGradeCategory === gradeCategory) &&
+      (lengthCategory === 'all' || record.lengthCategory === lengthCategory) &&
+      (walkingTimeCategory === 'all' || record.walkingTimeCategory === walkingTimeCategory) &&
+      (!maxLength || (record.totalLengthMeters ?? Infinity) <= Number(maxLength)) &&
+      (!maxWalkingTime || (record.oneWayWalkingTimeMinutes ?? Infinity) <= Number(maxWalkingTime)) &&
+      (!wheelchairOnly || record.wheelchairSuitable === true) &&
+      (!portableToiletOnly || record.hasPortableToilet === true) &&
+      (!accessibleToiletOnly || record.hasAccessibleToilet === true) &&
+      (!validCoordinatesOnly || record.hasBothValidCoordinates) &&
+      (!search.trim() || haystack.includes(search.trim().toLowerCase()))
+    );
+  });
+
+  return (
+    <main className="overview">
+      <section className="filter-panel health-filters">
+        <label>{labels.district}<select value={district} onChange={(event) => setDistrict(event.target.value)}><option value="all">{labels.all}</option>{districts.map((value) => <option key={value}>{value}</option>)}</select></label>
+        <label>{labels.grade}<select value={grade} onChange={(event) => setGrade(event.target.value)}><option value="all">{labels.all}</option>{grades.map((value) => <option key={value}>{value}</option>)}</select></label>
+        <label>{labels.gradeCategory}<select value={gradeCategory} onChange={(event) => setGradeCategory(event.target.value)}><option value="all">{labels.all}</option>{['family_friendly', 'moderate', 'challenging', 'unknown'].map((value) => <option key={value} value={value}>{formatHikingTrailGradeCategory(value, language)}</option>)}</select></label>
+        <label>{labels.lengthCategory}<select value={lengthCategory} onChange={(event) => setLengthCategory(event.target.value)}><option value="all">{labels.all}</option>{['under_500m', '500m_to_1km', '1km_to_2km', '2km_to_3km', 'over_3km', 'unknown'].map((value) => <option key={value} value={value}>{formatHikingTrailLengthCategory(value, language)}</option>)}</select></label>
+        <label>{labels.walkingTimeCategory}<select value={walkingTimeCategory} onChange={(event) => setWalkingTimeCategory(event.target.value)}><option value="all">{labels.all}</option>{['under_15min', '15_to_30min', '30_to_60min', '60_to_90min', 'over_90min', 'unknown'].map((value) => <option key={value} value={value}>{formatHikingTrailWalkingTimeCategory(value, language)}</option>)}</select></label>
+        <label>{labels.maxLength}<input type="number" min="0" value={maxLength} onChange={(event) => setMaxLength(event.target.value)} /></label>
+        <label>{labels.maxWalkingTime}<input type="number" min="0" value={maxWalkingTime} onChange={(event) => setMaxWalkingTime(event.target.value)} /></label>
+        <label>{labels.search}<input value={search} placeholder={labels.searchPlaceholder} onChange={(event) => setSearch(event.target.value)} /></label>
+        <label className="checkbox-row"><input type="checkbox" checked={wheelchairOnly} onChange={(event) => setWheelchairOnly(event.target.checked)} />{labels.wheelchair}</label>
+        <label className="checkbox-row"><input type="checkbox" checked={portableToiletOnly} onChange={(event) => setPortableToiletOnly(event.target.checked)} />{labels.portableToilet}</label>
+        <label className="checkbox-row"><input type="checkbox" checked={accessibleToiletOnly} onChange={(event) => setAccessibleToiletOnly(event.target.checked)} />{labels.accessibleToilet}</label>
+        <label className="checkbox-row"><input type="checkbox" checked={validCoordinatesOnly} onChange={(event) => setValidCoordinatesOnly(event.target.checked)} />{labels.validCoordinates}</label>
+        <label className="checkbox-row"><input type="checkbox" checked={showConnectors} onChange={(event) => setShowConnectors(event.target.checked)} />{labels.connectors}</label>
+      </section>
+      <h1>{labels.title}</h1>
+      <p>{labels.subtitle}</p>
+      <section className="summary-grid">
+        <Metric label={labels.recordCount} value={summary.totalRecords.toLocaleString()} />
+        <Metric label={labels.totalLength} value={`${summary.totalLengthKilometers.toLocaleString()} km`} />
+        <Metric label={labels.districtsCovered} value={summary.districtCount.toLocaleString()} />
+        <Metric label={labels.averageLength} value={`${summary.averageLengthMeters?.toLocaleString() ?? '-'} m`} />
+        <Metric label={labels.averageWalkingTime} value={`${summary.averageWalkingTimeMinutes ?? '-'} min`} />
+        <Metric label={labels.wheelchairCount} value={summary.wheelchairSuitableCount.toLocaleString()} />
+        <Metric label={labels.portableToiletCount} value={summary.portableToiletCount.toLocaleString()} />
+        <Metric label={labels.accessibleToiletCount} value={summary.accessibleToiletCount.toLocaleString()} />
+        <Metric label={labels.mobileSignalCount} value={summary.mobileSignalAvailableCount.toLocaleString()} />
+        <Metric label={labels.roadblockCount} value={summary.trailheadRoadblockCount.toLocaleString()} />
+      </section>
+      <p className="notice">{labels.mapNotice}</p>
+      <section className="map-layout hiking-map-layout">
+        <MapContainer center={taipeiCenter} zoom={12} className="map" scrollWheelZoom>
+          <TileLayer attribution={tileAttribution} url={tileUrl} />
+          <MapSizeSync />
+          {showConnectors && filtered.map((record) => (
+            record.hasBothValidCoordinates && record.startLatitude && record.startLongitude && record.endLatitude && record.endLongitude ? (
+              <Polyline key={`${record.id}-line`} positions={[[record.startLatitude, record.startLongitude], [record.endLatitude, record.endLongitude]]} pathOptions={{ color: '#2f7d74', weight: 2, dashArray: '6 6' }} />
+            ) : null
+          ))}
+          {filtered.flatMap((record) => hikingTrailMarkers(record, language)).map((marker) => (
+            <Marker key={marker.key} position={[marker.latitude, marker.longitude]} icon={hikingTrailIcon}>
+              <Popup>
+                <strong>{marker.record.trailRouteName}</strong>
+                <p>{marker.roleLabel}: {marker.pointName}</p>
+                <p>{marker.record.district} · {marker.record.totalLengthMeters ?? '-'} m · {marker.record.oneWayWalkingTimeMinutes ?? '-'} min · {marker.record.trailGrade ?? '-'}</p>
+                <p>{labels.wheelchair}: {formatTriState(marker.record.wheelchairSuitable, language)} · {labels.portableToilet}: {formatTriState(marker.record.hasPortableToilet, language)}</p>
+                <p>{labels.mobileSignal}: {marker.record.mobileSignalCondition ?? '-'}</p>
+                <p className="notice">{labels.popupNotice}</p>
+              </Popup>
+            </Marker>
+          ))}
+        </MapContainer>
+      </section>
+      <section className="chart-grid">
+        <BarChart title={labels.trailsByDistrict} values={Object.fromEntries(summary.byDistrict.map((item) => [item.district, item.trailCount]))} />
+        <BarChart title={labels.lengthByDistrict} values={Object.fromEntries(summary.byDistrict.map((item) => [item.district, item.totalLengthMeters]))} />
+        <BarChart title={labels.trailsByGrade} values={Object.fromEntries(summary.byTrailGrade.map((item) => [item.trailGrade, item.count]))} />
+        <BarChart title={labels.trailsByLength} values={Object.fromEntries(summary.byLengthCategory.map((item) => [formatHikingTrailLengthCategory(item.lengthCategory, language), item.count]))} />
+        <BarChart title={labels.trailsByTime} values={Object.fromEntries(summary.byWalkingTimeCategory.map((item) => [formatHikingTrailWalkingTimeCategory(item.walkingTimeCategory, language), item.count]))} />
+        <BarChart title={labels.mobileSignal} values={Object.fromEntries(summary.byMobileSignalCondition.map((item) => [formatMobileSignalCondition(item.mobileSignalConditionCategory, language), item.count]))} />
+        <BarChart title={labels.toiletLocation} values={Object.fromEntries(summary.byPortableToiletLocation.map((item) => [formatPortableToiletLocation(item.portableToiletLocationCategory, language), item.count]))} />
+      </section>
+      <h2>{labels.directory}</h2>
+      <p>{labels.recordCount}: {filtered.length.toLocaleString()}</p>
+      <table>
+        <thead><tr><th>{labels.trailRoute}</th><th>{labels.district}</th><th>{labels.length}</th><th>{labels.walkingTime}</th><th>{labels.grade}</th><th>{labels.startPoint}</th><th>{labels.endPoint}</th><th>{labels.wheelchair}</th><th>{labels.portableToilet}</th><th>{labels.mobileSignal}</th></tr></thead>
+        <tbody>
+          {filtered.slice(0, 100).map((record) => (
+            <tr key={record.id}>
+              <td>{record.trailRouteName ?? '-'}</td>
+              <td>{record.district ?? '-'}</td>
+              <td>{record.totalLengthMeters?.toLocaleString() ?? '-'} m</td>
+              <td>{record.oneWayWalkingTimeMinutes ?? '-'} min</td>
+              <td>{record.trailGrade ?? '-'}</td>
+              <td>{record.startPointName ?? '-'}</td>
+              <td>{record.endPointName ?? '-'}</td>
+              <td>{formatTriState(record.wheelchairSuitable, language)}</td>
+              <td>{formatTriState(record.hasPortableToilet, language)} {record.portableToiletLocation ? `(${record.portableToiletLocation})` : ''}</td>
+              <td>{record.mobileSignalCondition ?? '-'}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <p className="notice">{labels.interpretationNote}</p>
+    </main>
+  );
+}
+
 function PublicHealth({ data, language }: { data: SafetyDataBundle; language: Language }) {
   const t = translations[language];
   const [district, setDistrict] = useState('all');
@@ -2818,6 +3052,8 @@ function SafetyOverview({ data, language }: { data: SafetyDataBundle; language: 
   const policeCctvLabelsForOverview = policeCctvLabels[language];
   const fireDonationSummary = data.fireDepartmentDonationInKindSummary;
   const fireDonationLabelsForOverview = fireDonationLabels[language];
+  const hikingSummary = data.managedHikingTrailSummary;
+  const hikingLabelsForOverview = hikingTrailLabels[language];
 
   return (
     <main className="overview">
@@ -2847,6 +3083,14 @@ function SafetyOverview({ data, language }: { data: SafetyDataBundle; language: 
         <Metric label={fireDonationLabelsForOverview.uniqueDonorCount} value={fireDonationSummary.uniqueDonorCount.toLocaleString()} />
         <Metric label={fireDonationLabelsForOverview.recordsWithCompleteDate} value={fireDonationSummary.recordsWithDonationDate.toLocaleString()} />
         <Metric label={fireDonationLabelsForOverview.topDonor} value={fireDonationSummary.byDonor[0]?.donorName ?? '-'} />
+        <Metric label={hikingLabelsForOverview.recordCount} value={hikingSummary.totalRecords.toLocaleString()} />
+        <Metric label={hikingLabelsForOverview.totalLength} value={`${hikingSummary.totalLengthKilometers.toLocaleString()} km`} />
+        <Metric label={hikingLabelsForOverview.districtsCovered} value={hikingSummary.districtCount.toLocaleString()} />
+        <Metric label={hikingLabelsForOverview.averageLength} value={`${hikingSummary.averageLengthMeters?.toLocaleString() ?? '-'} m`} />
+        <Metric label={hikingLabelsForOverview.averageWalkingTime} value={`${hikingSummary.averageWalkingTimeMinutes ?? '-'} min`} />
+        <Metric label={hikingLabelsForOverview.wheelchairCount} value={hikingSummary.wheelchairSuitableCount.toLocaleString()} />
+        <Metric label={hikingLabelsForOverview.portableToiletCount} value={hikingSummary.portableToiletCount.toLocaleString()} />
+        <Metric label={hikingLabelsForOverview.accessibleToiletCount} value={hikingSummary.accessibleToiletCount.toLocaleString()} />
         <Metric label={t.latestBurglaryMonth} value={latest ? `${latest.year}-${String(latest.month).padStart(2, '0')}` : '-'} />
         <Metric label={t.mostCommonBurglaryTimePeriod} value={commonPeriod?.[0] ?? '-'} />
         <Metric label={t.topBurglaryDistrict} value={topBurglary?.[0] ?? '-'} />
@@ -2930,6 +3174,10 @@ function SafetyOverview({ data, language }: { data: SafetyDataBundle; language: 
         <BarChart title={fireDonationLabelsForOverview.byYear} values={Object.fromEntries(fireDonationSummary.byYear.map((item) => [String(item.year), item.recordCount]))} />
         <BarChart title={fireDonationLabelsForOverview.itemCategoryDistribution} values={Object.fromEntries(fireDonationSummary.byDonatedItemCategory.map((item) => [formatFireDonationItemCategory(item.donatedItemCategory, language), item.count]))} />
         <BarChart title={fireDonationLabelsForOverview.purposeCategoryDistribution} values={Object.fromEntries(fireDonationSummary.byDonationPurposeCategory.map((item) => [formatFireDonationPurposeCategory(item.donationPurposeCategory, language), item.count]))} />
+        <BarChart title={hikingLabelsForOverview.trailsByDistrict} values={Object.fromEntries(hikingSummary.byDistrict.map((item) => [item.district, item.trailCount]))} />
+        <BarChart title={hikingLabelsForOverview.lengthByDistrict} values={Object.fromEntries(hikingSummary.byDistrict.map((item) => [item.district, item.totalLengthMeters]))} />
+        <BarChart title={hikingLabelsForOverview.trailsByGrade} values={Object.fromEntries(hikingSummary.byTrailGrade.map((item) => [item.trailGrade, item.count]))} />
+        <BarChart title={hikingLabelsForOverview.trailsByLength} values={Object.fromEntries(hikingSummary.byLengthCategory.map((item) => [formatHikingTrailLengthCategory(item.lengthCategory, language), item.count]))} />
         <BarChart title={t.aedLocationsByDistrict} values={aedByDistrict} />
         <BarChart title={t.fireHydrantsByCity} values={hydrantsByCity} />
         <BarChart title={t.fireHydrantsByDistrict} values={hydrantsByDistrict} />
@@ -2978,6 +3226,9 @@ function DataNotes({ data, language }: { data: SafetyDataBundle; language: Langu
       <p>{policeCctvLabels[language].interpretationNote}</p>
       <p>{fireDonationLabels[language].dataNote}</p>
       <p>{fireDonationLabels[language].interpretationNote}</p>
+      <p>{hikingTrailLabels[language].dataNote}</p>
+      <p>{hikingTrailLabels[language].mapNotice}</p>
+      <p>{hikingTrailLabels[language].interpretationNote}</p>
       <p>{t.shelterAvailabilityNotice}</p>
       <p>{t.evacuationGateDataNote}</p>
       <p>{t.medicalFacilityDataNote}</p>
@@ -3523,6 +3774,101 @@ function formatFireDonationPurposeCategory(category: string, language: Language)
     unknown: ['未知', 'Unknown'],
   } as Record<string, [string, string]>;
   return labels[category]?.[language === 'zh' ? 0 : 1] ?? category;
+}
+
+function formatTriState(value: boolean | null | undefined, language: Language): string {
+  if (value === true) return language === 'zh' ? '是' : 'Yes';
+  if (value === false) return language === 'zh' ? '否' : 'No';
+  return language === 'zh' ? '未知／不適用' : 'Unknown / N/A';
+}
+
+function formatHikingTrailGradeCategory(category: string, language: Language): string {
+  const labels = {
+    family_friendly: ['親子級', 'Family-friendly'],
+    moderate: ['一般／中等', 'Moderate'],
+    challenging: ['勇腳／挑戰', 'Challenging'],
+    unknown: ['未知', 'Unknown'],
+  } as Record<string, [string, string]>;
+  return labels[category]?.[language === 'zh' ? 0 : 1] ?? category;
+}
+
+function formatHikingTrailLengthCategory(category: string, language: Language): string {
+  const labels = {
+    under_500m: ['500公尺以下', 'Under 500 m'],
+    '500m_to_1km': ['500公尺至1公里', '500 m to 1 km'],
+    '1km_to_2km': ['1至2公里', '1 km to 2 km'],
+    '2km_to_3km': ['2至3公里', '2 km to 3 km'],
+    over_3km: ['3公里以上', 'Over 3 km'],
+    unknown: ['未知', 'Unknown'],
+  } as Record<string, [string, string]>;
+  return labels[category]?.[language === 'zh' ? 0 : 1] ?? category;
+}
+
+function formatHikingTrailWalkingTimeCategory(category: string, language: Language): string {
+  const labels = {
+    under_15min: ['15分鐘以下', 'Under 15 min'],
+    '15_to_30min': ['15至30分鐘', '15 to 30 min'],
+    '30_to_60min': ['30至60分鐘', '30 to 60 min'],
+    '60_to_90min': ['60至90分鐘', '60 to 90 min'],
+    over_90min: ['90分鐘以上', 'Over 90 min'],
+    unknown: ['未知', 'Unknown'],
+  } as Record<string, [string, string]>;
+  return labels[category]?.[language === 'zh' ? 0 : 1] ?? category;
+}
+
+function formatMobileSignalCondition(category: string, language: Language): string {
+  const labels = {
+    available: ['可通訊', 'Available'],
+    partial: ['部分可通訊', 'Partial'],
+    poor: ['通訊不佳', 'Poor'],
+    unavailable: ['不可通訊', 'Unavailable'],
+    unknown: ['未知', 'Unknown'],
+  } as Record<string, [string, string]>;
+  return labels[category]?.[language === 'zh' ? 0 : 1] ?? category;
+}
+
+function formatPortableToiletLocation(category: string, language: Language): string {
+  const labels = {
+    none: ['無', 'None'],
+    start_point: ['起點', 'Start point'],
+    end_point: ['迄點', 'End point'],
+    start_and_end_point: ['起、迄點', 'Start and end point'],
+    other: ['其他', 'Other'],
+    unknown: ['未知', 'Unknown'],
+  } as Record<string, [string, string]>;
+  return labels[category]?.[language === 'zh' ? 0 : 1] ?? category;
+}
+
+function hikingTrailMarkers(record: ManagedHikingTrailRecord, language: Language) {
+  const markers: Array<{
+    key: string;
+    latitude: number;
+    longitude: number;
+    roleLabel: string;
+    pointName?: string;
+    record: ManagedHikingTrailRecord;
+  }> = [];
+  if (record.hasValidStartCoordinate && record.startLatitude != null && record.startLongitude != null) {
+    markers.push({
+      key: `${record.id}-start`,
+      latitude: record.startLatitude,
+      longitude: record.startLongitude,
+      roleLabel: language === 'zh' ? '起點' : 'Start point',
+      pointName: record.startPointName,
+      record,
+    });
+  }
+  if (record.hasValidEndCoordinate && record.endLatitude != null && record.endLongitude != null) {
+    markers.push({
+      key: `${record.id}-end`,
+      latitude: record.endLatitude,
+      longitude: record.endLongitude,
+      roleLabel: language === 'zh' ? '迄點' : 'End point',
+      pointName: record.endPointName,
+      record,
+    });
+  }
+  return markers;
 }
 
 function formatLocationFuzziness(level: BicycleTheftLocationFuzzinessLevel, language: Language): string {

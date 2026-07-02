@@ -6,6 +6,7 @@ import type {
   EmergencyShelterSummary,
   FireDepartmentDonationInKindSummary,
   FireHydrantSummary,
+  ManagedHikingTrailSummary,
   MotorcycleTheftSummary,
   NaturalDisasterSuspensionSummary,
   PoliceCctvInstallationLocationSummary,
@@ -200,6 +201,29 @@ const [fireDepartmentDonationInKindSummary, fireDepartmentDonationInKindConversi
     .then((value) => JSON.parse(value) as { resources?: Array<{ name: string; sourceUrl: string; downloadedAt?: string; fileSize?: number; format: string; failure?: string | null }> })
     .catch(() => null),
 ]);
+const [managedHikingTrailSummary, managedHikingTrailConversion, managedHikingTrailFetchStatus] = await Promise.all([
+  readFile('public/data/managed-hiking-trail-summary.json', 'utf8').then(
+    (value) => JSON.parse(value) as ManagedHikingTrailSummary,
+  ),
+  readFile('public/data/managed-hiking-trail-conversion.json', 'utf8').then(
+    (value) =>
+      JSON.parse(value) as {
+        inputRows: number;
+        outputRows: number;
+        duplicatePrimaryKeys: string[];
+        duplicateFallbackKeys: string[];
+        duplicateTrailRouteNames: string[];
+        duplicateStartPoints: string[];
+        duplicateEndPoints: string[];
+        duplicateCoordinatePairs: string[];
+        invalidCoordinateExamples: string[];
+        slopeParseWarnings: string[];
+      },
+  ),
+  readFile('data/raw/managed-hiking-trails/fetch-status.json', 'utf8')
+    .then((value) => JSON.parse(value) as { sourceUrl?: string; downloadedAt?: string; fileSize?: number; failure?: string | null })
+    .catch(() => null),
+]);
 
 await writeJson('public/data/safety-dashboard-summary.json', {
   districtSummaries,
@@ -209,6 +233,7 @@ await writeJson('public/data/safety-dashboard-summary.json', {
   motorcycleTheftSummary,
   policeCctvInstallationLocationSummary,
   fireDepartmentDonationInKindSummary,
+  managedHikingTrailSummary,
   evacuationGateCount: evacuationGates.length,
   evacuationGateSummary,
   medicalFacilitySummary,
@@ -374,6 +399,19 @@ await writeJson('public/data/conversion-report.json', {
       notes:
         'Fire Department annual in-kind donation records from 消防局; CSV annual resources are converted and ODS resources are reported as unsupported without map points.',
     },
+    {
+      name: '臺北市列管登山步道',
+      url: 'https://data.taipei/dataset/detail?id=b5726297-d172-4ba7-b5c4-31de38e184e1',
+      downloadUrl:
+        managedHikingTrailFetchStatus?.sourceUrl ??
+        'https://data.taipei/api/frontstage/tpeod/dataset/resource.download?rid=0d1d7db3-efc1-40d1-ad24-5a1a1f88e06b',
+      downloadedAt: managedHikingTrailFetchStatus?.downloadedAt ?? null,
+      fileSize: managedHikingTrailFetchStatus?.fileSize,
+      encoding: 'Big5 / CP950 with UTF-8-SIG fallback',
+      notes: managedHikingTrailFetchStatus?.failure
+        ? `Latest managed hiking trail download failed: ${managedHikingTrailFetchStatus.failure}. Existing generated data was retained.`
+        : 'Managed hiking trail records from 工務局大地處; start/end coordinates are source points only, not route geometry or real-time trail status.',
+    },
   ],
   shelters: {
     inputRows: shelters.length,
@@ -392,6 +430,7 @@ await writeJson('public/data/conversion-report.json', {
   motorcycleThefts: motorcycleTheftConversion,
   policeCctvInstallationLocations: policeCctvInstallationLocationConversion,
   fireDepartmentDonations: fireDepartmentDonationInKindConversion,
+  managedHikingTrails: managedHikingTrailConversion,
   aeds: {
     inputRows: aeds.length,
     outputRows: aeds.length,
@@ -449,6 +488,7 @@ await writeJson('public/data/conversion-report.json', {
     'Motorcycle theft records use pre-fuzzed address text and are shown only as district, road, and fuzzy-location summaries.',
     'Police CCTV installation-location records are shown as district summaries and address lookup records because the source has no official coordinates.',
     'Fire Department in-kind donation records have no official location fields and are shown as trends and directory records only.',
+    'Managed hiking trail records provide start/end source coordinates only; connectors are approximate and not route geometry.',
     `Burglary time periods: ${Object.keys(countBy(burglaries, (record) => record.timePeriod)).join(', ')}`,
     'AED availability is not real-time.',
     'Dengue records are shown only as district/village survey aggregates.',

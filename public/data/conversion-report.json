@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-01T06:09:51.801Z",
+  "generatedAt": "2026-07-02T06:30:15.234Z",
   "sources": [
     {
       "name": "北市警政APP_防空避難設備位置",
@@ -127,6 +127,15 @@
       "fileSize": 95937,
       "encoding": "UTF-8-SIG CSV; ODS resources reported unsupported",
       "notes": "Fire Department annual in-kind donation records from 消防局; CSV annual resources are converted and ODS resources are reported as unsupported without map points."
+    },
+    {
+      "name": "臺北市列管登山步道",
+      "url": "https://data.taipei/dataset/detail?id=b5726297-d172-4ba7-b5c4-31de38e184e1",
+      "downloadUrl": "https://data.taipei/api/frontstage/tpeod/dataset/resource.download?rid=0d1d7db3-efc1-40d1-ad24-5a1a1f88e06b",
+      "downloadedAt": "2026-07-02T06:29:56.771Z",
+      "fileSize": 21350,
+      "encoding": "Big5 / CP950 with UTF-8-SIG fallback",
+      "notes": "Managed hiking trail records from 工務局大地處; start/end coordinates are source points only, not route geometry or real-time trail status."
     }
   ],
   "shelters": {
@@ -307,6 +316,38 @@
       "2023|4|25|林○○|住宅用火災警報器(永揚-光電式YDS-H02)|火災預防使用"
     ]
   },
+  "managedHikingTrails": {
+    "inputRows": 154,
+    "outputRows": 154,
+    "sourceFile": {
+      "path": "data/raw/managed-hiking-trails/managed-hiking-trails.csv",
+      "fileSize": 21350
+    },
+    "duplicatePrimaryKeys": [],
+    "duplicateFallbackKeys": [],
+    "duplicateTrailRouteNames": [],
+    "duplicateStartPoints": [
+      "碧山路",
+      "碧山工作站前方岔路口",
+      "慈惠堂",
+      "復興園",
+      "福德街221巷",
+      "南港山鞍部",
+      "指南國小"
+    ],
+    "duplicateEndPoints": [
+      "山頂",
+      "稜線步道(含入口意象範圍)",
+      "虎山120高地",
+      "主稜線及景興國小支線轉角"
+    ],
+    "duplicateCoordinatePairs": [],
+    "invalidCoordinateExamples": [],
+    "slopeParseWarnings": [
+      "雙溪國小步道: 3%-5%",
+      "猴山岳步道: 3%-7%"
+    ]
+  },
   "aeds": {
     "inputRows": 2728,
     "outputRows": 2728,
@@ -400,6 +441,7 @@
     "Motorcycle theft records use pre-fuzzed address text and are shown only as district, road, and fuzzy-location summaries.",
     "Police CCTV installation-location records are shown as district summaries and address lookup records because the source has no official coordinates.",
     "Fire Department in-kind donation records have no official location fields and are shown as trends and directory records only.",
+    "Managed hiking trail records provide start/end source coordinates only; connectors are approximate and not route geometry.",
     "Burglary time periods: morning, early_morning, afternoon, evening, night",
     "AED availability is not real-time.",
     "Dengue records are shown only as district/village survey aggregates.",

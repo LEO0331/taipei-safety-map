@@ -31,6 +31,8 @@ const DATA_FILES = [
   cacheUrl('data/fire-department-donation-in-kind-records.json'),
   cacheUrl('data/fire-department-donation-in-kind-summary.json'),
   cacheUrl('data/fire-department-donation-in-kind-latest.json'),
+  cacheUrl('data/managed-hiking-trails.json'),
+  cacheUrl('data/managed-hiking-trail-summary.json'),
   cacheUrl('data/natural-disaster-work-school-suspension-records.json'),
   cacheUrl('data/natural-disaster-work-school-suspension-summary.json'),
   cacheUrl('data/natural-disaster-work-school-suspension-event-groups.json'),

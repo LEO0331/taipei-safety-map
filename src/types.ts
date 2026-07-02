@@ -15,6 +15,7 @@ export type SafetyLayer =
   | 'traffic_cctv'
   | 'police_cctv_installation_location'
   | 'fire_department_donation_in_kind_records'
+  | 'managed_hiking_trails'
   | 'natural_disaster_work_school_suspension_records';
 
 export type LocationPrecision = 'exact' | 'district_centroid' | 'address_only' | 'missing';
@@ -313,6 +314,120 @@ export type FireDepartmentDonationInKindSummary = {
     missingDonatedItemCount: number;
     missingDonationPurposeCount: number;
     unsupportedResourceCount: number;
+  };
+};
+
+export type HikingTrailGradeCategory = 'family_friendly' | 'moderate' | 'challenging' | 'unknown';
+export type HikingTrailLengthCategory = 'under_500m' | '500m_to_1km' | '1km_to_2km' | '2km_to_3km' | 'over_3km' | 'unknown';
+export type HikingTrailWalkingTimeCategory = 'under_15min' | '15_to_30min' | '30_to_60min' | '60_to_90min' | 'over_90min' | 'unknown';
+export type MobileSignalConditionCategory = 'available' | 'partial' | 'poor' | 'unavailable' | 'unknown';
+export type PortableToiletLocationCategory = 'none' | 'start_point' | 'end_point' | 'start_and_end_point' | 'other' | 'unknown';
+export type WheelchairAccessibleSlopeCategory = 'none_or_not_applicable' | 'under_5_percent' | '5_to_8_percent' | 'over_8_percent' | 'unknown';
+
+export type ManagedHikingTrailRecord = {
+  id: string;
+  module: 'managed_hiking_trails';
+  sourceSequenceNumber?: number;
+  district?: string;
+  districtNormalized?: string;
+  trailRouteName?: string;
+  trailRouteNameNormalized?: string;
+  totalLengthMeters?: number;
+  lengthCategory: HikingTrailLengthCategory;
+  oneWayWalkingTimeMinutes?: number;
+  walkingTimeCategory: HikingTrailWalkingTimeCategory;
+  trailGradeRaw?: string;
+  trailGrade?: string;
+  trailGradeCategory: HikingTrailGradeCategory;
+  startPointName?: string;
+  startPointNameNormalized?: string;
+  startLongitude?: number;
+  startLatitude?: number;
+  startCoordinateStatus: CoordinateStatus;
+  hasValidStartCoordinate: boolean;
+  startPointHasStairsRaw?: string;
+  startPointHasStairs: boolean | null;
+  endPointName?: string;
+  endPointNameNormalized?: string;
+  endLongitude?: number;
+  endLatitude?: number;
+  endCoordinateStatus: CoordinateStatus;
+  hasValidEndCoordinate: boolean;
+  endPointHasStairsRaw?: string;
+  endPointHasStairs: boolean | null;
+  hasBothValidCoordinates: boolean;
+  startEndDistanceMeters?: number;
+  approximateConnectorGeoJson?: {
+    type: 'LineString';
+    coordinates: [[number, number], [number, number]];
+    properties: { approximation: true; note: string };
+  };
+  trailheadHasRoadblockRaw?: string;
+  trailheadHasRoadblock: boolean | null;
+  wheelchairSuitableRaw?: string;
+  wheelchairSuitable: boolean | null;
+  wheelchairAccessibleAverageSlopeRaw?: string;
+  wheelchairAccessibleAverageSlope?: number;
+  wheelchairAccessibleSlopeCategory: WheelchairAccessibleSlopeCategory;
+  wheelchairAccessibleLengthMeters?: number;
+  mobileSignalConditionRaw?: string;
+  mobileSignalCondition?: string;
+  mobileSignalConditionCategory: MobileSignalConditionCategory;
+  hasPortableToiletRaw?: string;
+  hasPortableToilet: boolean | null;
+  portableToiletLocationRaw?: string;
+  portableToiletLocation?: string;
+  portableToiletLocationCategory: PortableToiletLocationCategory;
+  hasAccessibleToiletRaw?: string;
+  hasAccessibleToilet: boolean | null;
+  startPointMapQuery?: string;
+  endPointMapQuery?: string;
+  sourceRecordHash: string;
+  source: string;
+  sourceAgency: string;
+};
+
+export type ManagedHikingTrailSummary = {
+  totalRecords: number;
+  totalLengthMeters: number;
+  totalLengthKilometers: number;
+  minLengthMeters?: number;
+  maxLengthMeters?: number;
+  averageLengthMeters?: number;
+  minWalkingTimeMinutes?: number;
+  maxWalkingTimeMinutes?: number;
+  averageWalkingTimeMinutes?: number;
+  districtCount: number;
+  trailGradeCount: number;
+  recordsWithValidStartCoordinate: number;
+  recordsWithValidEndCoordinate: number;
+  recordsWithBothValidCoordinates: number;
+  startPointStairCount: number;
+  endPointStairCount: number;
+  trailheadRoadblockCount: number;
+  wheelchairSuitableCount: number;
+  portableToiletCount: number;
+  accessibleToiletCount: number;
+  mobileSignalAvailableCount: number;
+  byDistrict: Array<{ district: string; trailCount: number; totalLengthMeters: number; averageLengthMeters?: number; averageWalkingTimeMinutes?: number; wheelchairSuitableCount: number; portableToiletCount: number; accessibleToiletCount: number }>;
+  byTrailGrade: Array<{ trailGrade: string; trailGradeCategory: HikingTrailGradeCategory; count: number; totalLengthMeters: number }>;
+  byLengthCategory: Array<{ lengthCategory: HikingTrailLengthCategory; count: number }>;
+  byWalkingTimeCategory: Array<{ walkingTimeCategory: HikingTrailWalkingTimeCategory; count: number }>;
+  byMobileSignalCondition: Array<{ mobileSignalConditionCategory: MobileSignalConditionCategory; count: number }>;
+  byPortableToiletLocation: Array<{ portableToiletLocationCategory: PortableToiletLocationCategory; count: number }>;
+  longestTrails: Array<{ trailRouteName: string; district?: string; totalLengthMeters?: number; oneWayWalkingTimeMinutes?: number }>;
+  shortestTrails: Array<{ trailRouteName: string; district?: string; totalLengthMeters?: number; oneWayWalkingTimeMinutes?: number }>;
+  dataQuality: {
+    missingTrailRouteNameCount: number;
+    missingDistrictCount: number;
+    invalidLengthCount: number;
+    invalidWalkingTimeCount: number;
+    invalidStartCoordinateCount: number;
+    invalidEndCoordinateCount: number;
+    duplicateTrailRouteNameCount: number;
+    duplicateStartPointCount: number;
+    duplicateEndPointCount: number;
+    duplicateFallbackKeyCount: number;
   };
 };
 
@@ -756,6 +871,8 @@ export type SafetyDataBundle = {
   policeCctvInstallationLocationSummary: PoliceCctvInstallationLocationSummary;
   fireDepartmentDonationInKindRecords: FireDepartmentDonationInKindRecord[];
   fireDepartmentDonationInKindSummary: FireDepartmentDonationInKindSummary;
+  managedHikingTrails: ManagedHikingTrailRecord[];
+  managedHikingTrailSummary: ManagedHikingTrailSummary;
   aeds: AedLocation[];
   evacuationGates: EvacuationGate[];
   medicalFacilities: MedicalFacility[];
@@ -906,6 +1023,18 @@ export type ConversionReport = {
     invalidDateExamples: string[];
     duplicateDonorNames: string[];
     duplicateFallbackKeys: string[];
+  };
+  managedHikingTrails?: {
+    inputRows: number;
+    outputRows: number;
+    duplicatePrimaryKeys: string[];
+    duplicateFallbackKeys: string[];
+    duplicateTrailRouteNames: string[];
+    duplicateStartPoints: string[];
+    duplicateEndPoints: string[];
+    duplicateCoordinatePairs: string[];
+    invalidCoordinateExamples: string[];
+    slopeParseWarnings: string[];
   };
   notes: string[];
 };

@@ -1,0 +1,10 @@
+{
+  "sourcePage": "https://data.taipei/dataset/detail?id=b5726297-d172-4ba7-b5c4-31de38e184e1",
+  "sourceUrl": "https://data.taipei/api/frontstage/tpeod/dataset/resource.download?rid=0d1d7db3-efc1-40d1-ad24-5a1a1f88e06b",
+  "resourceName": "列管登山步道",
+  "downloadedAt": "2026-07-02T06:29:56.771Z",
+  "fileSize": 21350,
+  "encoding": "Big5 / CP950 with UTF-8-SIG fallback",
+  "failure": null,
+  "notes": "Raw managed hiking trail CSV ready for conversion."
+}

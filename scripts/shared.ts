@@ -12,6 +12,7 @@ import {
   parseNumber,
   parseBurglaryDate,
   parseCapacity,
+  calculateDistanceMeters,
 } from '../src/lib/safetyData.ts';
 import type {
   AedLocation,
@@ -31,12 +32,18 @@ import type {
   FireHydrant,
   FireHydrantAreaScope,
   FireHydrantType,
+  HikingTrailGradeCategory,
+  HikingTrailLengthCategory,
+  HikingTrailWalkingTimeCategory,
   IncidentTimeOfDayCategory,
+  ManagedHikingTrailRecord,
   MedicalFacility,
   MedicalFacilityType,
+  MobileSignalConditionCategory,
   MotorcycleTheftCaseType,
   MotorcycleTheftRecord,
   NaturalDisasterType,
+  PortableToiletLocationCategory,
   NaturalDisasterWorkSchoolSuspensionRecord,
   PoliceCctvInstallationLocationRecord,
   ResidentialBurglaryRecord,
@@ -44,6 +51,7 @@ import type {
   TrafficCctvFacility,
   WorkOrSchoolSuspensionStatus,
   WorkSchoolSuspensionDecisionCategory,
+  WheelchairAccessibleSlopeCategory,
 } from '../src/types.ts';
 import { TAIPEI_BOUNDS, TAIPEI_DISTRICTS, TAIPEI_DISTRICT_CODE_MAP } from '../src/lib/safetyData.ts';
 
@@ -64,6 +72,8 @@ export const FIRE_HYDRANT_SOURCE = '大臺北地區消防栓分布點位圖';
 export const FIRE_HYDRANT_AGENCY = '臺北自來水事業處';
 export const FIRE_DONATION_SOURCE = '臺北市政府消防局各年度接受各界捐贈實物明細表';
 export const FIRE_DONATION_AGENCY = '臺北市政府消防局';
+export const MANAGED_HIKING_TRAIL_SOURCE = '臺北市列管登山步道';
+export const MANAGED_HIKING_TRAIL_AGENCY = '臺北市政府工務局大地工程處';
 export const EMERGENCY_SHELTER_SOURCE = '臺北市可供避難收容處所一覽表';
 export const EMERGENCY_SHELTER_AGENCY = '臺北市政府教育局';
 export const TRAFFIC_CCTV_SOURCE = '臺北市CCTV設施';
@@ -643,6 +653,198 @@ export function convertFireDepartmentDonationInKindRow(
   };
 }
 
+function parseHikingNumber(raw: unknown): number | undefined {
+  const text = cleanText(raw)?.replace(/,/g, '');
+  if (!text || text === '無') return undefined;
+  const value = Number(text.replace('%', ''));
+  return Number.isFinite(value) ? value : undefined;
+}
+
+export function parseChineseBoolean(raw: unknown): boolean | null {
+  const text = cleanText(raw);
+  if (!text) return null;
+  if (['是', '有', '可', '適合'].includes(text)) return true;
+  if (['否', '無', '不可', '不適合'].includes(text)) return false;
+  return null;
+}
+
+function parseAccessibleToiletBoolean(raw: unknown): boolean | null {
+  const text = cleanText(raw);
+  if (text === '是') return true;
+  if (text === '否') return false;
+  return null;
+}
+
+export function classifyHikingTrailGrade(raw: string | undefined): HikingTrailGradeCategory {
+  const text = raw?.trim() ?? '';
+  if (!text) return 'unknown';
+  if (text.includes('親子')) return 'family_friendly';
+  if (text.includes('健腳') || text.includes('勇腳') || text.includes('挑戰')) return 'challenging';
+  if (text.includes('一般') || text.includes('中級')) return 'moderate';
+  return 'unknown';
+}
+
+export function classifyHikingTrailLength(lengthMeters: number | undefined): HikingTrailLengthCategory {
+  if (lengthMeters == null || !Number.isFinite(lengthMeters)) return 'unknown';
+  if (lengthMeters < 500) return 'under_500m';
+  if (lengthMeters < 1000) return '500m_to_1km';
+  if (lengthMeters < 2000) return '1km_to_2km';
+  if (lengthMeters < 3000) return '2km_to_3km';
+  return 'over_3km';
+}
+
+export function classifyHikingTrailWalkingTime(minutes: number | undefined): HikingTrailWalkingTimeCategory {
+  if (minutes == null || !Number.isFinite(minutes)) return 'unknown';
+  if (minutes < 15) return 'under_15min';
+  if (minutes <= 30) return '15_to_30min';
+  if (minutes <= 60) return '30_to_60min';
+  if (minutes <= 90) return '60_to_90min';
+  return 'over_90min';
+}
+
+export function classifyMobileSignalCondition(raw: string | undefined): MobileSignalConditionCategory {
+  const text = raw?.trim() ?? '';
+  if (!text) return 'unknown';
+  if (text === '可' || text.includes('良好') || text.includes('可通訊')) return 'available';
+  if (text.includes('部分') || text.includes('局部')) return 'partial';
+  if (text.includes('不佳') || text.includes('弱')) return 'poor';
+  if (text.includes('無') || text.includes('不可')) return 'unavailable';
+  return 'unknown';
+}
+
+export function classifyPortableToiletLocation(raw: string | undefined): PortableToiletLocationCategory {
+  const text = raw?.trim() ?? '';
+  if (!text) return 'unknown';
+  if (text === '無') return 'none';
+  if (text.includes('起') && text.includes('迄')) return 'start_and_end_point';
+  if (text.includes('起')) return 'start_point';
+  if (text.includes('迄')) return 'end_point';
+  return 'other';
+}
+
+function classifyWheelchairSlope(raw: string | undefined, value: number | undefined): WheelchairAccessibleSlopeCategory {
+  if (raw === '無' || raw === '0') return 'none_or_not_applicable';
+  if (value == null) return raw ? 'unknown' : 'none_or_not_applicable';
+  if (value < 5) return 'under_5_percent';
+  if (value <= 8) return '5_to_8_percent';
+  return 'over_8_percent';
+}
+
+function parseTrailCoordinate(raw: unknown, type: 'longitude' | 'latitude') {
+  const value = parseHikingNumber(raw);
+  if (value == null) return { status: 'missing' as const };
+  const valid = type === 'longitude' ? value >= 121.3 && value <= 121.8 : value >= 24.85 && value <= 25.3;
+  return { value: valid ? value : undefined, status: valid ? 'valid' as const : 'outlier' as const };
+}
+
+function createTrailPointMapQuery(args: { trailRouteName?: string; pointName?: string; district?: string }): string | undefined {
+  const parts = ['臺北市', args.district, args.trailRouteName, args.pointName].filter(Boolean);
+  return parts.length > 1 ? parts.join(' ') : undefined;
+}
+
+function createApproximateConnector(record: ManagedHikingTrailRecord): ManagedHikingTrailRecord['approximateConnectorGeoJson'] {
+  if (!record.hasBothValidCoordinates || record.startLongitude == null || record.startLatitude == null || record.endLongitude == null || record.endLatitude == null) {
+    return undefined;
+  }
+  return {
+    type: 'LineString',
+    coordinates: [[record.startLongitude, record.startLatitude], [record.endLongitude, record.endLatitude]],
+    properties: {
+      approximation: true,
+      note: 'This line connects the source start and end coordinates only. It is not the actual trail route geometry.',
+    },
+  };
+}
+
+export function convertManagedHikingTrailRow(row: Record<string, string>, index: number): ManagedHikingTrailRecord {
+  const sourceSequenceNumber = parseHikingNumber(row['序號']);
+  const district = cleanText(row['行政區']);
+  const trailRouteName = cleanText(row['登山步道路線']);
+  const totalLengthMeters = parseHikingNumber(row['總長M']);
+  const oneWayWalkingTimeMinutes = parseHikingNumber(row['單程步行時間min']);
+  const trailGradeRaw = cleanText(row['步道分級']);
+  const startPointName = cleanText(row['起點']);
+  const endPointName = cleanText(row['迄點']);
+  const startLongitude = parseTrailCoordinate(row['起點經度座標'], 'longitude');
+  const startLatitude = parseTrailCoordinate(row['起點緯度座標'], 'latitude');
+  const endLongitude = parseTrailCoordinate(row['迄點經度座標'], 'longitude');
+  const endLatitude = parseTrailCoordinate(row['迄點緯度座標'], 'latitude');
+  const hasValidStartCoordinate = startLongitude.status === 'valid' && startLatitude.status === 'valid';
+  const hasValidEndCoordinate = endLongitude.status === 'valid' && endLatitude.status === 'valid';
+  const slopeRaw = cleanText(row['輪椅可通行段平均坡度']);
+  const slope = parseHikingNumber(slopeRaw);
+  const portableToiletLocationRaw = cleanText(row['流動廁所位置']);
+  const mobileSignalConditionRaw = cleanText(row['行動電話通訊情形']);
+  const sourceRecordHash = hashSourceRecord([
+    String(sourceSequenceNumber ?? ''),
+    district,
+    trailRouteName,
+    startPointName,
+    endPointName,
+  ]);
+  const record: ManagedHikingTrailRecord = {
+    id: `managed-hiking-trail-${sourceSequenceNumber ?? index + 1}`,
+    module: 'managed_hiking_trails',
+    sourceSequenceNumber,
+    district,
+    districtNormalized: district,
+    trailRouteName,
+    trailRouteNameNormalized: trailRouteName,
+    totalLengthMeters,
+    lengthCategory: classifyHikingTrailLength(totalLengthMeters),
+    oneWayWalkingTimeMinutes,
+    walkingTimeCategory: classifyHikingTrailWalkingTime(oneWayWalkingTimeMinutes),
+    trailGradeRaw,
+    trailGrade: trailGradeRaw,
+    trailGradeCategory: classifyHikingTrailGrade(trailGradeRaw),
+    startPointName,
+    startPointNameNormalized: startPointName,
+    startLongitude: startLongitude.value,
+    startLatitude: startLatitude.value,
+    startCoordinateStatus: hasValidStartCoordinate ? 'valid' : startLongitude.status === 'missing' || startLatitude.status === 'missing' ? 'missing' : 'outlier',
+    hasValidStartCoordinate,
+    startPointHasStairsRaw: cleanText(row['起點是否為階梯']),
+    startPointHasStairs: parseChineseBoolean(row['起點是否為階梯']),
+    endPointName,
+    endPointNameNormalized: endPointName,
+    endLongitude: endLongitude.value,
+    endLatitude: endLatitude.value,
+    endCoordinateStatus: hasValidEndCoordinate ? 'valid' : endLongitude.status === 'missing' || endLatitude.status === 'missing' ? 'missing' : 'outlier',
+    hasValidEndCoordinate,
+    endPointHasStairsRaw: cleanText(row['迄點是否為階梯']),
+    endPointHasStairs: parseChineseBoolean(row['迄點是否為階梯']),
+    hasBothValidCoordinates: hasValidStartCoordinate && hasValidEndCoordinate,
+    trailheadHasRoadblockRaw: cleanText(row['步道口是否有路擋']),
+    trailheadHasRoadblock: parseChineseBoolean(row['步道口是否有路擋']),
+    wheelchairSuitableRaw: cleanText(row['是否適合輪椅通行']),
+    wheelchairSuitable: parseChineseBoolean(row['是否適合輪椅通行']),
+    wheelchairAccessibleAverageSlopeRaw: slopeRaw,
+    wheelchairAccessibleAverageSlope: slope,
+    wheelchairAccessibleSlopeCategory: classifyWheelchairSlope(slopeRaw, slope),
+    wheelchairAccessibleLengthMeters: parseHikingNumber(row['輪椅可通行段長度M']),
+    mobileSignalConditionRaw,
+    mobileSignalCondition: mobileSignalConditionRaw,
+    mobileSignalConditionCategory: classifyMobileSignalCondition(mobileSignalConditionRaw),
+    hasPortableToiletRaw: cleanText(row['是否有流動廁所']),
+    hasPortableToilet: parseChineseBoolean(row['是否有流動廁所']),
+    portableToiletLocationRaw,
+    portableToiletLocation: portableToiletLocationRaw,
+    portableToiletLocationCategory: classifyPortableToiletLocation(portableToiletLocationRaw),
+    hasAccessibleToiletRaw: cleanText(row['是否為無障礙廁所']),
+    hasAccessibleToilet: parseAccessibleToiletBoolean(row['是否為無障礙廁所']),
+    sourceRecordHash,
+    source: MANAGED_HIKING_TRAIL_SOURCE,
+    sourceAgency: MANAGED_HIKING_TRAIL_AGENCY,
+  };
+  record.startEndDistanceMeters = record.hasBothValidCoordinates
+    ? Math.round(calculateDistanceMeters(record.startLatitude!, record.startLongitude!, record.endLatitude!, record.endLongitude!))
+    : undefined;
+  record.approximateConnectorGeoJson = createApproximateConnector(record);
+  record.startPointMapQuery = createTrailPointMapQuery({ trailRouteName, pointName: startPointName, district });
+  record.endPointMapQuery = createTrailPointMapQuery({ trailRouteName, pointName: endPointName, district });
+  return record;
+}
+
 export function convertAedRow(row: Record<string, string>, index: number): AedLocation {
   const latitude = parseNumber(row['緯度']);
   const longitude = parseNumber(row['經度']);
@@ -1184,6 +1386,7 @@ export async function loadConvertedData() {
     motorcycleThefts,
     policeCctvInstallationLocations,
     fireDepartmentDonationInKindRecords,
+    managedHikingTrails,
     aeds,
     dengueRecords,
     evacuationGates,
@@ -1197,6 +1400,7 @@ export async function loadConvertedData() {
     readJsonFile<MotorcycleTheftRecord[]>(`${PUBLIC_DATA_DIR}/motorcycle-theft-records.json`),
     readJsonFile<PoliceCctvInstallationLocationRecord[]>(`${PUBLIC_DATA_DIR}/police-cctv-installation-locations.json`),
     readJsonFile<FireDepartmentDonationInKindRecord[]>(`${PUBLIC_DATA_DIR}/fire-department-donation-in-kind-records.json`),
+    readJsonFile<ManagedHikingTrailRecord[]>(`${PUBLIC_DATA_DIR}/managed-hiking-trails.json`),
     readJsonFile<AedLocation[]>(`${PUBLIC_DATA_DIR}/aed-locations.json`),
     readJsonFile<DengueSurveyRecord[]>(`${PUBLIC_DATA_DIR}/dengue-vector-density-records.json`),
     readJsonFile<EvacuationGate[]>(`${PUBLIC_DATA_DIR}/evacuation-gates.json`),
@@ -1211,6 +1415,7 @@ export async function loadConvertedData() {
     motorcycleThefts,
     policeCctvInstallationLocations,
     fireDepartmentDonationInKindRecords,
+    managedHikingTrails,
     aeds,
     dengueRecords,
     evacuationGates,

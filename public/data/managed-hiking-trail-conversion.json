@@ -1,0 +1,32 @@
+{
+  "inputRows": 154,
+  "outputRows": 154,
+  "sourceFile": {
+    "path": "data/raw/managed-hiking-trails/managed-hiking-trails.csv",
+    "fileSize": 21350
+  },
+  "duplicatePrimaryKeys": [],
+  "duplicateFallbackKeys": [],
+  "duplicateTrailRouteNames": [],
+  "duplicateStartPoints": [
+    "碧山路",
+    "碧山工作站前方岔路口",
+    "慈惠堂",
+    "復興園",
+    "福德街221巷",
+    "南港山鞍部",
+    "指南國小"
+  ],
+  "duplicateEndPoints": [
+    "山頂",
+    "稜線步道(含入口意象範圍)",
+    "虎山120高地",
+    "主稜線及景興國小支線轉角"
+  ],
+  "duplicateCoordinatePairs": [],
+  "invalidCoordinateExamples": [],
+  "slopeParseWarnings": [
+    "雙溪國小步道: 3%-5%",
+    "猴山岳步道: 3%-7%"
+  ]
+}

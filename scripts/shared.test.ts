@@ -9,6 +9,7 @@ import {
   convertEvacuationGateRow,
   convertFireDepartmentDonationInKindRow,
   convertFireHydrantRow,
+  convertManagedHikingTrailRow,
   convertMedicalFacilityRow,
   convertMotorcycleTheftRow,
   convertPoliceCctvInstallationLocationRow,
@@ -259,6 +260,58 @@ describe('CSV script helpers', () => {
     });
     expect(record).not.toHaveProperty('latitude');
     expect(record).not.toHaveProperty('longitude');
+  });
+
+  it('converts managed hiking trail rows with start and end source coordinates', () => {
+    const record = convertManagedHikingTrailRow(
+      {
+        序號: '1',
+        行政區: '內湖區',
+        登山步道路線: '天母古道',
+        總長M: '1300',
+        單程步行時間min: '45',
+        步道分級: '親子級',
+        起點: '起點入口',
+        起點經度座標: '121.5925',
+        起點緯度座標: '25.088',
+        起點是否為階梯: '是',
+        迄點: '迄點出口',
+        迄點經度座標: '121.5962',
+        迄點緯度座標: '25.0908',
+        迄點是否為階梯: '否',
+        步道口是否有路擋: '否',
+        是否適合輪椅通行: '否',
+        輪椅可通行段平均坡度: '無',
+        輪椅可通行段長度M: '0',
+        行動電話通訊情形: '可',
+        是否有流動廁所: '是',
+        流動廁所位置: '起點',
+        是否為無障礙廁所: '無',
+      },
+      0,
+    );
+
+    expect(record).toMatchObject({
+      id: 'managed-hiking-trail-1',
+      module: 'managed_hiking_trails',
+      district: '內湖區',
+      trailRouteName: '天母古道',
+      totalLengthMeters: 1300,
+      lengthCategory: '1km_to_2km',
+      oneWayWalkingTimeMinutes: 45,
+      walkingTimeCategory: '30_to_60min',
+      trailGradeCategory: 'family_friendly',
+      hasValidStartCoordinate: true,
+      hasValidEndCoordinate: true,
+      startPointHasStairs: true,
+      endPointHasStairs: false,
+      hasPortableToilet: true,
+      portableToiletLocationCategory: 'start_point',
+      hasAccessibleToilet: null,
+      mobileSignalConditionCategory: 'available',
+    });
+    expect(record.startEndDistanceMeters).toBeGreaterThan(0);
+    expect(record.approximateConnectorGeoJson?.properties.approximation).toBe(true);
   });
 
   it('parses and converts emergency shelter rows without coordinates', () => {

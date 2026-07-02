@@ -14,6 +14,8 @@ import type {
   FireDepartmentDonationInKindSummary,
   FireHydrant,
   FireHydrantSummary,
+  ManagedHikingTrailRecord,
+  ManagedHikingTrailSummary,
   MedicalFacility,
   MotorcycleTheftRecord,
   MotorcycleTheftSummary,
@@ -46,6 +48,7 @@ export async function loadSafetyData(): Promise<SafetyDataBundle> {
     motorcycleThefts,
     policeCctvInstallationLocations,
     fireDepartmentDonationInKindRecords,
+    managedHikingTrails,
     aeds,
     evacuationGates,
     medicalFacilities,
@@ -63,6 +66,7 @@ export async function loadSafetyData(): Promise<SafetyDataBundle> {
     loadJson<MotorcycleTheftRecord[]>('motorcycle-theft-records.json'),
     loadJson<PoliceCctvInstallationLocationRecord[]>('police-cctv-installation-locations.json'),
     loadJson<FireDepartmentDonationInKindRecord[]>('fire-department-donation-in-kind-records.json'),
+    loadJson<ManagedHikingTrailRecord[]>('managed-hiking-trails.json'),
     loadJson<AedLocation[]>('aed-locations.json'),
     loadJson<EvacuationGate[]>('evacuation-gates.json'),
     loadJson<MedicalFacility[]>('medical-facilities.json'),
@@ -81,6 +85,7 @@ export async function loadSafetyData(): Promise<SafetyDataBundle> {
       motorcycleTheftSummary: MotorcycleTheftSummary;
       policeCctvInstallationLocationSummary: PoliceCctvInstallationLocationSummary;
       fireDepartmentDonationInKindSummary: FireDepartmentDonationInKindSummary;
+      managedHikingTrailSummary: ManagedHikingTrailSummary;
       naturalDisasterSuspensionSummary: NaturalDisasterSuspensionSummary;
     }>('safety-dashboard-summary.json'),
     loadJson<ConversionReport>('conversion-report.json'),
@@ -97,6 +102,8 @@ export async function loadSafetyData(): Promise<SafetyDataBundle> {
     policeCctvInstallationLocationSummary: dashboard.policeCctvInstallationLocationSummary,
     fireDepartmentDonationInKindRecords,
     fireDepartmentDonationInKindSummary: dashboard.fireDepartmentDonationInKindSummary,
+    managedHikingTrails,
+    managedHikingTrailSummary: dashboard.managedHikingTrailSummary,
     aeds,
     evacuationGates,
     medicalFacilities,

@@ -58188,6 +58188,319 @@
       "unsupportedResourceCount": 2
     }
   },
+  "managedHikingTrailSummary": {
+    "totalRecords": 154,
+    "totalLengthMeters": 117925,
+    "totalLengthKilometers": 117.925,
+    "minLengthMeters": 70,
+    "maxLengthMeters": 3180,
+    "averageLengthMeters": 766,
+    "minWalkingTimeMinutes": 3,
+    "maxWalkingTimeMinutes": 120,
+    "averageWalkingTimeMinutes": 36,
+    "districtCount": 7,
+    "trailGradeCount": 2,
+    "recordsWithValidStartCoordinate": 154,
+    "recordsWithValidEndCoordinate": 154,
+    "recordsWithBothValidCoordinates": 154,
+    "startPointStairCount": 138,
+    "endPointStairCount": 144,
+    "trailheadRoadblockCount": 6,
+    "wheelchairSuitableCount": 5,
+    "portableToiletCount": 49,
+    "accessibleToiletCount": 3,
+    "mobileSignalAvailableCount": 154,
+    "byDistrict": [
+      {
+        "district": "北投區",
+        "trailCount": 34,
+        "totalLengthMeters": 23121,
+        "averageLengthMeters": 680,
+        "averageWalkingTimeMinutes": 39,
+        "wheelchairSuitableCount": 1,
+        "portableToiletCount": 10,
+        "accessibleToiletCount": 0
+      },
+      {
+        "district": "文山區",
+        "trailCount": 30,
+        "totalLengthMeters": 19529,
+        "averageLengthMeters": 651,
+        "averageWalkingTimeMinutes": 38,
+        "wheelchairSuitableCount": 2,
+        "portableToiletCount": 5,
+        "accessibleToiletCount": 2
+      },
+      {
+        "district": "士林區",
+        "trailCount": 26,
+        "totalLengthMeters": 23100,
+        "averageLengthMeters": 888,
+        "averageWalkingTimeMinutes": 40,
+        "wheelchairSuitableCount": 1,
+        "portableToiletCount": 13,
+        "accessibleToiletCount": 0
+      },
+      {
+        "district": "內湖區",
+        "trailCount": 24,
+        "totalLengthMeters": 24672,
+        "averageLengthMeters": 1028,
+        "averageWalkingTimeMinutes": 40,
+        "wheelchairSuitableCount": 1,
+        "portableToiletCount": 11,
+        "accessibleToiletCount": 1
+      },
+      {
+        "district": "信義區",
+        "trailCount": 24,
+        "totalLengthMeters": 13020,
+        "averageLengthMeters": 543,
+        "averageWalkingTimeMinutes": 20,
+        "wheelchairSuitableCount": 0,
+        "portableToiletCount": 5,
+        "accessibleToiletCount": 0
+      },
+      {
+        "district": "南港區",
+        "trailCount": 13,
+        "totalLengthMeters": 11459,
+        "averageLengthMeters": 881,
+        "averageWalkingTimeMinutes": 32,
+        "wheelchairSuitableCount": 0,
+        "portableToiletCount": 5,
+        "accessibleToiletCount": 0
+      },
+      {
+        "district": "中山區",
+        "trailCount": 3,
+        "totalLengthMeters": 3024,
+        "averageLengthMeters": 1008,
+        "averageWalkingTimeMinutes": 40,
+        "wheelchairSuitableCount": 0,
+        "portableToiletCount": 0,
+        "accessibleToiletCount": 0
+      }
+    ],
+    "byTrailGrade": [
+      {
+        "trailGrade": "親子級",
+        "trailGradeCategory": "family_friendly",
+        "count": 153,
+        "totalLengthMeters": 115139
+      },
+      {
+        "trailGrade": "勇腳級",
+        "trailGradeCategory": "challenging",
+        "count": 1,
+        "totalLengthMeters": 2786
+      }
+    ],
+    "byLengthCategory": [
+      {
+        "lengthCategory": "1km_to_2km",
+        "count": 31
+      },
+      {
+        "lengthCategory": "500m_to_1km",
+        "count": 59
+      },
+      {
+        "lengthCategory": "under_500m",
+        "count": 57
+      },
+      {
+        "lengthCategory": "over_3km",
+        "count": 2
+      },
+      {
+        "lengthCategory": "2km_to_3km",
+        "count": 5
+      }
+    ],
+    "byWalkingTimeCategory": [
+      {
+        "walkingTimeCategory": "30_to_60min",
+        "count": 52
+      },
+      {
+        "walkingTimeCategory": "15_to_30min",
+        "count": 66
+      },
+      {
+        "walkingTimeCategory": "over_90min",
+        "count": 4
+      },
+      {
+        "walkingTimeCategory": "under_15min",
+        "count": 16
+      },
+      {
+        "walkingTimeCategory": "60_to_90min",
+        "count": 16
+      }
+    ],
+    "byMobileSignalCondition": [
+      {
+        "mobileSignalConditionCategory": "available",
+        "count": 154
+      }
+    ],
+    "byPortableToiletLocation": [
+      {
+        "portableToiletLocationCategory": "none",
+        "count": 105
+      },
+      {
+        "portableToiletLocationCategory": "end_point",
+        "count": 22
+      },
+      {
+        "portableToiletLocationCategory": "start_and_end_point",
+        "count": 2
+      },
+      {
+        "portableToiletLocationCategory": "start_point",
+        "count": 25
+      }
+    ],
+    "longestTrails": [
+      {
+        "trailRouteName": "大崙尾山步道圓明寺支線",
+        "district": "內湖區",
+        "totalLengthMeters": 3180,
+        "oneWayWalkingTimeMinutes": 120
+      },
+      {
+        "trailRouteName": "五指山古道",
+        "district": "士林區",
+        "totalLengthMeters": 3000,
+        "oneWayWalkingTimeMinutes": 120
+      },
+      {
+        "trailRouteName": "金面山步道",
+        "district": "內湖區",
+        "totalLengthMeters": 2786,
+        "oneWayWalkingTimeMinutes": 70
+      },
+      {
+        "trailRouteName": "水管路步道",
+        "district": "士林區",
+        "totalLengthMeters": 2600,
+        "oneWayWalkingTimeMinutes": 90
+      },
+      {
+        "trailRouteName": "樟湖步道",
+        "district": "文山區",
+        "totalLengthMeters": 2500,
+        "oneWayWalkingTimeMinutes": 100
+      },
+      {
+        "trailRouteName": "更寮步道",
+        "district": "南港區",
+        "totalLengthMeters": 2450,
+        "oneWayWalkingTimeMinutes": 75
+      },
+      {
+        "trailRouteName": "九五峰",
+        "district": "南港區",
+        "totalLengthMeters": 2165,
+        "oneWayWalkingTimeMinutes": 70
+      },
+      {
+        "trailRouteName": "南港山(一)中華技術學院",
+        "district": "南港區",
+        "totalLengthMeters": 1970,
+        "oneWayWalkingTimeMinutes": 70
+      },
+      {
+        "trailRouteName": "白鷺鷥山步道",
+        "district": "內湖區",
+        "totalLengthMeters": 1845,
+        "oneWayWalkingTimeMinutes": 70
+      },
+      {
+        "trailRouteName": "下青礐步道",
+        "district": "北投區",
+        "totalLengthMeters": 1727,
+        "oneWayWalkingTimeMinutes": 60
+      }
+    ],
+    "shortestTrails": [
+      {
+        "trailRouteName": "老樟樹步道",
+        "district": "文山區",
+        "totalLengthMeters": 70,
+        "oneWayWalkingTimeMinutes": 5
+      },
+      {
+        "trailRouteName": "明聖步道",
+        "district": "南港區",
+        "totalLengthMeters": 76,
+        "oneWayWalkingTimeMinutes": 5
+      },
+      {
+        "trailRouteName": "碧山露營場步道",
+        "district": "內湖區",
+        "totalLengthMeters": 86,
+        "oneWayWalkingTimeMinutes": 10
+      },
+      {
+        "trailRouteName": "郭氏古厝步道",
+        "district": "內湖區",
+        "totalLengthMeters": 100,
+        "oneWayWalkingTimeMinutes": 3
+      },
+      {
+        "trailRouteName": "登高步道",
+        "district": "文山區",
+        "totalLengthMeters": 100,
+        "oneWayWalkingTimeMinutes": 15
+      },
+      {
+        "trailRouteName": "淨水廠步道",
+        "district": "北投區",
+        "totalLengthMeters": 132,
+        "oneWayWalkingTimeMinutes": 15
+      },
+      {
+        "trailRouteName": "北台慈惠堂步道",
+        "district": "信義區",
+        "totalLengthMeters": 150,
+        "oneWayWalkingTimeMinutes": 10
+      },
+      {
+        "trailRouteName": "虎山峰下方步道",
+        "district": "信義區",
+        "totalLengthMeters": 157,
+        "oneWayWalkingTimeMinutes": 10
+      },
+      {
+        "trailRouteName": "楓林步道",
+        "district": "文山區",
+        "totalLengthMeters": 160,
+        "oneWayWalkingTimeMinutes": 15
+      },
+      {
+        "trailRouteName": "桂花吊橋親水步道",
+        "district": "南港區",
+        "totalLengthMeters": 170,
+        "oneWayWalkingTimeMinutes": 10
+      }
+    ],
+    "dataQuality": {
+      "missingTrailRouteNameCount": 0,
+      "missingDistrictCount": 0,
+      "invalidLengthCount": 0,
+      "invalidWalkingTimeCount": 0,
+      "invalidStartCoordinateCount": 0,
+      "invalidEndCoordinateCount": 0,
+      "duplicateTrailRouteNameCount": 0,
+      "duplicateStartPointCount": 7,
+      "duplicateEndPointCount": 4,
+      "duplicateFallbackKeyCount": 0
+    }
+  },
   "evacuationGateCount": 36,
   "evacuationGateSummary": {
     "totalRecords": 36,

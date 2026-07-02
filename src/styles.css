@@ -78,7 +78,7 @@ input {
 
 .tabs {
   display: grid;
-  grid-template-columns: repeat(11, 1fr);
+  grid-template-columns: repeat(12, 1fr);
   gap: 1px;
   position: sticky;
   top: 0;
@@ -201,6 +201,12 @@ input {
 
 .cctv-marker span {
   border-color: #374151;
+}
+
+.hiking-trail-marker span {
+  border-color: #2f7d74;
+  color: #2f7d74;
+  font-weight: 900;
 }
 
 .popup-stack {
