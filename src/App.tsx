@@ -1,6 +1,6 @@
 import L from 'leaflet';
 import { useEffect, useMemo, useState } from 'react';
-import { CircleMarker, MapContainer, Marker, Polyline, Popup, TileLayer, useMap, useMapEvents } from 'react-leaflet';
+import { CircleMarker, MapContainer, Marker, Polygon, Polyline, Popup, TileLayer, useMap, useMapEvents } from 'react-leaflet';
 import { loadSafetyData } from './lib/loadSafetyData';
 import { loadFireHydrants } from './lib/loadSafetyData';
 import {
@@ -30,6 +30,10 @@ import type {
   FireHydrant,
   FireHydrantAreaScope,
   FireHydrantType,
+  FloodingAreaCategory,
+  FloodingDepthCategory,
+  HistoricalFloodingRecord,
+  HistoricalFloodingSeason,
   IncidentTimeOfDayCategory,
   Language,
   ManagedHikingTrailRecord,
@@ -43,7 +47,7 @@ import type {
   TrafficCctvFacility,
 } from './types';
 
-type Tab = 'map' | 'nearby' | 'burglary' | 'bike' | 'motorcycle' | 'policeCctv' | 'fireDonations' | 'hikingTrails' | 'health' | 'disaster' | 'overview' | 'notes';
+type Tab = 'map' | 'nearby' | 'burglary' | 'bike' | 'motorcycle' | 'policeCctv' | 'fireDonations' | 'fireRescueAreas' | 'hikingTrails' | 'flooding' | 'health' | 'disaster' | 'overview' | 'notes';
 type CapacityRange = 'all' | 'under100' | '100-499' | '500-999' | '1000plus';
 type DenseLayer = 'aeds' | 'medical' | 'fireHydrants' | 'airRaidShelters' | 'evacuationGates' | 'cctv';
 const tileAttribution = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>';
@@ -185,6 +189,29 @@ const locationFuzzinessLevels: BicycleTheftLocationFuzzinessLevel[] = [
   'district_only',
   'unknown',
 ];
+const floodingDepthCategories: FloodingDepthCategory[] = ['under_10cm', '10_to_30cm', '30_to_50cm', '50cm_to_1m', 'over_1m', 'missing', 'unknown'];
+const floodingAreaCategories: FloodingAreaCategory[] = ['under_100sqm', '100_to_500sqm', '500_to_1000sqm', '1000_to_5000sqm', 'over_5000sqm', 'missing', 'unknown'];
+const floodingSeasons: HistoricalFloodingSeason[] = ['spring', 'summer', 'autumn', 'winter', 'unknown'];
+const floodingLabels = {
+  zh: {
+    shortTitle: '歷史積水',
+    title: '歷史積水紀錄圖',
+    subtitle: '查詢臺北市水利處歷史積水紀錄KML資料，包含發生日期、行政區、積水位置、積水深度、面積與來源KML幾何。',
+    mapNotice: '本圖顯示來源KML中的歷史積水紀錄空間資料，僅供歷史紀錄查詢與都市水文、防災資料探索使用。圖上範圍或點位不代表即時積水狀態、淹水預報、道路通行狀況、土地或建物風險判定、保險建議、房價判斷或官方安全保證。',
+    popupNotice: '此為歷史積水紀錄，不代表目前積水、即時道路狀況、未來淹水機率或官方風險判定。',
+    disclaimer: '臺北市水利處歷史積水紀錄圖提供歷史積水事件之面積、發生日期、行政區、積水位置與積水深度等來源欄位，並以KML格式提供空間資料，僅供歷史積水紀錄查詢、都市水文、排水與防災資料探索使用。本資料不代表即時積水狀態、即時道路通行狀況、淹水預報、災害警示、土地或建物風險判定、保險建議、房價判斷、法律責任、完整災害紀錄或官方安全保證。',
+    search: '搜尋行政區、積水位置、道路或日期',
+  },
+  en: {
+    shortTitle: 'Historical Flooding',
+    title: 'Historical Flooding Records',
+    subtitle: 'Explore Taipei Water Resources Office historical flooding KML records with event date, district, ponding location, depth, area, and source KML geometry.',
+    mapNotice: 'This map shows historical flooding record spatial data from the source KML. It is for historical record lookup and urban hydrology / disaster-prevention data exploration only. Areas or points on the map do not represent real-time flooding status, flood forecast, road access condition, land or building risk determination, insurance advice, real-estate price judgment, or official safety guarantee.',
+    popupNotice: 'This is a historical flooding record and does not represent current flooding, real-time road conditions, future flooding probability, or official risk determination.',
+    disclaimer: 'Taipei Water Resources Office historical flooding records provide source fields such as area, event date, district, ponding location, and ponding depth, with spatial data provided in KML format. They are for historical flooding record lookup, urban hydrology, drainage, and disaster-prevention data exploration only. This data does not represent real-time flooding status, current road conditions, flood forecast, disaster warning, land or building risk determination, insurance advice, real-estate price judgment, legal liability, complete disaster history, or official safety guarantee.',
+    search: 'Search district, ponding location, road, or date',
+  },
+};
 const bicycleLabels = {
   zh: {
     all: '全部',
@@ -575,6 +602,84 @@ const hikingTrailLabels = {
     interpretationNote: 'This data is for hiking trail lookup and outdoor activity preparation reference only. It does not represent real-time open/closed status, weather conditions, disaster risk, rescue availability, complete route geometry, accessibility guarantee, personal fitness advice, medical advice, official route recommendation, or safety guarantee.',
   },
 } as const;
+const fireRescueAreaLabels = {
+  zh: {
+    all: '全部',
+    title: '火災搶救困難地區',
+    shortTitle: '搶救困難地區',
+    subtitle: '查詢臺北市火災搶救困難地區公開資料，包含項次編號、評分等級、認定項目、行政區編號、地址與場所名稱，作為消防、防災與公共安全資訊參考。',
+    district: '行政區',
+    districtCode: '行政區編號',
+    ratingLevel: '評分等級',
+    recognitionItem: '認定項目',
+    roadName: '道路',
+    areaOrRange: '街廓或範圍型地址',
+    locationPrecision: '位置精度',
+    search: '搜尋',
+    searchPlaceholder: '搜尋行政區、地址、場所名稱、評分等級或認定項目',
+    recordCount: '紀錄數',
+    districtsCovered: '涵蓋行政區數',
+    uniqueAddressCount: '不重複地址數',
+    uniquePlaceNameCount: '不重複場所名稱數',
+    level1Count: '等級1紀錄數',
+    level2Count: '等級2紀錄數',
+    topDistrict: '紀錄最多行政區',
+    topRecognitionItem: '最多認定項目',
+    areaOrRangeCount: '街廓或範圍型地址數',
+    mapLookupCount: '可建立地圖查詢紀錄',
+    byDistrict: '各行政區紀錄數',
+    byRatingLevel: '各評分等級紀錄數',
+    byRecognitionItem: '各認定項目紀錄數',
+    topRoads: '紀錄最多道路',
+    topPlaces: '紀錄最多場所名稱',
+    directory: '火災搶救困難地區清冊',
+    sequence: '項次編號',
+    address: '地址',
+    placeName: '場所名稱',
+    mapLookup: '地圖查詢',
+    defaultMapNotice: '火災搶救困難地區資料提供行政區編號、地址與場所名稱，但未提供官方經緯度。本模組以行政區彙總、地址清單與外部地圖查詢呈現，不顯示官方精確點位。',
+    dataNote: '臺北市火災搶救困難地區資料提供項次編號、評分等級、認定項目、行政區編號、地址與場所名稱。本網站保留來源欄位，並整理為行政區分布、評分等級、認定項目及地址場所清單。',
+    interpretationNote: '本資料僅供消防搶救困難地區公開資料查詢與防災資訊參考使用，不代表即時火災風險、即時災害狀態、建築安全認證、救援可達性保證、消防搶救時間預測、保險建議、房價判斷、法律責任判定、違規紀錄、官方危險排名或官方背書。',
+  },
+  en: {
+    all: 'All',
+    title: 'Fire Rescue Difficult Areas',
+    shortTitle: 'Rescue Difficult Areas',
+    subtitle: 'Look up Taipei fire rescue difficult area public data, including sequence number, rating level, recognition item, administrative district code, address, and place name as firefighting, disaster prevention, and public safety reference information.',
+    district: 'District',
+    districtCode: 'District code',
+    ratingLevel: 'Rating level',
+    recognitionItem: 'Recognition item',
+    roadName: 'Road',
+    areaOrRange: 'Area or range-style address',
+    locationPrecision: 'Location precision',
+    search: 'Search',
+    searchPlaceholder: 'Search district, address, place name, rating level, or recognition item',
+    recordCount: 'Record count',
+    districtsCovered: 'Districts covered',
+    uniqueAddressCount: 'Unique address count',
+    uniquePlaceNameCount: 'Unique place-name count',
+    level1Count: 'Level 1 record count',
+    level2Count: 'Level 2 record count',
+    topDistrict: 'Top district by record count',
+    topRecognitionItem: 'Top recognition item',
+    areaOrRangeCount: 'Area or range-style address count',
+    mapLookupCount: 'Records with map lookup',
+    byDistrict: 'Records by district',
+    byRatingLevel: 'Records by rating level',
+    byRecognitionItem: 'Records by recognition item',
+    topRoads: 'Top road names',
+    topPlaces: 'Top place names',
+    directory: 'Fire Rescue Difficult Area Directory',
+    sequence: 'Sequence number',
+    address: 'Address',
+    placeName: 'Place name',
+    mapLookup: 'Map lookup',
+    defaultMapNotice: 'Fire rescue difficult area data provides administrative district code, address, and place name, but does not provide official coordinates. This module uses district summaries, address lists, and external map lookup links and does not show official exact points.',
+    dataNote: 'Taipei fire rescue difficult area data provides sequence number, rating level, recognition item, administrative district code, address, and place name. This site preserves source fields and organizes the data into district distribution, rating levels, recognition items, and an address/place directory.',
+    interpretationNote: 'This data is for public fire rescue difficult area lookup and disaster-prevention information reference only. It does not represent real-time fire risk, current disaster status, building safety certification, rescue accessibility guarantee, firefighting response-time prediction, insurance advice, real-estate price judgment, legal liability determination, violation record, official danger ranking, or official endorsement.',
+  },
+} as const;
 const disasterLabels = {
   zh: {
     all: '全部',
@@ -714,7 +819,9 @@ function App() {
             ['motorcycle', language === 'zh' ? '機車竊盜' : 'Motorcycle Theft'],
             ['policeCctv', language === 'zh' ? '警察局監視器' : 'Police CCTV'],
             ['fireDonations', language === 'zh' ? '消防捐贈實物' : 'Fire Dept Donations'],
+            ['fireRescueAreas', fireRescueAreaLabels[language].shortTitle],
             ['hikingTrails', hikingTrailLabels[language].shortTitle],
+            ['flooding', floodingLabels[language].shortTitle],
             ['health', t.publicHealth],
             ['disaster', language === 'zh' ? '停班停課紀錄' : 'Closure Records'],
             ['overview', t.safetyOverview],
@@ -739,7 +846,9 @@ function App() {
       {activeTab === 'motorcycle' && <BicycleTheftRecords data={data} language={language} mode="motorcycle" />}
       {activeTab === 'policeCctv' && <PoliceCctvInstallationLocations data={data} language={language} />}
       {activeTab === 'fireDonations' && <FireDepartmentDonations data={data} language={language} />}
+      {activeTab === 'fireRescueAreas' && <FireRescueDifficultAreas data={data} language={language} />}
       {activeTab === 'hikingTrails' && <ManagedHikingTrails data={data} language={language} />}
+      {activeTab === 'flooding' && <HistoricalFloodingRecords data={data} language={language} />}
       {activeTab === 'health' && <PublicHealth data={data} language={language} />}
       {activeTab === 'disaster' && <NaturalDisasterSuspensions data={data} language={language} />}
       {activeTab === 'overview' && <SafetyOverview data={data} language={language} />}
@@ -2489,6 +2598,105 @@ function FireDepartmentDonations({ data, language }: { data: SafetyDataBundle; l
   );
 }
 
+function FireRescueDifficultAreas({ data, language }: { data: SafetyDataBundle; language: Language }) {
+  const labels = fireRescueAreaLabels[language];
+  const [district, setDistrict] = useState('all');
+  const [districtCode, setDistrictCode] = useState('all');
+  const [ratingLevel, setRatingLevel] = useState('all');
+  const [recognitionItem, setRecognitionItem] = useState('all');
+  const [roadName, setRoadName] = useState('all');
+  const [locationPrecision, setLocationPrecision] = useState('all');
+  const [areaOrRangeOnly, setAreaOrRangeOnly] = useState(false);
+  const [search, setSearch] = useState('');
+  const records = data.fireRescueDifficultAreas;
+  const summary = data.fireRescueDifficultAreaSummary;
+  const districts = [...new Set(records.flatMap((record) => (record.districtName ? [record.districtName] : [])))].sort();
+  const districtCodes = [...new Set(records.flatMap((record) => (record.districtCodeNormalized ? [record.districtCodeNormalized] : [])))].sort();
+  const ratingLevels = [...new Set(records.flatMap((record) => (record.ratingLevel ? [record.ratingLevel] : [])))].sort();
+  const recognitionItems = [...new Set(records.flatMap((record) => (record.recognitionItemCode ? [record.recognitionItemCode] : [])))].sort();
+  const roads = summary.byRoadName.slice(0, 100).map((item) => item.roadName);
+  const filtered = records.filter((record) => {
+    const haystack = [
+      record.sourceSequenceNumberNormalized,
+      record.districtCodeNormalized,
+      record.districtName,
+      record.ratingLevel,
+      record.recognitionItemCode,
+      record.address,
+      record.placeName,
+      record.roadName,
+    ].join(' ').toLowerCase();
+    return (
+      (district === 'all' || record.districtName === district) &&
+      (districtCode === 'all' || record.districtCodeNormalized === districtCode) &&
+      (ratingLevel === 'all' || record.ratingLevel === ratingLevel) &&
+      (recognitionItem === 'all' || record.recognitionItemCode === recognitionItem) &&
+      (roadName === 'all' || record.roadName === roadName) &&
+      (locationPrecision === 'all' || record.locationPrecision === locationPrecision) &&
+      (!areaOrRangeOnly || record.addressLooksLikeAreaOrRange) &&
+      (!search.trim() || haystack.includes(search.trim().toLowerCase()))
+    );
+  });
+
+  return (
+    <main className="overview">
+      <section className="filter-panel health-filters">
+        <label>{labels.district}<select value={district} onChange={(event) => setDistrict(event.target.value)}><option value="all">{labels.all}</option>{districts.map((value) => <option key={value}>{value}</option>)}</select></label>
+        <label>{labels.districtCode}<select value={districtCode} onChange={(event) => setDistrictCode(event.target.value)}><option value="all">{labels.all}</option>{districtCodes.map((value) => <option key={value}>{value}</option>)}</select></label>
+        <label>{labels.ratingLevel}<select value={ratingLevel} onChange={(event) => setRatingLevel(event.target.value)}><option value="all">{labels.all}</option>{ratingLevels.map((value) => <option key={value}>{formatFireRescueRatingLevel(value, language)}</option>)}</select></label>
+        <label>{labels.recognitionItem}<select value={recognitionItem} onChange={(event) => setRecognitionItem(event.target.value)}><option value="all">{labels.all}</option>{recognitionItems.map((value) => <option key={value}>{formatFireRescueRecognitionItem(value, language)}</option>)}</select></label>
+        <label>{labels.roadName}<select value={roadName} onChange={(event) => setRoadName(event.target.value)}><option value="all">{labels.all}</option>{roads.map((value) => <option key={value}>{value}</option>)}</select></label>
+        <label>{labels.locationPrecision}<select value={locationPrecision} onChange={(event) => setLocationPrecision(event.target.value)}><option value="all">{labels.all}</option>{['district_only', 'address_only', 'area_or_street_range_address', 'missing'].map((value) => <option key={value} value={value}>{formatFireRescueLocationPrecision(value, language)}</option>)}</select></label>
+        <label>{labels.search}<input value={search} placeholder={labels.searchPlaceholder} onChange={(event) => setSearch(event.target.value)} /></label>
+        <label className="checkbox-row"><input type="checkbox" checked={areaOrRangeOnly} onChange={(event) => setAreaOrRangeOnly(event.target.checked)} />{labels.areaOrRange}</label>
+      </section>
+      <h1>{labels.title}</h1>
+      <p>{labels.subtitle}</p>
+      <p className="notice">{labels.defaultMapNotice}</p>
+      <section className="summary-grid">
+        <Metric label={labels.recordCount} value={summary.totalRecords.toLocaleString()} />
+        <Metric label={labels.districtsCovered} value={summary.districtCount.toLocaleString()} />
+        <Metric label={labels.uniqueAddressCount} value={summary.uniqueAddressCount.toLocaleString()} />
+        <Metric label={labels.uniquePlaceNameCount} value={summary.uniquePlaceNameCount.toLocaleString()} />
+        <Metric label={labels.level1Count} value={(summary.byRatingLevel.find((item) => item.ratingLevelCategory === 'level_1')?.count ?? 0).toLocaleString()} />
+        <Metric label={labels.level2Count} value={(summary.byRatingLevel.find((item) => item.ratingLevelCategory === 'level_2')?.count ?? 0).toLocaleString()} />
+        <Metric label={labels.topDistrict} value={summary.byDistrict[0]?.districtName ?? '-'} />
+        <Metric label={labels.topRecognitionItem} value={summary.byRecognitionItem[0] ? formatFireRescueRecognitionItem(summary.byRecognitionItem[0].recognitionItemCode, language) : '-'} />
+        <Metric label={labels.areaOrRangeCount} value={summary.recordsWithAreaOrRangeAddress.toLocaleString()} />
+        <Metric label={labels.mapLookupCount} value={records.filter((record) => record.googleMapsQuery).length.toLocaleString()} />
+      </section>
+      <section className="chart-grid">
+        <BarChart title={labels.byDistrict} values={Object.fromEntries(summary.byDistrict.map((item) => [item.districtName ?? item.districtCode, item.count]))} />
+        <BarChart title={labels.byRatingLevel} values={Object.fromEntries(summary.byRatingLevel.map((item) => [formatFireRescueRatingLevel(item.ratingLevel, language), item.count]))} />
+        <BarChart title={labels.byRecognitionItem} values={Object.fromEntries(summary.byRecognitionItem.map((item) => [formatFireRescueRecognitionItem(item.recognitionItemCode, language), item.count]))} />
+        <BarChart title={labels.topRoads} values={Object.fromEntries(summary.byRoadName.slice(0, 20).map((item) => [item.roadName, item.count]))} />
+        <BarChart title={labels.topPlaces} values={Object.fromEntries(summary.topPlaceNames.slice(0, 20).map((item) => [item.placeName, item.count]))} />
+      </section>
+      <h2>{labels.directory}</h2>
+      <p>{labels.recordCount}: {filtered.length.toLocaleString()}</p>
+      <table>
+        <thead><tr><th>{labels.sequence}</th><th>{labels.district}</th><th>{labels.districtCode}</th><th>{labels.ratingLevel}</th><th>{labels.recognitionItem}</th><th>{labels.address}</th><th>{labels.placeName}</th><th>{labels.locationPrecision}</th><th>{labels.mapLookup}</th></tr></thead>
+        <tbody>
+          {filtered.slice(0, 100).map((record) => (
+            <tr key={record.id}>
+              <td>{record.sourceSequenceNumberNormalized ?? '-'}</td>
+              <td>{record.districtName ?? '-'}</td>
+              <td>{record.districtCodeNormalized ?? '-'}</td>
+              <td>{record.ratingLevel ? formatFireRescueRatingLevel(record.ratingLevel, language) : '-'}</td>
+              <td>{record.recognitionItemCode ? formatFireRescueRecognitionItem(record.recognitionItemCode, language) : '-'}</td>
+              <td>{record.address ?? '-'}</td>
+              <td>{record.placeName ?? '-'}</td>
+              <td>{formatFireRescueLocationPrecision(record.locationPrecision, language)}</td>
+              <td>{record.googleMapsQuery ? <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(record.googleMapsQuery)}`}>{labels.mapLookup}</a> : '-'}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <p className="notice">{labels.interpretationNote}</p>
+    </main>
+  );
+}
+
 function ManagedHikingTrails({ data, language }: { data: SafetyDataBundle; language: Language }) {
   const labels = hikingTrailLabels[language];
   const [district, setDistrict] = useState('all');
@@ -2616,6 +2824,98 @@ function ManagedHikingTrails({ data, language }: { data: SafetyDataBundle; langu
       <p className="notice">{labels.interpretationNote}</p>
     </main>
   );
+}
+
+function HistoricalFloodingRecords({ data, language }: { data: SafetyDataBundle; language: Language }) {
+  const labels = floodingLabels[language];
+  const [district, setDistrict] = useState('all');
+  const [year, setYear] = useState('all');
+  const [season, setSeason] = useState<HistoricalFloodingSeason | 'all'>('all');
+  const [depthCategory, setDepthCategory] = useState<FloodingDepthCategory | 'all'>('all');
+  const [areaCategory, setAreaCategory] = useState<FloodingAreaCategory | 'all'>('all');
+  const [search, setSearch] = useState('');
+  const records = data.historicalFloodingRecords;
+  const summary = data.historicalFloodingSummary;
+  const districts = [...new Set(records.map((record) => record.districtNameNormalized).filter(Boolean))].sort();
+  const years = [...new Set(records.map((record) => record.eventYear).filter(Boolean))].sort();
+  const filtered = records.filter((record) => {
+    if (district !== 'all' && record.districtNameNormalized !== district) return false;
+    if (year !== 'all' && record.eventYear !== Number(year)) return false;
+    if (season !== 'all' && record.eventSeason !== season) return false;
+    if (depthCategory !== 'all' && record.floodingDepthCategory !== depthCategory) return false;
+    if (areaCategory !== 'all' && record.floodingAreaCategory !== areaCategory) return false;
+    const haystack = `${record.eventDate} ${record.districtNameNormalized} ${record.floodingLocationAddressNormalized} ${record.roadName} ${record.floodingDepthRaw} ${record.floodingAreaRaw}`.toLowerCase();
+    return haystack.includes(search.trim().toLowerCase());
+  });
+  const topDistrict = summary.byDistrict[0];
+  const topYear = [...summary.byEventYear].sort((a, b) => b.count - a.count)[0];
+  const topDepth = [...summary.byFloodingDepthCategory].sort((a, b) => b.count - a.count)[0];
+  const topArea = [...summary.byFloodingAreaCategory].sort((a, b) => b.count - a.count)[0];
+  return (
+    <main className="overview">
+      <section className="section-heading">
+        <h2>{labels.title}</h2>
+        <p>{labels.subtitle}</p>
+      </section>
+      <section className="filters">
+        <label><span>{language === 'zh' ? '行政區' : 'District'}</span><select value={district} onChange={(event) => setDistrict(event.target.value)}><option value="all">{language === 'zh' ? '全部' : 'All'}</option>{districts.map((item) => <option key={item} value={item}>{item}</option>)}</select></label>
+        <label><span>{language === 'zh' ? '年度' : 'Year'}</span><select value={year} onChange={(event) => setYear(event.target.value)}><option value="all">{language === 'zh' ? '全部' : 'All'}</option>{years.map((item) => <option key={item} value={item}>{item}</option>)}</select></label>
+        <label><span>{language === 'zh' ? '季節' : 'Season'}</span><select value={season} onChange={(event) => setSeason(event.target.value as HistoricalFloodingSeason | 'all')}><option value="all">{language === 'zh' ? '全部' : 'All'}</option>{floodingSeasons.map((item) => <option key={item} value={item}>{formatFloodingSeason(item, language)}</option>)}</select></label>
+        <label><span>{language === 'zh' ? '深度類別' : 'Depth category'}</span><select value={depthCategory} onChange={(event) => setDepthCategory(event.target.value as FloodingDepthCategory | 'all')}><option value="all">{language === 'zh' ? '全部' : 'All'}</option>{floodingDepthCategories.map((item) => <option key={item} value={item}>{formatFloodingDepthCategory(item, language)}</option>)}</select></label>
+        <label><span>{language === 'zh' ? '面積類別' : 'Area category'}</span><select value={areaCategory} onChange={(event) => setAreaCategory(event.target.value as FloodingAreaCategory | 'all')}><option value="all">{language === 'zh' ? '全部' : 'All'}</option>{floodingAreaCategories.map((item) => <option key={item} value={item}>{formatFloodingAreaCategory(item, language)}</option>)}</select></label>
+        <label><span>{language === 'zh' ? '搜尋' : 'Search'}</span><input value={search} onChange={(event) => setSearch(event.target.value)} placeholder={labels.search} /></label>
+      </section>
+      <section className="summary-grid">
+        <Metric label={language === 'zh' ? '歷史積水紀錄數' : 'Historical flooding record count'} value={summary.totalRecords.toLocaleString()} />
+        <Metric label={language === 'zh' ? '發生日期範圍' : 'Event date range'} value={`${summary.minEventDate ?? '-'} - ${summary.maxEventDate ?? '-'}`} />
+        <Metric label={language === 'zh' ? '涵蓋行政區數' : 'Districts covered'} value={summary.districtCount.toLocaleString()} />
+        <Metric label={language === 'zh' ? '有效空間資料紀錄數' : 'Records with valid geometry'} value={summary.recordsWithValidGeometry.toLocaleString()} />
+        <Metric label={language === 'zh' ? '有積水深度紀錄數' : 'Records with depth'} value={summary.recordsWithDepth.toLocaleString()} />
+        <Metric label={language === 'zh' ? '有面積紀錄數' : 'Records with area'} value={summary.recordsWithArea.toLocaleString()} />
+        <Metric label={language === 'zh' ? '最大積水深度' : 'Maximum depth'} value={`${fmt(summary.maxFloodingDepthCm)} cm`} />
+        <Metric label={language === 'zh' ? '平均積水深度' : 'Average depth'} value={`${fmt(summary.averageFloodingDepthCm)} cm`} />
+        <Metric label={language === 'zh' ? '最大積水面積' : 'Maximum area'} value={`${fmt(summary.maxFloodingAreaSquareMeters, 0)} m2`} />
+        <Metric label={language === 'zh' ? '累計紀錄面積' : 'Total recorded area'} value={`${fmt(summary.totalFloodingAreaSquareMeters, 0)} m2`} />
+        <Metric label={language === 'zh' ? '紀錄最多行政區' : 'Top district'} value={topDistrict?.districtName ?? '-'} />
+        <Metric label={language === 'zh' ? '紀錄最多年度' : 'Top year'} value={topYear ? String(topYear.eventYear) : '-'} />
+        <Metric label={language === 'zh' ? '最多深度類別' : 'Most common depth category'} value={topDepth ? formatFloodingDepthCategory(topDepth.floodingDepthCategory, language) : '-'} />
+        <Metric label={language === 'zh' ? '最多面積類別' : 'Most common area category'} value={topArea ? formatFloodingAreaCategory(topArea.floodingAreaCategory, language) : '-'} />
+      </section>
+      <section className="map-card">
+        <h2>{language === 'zh' ? '歷史積水紀錄圖' : 'Historical Flooding Records Map'}</h2>
+        <p>{labels.mapNotice}</p>
+        <MapContainer center={taipeiCenter} zoom={12} scrollWheelZoom className="map">
+          <TileLayer attribution={tileAttribution} url={tileUrl} />
+          <MapSizeSync />
+          {filtered.filter((record) => record.geometryValid).slice(0, 900).map((record) => <FloodingGeometry key={record.id} record={record} language={language} />)}
+        </MapContainer>
+      </section>
+      <section className="chart-grid">
+        <BarChart title={language === 'zh' ? '各年度紀錄數' : 'Records by year'} values={Object.fromEntries(summary.byEventYear.map((item) => [String(item.eventYear), item.count]))} />
+        <BarChart title={language === 'zh' ? '各年月紀錄數' : 'Records by year-month'} values={Object.fromEntries(summary.byEventYearMonth.slice(-36).map((item) => [item.eventYearMonth, item.count]))} />
+        <BarChart title={language === 'zh' ? '各行政區紀錄數' : 'Records by district'} values={Object.fromEntries(summary.byDistrict.map((item) => [item.districtName, item.count]))} />
+        <BarChart title={language === 'zh' ? '積水深度類別分布' : 'Flooding depth category distribution'} values={Object.fromEntries(summary.byFloodingDepthCategory.map((item) => [formatFloodingDepthCategory(item.floodingDepthCategory, language), item.count]))} />
+        <BarChart title={language === 'zh' ? '積水面積類別分布' : 'Flooding area category distribution'} values={Object.fromEntries(summary.byFloodingAreaCategory.map((item) => [formatFloodingAreaCategory(item.floodingAreaCategory, language), item.count]))} />
+        <BarChart title={language === 'zh' ? '各幾何類型紀錄數' : 'Records by geometry type'} values={Object.fromEntries(summary.byGeometryType.map((item) => [item.geometryType, item.count]))} />
+        <BarChart title={language === 'zh' ? '紀錄最多道路' : 'Top roads by record count'} values={Object.fromEntries(summary.topRoadNames.slice(0, 15).map((item) => [item.roadName, item.count]))} />
+        <BarChart title={language === 'zh' ? '紀錄最多積水位置' : 'Top ponding locations by record count'} values={Object.fromEntries(summary.topAddresses.slice(0, 15).map((item) => [item.address, item.count]))} />
+      </section>
+      <p className="notice">{labels.disclaimer}</p>
+      <section className="directory">
+        <h2>{language === 'zh' ? '歷史積水紀錄清單' : 'Historical Flooding Record Directory'}</h2>
+        <div className="table-wrap">
+          <table>
+            <thead><tr>{[language === 'zh' ? '發生日期' : 'Event date', language === 'zh' ? '行政區' : 'District', language === 'zh' ? '積水位置' : 'Ponding location', language === 'zh' ? '積水深度' : 'Depth', language === 'zh' ? '面積' : 'Area', language === 'zh' ? '幾何類型' : 'Geometry type'].map((heading) => <th key={heading}>{heading}</th>)}</tr></thead>
+            <tbody>{filtered.slice(0, 500).map((record) => <tr key={record.id}><td>{record.eventDate ?? '-'}</td><td>{record.districtNameNormalized ?? '-'}</td><td>{record.floodingLocationAddressNormalized ?? '-'}</td><td>{record.floodingDepthCm ?? '-'} cm</td><td>{fmt(record.floodingAreaSquareMeters, 0)} m2</td><td>{record.geometryType ?? '-'}</td></tr>)}</tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  );
+}
+
+function fmt(value: number | undefined, digits = 1) {
+  return value === undefined || !Number.isFinite(value) ? '-' : value.toLocaleString(undefined, { maximumFractionDigits: digits });
 }
 
 function PublicHealth({ data, language }: { data: SafetyDataBundle; language: Language }) {
@@ -3052,8 +3352,12 @@ function SafetyOverview({ data, language }: { data: SafetyDataBundle; language: 
   const policeCctvLabelsForOverview = policeCctvLabels[language];
   const fireDonationSummary = data.fireDepartmentDonationInKindSummary;
   const fireDonationLabelsForOverview = fireDonationLabels[language];
+  const fireRescueAreaSummary = data.fireRescueDifficultAreaSummary;
+  const fireRescueAreaLabelsForOverview = fireRescueAreaLabels[language];
   const hikingSummary = data.managedHikingTrailSummary;
   const hikingLabelsForOverview = hikingTrailLabels[language];
+  const floodingSummary = data.historicalFloodingSummary;
+  const floodingLabelsForOverview = floodingLabels[language];
 
   return (
     <main className="overview">
@@ -3083,6 +3387,12 @@ function SafetyOverview({ data, language }: { data: SafetyDataBundle; language: 
         <Metric label={fireDonationLabelsForOverview.uniqueDonorCount} value={fireDonationSummary.uniqueDonorCount.toLocaleString()} />
         <Metric label={fireDonationLabelsForOverview.recordsWithCompleteDate} value={fireDonationSummary.recordsWithDonationDate.toLocaleString()} />
         <Metric label={fireDonationLabelsForOverview.topDonor} value={fireDonationSummary.byDonor[0]?.donorName ?? '-'} />
+        <Metric label={fireRescueAreaLabelsForOverview.recordCount} value={fireRescueAreaSummary.totalRecords.toLocaleString()} />
+        <Metric label={fireRescueAreaLabelsForOverview.districtsCovered} value={fireRescueAreaSummary.districtCount.toLocaleString()} />
+        <Metric label={fireRescueAreaLabelsForOverview.uniqueAddressCount} value={fireRescueAreaSummary.uniqueAddressCount.toLocaleString()} />
+        <Metric label={fireRescueAreaLabelsForOverview.level1Count} value={(fireRescueAreaSummary.byRatingLevel.find((item) => item.ratingLevelCategory === 'level_1')?.count ?? 0).toLocaleString()} />
+        <Metric label={fireRescueAreaLabelsForOverview.level2Count} value={(fireRescueAreaSummary.byRatingLevel.find((item) => item.ratingLevelCategory === 'level_2')?.count ?? 0).toLocaleString()} />
+        <Metric label={fireRescueAreaLabelsForOverview.topDistrict} value={fireRescueAreaSummary.byDistrict[0]?.districtName ?? '-'} />
         <Metric label={hikingLabelsForOverview.recordCount} value={hikingSummary.totalRecords.toLocaleString()} />
         <Metric label={hikingLabelsForOverview.totalLength} value={`${hikingSummary.totalLengthKilometers.toLocaleString()} km`} />
         <Metric label={hikingLabelsForOverview.districtsCovered} value={hikingSummary.districtCount.toLocaleString()} />
@@ -3091,6 +3401,12 @@ function SafetyOverview({ data, language }: { data: SafetyDataBundle; language: 
         <Metric label={hikingLabelsForOverview.wheelchairCount} value={hikingSummary.wheelchairSuitableCount.toLocaleString()} />
         <Metric label={hikingLabelsForOverview.portableToiletCount} value={hikingSummary.portableToiletCount.toLocaleString()} />
         <Metric label={hikingLabelsForOverview.accessibleToiletCount} value={hikingSummary.accessibleToiletCount.toLocaleString()} />
+        <Metric label={floodingLabelsForOverview.recordCount} value={floodingSummary.totalRecords.toLocaleString()} />
+        <Metric label={floodingLabelsForOverview.districtsCovered} value={floodingSummary.districtCount.toLocaleString()} />
+        <Metric label={floodingLabelsForOverview.dateRange} value={`${floodingSummary.minEventDate ?? '-'} - ${floodingSummary.maxEventDate ?? '-'}`} />
+        <Metric label={floodingLabelsForOverview.validGeometryCount} value={floodingSummary.recordsWithValidGeometry.toLocaleString()} />
+        <Metric label={floodingLabelsForOverview.maxDepth} value={`${fmt(floodingSummary.maxFloodingDepthCm)} cm`} />
+        <Metric label={floodingLabelsForOverview.topDistrict} value={floodingSummary.byDistrict[0]?.districtName ?? '-'} />
         <Metric label={t.latestBurglaryMonth} value={latest ? `${latest.year}-${String(latest.month).padStart(2, '0')}` : '-'} />
         <Metric label={t.mostCommonBurglaryTimePeriod} value={commonPeriod?.[0] ?? '-'} />
         <Metric label={t.topBurglaryDistrict} value={topBurglary?.[0] ?? '-'} />
@@ -3174,10 +3490,16 @@ function SafetyOverview({ data, language }: { data: SafetyDataBundle; language: 
         <BarChart title={fireDonationLabelsForOverview.byYear} values={Object.fromEntries(fireDonationSummary.byYear.map((item) => [String(item.year), item.recordCount]))} />
         <BarChart title={fireDonationLabelsForOverview.itemCategoryDistribution} values={Object.fromEntries(fireDonationSummary.byDonatedItemCategory.map((item) => [formatFireDonationItemCategory(item.donatedItemCategory, language), item.count]))} />
         <BarChart title={fireDonationLabelsForOverview.purposeCategoryDistribution} values={Object.fromEntries(fireDonationSummary.byDonationPurposeCategory.map((item) => [formatFireDonationPurposeCategory(item.donationPurposeCategory, language), item.count]))} />
+        <BarChart title={fireRescueAreaLabelsForOverview.byDistrict} values={Object.fromEntries(fireRescueAreaSummary.byDistrict.map((item) => [item.districtName ?? item.districtCode, item.count]))} />
+        <BarChart title={fireRescueAreaLabelsForOverview.byRatingLevel} values={Object.fromEntries(fireRescueAreaSummary.byRatingLevel.map((item) => [formatFireRescueRatingLevel(item.ratingLevel, language), item.count]))} />
+        <BarChart title={fireRescueAreaLabelsForOverview.byRecognitionItem} values={Object.fromEntries(fireRescueAreaSummary.byRecognitionItem.map((item) => [formatFireRescueRecognitionItem(item.recognitionItemCode, language), item.count]))} />
         <BarChart title={hikingLabelsForOverview.trailsByDistrict} values={Object.fromEntries(hikingSummary.byDistrict.map((item) => [item.district, item.trailCount]))} />
         <BarChart title={hikingLabelsForOverview.lengthByDistrict} values={Object.fromEntries(hikingSummary.byDistrict.map((item) => [item.district, item.totalLengthMeters]))} />
         <BarChart title={hikingLabelsForOverview.trailsByGrade} values={Object.fromEntries(hikingSummary.byTrailGrade.map((item) => [item.trailGrade, item.count]))} />
         <BarChart title={hikingLabelsForOverview.trailsByLength} values={Object.fromEntries(hikingSummary.byLengthCategory.map((item) => [formatHikingTrailLengthCategory(item.lengthCategory, language), item.count]))} />
+        <BarChart title={floodingLabelsForOverview.byYear} values={Object.fromEntries(floodingSummary.byEventYear.map((item) => [String(item.eventYear), item.count]))} />
+        <BarChart title={floodingLabelsForOverview.byDistrict} values={Object.fromEntries(floodingSummary.byDistrict.map((item) => [item.districtName, item.count]))} />
+        <BarChart title={language === 'zh' ? '積水深度類別分布' : 'Flooding depth category distribution'} values={Object.fromEntries(floodingSummary.byFloodingDepthCategory.map((item) => [formatFloodingDepthCategory(item.floodingDepthCategory, language), item.count]))} />
         <BarChart title={t.aedLocationsByDistrict} values={aedByDistrict} />
         <BarChart title={t.fireHydrantsByCity} values={hydrantsByCity} />
         <BarChart title={t.fireHydrantsByDistrict} values={hydrantsByDistrict} />
@@ -3226,9 +3548,14 @@ function DataNotes({ data, language }: { data: SafetyDataBundle; language: Langu
       <p>{policeCctvLabels[language].interpretationNote}</p>
       <p>{fireDonationLabels[language].dataNote}</p>
       <p>{fireDonationLabels[language].interpretationNote}</p>
+      <p>{fireRescueAreaLabels[language].dataNote}</p>
+      <p>{fireRescueAreaLabels[language].defaultMapNotice}</p>
+      <p>{fireRescueAreaLabels[language].interpretationNote}</p>
       <p>{hikingTrailLabels[language].dataNote}</p>
       <p>{hikingTrailLabels[language].mapNotice}</p>
       <p>{hikingTrailLabels[language].interpretationNote}</p>
+      <p>{floodingLabels[language].disclaimer}</p>
+      <p>{floodingLabels[language].mapNotice}</p>
       <p>{t.shelterAvailabilityNotice}</p>
       <p>{t.evacuationGateDataNote}</p>
       <p>{t.medicalFacilityDataNote}</p>
@@ -3837,6 +4164,90 @@ function formatPortableToiletLocation(category: string, language: Language): str
     unknown: ['未知', 'Unknown'],
   } as Record<string, [string, string]>;
   return labels[category]?.[language === 'zh' ? 0 : 1] ?? category;
+}
+
+function formatFireRescueRatingLevel(level: string, language: Language): string {
+  if (level === '1') return language === 'zh' ? '等級1' : 'Level 1';
+  if (level === '2') return language === 'zh' ? '等級2' : 'Level 2';
+  return level || (language === 'zh' ? '未知' : 'Unknown');
+}
+
+function formatFireRescueRecognitionItem(item: string, language: Language): string {
+  return /^[1-9]$/.test(item)
+    ? language === 'zh' ? `認定項目${item}` : `Recognition item ${item}`
+    : item || (language === 'zh' ? '未知' : 'Unknown');
+}
+
+function formatFireRescueLocationPrecision(precision: string, language: Language): string {
+  const labels = {
+    district_only: ['僅行政區', 'District only'],
+    address_only: ['地址', 'Address only'],
+    area_or_street_range_address: ['街廓或路段範圍地址', 'Area or street-range address'],
+    geocoded_address_approximate: ['近似地理編碼地址', 'Approximate geocoded address'],
+    official_coordinate: ['官方座標', 'Official coordinate'],
+    missing: ['缺漏', 'Missing'],
+  } as Record<string, [string, string]>;
+  return labels[precision]?.[language === 'zh' ? 0 : 1] ?? precision;
+}
+
+function FloodingGeometry({ record, language }: { record: HistoricalFloodingRecord; language: Language }) {
+  const popup = (
+    <Popup>
+      <strong>{record.districtName ?? '-'}</strong>
+      <p>{record.eventDate ?? '-'} · {record.floodingLocationAddress ?? '-'}</p>
+      <p>{record.floodingDepthRaw ?? '-'} · {record.floodingAreaRaw ?? '-'}</p>
+      <p className="notice">{floodingLabels[language].popupNotice}</p>
+    </Popup>
+  );
+  if (record.geometry?.type === 'Polygon') {
+    return (
+      <Polygon positions={record.geometry.coordinates[0].map(([lng, lat]) => [lat, lng])} pathOptions={{ color: '#2563eb', fillColor: '#60a5fa', fillOpacity: 0.22, weight: 2 }}>
+        {popup}
+      </Polygon>
+    );
+  }
+  if (record.centroidLatitude != null && record.centroidLongitude != null) {
+    return (
+      <CircleMarker center={[record.centroidLatitude, record.centroidLongitude]} radius={6} pathOptions={{ color: '#2563eb', fillColor: '#60a5fa', fillOpacity: 0.5, weight: 2 }}>
+        {popup}
+      </CircleMarker>
+    );
+  }
+  return null;
+}
+
+function formatFloodingDepthCategory(category: string, language: Language): string {
+  const labels = {
+    under_10cm: ['10公分以下', 'Under 10 cm'],
+    '10_to_30cm': ['10至30公分', '10 to 30 cm'],
+    '30_to_50cm': ['30至50公分', '30 to 50 cm'],
+    '50cm_to_1m': ['50公分至1公尺', '50 cm to 1 m'],
+    over_1m: ['1公尺以上', 'Over 1 m'],
+    missing: ['缺漏', 'Missing'],
+    unknown: ['未知', 'Unknown'],
+  } as Record<string, [string, string]>;
+  return labels[category]?.[language === 'zh' ? 0 : 1] ?? category;
+}
+
+function formatFloodingAreaCategory(category: string, language: Language): string {
+  const labels = {
+    under_100sqm: ['100平方公尺以下', 'Under 100 sqm'],
+    '100_to_500sqm': ['100至500平方公尺', '100 to 500 sqm'],
+    '500_to_1000sqm': ['500至1000平方公尺', '500 to 1,000 sqm'],
+    '1000_to_5000sqm': ['1000至5000平方公尺', '1,000 to 5,000 sqm'],
+    over_5000sqm: ['5000平方公尺以上', 'Over 5,000 sqm'],
+    missing: ['缺漏', 'Missing'],
+    unknown: ['未知', 'Unknown'],
+  } as Record<string, [string, string]>;
+  return labels[category]?.[language === 'zh' ? 0 : 1] ?? category;
+}
+
+function formatFloodingSeason(season: HistoricalFloodingSeason, language: Language): string {
+  const labels: Record<Language, Record<HistoricalFloodingSeason, string>> = {
+    zh: { spring: '春季', summer: '夏季', autumn: '秋季', winter: '冬季', unknown: '未知' },
+    en: { spring: 'Spring', summer: 'Summer', autumn: 'Autumn', winter: 'Winter', unknown: 'Unknown' },
+  };
+  return labels[language][season];
 }
 
 function hikingTrailMarkers(record: ManagedHikingTrailRecord, language: Language) {

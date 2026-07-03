@@ -1,0 +1,1187 @@
+{
+  "totalRecords": 713,
+  "minEventDate": "1991-06-19",
+  "maxEventDate": "2025-10-19",
+  "eventYearCount": 34,
+  "districtCount": 12,
+  "uniqueAddressCount": 632,
+  "recordsWithGeometry": 713,
+  "recordsWithValidGeometry": 713,
+  "recordsWithCentroid": 713,
+  "recordsWithDepth": 713,
+  "recordsWithArea": 701,
+  "minFloodingDepthCm": 15,
+  "maxFloodingDepthCm": 400,
+  "averageFloodingDepthCm": 36.01402524544179,
+  "medianFloodingDepthCm": 30,
+  "minFloodingAreaSquareMeters": 38.740493,
+  "maxFloodingAreaSquareMeters": 6960457.90008,
+  "averageFloodingAreaSquareMeters": 30632.090309376617,
+  "medianFloodingAreaSquareMeters": 1300.332196,
+  "totalFloodingAreaSquareMeters": 21473095.30687301,
+  "byDistrict": [
+    {
+      "districtName": "士林區",
+      "count": 100,
+      "uniqueAddressCount": 90,
+      "averageDepthCm": 31.33,
+      "maxDepthCm": 120,
+      "totalAreaSquareMeters": 1531889.3431119998
+    },
+    {
+      "districtName": "中山區",
+      "count": 89,
+      "uniqueAddressCount": 78,
+      "averageDepthCm": 28.876404494382022,
+      "maxDepthCm": 100,
+      "totalAreaSquareMeters": 914843.4221850001
+    },
+    {
+      "districtName": "文山區",
+      "count": 82,
+      "uniqueAddressCount": 73,
+      "averageDepthCm": 49.451219512195124,
+      "maxDepthCm": 350,
+      "totalAreaSquareMeters": 960996.016096
+    },
+    {
+      "districtName": "大安區",
+      "count": 76,
+      "uniqueAddressCount": 70,
+      "averageDepthCm": 28.75,
+      "maxDepthCm": 100,
+      "totalAreaSquareMeters": 1892124.7113760002
+    },
+    {
+      "districtName": "北投區",
+      "count": 68,
+      "uniqueAddressCount": 63,
+      "averageDepthCm": 31.764705882352942,
+      "maxDepthCm": 100,
+      "totalAreaSquareMeters": 167947.88852299994
+    },
+    {
+      "districtName": "大同區",
+      "count": 59,
+      "uniqueAddressCount": 55,
+      "averageDepthCm": 24.491525423728813,
+      "maxDepthCm": 60,
+      "totalAreaSquareMeters": 452182.9304700001
+    },
+    {
+      "districtName": "松山區",
+      "count": 51,
+      "uniqueAddressCount": 44,
+      "averageDepthCm": 31.666666666666668,
+      "maxDepthCm": 150,
+      "totalAreaSquareMeters": 794199.199029
+    },
+    {
+      "districtName": "南港區",
+      "count": 47,
+      "uniqueAddressCount": 28,
+      "averageDepthCm": 71.70212765957447,
+      "maxDepthCm": 300,
+      "totalAreaSquareMeters": 4852915.491781
+    },
+    {
+      "districtName": "信義區",
+      "count": 47,
+      "uniqueAddressCount": 45,
+      "averageDepthCm": 27.5531914893617,
+      "maxDepthCm": 180,
+      "totalAreaSquareMeters": 7465426.793405999
+    },
+    {
+      "districtName": "中正區",
+      "count": 39,
+      "uniqueAddressCount": 38,
+      "averageDepthCm": 23.846153846153847,
+      "maxDepthCm": 50,
+      "totalAreaSquareMeters": 244656.896932
+    },
+    {
+      "districtName": "內湖區",
+      "count": 35,
+      "uniqueAddressCount": 32,
+      "averageDepthCm": 65.57142857142857,
+      "maxDepthCm": 400,
+      "totalAreaSquareMeters": 2134954.002989
+    },
+    {
+      "districtName": "萬華區",
+      "count": 20,
+      "uniqueAddressCount": 17,
+      "averageDepthCm": 31.25,
+      "maxDepthCm": 100,
+      "totalAreaSquareMeters": 60958.610974
+    }
+  ],
+  "byEventYear": [
+    {
+      "eventYear": 1991,
+      "count": 21,
+      "districtCount": 9,
+      "averageDepthCm": 55,
+      "totalAreaSquareMeters": 45645.175719
+    },
+    {
+      "eventYear": 1992,
+      "count": 6,
+      "districtCount": 2,
+      "averageDepthCm": 19.166666666666668,
+      "totalAreaSquareMeters": 9401.422396000002
+    },
+    {
+      "eventYear": 1993,
+      "count": 11,
+      "districtCount": 4,
+      "averageDepthCm": 23.181818181818183,
+      "totalAreaSquareMeters": 62877.178227000004
+    },
+    {
+      "eventYear": 1994,
+      "count": 1,
+      "districtCount": 1,
+      "averageDepthCm": 30,
+      "totalAreaSquareMeters": 4032.145619
+    },
+    {
+      "eventYear": 1995,
+      "count": 2,
+      "districtCount": 2,
+      "averageDepthCm": 22.5,
+      "totalAreaSquareMeters": 1900.5856840000001
+    },
+    {
+      "eventYear": 1996,
+      "count": 11,
+      "districtCount": 7,
+      "averageDepthCm": 54.54545454545455,
+      "totalAreaSquareMeters": 40827.677371000005
+    },
+    {
+      "eventYear": 1997,
+      "count": 19,
+      "districtCount": 7,
+      "averageDepthCm": 33.94736842105263,
+      "totalAreaSquareMeters": 33708.728275999994
+    },
+    {
+      "eventYear": 1998,
+      "count": 105,
+      "districtCount": 12,
+      "averageDepthCm": 28.142857142857142,
+      "totalAreaSquareMeters": 211970.75549900002
+    },
+    {
+      "eventYear": 1999,
+      "count": 62,
+      "districtCount": 11,
+      "averageDepthCm": 31.20967741935484,
+      "totalAreaSquareMeters": 94866.92761200003
+    },
+    {
+      "eventYear": 2000,
+      "count": 26,
+      "districtCount": 6,
+      "averageDepthCm": 80.1923076923077,
+      "totalAreaSquareMeters": 1169354.2493550004
+    },
+    {
+      "eventYear": 2001,
+      "count": 15,
+      "districtCount": 9,
+      "averageDepthCm": 197.33333333333334,
+      "totalAreaSquareMeters": 15369649.82397
+    },
+    {
+      "eventYear": 2003,
+      "count": 5,
+      "districtCount": 3,
+      "averageDepthCm": 25,
+      "totalAreaSquareMeters": 54774.062561
+    },
+    {
+      "eventYear": 2004,
+      "count": 70,
+      "districtCount": 11,
+      "averageDepthCm": 44.214285714285715,
+      "totalAreaSquareMeters": 1699881.6670209996
+    },
+    {
+      "eventYear": 2005,
+      "count": 6,
+      "districtCount": 3,
+      "averageDepthCm": 25.833333333333332,
+      "totalAreaSquareMeters": 20627.040420999998
+    },
+    {
+      "eventYear": 2006,
+      "count": 6,
+      "districtCount": 3,
+      "averageDepthCm": 35,
+      "totalAreaSquareMeters": 73227.763311
+    },
+    {
+      "eventYear": 2007,
+      "count": 30,
+      "districtCount": 5,
+      "averageDepthCm": 46.333333333333336,
+      "totalAreaSquareMeters": 1158786.950674
+    },
+    {
+      "eventYear": 2008,
+      "count": 13,
+      "districtCount": 4,
+      "averageDepthCm": 44.23076923076923,
+      "totalAreaSquareMeters": 47804.659447000005
+    },
+    {
+      "eventYear": 2009,
+      "count": 4,
+      "districtCount": 3,
+      "averageDepthCm": 21.25,
+      "totalAreaSquareMeters": 1543.6169699999998
+    },
+    {
+      "eventYear": 2010,
+      "count": 1,
+      "districtCount": 1,
+      "averageDepthCm": 15,
+      "totalAreaSquareMeters": 267.694856
+    },
+    {
+      "eventYear": 2011,
+      "count": 2,
+      "districtCount": 2,
+      "averageDepthCm": 27.5,
+      "totalAreaSquareMeters": 499.662594
+    },
+    {
+      "eventYear": 2012,
+      "count": 37,
+      "districtCount": 9,
+      "averageDepthCm": 30.81081081081081,
+      "totalAreaSquareMeters": 270387.361599
+    },
+    {
+      "eventYear": 2013,
+      "count": 9,
+      "districtCount": 6,
+      "averageDepthCm": 34.44444444444444,
+      "totalAreaSquareMeters": 19777.355396
+    },
+    {
+      "eventYear": 2014,
+      "count": 4,
+      "districtCount": 3,
+      "averageDepthCm": 15,
+      "totalAreaSquareMeters": 1830.2596600000002
+    },
+    {
+      "eventYear": 2015,
+      "count": 33,
+      "districtCount": 7,
+      "averageDepthCm": 34.39393939393939,
+      "totalAreaSquareMeters": 363426.762635
+    },
+    {
+      "eventYear": 2016,
+      "count": 17,
+      "districtCount": 2,
+      "averageDepthCm": 18.529411764705884,
+      "totalAreaSquareMeters": 14246.35
+    },
+    {
+      "eventYear": 2017,
+      "count": 19,
+      "districtCount": 6,
+      "averageDepthCm": 33.421052631578945,
+      "totalAreaSquareMeters": 264036
+    },
+    {
+      "eventYear": 2018,
+      "count": 14,
+      "districtCount": 6,
+      "averageDepthCm": 23.571428571428573,
+      "totalAreaSquareMeters": 975
+    },
+    {
+      "eventYear": 2019,
+      "count": 46,
+      "districtCount": 8,
+      "averageDepthCm": 22.391304347826086,
+      "totalAreaSquareMeters": 210758
+    },
+    {
+      "eventYear": 2020,
+      "count": 13,
+      "districtCount": 4,
+      "averageDepthCm": 19.46153846153846,
+      "totalAreaSquareMeters": 18411
+    },
+    {
+      "eventYear": 2021,
+      "count": 45,
+      "districtCount": 8,
+      "averageDepthCm": 21,
+      "totalAreaSquareMeters": 151229
+    },
+    {
+      "eventYear": 2022,
+      "count": 4,
+      "districtCount": 3,
+      "averageDepthCm": 18.75,
+      "totalAreaSquareMeters": 2440
+    },
+    {
+      "eventYear": 2023,
+      "count": 41,
+      "districtCount": 5,
+      "averageDepthCm": 16.341463414634145,
+      "totalAreaSquareMeters": 44204.03999999998
+    },
+    {
+      "eventYear": 2024,
+      "count": 14,
+      "districtCount": 4,
+      "averageDepthCm": 17.857142857142858,
+      "totalAreaSquareMeters": 9632.64
+    },
+    {
+      "eventYear": 2025,
+      "count": 1,
+      "districtCount": 1,
+      "averageDepthCm": 45,
+      "totalAreaSquareMeters": 93.75
+    }
+  ],
+  "byEventYearMonth": [
+    {
+      "eventYearMonth": "1991-06",
+      "count": 21,
+      "districtCount": 9,
+      "averageDepthCm": 55,
+      "totalAreaSquareMeters": 45645.175719
+    },
+    {
+      "eventYearMonth": "1992-05",
+      "count": 4,
+      "districtCount": 1,
+      "averageDepthCm": 20,
+      "totalAreaSquareMeters": 7421.084272
+    },
+    {
+      "eventYearMonth": "1992-06",
+      "count": 2,
+      "districtCount": 1,
+      "averageDepthCm": 17.5,
+      "totalAreaSquareMeters": 1980.338124
+    },
+    {
+      "eventYearMonth": "1993-07",
+      "count": 11,
+      "districtCount": 4,
+      "averageDepthCm": 23.181818181818183,
+      "totalAreaSquareMeters": 62877.178227000004
+    },
+    {
+      "eventYearMonth": "1994-10",
+      "count": 1,
+      "districtCount": 1,
+      "averageDepthCm": 30,
+      "totalAreaSquareMeters": 4032.145619
+    },
+    {
+      "eventYearMonth": "1995-07",
+      "count": 2,
+      "districtCount": 2,
+      "averageDepthCm": 22.5,
+      "totalAreaSquareMeters": 1900.5856840000001
+    },
+    {
+      "eventYearMonth": "1996-05",
+      "count": 4,
+      "districtCount": 3,
+      "averageDepthCm": 27.5,
+      "totalAreaSquareMeters": 2881.754949
+    },
+    {
+      "eventYearMonth": "1996-07",
+      "count": 5,
+      "districtCount": 4,
+      "averageDepthCm": 87,
+      "totalAreaSquareMeters": 11460.198094000001
+    },
+    {
+      "eventYearMonth": "1996-09",
+      "count": 2,
+      "districtCount": 2,
+      "averageDepthCm": 27.5,
+      "totalAreaSquareMeters": 26485.724328
+    },
+    {
+      "eventYearMonth": "1997-06",
+      "count": 9,
+      "districtCount": 4,
+      "averageDepthCm": 30,
+      "totalAreaSquareMeters": 18380.372771
+    },
+    {
+      "eventYearMonth": "1997-07",
+      "count": 4,
+      "districtCount": 3,
+      "averageDepthCm": 22.5,
+      "totalAreaSquareMeters": 5707.176996
+    },
+    {
+      "eventYearMonth": "1997-08",
+      "count": 5,
+      "districtCount": 3,
+      "averageDepthCm": 54,
+      "totalAreaSquareMeters": 8675.769525999998
+    },
+    {
+      "eventYearMonth": "1997-09",
+      "count": 1,
+      "districtCount": 1,
+      "averageDepthCm": 15,
+      "totalAreaSquareMeters": 945.408983
+    },
+    {
+      "eventYearMonth": "1998-04",
+      "count": 20,
+      "districtCount": 4,
+      "averageDepthCm": 28.75,
+      "totalAreaSquareMeters": 33058.100593
+    },
+    {
+      "eventYearMonth": "1998-06",
+      "count": 22,
+      "districtCount": 5,
+      "averageDepthCm": 27.5,
+      "totalAreaSquareMeters": 35033.686169
+    },
+    {
+      "eventYearMonth": "1998-07",
+      "count": 5,
+      "districtCount": 2,
+      "averageDepthCm": 51,
+      "totalAreaSquareMeters": 13631.892556
+    },
+    {
+      "eventYearMonth": "1998-08",
+      "count": 7,
+      "districtCount": 3,
+      "averageDepthCm": 22.142857142857142,
+      "totalAreaSquareMeters": 17861.080260000002
+    },
+    {
+      "eventYearMonth": "1998-09",
+      "count": 1,
+      "districtCount": 1,
+      "averageDepthCm": 15,
+      "totalAreaSquareMeters": 3633.354739
+    },
+    {
+      "eventYearMonth": "1998-10",
+      "count": 50,
+      "districtCount": 9,
+      "averageDepthCm": 27,
+      "totalAreaSquareMeters": 108752.641182
+    },
+    {
+      "eventYearMonth": "1999-06",
+      "count": 21,
+      "districtCount": 6,
+      "averageDepthCm": 37.38095238095238,
+      "totalAreaSquareMeters": 32645.84269999999
+    },
+    {
+      "eventYearMonth": "1999-07",
+      "count": 8,
+      "districtCount": 1,
+      "averageDepthCm": 39.375,
+      "totalAreaSquareMeters": 10128.753434999999
+    },
+    {
+      "eventYearMonth": "1999-08",
+      "count": 33,
+      "districtCount": 9,
+      "averageDepthCm": 25.303030303030305,
+      "totalAreaSquareMeters": 52092.331477
+    },
+    {
+      "eventYearMonth": "2000-06",
+      "count": 3,
+      "districtCount": 2,
+      "averageDepthCm": 21.666666666666668,
+      "totalAreaSquareMeters": 2005.7753659999998
+    },
+    {
+      "eventYearMonth": "2000-08",
+      "count": 2,
+      "districtCount": 1,
+      "averageDepthCm": 30,
+      "totalAreaSquareMeters": 2536.9267950000003
+    },
+    {
+      "eventYearMonth": "2000-11",
+      "count": 21,
+      "districtCount": 4,
+      "averageDepthCm": 93.33333333333333,
+      "totalAreaSquareMeters": 1164811.5471940003
+    },
+    {
+      "eventYearMonth": "2001-07",
+      "count": 1,
+      "districtCount": 1,
+      "averageDepthCm": 50,
+      "totalAreaSquareMeters": 440.482603
+    },
+    {
+      "eventYearMonth": "2001-09",
+      "count": 14,
+      "districtCount": 8,
+      "averageDepthCm": 207.85714285714286,
+      "totalAreaSquareMeters": 15369209.341367
+    },
+    {
+      "eventYearMonth": "2003-06",
+      "count": 2,
+      "districtCount": 2,
+      "averageDepthCm": 25,
+      "totalAreaSquareMeters": 27029.5736
+    },
+    {
+      "eventYearMonth": "2003-08",
+      "count": 3,
+      "districtCount": 2,
+      "averageDepthCm": 25,
+      "totalAreaSquareMeters": 27744.488961000003
+    },
+    {
+      "eventYearMonth": "2004-05",
+      "count": 2,
+      "districtCount": 1,
+      "averageDepthCm": 35,
+      "totalAreaSquareMeters": 71766.97838700001
+    },
+    {
+      "eventYearMonth": "2004-06",
+      "count": 17,
+      "districtCount": 8,
+      "averageDepthCm": 27.058823529411764,
+      "totalAreaSquareMeters": 350871.502746
+    },
+    {
+      "eventYearMonth": "2004-08",
+      "count": 8,
+      "districtCount": 4,
+      "averageDepthCm": 31.875,
+      "totalAreaSquareMeters": 43586.22260700001
+    },
+    {
+      "eventYearMonth": "2004-09",
+      "count": 34,
+      "districtCount": 10,
+      "averageDepthCm": 58.529411764705884,
+      "totalAreaSquareMeters": 1207764.241715
+    },
+    {
+      "eventYearMonth": "2004-10",
+      "count": 9,
+      "districtCount": 8,
+      "averageDepthCm": 35.55555555555556,
+      "totalAreaSquareMeters": 25892.721566
+    },
+    {
+      "eventYearMonth": "2005-05",
+      "count": 1,
+      "districtCount": 1,
+      "averageDepthCm": 20,
+      "totalAreaSquareMeters": 92.504
+    },
+    {
+      "eventYearMonth": "2005-06",
+      "count": 4,
+      "districtCount": 1,
+      "averageDepthCm": 28.75,
+      "totalAreaSquareMeters": 20046.97812
+    },
+    {
+      "eventYearMonth": "2005-07",
+      "count": 1,
+      "districtCount": 1,
+      "averageDepthCm": 20,
+      "totalAreaSquareMeters": 487.558301
+    },
+    {
+      "eventYearMonth": "2006-08",
+      "count": 1,
+      "districtCount": 1,
+      "averageDepthCm": 40,
+      "totalAreaSquareMeters": 45947.113885
+    },
+    {
+      "eventYearMonth": "2006-09",
+      "count": 5,
+      "districtCount": 2,
+      "averageDepthCm": 34,
+      "totalAreaSquareMeters": 27280.649426000004
+    },
+    {
+      "eventYearMonth": "2007-06",
+      "count": 15,
+      "districtCount": 3,
+      "averageDepthCm": 56.666666666666664,
+      "totalAreaSquareMeters": 1071862.2070560001
+    },
+    {
+      "eventYearMonth": "2007-07",
+      "count": 1,
+      "districtCount": 1,
+      "averageDepthCm": 40,
+      "totalAreaSquareMeters": 14394.903898
+    },
+    {
+      "eventYearMonth": "2007-08",
+      "count": 5,
+      "districtCount": 4,
+      "averageDepthCm": 37,
+      "totalAreaSquareMeters": 25176.309085
+    },
+    {
+      "eventYearMonth": "2007-10",
+      "count": 9,
+      "districtCount": 3,
+      "averageDepthCm": 35,
+      "totalAreaSquareMeters": 47353.530635
+    },
+    {
+      "eventYearMonth": "2008-05",
+      "count": 1,
+      "districtCount": 1,
+      "averageDepthCm": 35,
+      "totalAreaSquareMeters": 11060.712613
+    },
+    {
+      "eventYearMonth": "2008-09",
+      "count": 12,
+      "districtCount": 4,
+      "averageDepthCm": 45,
+      "totalAreaSquareMeters": 36743.946834
+    },
+    {
+      "eventYearMonth": "2009-08",
+      "count": 4,
+      "districtCount": 3,
+      "averageDepthCm": 21.25,
+      "totalAreaSquareMeters": 1543.6169699999998
+    },
+    {
+      "eventYearMonth": "2010-06",
+      "count": 1,
+      "districtCount": 1,
+      "averageDepthCm": 15,
+      "totalAreaSquareMeters": 267.694856
+    },
+    {
+      "eventYearMonth": "2011-06",
+      "count": 2,
+      "districtCount": 2,
+      "averageDepthCm": 27.5,
+      "totalAreaSquareMeters": 499.662594
+    },
+    {
+      "eventYearMonth": "2012-04",
+      "count": 8,
+      "districtCount": 2,
+      "averageDepthCm": 24.375,
+      "totalAreaSquareMeters": 17394.178237999997
+    },
+    {
+      "eventYearMonth": "2012-05",
+      "count": 4,
+      "districtCount": 2,
+      "averageDepthCm": 20,
+      "totalAreaSquareMeters": 8211.697574
+    },
+    {
+      "eventYearMonth": "2012-06",
+      "count": 23,
+      "districtCount": 7,
+      "averageDepthCm": 35,
+      "totalAreaSquareMeters": 242435.90738599998
+    },
+    {
+      "eventYearMonth": "2012-08",
+      "count": 2,
+      "districtCount": 1,
+      "averageDepthCm": 30,
+      "totalAreaSquareMeters": 2345.5784009999998
+    },
+    {
+      "eventYearMonth": "2013-05",
+      "count": 1,
+      "districtCount": 1,
+      "averageDepthCm": 95,
+      "totalAreaSquareMeters": 1525.43525
+    },
+    {
+      "eventYearMonth": "2013-08",
+      "count": 8,
+      "districtCount": 6,
+      "averageDepthCm": 26.875,
+      "totalAreaSquareMeters": 18251.920145999997
+    },
+    {
+      "eventYearMonth": "2014-05",
+      "count": 2,
+      "districtCount": 2,
+      "averageDepthCm": 15,
+      "totalAreaSquareMeters": 745.039202
+    },
+    {
+      "eventYearMonth": "2014-06",
+      "count": 2,
+      "districtCount": 1,
+      "averageDepthCm": 15,
+      "totalAreaSquareMeters": 1085.220458
+    },
+    {
+      "eventYearMonth": "2015-06",
+      "count": 12,
+      "districtCount": 3,
+      "averageDepthCm": 28.333333333333332,
+      "totalAreaSquareMeters": 57957.144837
+    },
+    {
+      "eventYearMonth": "2015-07",
+      "count": 6,
+      "districtCount": 2,
+      "averageDepthCm": 27.5,
+      "totalAreaSquareMeters": 177134.372814
+    },
+    {
+      "eventYearMonth": "2015-08",
+      "count": 11,
+      "districtCount": 4,
+      "averageDepthCm": 45.45454545454545,
+      "totalAreaSquareMeters": 127414.84498400001
+    },
+    {
+      "eventYearMonth": "2015-09",
+      "count": 4,
+      "districtCount": 3,
+      "averageDepthCm": 32.5,
+      "totalAreaSquareMeters": 920.4
+    },
+    {
+      "eventYearMonth": "2016-06",
+      "count": 17,
+      "districtCount": 2,
+      "averageDepthCm": 18.529411764705884,
+      "totalAreaSquareMeters": 14246.35
+    },
+    {
+      "eventYearMonth": "2017-06",
+      "count": 19,
+      "districtCount": 6,
+      "averageDepthCm": 33.421052631578945,
+      "totalAreaSquareMeters": 264036
+    },
+    {
+      "eventYearMonth": "2018-09",
+      "count": 14,
+      "districtCount": 6,
+      "averageDepthCm": 23.571428571428573,
+      "totalAreaSquareMeters": 975
+    },
+    {
+      "eventYearMonth": "2019-05",
+      "count": 10,
+      "districtCount": 2,
+      "averageDepthCm": 21.5,
+      "totalAreaSquareMeters": 6860
+    },
+    {
+      "eventYearMonth": "2019-07",
+      "count": 27,
+      "districtCount": 5,
+      "averageDepthCm": 24.074074074074073,
+      "totalAreaSquareMeters": 188343
+    },
+    {
+      "eventYearMonth": "2019-08",
+      "count": 8,
+      "districtCount": 2,
+      "averageDepthCm": 18.75,
+      "totalAreaSquareMeters": 14835
+    },
+    {
+      "eventYearMonth": "2019-09",
+      "count": 1,
+      "districtCount": 1,
+      "averageDepthCm": 15,
+      "totalAreaSquareMeters": 720
+    },
+    {
+      "eventYearMonth": "2020-05",
+      "count": 4,
+      "districtCount": 1,
+      "averageDepthCm": 20,
+      "totalAreaSquareMeters": 7301
+    },
+    {
+      "eventYearMonth": "2020-08",
+      "count": 9,
+      "districtCount": 3,
+      "averageDepthCm": 19.22222222222222,
+      "totalAreaSquareMeters": 11110
+    },
+    {
+      "eventYearMonth": "2021-06",
+      "count": 43,
+      "districtCount": 7,
+      "averageDepthCm": 21.046511627906977,
+      "totalAreaSquareMeters": 145039
+    },
+    {
+      "eventYearMonth": "2021-07",
+      "count": 2,
+      "districtCount": 1,
+      "averageDepthCm": 20,
+      "totalAreaSquareMeters": 6190
+    },
+    {
+      "eventYearMonth": "2022-08",
+      "count": 1,
+      "districtCount": 1,
+      "averageDepthCm": 25,
+      "totalAreaSquareMeters": 500
+    },
+    {
+      "eventYearMonth": "2022-10",
+      "count": 3,
+      "districtCount": 2,
+      "averageDepthCm": 16.666666666666668,
+      "totalAreaSquareMeters": 1940
+    },
+    {
+      "eventYearMonth": "2023-06",
+      "count": 7,
+      "districtCount": 3,
+      "averageDepthCm": 16.428571428571427,
+      "totalAreaSquareMeters": 17064.1
+    },
+    {
+      "eventYearMonth": "2023-08",
+      "count": 34,
+      "districtCount": 5,
+      "averageDepthCm": 16.323529411764707,
+      "totalAreaSquareMeters": 27139.940000000002
+    },
+    {
+      "eventYearMonth": "2024-07",
+      "count": 12,
+      "districtCount": 2,
+      "averageDepthCm": 16.666666666666668,
+      "totalAreaSquareMeters": 7323.37
+    },
+    {
+      "eventYearMonth": "2024-08",
+      "count": 1,
+      "districtCount": 1,
+      "averageDepthCm": 25,
+      "totalAreaSquareMeters": 1679.37
+    },
+    {
+      "eventYearMonth": "2024-09",
+      "count": 1,
+      "districtCount": 1,
+      "averageDepthCm": 25,
+      "totalAreaSquareMeters": 629.9
+    },
+    {
+      "eventYearMonth": "2025-10",
+      "count": 1,
+      "districtCount": 1,
+      "averageDepthCm": 45,
+      "totalAreaSquareMeters": 93.75
+    }
+  ],
+  "byFloodingDepthCategory": [
+    {
+      "floodingDepthCategory": "10_to_30cm",
+      "count": 346
+    },
+    {
+      "floodingDepthCategory": "30_to_50cm",
+      "count": 241
+    },
+    {
+      "floodingDepthCategory": "50cm_to_1m",
+      "count": 83
+    },
+    {
+      "floodingDepthCategory": "over_1m",
+      "count": 43
+    }
+  ],
+  "byFloodingAreaCategory": [
+    {
+      "floodingAreaCategory": "500_to_1000sqm",
+      "count": 158
+    },
+    {
+      "floodingAreaCategory": "100_to_500sqm",
+      "count": 133
+    },
+    {
+      "floodingAreaCategory": "1000_to_5000sqm",
+      "count": 260
+    },
+    {
+      "floodingAreaCategory": "over_5000sqm",
+      "count": 143
+    },
+    {
+      "floodingAreaCategory": "under_100sqm",
+      "count": 7
+    },
+    {
+      "floodingAreaCategory": "missing",
+      "count": 12
+    }
+  ],
+  "byGeometryType": [
+    {
+      "geometryType": "Polygon",
+      "count": 696
+    },
+    {
+      "geometryType": "MultiPolygon",
+      "count": 17
+    }
+  ],
+  "topRoadNames": [
+    {
+      "roadName": "延平北路",
+      "count": 28,
+      "districtCount": 2
+    },
+    {
+      "roadName": "中山北路",
+      "count": 26,
+      "districtCount": 2
+    },
+    {
+      "roadName": "研究院路",
+      "count": 13,
+      "districtCount": 1
+    },
+    {
+      "roadName": "承德路",
+      "count": 13,
+      "districtCount": 3
+    },
+    {
+      "roadName": "忠孝東路",
+      "count": 11,
+      "districtCount": 3
+    },
+    {
+      "roadName": "重慶北路",
+      "count": 11,
+      "districtCount": 1
+    },
+    {
+      "roadName": "基隆路",
+      "count": 10,
+      "districtCount": 2
+    },
+    {
+      "roadName": "敦化北路",
+      "count": 9,
+      "districtCount": 2
+    },
+    {
+      "roadName": "濱江街",
+      "count": 9,
+      "districtCount": 3
+    },
+    {
+      "roadName": "南京東路",
+      "count": 9,
+      "districtCount": 2
+    },
+    {
+      "roadName": "北安路",
+      "count": 8,
+      "districtCount": 1
+    },
+    {
+      "roadName": "木新路",
+      "count": 8,
+      "districtCount": 1
+    },
+    {
+      "roadName": "成福路",
+      "count": 8,
+      "districtCount": 1
+    },
+    {
+      "roadName": "興隆路",
+      "count": 7,
+      "districtCount": 1
+    },
+    {
+      "roadName": "信義路",
+      "count": 7,
+      "districtCount": 2
+    },
+    {
+      "roadName": "赤峰街",
+      "count": 7,
+      "districtCount": 2
+    },
+    {
+      "roadName": "松江路",
+      "count": 7,
+      "districtCount": 1
+    },
+    {
+      "roadName": "中正路",
+      "count": 7,
+      "districtCount": 1
+    },
+    {
+      "roadName": "民生東路",
+      "count": 6,
+      "districtCount": 1
+    },
+    {
+      "roadName": "成功路",
+      "count": 6,
+      "districtCount": 2
+    }
+  ],
+  "topAddresses": [
+    {
+      "address": "社子島地區",
+      "count": 10,
+      "districtName": "士林區"
+    },
+    {
+      "address": "成福路周遭",
+      "count": 8,
+      "districtName": "南港區"
+    },
+    {
+      "address": "木新路、保儀路口",
+      "count": 5,
+      "districtName": "文山區"
+    },
+    {
+      "address": "研究院路2段附近",
+      "count": 5,
+      "districtName": "南港區"
+    },
+    {
+      "address": "南深橋（研究院路一、二段）交界處",
+      "count": 4,
+      "districtName": "南港區"
+    },
+    {
+      "address": "忠孝東路6段周遭",
+      "count": 4,
+      "districtName": "南港區"
+    },
+    {
+      "address": "濱江街180巷",
+      "count": 3,
+      "districtName": "中山區"
+    },
+    {
+      "address": "內溝溪上游段",
+      "count": 3,
+      "districtName": "內湖區"
+    },
+    {
+      "address": "重慶北路長安西路口",
+      "count": 3,
+      "districtName": "大同區"
+    },
+    {
+      "address": "中山北路錦西街口",
+      "count": 3,
+      "districtName": "中山區"
+    },
+    {
+      "address": "福興路",
+      "count": 3,
+      "districtName": "文山區"
+    },
+    {
+      "address": "光輝路",
+      "count": 3,
+      "districtName": "文山區"
+    },
+    {
+      "address": "西園路二段52巷",
+      "count": 3,
+      "districtName": "萬華區"
+    },
+    {
+      "address": "北安路535號",
+      "count": 3,
+      "districtName": "中山區"
+    },
+    {
+      "address": "木柵路2段7巷",
+      "count": 2,
+      "districtName": "文山區"
+    },
+    {
+      "address": "和平東路二段265巷",
+      "count": 2,
+      "districtName": "大安區"
+    },
+    {
+      "address": "泰順街50巷",
+      "count": 2,
+      "districtName": "大安區"
+    },
+    {
+      "address": "中山北路(錦州街至民權東路)東側",
+      "count": 2,
+      "districtName": "中山區"
+    },
+    {
+      "address": "赤峰街全線及71巷",
+      "count": 2,
+      "districtName": "大同區"
+    },
+    {
+      "address": "重慶北路3段民族西路酒泉街附近",
+      "count": 2,
+      "districtName": "大同區"
+    }
+  ],
+  "dataQuality": {
+    "missingEventDateCount": 0,
+    "invalidEventDateCount": 0,
+    "missingDistrictCount": 0,
+    "unknownDistrictCount": 0,
+    "missingAddressCount": 0,
+    "missingDepthCount": 0,
+    "invalidDepthCount": 3,
+    "missingAreaCount": 12,
+    "invalidAreaCount": 5,
+    "missingGeometryCount": 0,
+    "invalidGeometryCount": 0,
+    "duplicateFallbackKeyCount": 1
+  }
+}

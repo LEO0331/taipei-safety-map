@@ -5,7 +5,9 @@ import type {
   BicycleTheftSummary,
   EmergencyShelterSummary,
   FireDepartmentDonationInKindSummary,
+  FireRescueDifficultAreaSummary,
   FireHydrantSummary,
+  HistoricalFloodingSummary,
   ManagedHikingTrailSummary,
   MotorcycleTheftSummary,
   NaturalDisasterSuspensionSummary,
@@ -224,6 +226,40 @@ const [managedHikingTrailSummary, managedHikingTrailConversion, managedHikingTra
     .then((value) => JSON.parse(value) as { sourceUrl?: string; downloadedAt?: string; fileSize?: number; failure?: string | null })
     .catch(() => null),
 ]);
+const [fireRescueDifficultAreaSummary, fireRescueDifficultAreaConversion, fireRescueDifficultAreaFetchStatus] = await Promise.all([
+  readFile('public/data/fire-rescue-difficult-area-summary.json', 'utf8').then(
+    (value) => JSON.parse(value) as FireRescueDifficultAreaSummary,
+  ),
+  readFile('public/data/fire-rescue-difficult-area-conversion.json', 'utf8').then(
+    (value) =>
+      JSON.parse(value) as {
+        inputRows: number;
+        outputRows: number;
+        duplicateSequenceNumbers: string[];
+        duplicateAddresses: string[];
+        duplicatePlaceNames: string[];
+        duplicateFallbackKeys: string[];
+        unknownDistrictCodes: string[];
+        unknownRatingLevels: string[];
+        unknownRecognitionItems: string[];
+        areaOrRangeAddressExamples: string[];
+      },
+  ),
+  readFile('data/raw/fire-rescue-difficult-areas/fetch-status.json', 'utf8')
+    .then((value) => JSON.parse(value) as { sourceUrl?: string; downloadedAt?: string; fileSize?: number; failure?: string | null })
+    .catch(() => null),
+]);
+const [historicalFloodingSummary, historicalFloodingConversion, historicalFloodingFetchStatus] = await Promise.all([
+  readFile('public/data/historical-flooding-summary.json', 'utf8')
+    .then((value) => JSON.parse(value) as HistoricalFloodingSummary)
+    .catch(() => null),
+  readFile('public/data/historical-flooding-conversion.json', 'utf8')
+    .then((value) => JSON.parse(value) as Record<string, unknown>)
+    .catch(() => null),
+  readFile('data/raw/historical-flooding-records/fetch-status.json', 'utf8')
+    .then((value) => JSON.parse(value) as { fileSize?: number; failure?: string | null })
+    .catch(() => null),
+]);
 
 await writeJson('public/data/safety-dashboard-summary.json', {
   districtSummaries,
@@ -234,6 +270,8 @@ await writeJson('public/data/safety-dashboard-summary.json', {
   policeCctvInstallationLocationSummary,
   fireDepartmentDonationInKindSummary,
   managedHikingTrailSummary,
+  fireRescueDifficultAreaSummary,
+  historicalFloodingSummary,
   evacuationGateCount: evacuationGates.length,
   evacuationGateSummary,
   medicalFacilitySummary,
@@ -412,6 +450,30 @@ await writeJson('public/data/conversion-report.json', {
         ? `Latest managed hiking trail download failed: ${managedHikingTrailFetchStatus.failure}. Existing generated data was retained.`
         : 'Managed hiking trail records from 工務局大地處; start/end coordinates are source points only, not route geometry or real-time trail status.',
     },
+    {
+      name: '臺北市火災搶救困難地區',
+      url: 'https://data.taipei/dataset/detail?id=0f322478-e09b-46af-8019-caeaa79678d7',
+      downloadUrl:
+        fireRescueDifficultAreaFetchStatus?.sourceUrl ??
+        'https://data.taipei/api/frontstage/tpeod/dataset/resource.download?rid=577b3810-49b7-44fd-a5b7-97897bb50f9e',
+      downloadedAt: fireRescueDifficultAreaFetchStatus?.downloadedAt ?? null,
+      fileSize: fireRescueDifficultAreaFetchStatus?.fileSize,
+      encoding: 'UTF-8-SIG with Big5 / CP950 fallback',
+      notes: fireRescueDifficultAreaFetchStatus?.failure
+        ? `Latest fire rescue difficult area download failed: ${fireRescueDifficultAreaFetchStatus.failure}. Existing generated data was retained.`
+        : 'Fire rescue difficult area records from 消防局; the dataset has no official coordinates, so the app shows district summaries and address lookup records only.',
+    },
+    {
+      name: '臺北市水利處歷史積水紀錄圖',
+      url: 'https://data.taipei/dataset/detail?id=8377b584-81e9-432d-b902-5b4e9978e6bc',
+      downloadUrl: '',
+      downloadedAt: null,
+      fileSize: historicalFloodingFetchStatus?.fileSize,
+      encoding: 'KML',
+      notes: historicalFloodingFetchStatus?.failure
+        ? `Latest historical flooding KML download failed: ${historicalFloodingFetchStatus.failure}. Existing local KML was retained.`
+        : 'Historical ponding/flooding KML records from 工務局水利處; source geometry is converted to GeoJSON for historical lookup only.',
+    },
   ],
   shelters: {
     inputRows: shelters.length,
@@ -431,6 +493,8 @@ await writeJson('public/data/conversion-report.json', {
   policeCctvInstallationLocations: policeCctvInstallationLocationConversion,
   fireDepartmentDonations: fireDepartmentDonationInKindConversion,
   managedHikingTrails: managedHikingTrailConversion,
+  fireRescueDifficultAreas: fireRescueDifficultAreaConversion,
+  historicalFloodingRecords: historicalFloodingConversion,
   aeds: {
     inputRows: aeds.length,
     outputRows: aeds.length,
@@ -489,6 +553,7 @@ await writeJson('public/data/conversion-report.json', {
     'Police CCTV installation-location records are shown as district summaries and address lookup records because the source has no official coordinates.',
     'Fire Department in-kind donation records have no official location fields and are shown as trends and directory records only.',
     'Managed hiking trail records provide start/end source coordinates only; connectors are approximate and not route geometry.',
+    'Fire rescue difficult area records have no official coordinates and are shown as district summaries plus address lookup records only.',
     `Burglary time periods: ${Object.keys(countBy(burglaries, (record) => record.timePeriod)).join(', ')}`,
     'AED availability is not real-time.',
     'Dengue records are shown only as district/village survey aggregates.',

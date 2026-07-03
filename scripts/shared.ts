@@ -29,6 +29,11 @@ import type {
   FireDepartmentDonationInKindRecord,
   FireDepartmentDonationItemCategory,
   FireDepartmentDonationPurposeCategory,
+  FireRescueDifficultAreaGeocodingStatus,
+  FireRescueDifficultAreaLocationPrecision,
+  FireRescueDifficultAreaRecognitionItemCategory,
+  FireRescueDifficultAreaRecord,
+  FireRescueDifficultyRatingLevel,
   FireHydrant,
   FireHydrantAreaScope,
   FireHydrantType,
@@ -74,6 +79,8 @@ export const FIRE_DONATION_SOURCE = '臺北市政府消防局各年度接受各�
 export const FIRE_DONATION_AGENCY = '臺北市政府消防局';
 export const MANAGED_HIKING_TRAIL_SOURCE = '臺北市列管登山步道';
 export const MANAGED_HIKING_TRAIL_AGENCY = '臺北市政府工務局大地工程處';
+export const FIRE_RESCUE_DIFFICULT_AREA_SOURCE = '臺北市火災搶救困難地區';
+export const FIRE_RESCUE_DIFFICULT_AREA_AGENCY = '臺北市政府消防局';
 export const EMERGENCY_SHELTER_SOURCE = '臺北市可供避難收容處所一覽表';
 export const EMERGENCY_SHELTER_AGENCY = '臺北市政府教育局';
 export const TRAFFIC_CCTV_SOURCE = '臺北市CCTV設施';
@@ -845,6 +852,100 @@ export function convertManagedHikingTrailRow(row: Record<string, string>, index:
   return record;
 }
 
+export function classifyFireRescueDifficultyRatingLevel(raw: string | undefined): FireRescueDifficultyRatingLevel {
+  const text = raw?.trim() ?? '';
+  if (!text) return 'unknown';
+  if (text === '1') return 'level_1';
+  if (text === '2') return 'level_2';
+  return 'other';
+}
+
+export function classifyFireRescueRecognitionItem(raw: string | undefined): FireRescueDifficultAreaRecognitionItemCategory {
+  const text = raw?.trim() ?? '';
+  if (!text) return 'unknown';
+  if (/^[1-9]$/.test(text)) return `item_${text}` as FireRescueDifficultAreaRecognitionItemCategory;
+  return 'other';
+}
+
+function parseFireRescueSequence(raw: unknown) {
+  const sourceSequenceNumberNormalized = cleanText(raw);
+  const sourceSequenceNumber = sourceSequenceNumberNormalized ? Number.parseInt(sourceSequenceNumberNormalized, 10) : undefined;
+  return {
+    sourceSequenceNumber: Number.isFinite(sourceSequenceNumber) ? sourceSequenceNumber : undefined,
+    sourceSequenceNumberNormalized,
+  };
+}
+
+function parseFireRescueAddress(raw: unknown) {
+  const address = cleanText(raw);
+  const addressNormalized = address?.replaceAll('台北市', '臺北市').replace(/\s+/g, '');
+  const roadName = addressNormalized?.match(/([\u4e00-\u9fff]{1,12}(?:路|街|大道|巷)(?:[一二三四五六七八九十\d]+段)?)/)?.[1];
+  const roadMatches = addressNormalized?.match(/[\u4e00-\u9fff]{1,12}(?:路|街|大道|巷)/g) ?? [];
+  const addressLooksLikeAreaOrRange = Boolean(
+    addressNormalized && (/[、至等]|一帶/.test(addressNormalized) || new Set(roadMatches).size > 1),
+  );
+  return { address, addressNormalized, roadName, addressLooksLikeAreaOrRange };
+}
+
+function createFireRescueDifficultAreaMapQuery(record: { districtName?: string; address?: string; placeName?: string }): string | undefined {
+  const parts = ['臺北市', record.districtName, record.address, record.placeName].filter(Boolean);
+  return parts.length > 1 ? parts.join(' ') : undefined;
+}
+
+function fireRescueLocationPrecision(args: { address?: string; districtName?: string; areaOrRange: boolean }): FireRescueDifficultAreaLocationPrecision {
+  if (args.areaOrRange) return 'area_or_street_range_address';
+  if (args.address) return 'address_only';
+  if (args.districtName) return 'district_only';
+  return 'missing';
+}
+
+function fireRescueGeocodingStatus(areaOrRange: boolean): FireRescueDifficultAreaGeocodingStatus {
+  return areaOrRange ? 'not_applicable_area_or_range' : 'not_geocoded_address_only';
+}
+
+export function convertFireRescueDifficultAreaRow(row: Record<string, string>, index: number): FireRescueDifficultAreaRecord {
+  const sequence = parseFireRescueSequence(row['項次編號']);
+  const ratingLevelRaw = cleanText(row['評分等級']);
+  const recognitionItemRaw = cleanText(row['認定項目']);
+  const districtCode = cleanText(row['行政區編號']);
+  const districtCodeNormalized = districtCode;
+  const districtName = districtCodeNormalized ? TAIPEI_DISTRICT_CODE_MAP[districtCodeNormalized] : undefined;
+  const address = parseFireRescueAddress(row['地址']);
+  const placeName = cleanText(row['場所名稱']);
+  const sourceRecordHash = hashSourceRecord([
+    sequence.sourceSequenceNumberNormalized,
+    ratingLevelRaw,
+    recognitionItemRaw,
+    districtCodeNormalized,
+    address.addressNormalized,
+    placeName,
+  ]);
+  return {
+    id: `fire-rescue-difficult-area-${sequence.sourceSequenceNumber ?? index + 1}`,
+    module: 'fire_rescue_difficult_areas',
+    ...sequence,
+    ratingLevelRaw,
+    ratingLevel: ratingLevelRaw,
+    ratingLevelCategory: classifyFireRescueDifficultyRatingLevel(ratingLevelRaw),
+    recognitionItemRaw,
+    recognitionItemCode: recognitionItemRaw,
+    recognitionItemCategory: classifyFireRescueRecognitionItem(recognitionItemRaw),
+    districtCode,
+    districtCodeNormalized,
+    districtName,
+    ...address,
+    placeName,
+    placeNameNormalized: placeName,
+    coordinateSource: 'none',
+    geocodingStatus: fireRescueGeocodingStatus(address.addressLooksLikeAreaOrRange),
+    locationPrecision: fireRescueLocationPrecision({ address: address.address, districtName, areaOrRange: address.addressLooksLikeAreaOrRange }),
+    googleMapsQuery: createFireRescueDifficultAreaMapQuery({ districtName, address: address.address, placeName }),
+    sourceRecordHash,
+    source: FIRE_RESCUE_DIFFICULT_AREA_SOURCE,
+    sourceAgency: FIRE_RESCUE_DIFFICULT_AREA_AGENCY,
+  };
+}
+
 export function convertAedRow(row: Record<string, string>, index: number): AedLocation {
   const latitude = parseNumber(row['緯度']);
   const longitude = parseNumber(row['經度']);
@@ -1387,6 +1488,7 @@ export async function loadConvertedData() {
     policeCctvInstallationLocations,
     fireDepartmentDonationInKindRecords,
     managedHikingTrails,
+    fireRescueDifficultAreas,
     aeds,
     dengueRecords,
     evacuationGates,
@@ -1401,6 +1503,7 @@ export async function loadConvertedData() {
     readJsonFile<PoliceCctvInstallationLocationRecord[]>(`${PUBLIC_DATA_DIR}/police-cctv-installation-locations.json`),
     readJsonFile<FireDepartmentDonationInKindRecord[]>(`${PUBLIC_DATA_DIR}/fire-department-donation-in-kind-records.json`),
     readJsonFile<ManagedHikingTrailRecord[]>(`${PUBLIC_DATA_DIR}/managed-hiking-trails.json`),
+    readJsonFile<FireRescueDifficultAreaRecord[]>(`${PUBLIC_DATA_DIR}/fire-rescue-difficult-areas.json`),
     readJsonFile<AedLocation[]>(`${PUBLIC_DATA_DIR}/aed-locations.json`),
     readJsonFile<DengueSurveyRecord[]>(`${PUBLIC_DATA_DIR}/dengue-vector-density-records.json`),
     readJsonFile<EvacuationGate[]>(`${PUBLIC_DATA_DIR}/evacuation-gates.json`),
@@ -1416,6 +1519,7 @@ export async function loadConvertedData() {
     policeCctvInstallationLocations,
     fireDepartmentDonationInKindRecords,
     managedHikingTrails,
+    fireRescueDifficultAreas,
     aeds,
     dengueRecords,
     evacuationGates,

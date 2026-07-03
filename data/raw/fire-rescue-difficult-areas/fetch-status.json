@@ -1,0 +1,10 @@
+{
+  "sourcePage": "https://data.taipei/dataset/detail?id=0f322478-e09b-46af-8019-caeaa79678d7",
+  "sourceUrl": "https://data.taipei/api/frontstage/tpeod/dataset/resource.download?rid=577b3810-49b7-44fd-a5b7-97897bb50f9e",
+  "resourceName": "臺北市火災搶救困難地區場所清冊",
+  "downloadedAt": "2026-07-03T00:48:59.979Z",
+  "fileSize": 29635,
+  "encoding": "UTF-8-SIG with Big5 / CP950 fallback",
+  "failure": null,
+  "notes": "Raw fire rescue difficult area CSV ready for conversion."
+}

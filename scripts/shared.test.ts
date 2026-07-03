@@ -8,6 +8,7 @@ import {
   convertEmergencyShelterRow,
   convertEvacuationGateRow,
   convertFireDepartmentDonationInKindRow,
+  convertFireRescueDifficultAreaRow,
   convertFireHydrantRow,
   convertManagedHikingTrailRow,
   convertMedicalFacilityRow,
@@ -312,6 +313,39 @@ describe('CSV script helpers', () => {
     });
     expect(record.startEndDistanceMeters).toBeGreaterThan(0);
     expect(record.approximateConnectorGeoJson?.properties.approximation).toBe(true);
+  });
+
+  it('converts fire rescue difficult area rows without geocoding', () => {
+    const record = convertFireRescueDifficultAreaRow(
+      {
+        項次編號: '4',
+        評分等級: '2',
+        認定項目: '5',
+        行政區編號: '63000050',
+        地址: '承德路4段40巷、通河街323巷、通河街325巷等',
+        場所名稱: '劍潭整宅',
+      },
+      0,
+    );
+
+    expect(record).toMatchObject({
+      id: 'fire-rescue-difficult-area-4',
+      module: 'fire_rescue_difficult_areas',
+      sourceSequenceNumber: 4,
+      ratingLevelCategory: 'level_2',
+      recognitionItemCategory: 'item_5',
+      districtCodeNormalized: '63000050',
+      districtName: '中正區',
+      roadName: '承德路4段',
+      addressLooksLikeAreaOrRange: true,
+      locationPrecision: 'area_or_street_range_address',
+      geocodingStatus: 'not_applicable_area_or_range',
+      coordinateSource: 'none',
+      placeName: '劍潭整宅',
+    });
+    expect(record.googleMapsQuery).toContain('臺北市 中正區');
+    expect(record).not.toHaveProperty('latitude');
+    expect(record).not.toHaveProperty('longitude');
   });
 
   it('parses and converts emergency shelter rows without coordinates', () => {

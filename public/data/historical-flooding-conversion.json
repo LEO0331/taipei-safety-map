@@ -1,0 +1,264 @@
+{
+  "generatedAt": "2026-07-03T00:52:10.699Z",
+  "source": "臺北市水利處歷史積水紀錄圖",
+  "sourceAgency": "工務局水利處",
+  "file": "historical-flooding-records.kml",
+  "fileSize": 696186,
+  "placemarkCount": 713,
+  "geometryCount": 713,
+  "warningCount": 49,
+  "warnings": [
+    {
+      "row": 59,
+      "issue": "Road not parsed: 再興中學",
+      "value": "{\"area\":\"1200\",\"FDATE\":\"2020/05/29\",\"TOWN_NAME\":\"文山區\",\"ADDRESS\":\"再興中學\",\"Depth\":\"20\"}"
+    },
+    {
+      "row": 68,
+      "issue": "Road not parsed: 仁愛圓環東側",
+      "value": "{\"area\":\"20549\",\"FDATE\":\"2019/07/22\",\"TOWN_NAME\":\"大安區\",\"ADDRESS\":\"仁愛圓環東側\",\"Depth\":\"30\"}"
+    },
+    {
+      "row": 79,
+      "issue": "Road not parsed: 小巨蛋斜對面",
+      "value": "{\"area\":\"6124\",\"FDATE\":\"2019/07/22\",\"TOWN_NAME\":\"松山區\",\"ADDRESS\":\"小巨蛋斜對面\",\"Depth\":\"15\"}"
+    },
+    {
+      "row": 161,
+      "issue": "Road not parsed: 公保大樓前",
+      "value": "{\"area\":\"1578.948094\",\"FDATE\":\"1999/08/25\",\"TOWN_NAME\":\"中正區\",\"ADDRESS\":\"公保大樓前\",\"Depth\":\"30\"}"
+    },
+    {
+      "row": 180,
+      "issue": "Road not parsed: 新生高架下圓山",
+      "value": "{\"area\":\"2617.733876\",\"FDATE\":\"2004/06/23\",\"TOWN_NAME\":\"中山區\",\"ADDRESS\":\"新生高架下圓山\",\"Depth\":\"30\"}"
+    },
+    {
+      "row": 194,
+      "issue": "Suspicious depth: 400",
+      "value": "{\"area\":\"194009.571445\",\"FDATE\":\"2000/11/01\",\"TOWN_NAME\":\"內湖區\",\"ADDRESS\":\"康樂街一帶\",\"Depth\":\"400\"}"
+    },
+    {
+      "row": 206,
+      "issue": "Suspicious depth: 350",
+      "value": "{\"area\":\"47559.542361\",\"FDATE\":\"2001/09/17\",\"TOWN_NAME\":\"文山區\",\"ADDRESS\":\"老泉街一帶\",\"Depth\":\"350\"}"
+    },
+    {
+      "row": 209,
+      "issue": "Suspicious area: 1828202.8867",
+      "value": "{\"area\":\"1828202.8867\",\"FDATE\":\"2001/09/17\",\"TOWN_NAME\":\"南港區\",\"ADDRESS\":\"大坑溪以西，忠孝東路7段以北，向陽路以東，基隆河以南區域\",\"Depth\":\"300\"}"
+    },
+    {
+      "row": 217,
+      "issue": "Suspicious area: 6960457.90008",
+      "value": "{\"area\":\"6960457.90008\",\"FDATE\":\"2001/09/17\",\"TOWN_NAME\":\"信義區\",\"ADDRESS\":\"中坡南北路以西，光復南路以東，信義路以北，民權東路以南區域\",\"Depth\":\"180\"}"
+    },
+    {
+      "row": 226,
+      "issue": "Road not parsed: 六福公園旁",
+      "value": "{\"area\":\"372.896728\",\"FDATE\":\"1991/06/21\",\"TOWN_NAME\":\"南港區\",\"ADDRESS\":\"六福公園旁\",\"Depth\":\"120\"}"
+    },
+    {
+      "row": 230,
+      "issue": "Suspicious area: 1132744.49847",
+      "value": "{\"area\":\"1132744.49847\",\"FDATE\":\"2001/09/17\",\"TOWN_NAME\":\"南港區\",\"ADDRESS\":\"大坑溪、四分溪（南港路以南）區域\",\"Depth\":\"300\"}"
+    },
+    {
+      "row": 237,
+      "issue": "Road not parsed: 北政國中",
+      "value": "{\"area\":\"20984.446494\",\"FDATE\":\"2001/09/17\",\"TOWN_NAME\":\"文山區\",\"ADDRESS\":\"北政國中\",\"Depth\":\"90\"}"
+    },
+    {
+      "row": 360,
+      "issue": "Road not parsed: 大直忠烈祠前圓環",
+      "value": "{\"area\":\"2466.787587\",\"FDATE\":\"1999/08/10\",\"TOWN_NAME\":\"中山區\",\"ADDRESS\":\"大直忠烈祠前圓環\",\"Depth\":\"20\"}"
+    },
+    {
+      "row": 414,
+      "issue": "Road not parsed: 建明橋下涵洞",
+      "value": "{\"area\":\"92.504\",\"FDATE\":\"2005/05/15\",\"TOWN_NAME\":\"北投區\",\"ADDRESS\":\"建明橋下涵洞\",\"Depth\":\"20\"}"
+    },
+    {
+      "row": 422,
+      "issue": "Road not parsed: 六福公園旁",
+      "value": "{\"area\":\"311.012781\",\"FDATE\":\"1991/06/21\",\"TOWN_NAME\":\"南港區\",\"ADDRESS\":\"六福公園旁\",\"Depth\":\"120\"}"
+    },
+    {
+      "row": 428,
+      "issue": "Suspicious area: 1796696.56778",
+      "value": "{\"area\":\"1796696.56778\",\"FDATE\":\"2001/09/17\",\"TOWN_NAME\":\"南港區\",\"ADDRESS\":\"向陽路以西，中坡南北路以東，東新街以北，基隆河以南區域\",\"Depth\":\"180\"}"
+    },
+    {
+      "row": 432,
+      "issue": "Road not parsed: 建民橋下涵洞",
+      "value": "{\"area\":\"4288.92793\",\"FDATE\":\"2006/09/10\",\"TOWN_NAME\":\"北投區\",\"ADDRESS\":\"建民橋下涵洞\",\"Depth\":\"40\"}"
+    },
+    {
+      "row": 439,
+      "issue": "Road not parsed: 社子島地區",
+      "value": "{\"area\":\"136975.367572\",\"FDATE\":\"2007/06/05\",\"TOWN_NAME\":\"士林區\",\"ADDRESS\":\"社子島地區\",\"Depth\":\"60\"}"
+    },
+    {
+      "row": 440,
+      "issue": "Road not parsed: 社子島地區",
+      "value": "{\"area\":\"11554.345707\",\"FDATE\":\"2007/06/05\",\"TOWN_NAME\":\"士林區\",\"ADDRESS\":\"社子島地區\",\"Depth\":\"60\"}"
+    },
+    {
+      "row": 441,
+      "issue": "Road not parsed: 社子島地區",
+      "value": "{\"area\":\"154241.546521\",\"FDATE\":\"2007/06/05\",\"TOWN_NAME\":\"士林區\",\"ADDRESS\":\"社子島地區\",\"Depth\":\"60\"}"
+    },
+    {
+      "row": 442,
+      "issue": "Road not parsed: 社子島地區",
+      "value": "{\"area\":\"18621.232903\",\"FDATE\":\"2007/06/05\",\"TOWN_NAME\":\"士林區\",\"ADDRESS\":\"社子島地區\",\"Depth\":\"60\"}"
+    },
+    {
+      "row": 443,
+      "issue": "Road not parsed: 社子島地區",
+      "value": "{\"area\":\"113974.425019\",\"FDATE\":\"2007/06/05\",\"TOWN_NAME\":\"士林區\",\"ADDRESS\":\"社子島地區\",\"Depth\":\"60\"}"
+    },
+    {
+      "row": 444,
+      "issue": "Road not parsed: 社子島地區",
+      "value": "{\"area\":\"120778.934722\",\"FDATE\":\"2007/06/05\",\"TOWN_NAME\":\"士林區\",\"ADDRESS\":\"社子島地區\",\"Depth\":\"60\"}"
+    },
+    {
+      "row": 445,
+      "issue": "Road not parsed: 社子島地區",
+      "value": "{\"area\":\"414793.825285\",\"FDATE\":\"2007/06/05\",\"TOWN_NAME\":\"士林區\",\"ADDRESS\":\"社子島地區\",\"Depth\":\"60\"}"
+    },
+    {
+      "row": 446,
+      "issue": "Road not parsed: 社子島地區",
+      "value": "{\"area\":\"19828.142611\",\"FDATE\":\"2007/06/05\",\"TOWN_NAME\":\"士林區\",\"ADDRESS\":\"社子島地區\",\"Depth\":\"60\"}"
+    },
+    {
+      "row": 447,
+      "issue": "Road not parsed: 社子島地區",
+      "value": "{\"area\":\"48969.837803\",\"FDATE\":\"2007/06/05\",\"TOWN_NAME\":\"士林區\",\"ADDRESS\":\"社子島地區\",\"Depth\":\"60\"}"
+    },
+    {
+      "row": 448,
+      "issue": "Road not parsed: 社子島地區",
+      "value": "{\"area\":\"6512.412655\",\"FDATE\":\"2007/06/05\",\"TOWN_NAME\":\"士林區\",\"ADDRESS\":\"社子島地區\",\"Depth\":\"60\"}"
+    },
+    {
+      "row": 467,
+      "issue": "Suspicious area: 1542949.65017",
+      "value": "{\"area\":\"1542949.65017\",\"FDATE\":\"2001/09/17\",\"TOWN_NAME\":\"大安區\",\"ADDRESS\":\"延吉街（市民大道至仁愛路段)，忠孝東路（光復南路至敦化南路段），敦化南路（市民大道至忠孝東路段）等周邊區域\",\"Depth\":\"100\"}"
+    },
+    {
+      "row": 481,
+      "issue": "Road not parsed: 美術館(中山足球場)對側",
+      "value": "{\"area\":\"272.024973\",\"FDATE\":\"2009/08/12\",\"TOWN_NAME\":\"中山區\",\"ADDRESS\":\"美術館(中山足球場)對側\",\"Depth\":\"20\"}"
+    },
+    {
+      "row": 483,
+      "issue": "Suspicious depth: 350",
+      "value": "{\"area\":\"29349.547832\",\"FDATE\":\"2001/09/17\",\"TOWN_NAME\":\"文山區\",\"ADDRESS\":\"木柵路4、5段一帶\",\"Depth\":\"350\"}"
+    },
+    {
+      "row": 489,
+      "issue": "Road not parsed: 文林國小",
+      "value": "{\"area\":\"4878.592614\",\"FDATE\":\"2012/04/22\",\"TOWN_NAME\":\"北投區\",\"ADDRESS\":\"文林國小\",\"Depth\":\"30\"}"
+    },
+    {
+      "row": 490,
+      "issue": "Road not parsed: 中正高中",
+      "value": "{\"area\":\"10660.707814\",\"FDATE\":\"2012/04/22\",\"TOWN_NAME\":\"北投區\",\"ADDRESS\":\"中正高中\",\"Depth\":\"30\"}"
+    },
+    {
+      "row": 542,
+      "issue": "Road not parsed: 空軍退休宿舍",
+      "value": "{\"area\":\"1064.16187\",\"FDATE\":\"2015/06/14\",\"TOWN_NAME\":\"大安區\",\"ADDRESS\":\"空軍退休宿舍\",\"Depth\":\"30\"}"
+    },
+    {
+      "row": 543,
+      "issue": "Road not parsed: 義芳居前",
+      "value": "{\"area\":\"1392.361387\",\"FDATE\":\"2015/06/14\",\"TOWN_NAME\":\"大安區\",\"ADDRESS\":\"義芳居前\",\"Depth\":\"50\"}"
+    },
+    {
+      "row": 546,
+      "issue": "Road not parsed: 臺北市第二殯儀館前",
+      "value": "{\"area\":\"2294.226369\",\"FDATE\":\"2015/06/14\",\"TOWN_NAME\":\"大安區\",\"ADDRESS\":\"臺北市第二殯儀館前\",\"Depth\":\"30\"}"
+    },
+    {
+      "row": 559,
+      "issue": "Road not parsed: 景美公園",
+      "value": "{\"area\":\"3568.930111\",\"FDATE\":\"2015/08/08\",\"TOWN_NAME\":\"文山區\",\"ADDRESS\":\"景美公園\",\"Depth\":\"60\"}"
+    },
+    {
+      "row": 600,
+      "issue": "Missing area",
+      "value": "{\"FDATE\":\"2018/09/08\",\"TOWN_NAME\":\"士林區\",\"ADDRESS\":\"中山北路6段255巷底\",\"Depth\":\"20\"}"
+    },
+    {
+      "row": 601,
+      "issue": "Missing area",
+      "value": "{\"FDATE\":\"2018/09/08\",\"TOWN_NAME\":\"士林區\",\"ADDRESS\":\"前港街26巷湖濱新村\",\"Depth\":\"20\"}"
+    },
+    {
+      "row": 602,
+      "issue": "Missing area",
+      "value": "{\"FDATE\":\"2018/09/08\",\"TOWN_NAME\":\"士林區\",\"ADDRESS\":\"中正路212巷1弄4號\",\"Depth\":\"30\"}"
+    },
+    {
+      "row": 603,
+      "issue": "Missing area",
+      "value": "{\"FDATE\":\"2018/09/08\",\"TOWN_NAME\":\"北投區\",\"ADDRESS\":\"民族街3-5號\",\"Depth\":\"15\"}"
+    },
+    {
+      "row": 604,
+      "issue": "Missing area",
+      "value": "{\"FDATE\":\"2018/09/08\",\"TOWN_NAME\":\"大安區\",\"ADDRESS\":\"永康街23巷\",\"Depth\":\"30\"}"
+    },
+    {
+      "row": 605,
+      "issue": "Missing area",
+      "value": "{\"FDATE\":\"2018/09/08\",\"TOWN_NAME\":\"大安區\",\"ADDRESS\":\"和平東路2段265巷\",\"Depth\":\"30\"}"
+    },
+    {
+      "row": 606,
+      "issue": "Missing area",
+      "value": "{\"FDATE\":\"2018/09/08\",\"TOWN_NAME\":\"大安區\",\"ADDRESS\":\"新生南路2段(信義路與和平東路2段之間)\",\"Depth\":\"20\"}"
+    },
+    {
+      "row": 607,
+      "issue": "Missing area",
+      "value": "{\"FDATE\":\"2018/09/08\",\"TOWN_NAME\":\"大安區\",\"ADDRESS\":\"基隆路3段155巷\",\"Depth\":\"20\"}"
+    },
+    {
+      "row": 608,
+      "issue": "Missing area",
+      "value": "{\"FDATE\":\"2018/09/08\",\"TOWN_NAME\":\"大安區\",\"ADDRESS\":\"基隆路3段149號\",\"Depth\":\"45\"}"
+    },
+    {
+      "row": 609,
+      "issue": "Missing area",
+      "value": "{\"FDATE\":\"2018/09/08\",\"TOWN_NAME\":\"中山區\",\"ADDRESS\":\"長安東路2段\",\"Depth\":\"25\"}"
+    },
+    {
+      "row": 610,
+      "issue": "Missing area",
+      "value": "{\"FDATE\":\"2018/09/08\",\"TOWN_NAME\":\"中山區\",\"ADDRESS\":\"長安東路1段56巷1弄\",\"Depth\":\"20\"}"
+    },
+    {
+      "row": 623,
+      "issue": "Missing area",
+      "value": "{\"FDATE\":\"2018/09/08\",\"TOWN_NAME\":\"萬華區\",\"ADDRESS\":\"萬大路237巷10弄\",\"Depth\":\"15\"}"
+    },
+    {
+      "row": 644,
+      "issue": "Road not parsed: 捷運新北投站",
+      "value": "{\"area\":\"400\",\"FDATE\":\"2019/05/20\",\"TOWN_NAME\":\"北投區\",\"ADDRESS\":\"捷運新北投站\",\"Depth\":\"15\"}"
+    }
+  ],
+  "duplicateFallbackKeys": [
+    "1999-06-17|松山區|健康路15巷至敦化北路155巷|30|1478.577228"
+  ],
+  "notes": [
+    "KML source geometry is preserved as GeoJSON for historical record lookup only.",
+    "Centroids are derived only for popup placement and sorting support, not as replacement geometry."
+  ]
+}

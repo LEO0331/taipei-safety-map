@@ -12,8 +12,12 @@ import type {
   EvacuationGate,
   FireDepartmentDonationInKindRecord,
   FireDepartmentDonationInKindSummary,
+  FireRescueDifficultAreaRecord,
+  FireRescueDifficultAreaSummary,
   FireHydrant,
   FireHydrantSummary,
+  HistoricalFloodingRecord,
+  HistoricalFloodingSummary,
   ManagedHikingTrailRecord,
   ManagedHikingTrailSummary,
   MedicalFacility,
@@ -49,6 +53,7 @@ export async function loadSafetyData(): Promise<SafetyDataBundle> {
     policeCctvInstallationLocations,
     fireDepartmentDonationInKindRecords,
     managedHikingTrails,
+    fireRescueDifficultAreas,
     aeds,
     evacuationGates,
     medicalFacilities,
@@ -56,6 +61,7 @@ export async function loadSafetyData(): Promise<SafetyDataBundle> {
     trafficCctvFacilities,
     naturalDisasterSuspensionRecords,
     naturalDisasterSuspensionEventGroups,
+    historicalFloodingRecords,
     dengueRecords,
     dashboard,
     conversionReport,
@@ -67,6 +73,7 @@ export async function loadSafetyData(): Promise<SafetyDataBundle> {
     loadJson<PoliceCctvInstallationLocationRecord[]>('police-cctv-installation-locations.json'),
     loadJson<FireDepartmentDonationInKindRecord[]>('fire-department-donation-in-kind-records.json'),
     loadJson<ManagedHikingTrailRecord[]>('managed-hiking-trails.json'),
+    loadJson<FireRescueDifficultAreaRecord[]>('fire-rescue-difficult-areas.json'),
     loadJson<AedLocation[]>('aed-locations.json'),
     loadJson<EvacuationGate[]>('evacuation-gates.json'),
     loadJson<MedicalFacility[]>('medical-facilities.json'),
@@ -74,6 +81,7 @@ export async function loadSafetyData(): Promise<SafetyDataBundle> {
     loadJson<TrafficCctvFacility[]>('traffic-cctv-facilities.json'),
     loadJson<NaturalDisasterWorkSchoolSuspensionRecord[]>('natural-disaster-work-school-suspension-records.json'),
     loadJson<NaturalDisasterSuspensionEventGroup[]>('natural-disaster-work-school-suspension-event-groups.json'),
+    loadJson<HistoricalFloodingRecord[]>('historical-flooding-records.json'),
     loadJson<DengueSurveyRecord[]>('dengue-vector-density-records.json'),
     loadJson<{
       districtSummaries: DistrictSafetySummary[];
@@ -86,7 +94,9 @@ export async function loadSafetyData(): Promise<SafetyDataBundle> {
       policeCctvInstallationLocationSummary: PoliceCctvInstallationLocationSummary;
       fireDepartmentDonationInKindSummary: FireDepartmentDonationInKindSummary;
       managedHikingTrailSummary: ManagedHikingTrailSummary;
+      fireRescueDifficultAreaSummary: FireRescueDifficultAreaSummary;
       naturalDisasterSuspensionSummary: NaturalDisasterSuspensionSummary;
+      historicalFloodingSummary: HistoricalFloodingSummary;
     }>('safety-dashboard-summary.json'),
     loadJson<ConversionReport>('conversion-report.json'),
   ]);
@@ -104,6 +114,8 @@ export async function loadSafetyData(): Promise<SafetyDataBundle> {
     fireDepartmentDonationInKindSummary: dashboard.fireDepartmentDonationInKindSummary,
     managedHikingTrails,
     managedHikingTrailSummary: dashboard.managedHikingTrailSummary,
+    fireRescueDifficultAreas,
+    fireRescueDifficultAreaSummary: dashboard.fireRescueDifficultAreaSummary,
     aeds,
     evacuationGates,
     medicalFacilities,
@@ -115,6 +127,8 @@ export async function loadSafetyData(): Promise<SafetyDataBundle> {
     naturalDisasterSuspensionRecords,
     naturalDisasterSuspensionSummary: dashboard.naturalDisasterSuspensionSummary,
     naturalDisasterSuspensionEventGroups,
+    historicalFloodingRecords,
+    historicalFloodingSummary: dashboard.historicalFloodingSummary,
     dengueRecords,
     dengueDistrictSummaries: dashboard.dengueDistrictSummaries,
     districtSummaries: dashboard.districtSummaries,

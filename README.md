@@ -2,7 +2,7 @@
 
 A mobile-first bilingual Vite + React + TypeScript + Leaflet app for public safety information in Taipei.
 
-The app combines AED locations, medical facilities, fire hydrants, managed hiking trails, air-raid shelters, emergency shelters, evacuation gates, CCTV equipment locations, police CCTV installation-location records, Fire Department in-kind donation records, historical residential burglary records, bicycle theft records, motorcycle theft records, dengue vector-density survey results, and historical natural-disaster work/school suspension messages. It does not provide real-time availability, remaining shelter capacity, live CCTV video, medical advice, fire-response instructions, evacuation instructions, current closure status, forecasts, crime-risk scoring, route-safety guarantees, privacy or legal advice, insurance advice, theft-prevention advice, crime prediction, outbreak-risk prediction, donation endorsements, route navigation, weather status, accessibility guarantees, rescue availability, or resource-availability claims.
+The app combines AED locations, medical facilities, fire hydrants, fire rescue difficult area records, managed hiking trails, air-raid shelters, emergency shelters, evacuation gates, CCTV equipment locations, police CCTV installation-location records, Fire Department in-kind donation records, historical residential burglary records, bicycle theft records, motorcycle theft records, dengue vector-density survey results, and historical natural-disaster work/school suspension messages. It does not provide real-time availability, remaining shelter capacity, live CCTV video, medical advice, fire-response instructions, evacuation instructions, current closure status, forecasts, crime-risk scoring, route-safety guarantees, privacy or legal advice, insurance advice, real-estate advice, theft-prevention advice, crime prediction, outbreak-risk prediction, donation endorsements, route navigation, weather status, building safety certification, rescue-time prediction, accessibility guarantees, rescue availability, or resource-availability claims.
 
 Fire & emergency facilities: AEDs, medical facilities, and fire hydrants / 消防與緊急設施：AED、醫療院所與消防栓
 
@@ -13,6 +13,8 @@ Traffic monitoring facilities: CCTV equipment locations / 交通監控設施：C
 Public safety infrastructure: police CCTV installation-location records / 公共安全設施：警察局錄影監視系統設置區位
 
 Fire Department public records: in-kind donation records by year, donor, item, and purpose / 消防局公開紀錄：各年度接受各界捐贈實物明細
+
+Firefighting and disaster-prevention support: fire rescue difficult areas / 消防防災輔助資訊：火災搶救困難地區
 
 Outdoor activity and trail preparedness: managed hiking trails / 戶外活動與步道安全準備：列管登山步道
 
@@ -32,6 +34,7 @@ Disaster information history: historical natural-disaster work/school suspension
 - `臺北市公私立醫療院所`: separate hospital and clinic resources with WGS84 coordinates.
 - `大臺北地區消防栓分布點位圖`: Greater Taipei hydrant records from 北水處 with WGS84 and TWD97 coordinates.
 - `臺北市政府消防局各年度接受各界捐贈實物明細表`: Fire Department in-kind donation records by year, donor, donated item, and use purpose. Current CSV resources are converted; legacy ODS resources are listed as unsupported.
+- `臺北市火災搶救困難地區`: UTF-8-SIG Fire Department records with sequence number, rating level, recognition item, district code, address, and place name. The source has no official coordinates.
 - `臺北市列管登山步道`: Big5 / CP950 managed hiking trail records with district, trail route, length, walking time, grade, source start/end coordinates, stairs, roadblock, wheelchair suitability, mobile signal, portable toilet, and accessible toilet fields.
 - `臺北市可供避難收容處所一覽表`: UTF-8-SIG emergency shelter directory with disaster applicability, listed capacity, area, served villages, and public contact fields.
 - `臺北市CCTV設施`: Big5 / CP950 traffic CCTV equipment locations with sequence number, city, camera location/code, and WGS84 coordinates.
@@ -55,6 +58,8 @@ CCTV records are shown as traffic monitoring infrastructure points only. The app
 Police CCTV installation-location records are shown as district-level summaries and an address-based directory only. The app parses district and road text from installation addresses but does not geocode, show exact markers, provide live video, infer field of view, or claim real-time operational status.
 
 Fire Department donation records are a no-coordinate public-records module. The app parses ROC years, month/day fields, donor names, donated items, and purpose text into trends and a searchable directory. It does not render map markers, imply official endorsement, or represent current inventory, resource availability, procurement status, tax treatment, or emergency-service readiness.
+
+Fire rescue difficult area records are an address-only Fire Department public-records module. The app maps district codes to Taipei districts, parses rating level and recognition item codes, detects area/range-style addresses, and shows district summaries plus an address directory with external map lookup links. It does not geocode exact points, represent real-time fire risk, current emergency status, building safety certification, rescue accessibility, rescue-time prediction, insurance advice, real-estate advice, legal liability, violation records, official danger ranking, or official endorsement.
 
 Managed hiking trail records provide source start and end coordinates, not full route geometry. The app validates start/end WGS84-like coordinates, shows start/end markers, and can draw an approximate start-end connector only. It does not draw exact trail paths, provide navigation, represent real-time open/closed status, weather, disaster risk, rescue availability, accessibility guarantees, personal fitness advice, medical advice, official recommendations, or safety guarantees.
 
@@ -95,6 +100,7 @@ data/raw/medical-facilities/hospitals.csv
 data/raw/medical-facilities/clinics.csv
 data/raw/fire-hydrants/fire-hydrants.csv
 data/raw/fire-department-donation-in-kind-records/*.csv
+data/raw/fire-rescue-difficult-areas/fire-rescue-difficult-areas.csv
 data/raw/managed-hiking-trails/managed-hiking-trails.csv
 data/raw/emergency-shelters/emergency-shelters.csv
 data/raw/traffic-cctv/traffic-cctv.csv
@@ -109,6 +115,8 @@ data/raw/motorcycle-theft-records/motorcycle-theft-records.csv
 Air-raid shelter coordinates are detected as WGS84 when they look like longitude/latitude pairs. TWD97 TM2 / EPSG:3826 coordinates are converted to WGS84 with `proj4`. Medical hospital and clinic CSVs are decoded as Big5 / CP950 with UTF-8 fallback. Fire hydrant CSVs are UTF-8-SIG with Big5 fallback, preserve TWD97 coordinates, classify underground / above-ground hydrants, and validate WGS84 coordinates against Greater Taipei bounds.
 
 Fire Department donation CSVs are UTF-8-SIG with Big5 fallback. Conversion parses ROC years, month/day fields, donor, donated item, and purpose fields; the records have no coordinates and are not geocoded.
+
+Fire rescue difficult area CSVs are UTF-8-SIG with Big5 / CP950 fallback. Conversion parses sequence number, rating level, recognition item, district code, address, road name, area/range-style address flags, and place name. Records are address-only by default; no automatic geocoding or exact markers are created.
 
 Managed hiking trail CSVs are Big5 / CP950 with UTF-8-SIG fallback. Conversion parses district, route name, length, walking time, grade, start/end point names, start/end coordinates, stairs, roadblocks, wheelchair fields, mobile signal, portable toilet, and accessible toilet fields. Start/end coordinates are validated against Taipei-nearby bounds; approximate connectors are labeled as start-end context only, not route geometry.
 
@@ -134,4 +142,4 @@ In repository settings, enable Pages with `GitHub Actions` as the source.
 
 ## Disclaimer
 
-This site presents public AED, medical-facility, fire-hydrant, managed hiking trail, air-raid shelter, emergency shelter, evacuation-gate, CCTV equipment, Fire Department donation, historical theft, historical disaster-suspension, and dengue vector-density records. It does not represent real-time availability, fire-response deployment, shelter opening status, remaining capacity, CCTV live video, monitoring coverage, trail opening status, weather, route navigation, rescue availability, accessibility guarantee, official endorsement, current inventory, or official evacuation instructions. In an emergency, call 119 and follow official authorities and on-site command.
+This site presents public AED, medical-facility, fire-hydrant, fire rescue difficult area, managed hiking trail, air-raid shelter, emergency shelter, evacuation-gate, CCTV equipment, Fire Department donation, historical theft, historical disaster-suspension, and dengue vector-density records. It does not represent real-time availability, fire-response deployment, shelter opening status, remaining capacity, CCTV live video, monitoring coverage, real-time fire risk, building safety certification, rescue-time prediction, trail opening status, weather, route navigation, rescue availability, accessibility guarantee, official endorsement, current inventory, insurance advice, real-estate advice, legal advice, or official evacuation instructions. In an emergency, call 119 and follow official authorities and on-site command.

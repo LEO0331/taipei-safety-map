@@ -16,7 +16,9 @@ export type SafetyLayer =
   | 'police_cctv_installation_location'
   | 'fire_department_donation_in_kind_records'
   | 'managed_hiking_trails'
-  | 'natural_disaster_work_school_suspension_records';
+  | 'fire_rescue_difficult_areas'
+  | 'natural_disaster_work_school_suspension_records'
+  | 'historical_flooding_records';
 
 export type LocationPrecision = 'exact' | 'district_centroid' | 'address_only' | 'missing';
 
@@ -428,6 +430,119 @@ export type ManagedHikingTrailSummary = {
     duplicateStartPointCount: number;
     duplicateEndPointCount: number;
     duplicateFallbackKeyCount: number;
+  };
+};
+
+export type FireRescueDifficultyRatingLevel = 'level_1' | 'level_2' | 'other' | 'unknown';
+export type FireRescueDifficultAreaRecognitionItemCategory =
+  | 'item_1'
+  | 'item_2'
+  | 'item_3'
+  | 'item_4'
+  | 'item_5'
+  | 'item_6'
+  | 'item_7'
+  | 'item_8'
+  | 'item_9'
+  | 'other'
+  | 'unknown';
+export type FireRescueDifficultAreaLocationPrecision =
+  | 'district_only'
+  | 'address_only'
+  | 'area_or_street_range_address'
+  | 'geocoded_address_approximate'
+  | 'official_coordinate'
+  | 'missing';
+export type FireRescueDifficultAreaGeocodingStatus =
+  | 'not_attempted'
+  | 'not_geocoded_address_only'
+  | 'geocoded_approximate'
+  | 'official_coordinate'
+  | 'failed'
+  | 'not_applicable_area_or_range';
+
+export type FireRescueDifficultAreaRecord = {
+  id: string;
+  module: 'fire_rescue_difficult_areas';
+  sourceSequenceNumber?: number;
+  sourceSequenceNumberNormalized?: string;
+  ratingLevelRaw?: string;
+  ratingLevel?: string;
+  ratingLevelCategory: FireRescueDifficultyRatingLevel;
+  recognitionItemRaw?: string;
+  recognitionItemCode?: string;
+  recognitionItemCategory: FireRescueDifficultAreaRecognitionItemCategory;
+  districtCode?: string;
+  districtCodeNormalized?: string;
+  districtName?: string;
+  address?: string;
+  addressNormalized?: string;
+  roadName?: string;
+  addressLooksLikeAreaOrRange: boolean;
+  placeName?: string;
+  placeNameNormalized?: string;
+  latitude?: number;
+  longitude?: number;
+  coordinateSource: 'official' | 'geocoded' | 'none';
+  geocodingStatus: FireRescueDifficultAreaGeocodingStatus;
+  locationPrecision: FireRescueDifficultAreaLocationPrecision;
+  googleMapsQuery?: string;
+  sourceRecordHash: string;
+  source: string;
+  sourceAgency: string;
+};
+
+export type FireRescueDifficultAreaSummary = {
+  totalRecords: number;
+  districtCount: number;
+  uniqueAddressCount: number;
+  uniquePlaceNameCount: number;
+  uniqueRecognitionItemCount: number;
+  uniqueRatingLevelCount: number;
+  recordsWithDistrictName: number;
+  recordsWithAddress: number;
+  recordsWithPlaceName: number;
+  recordsWithAreaOrRangeAddress: number;
+  recordsWithGeocodedCoordinates: number;
+  recordsWithOfficialCoordinates: number;
+  byDistrict: Array<{
+    districtCode: string;
+    districtName?: string;
+    count: number;
+    ratingLevel1Count: number;
+    ratingLevel2Count: number;
+    uniqueAddressCount: number;
+    uniquePlaceNameCount: number;
+  }>;
+  byRatingLevel: Array<{
+    ratingLevel: string;
+    ratingLevelCategory: FireRescueDifficultyRatingLevel;
+    count: number;
+    districtCount: number;
+  }>;
+  byRecognitionItem: Array<{
+    recognitionItemCode: string;
+    recognitionItemCategory: FireRescueDifficultAreaRecognitionItemCategory;
+    count: number;
+    districtCount: number;
+  }>;
+  byRoadName: Array<{ roadName: string; count: number; districtCount: number }>;
+  topPlaceNames: Array<{ placeName: string; count: number; districtName?: string }>;
+  dataQuality: {
+    missingSequenceNumberCount: number;
+    duplicateSequenceNumberCount: number;
+    missingRatingLevelCount: number;
+    unknownRatingLevelCount: number;
+    missingRecognitionItemCount: number;
+    unknownRecognitionItemCount: number;
+    missingDistrictCodeCount: number;
+    unknownDistrictCodeCount: number;
+    missingAddressCount: number;
+    missingPlaceNameCount: number;
+    duplicateAddressCount: number;
+    duplicatePlaceNameCount: number;
+    duplicateFallbackKeyCount: number;
+    areaOrRangeAddressCount: number;
   };
 };
 
@@ -860,6 +975,99 @@ export type NaturalDisasterSuspensionSummary = {
 
 export type Language = 'zh' | 'en';
 
+export type FloodingDepthCategory = 'under_10cm' | '10_to_30cm' | '30_to_50cm' | '50cm_to_1m' | 'over_1m' | 'missing' | 'unknown';
+export type FloodingAreaCategory = 'under_100sqm' | '100_to_500sqm' | '500_to_1000sqm' | '1000_to_5000sqm' | 'over_5000sqm' | 'missing' | 'unknown';
+export type HistoricalFloodingSeason = 'spring' | 'summer' | 'autumn' | 'winter' | 'unknown';
+export type HistoricalFloodingGeometrySource = 'official_kml_geometry' | 'official_kml_centroid' | 'derived_from_geometry' | 'missing';
+export type HistoricalFloodingLocationPrecision = 'official_kml_polygon' | 'official_kml_line' | 'official_kml_point' | 'official_kml_centroid' | 'district_address' | 'district_only' | 'missing';
+export type HistoricalFloodingGeometry =
+  | { type: 'Point'; coordinates: [number, number] }
+  | { type: 'MultiPoint'; coordinates: Array<[number, number]> }
+  | { type: 'LineString'; coordinates: Array<[number, number]> }
+  | { type: 'MultiLineString'; coordinates: Array<Array<[number, number]>> }
+  | { type: 'Polygon'; coordinates: Array<Array<[number, number]>> }
+  | { type: 'MultiPolygon'; coordinates: Array<Array<Array<[number, number]>>> };
+
+export type HistoricalFloodingRecord = {
+  id: string;
+  module: 'historical_flooding_records';
+  eventDateRaw?: string;
+  eventDate?: string;
+  eventYear?: number;
+  eventMonth?: number;
+  eventYearMonth?: string;
+  eventSeason: HistoricalFloodingSeason;
+  districtName?: string;
+  districtNameNormalized?: string;
+  floodingLocationAddress?: string;
+  floodingLocationAddressNormalized?: string;
+  roadName?: string;
+  floodingDepthRaw?: string;
+  floodingDepthCm?: number;
+  floodingDepthMeters?: number;
+  floodingDepthCategory: FloodingDepthCategory;
+  floodingAreaRaw?: string;
+  floodingAreaSquareMeters?: number;
+  floodingAreaCategory: FloodingAreaCategory;
+  geometry?: HistoricalFloodingGeometry;
+  geometryType?: HistoricalFloodingGeometry['type'];
+  geometryValid: boolean;
+  geometrySource: HistoricalFloodingGeometrySource;
+  geometryBounds?: { minLng: number; minLat: number; maxLng: number; maxLat: number };
+  centroidLatitude?: number;
+  centroidLongitude?: number;
+  locationPrecision: HistoricalFloodingLocationPrecision;
+  rawProperties?: Record<string, string | undefined>;
+  sourceRecordHash: string;
+  source: string;
+  sourceAgency: string;
+};
+
+export type HistoricalFloodingSummary = {
+  totalRecords: number;
+  minEventDate?: string;
+  maxEventDate?: string;
+  eventYearCount: number;
+  districtCount: number;
+  uniqueAddressCount: number;
+  recordsWithGeometry: number;
+  recordsWithValidGeometry: number;
+  recordsWithCentroid: number;
+  recordsWithDepth: number;
+  recordsWithArea: number;
+  minFloodingDepthCm?: number;
+  maxFloodingDepthCm?: number;
+  averageFloodingDepthCm?: number;
+  medianFloodingDepthCm?: number;
+  minFloodingAreaSquareMeters?: number;
+  maxFloodingAreaSquareMeters?: number;
+  averageFloodingAreaSquareMeters?: number;
+  medianFloodingAreaSquareMeters?: number;
+  totalFloodingAreaSquareMeters?: number;
+  byDistrict: Array<{ districtName: string; count: number; uniqueAddressCount: number; averageDepthCm?: number; maxDepthCm?: number; totalAreaSquareMeters?: number }>;
+  byEventYear: Array<{ eventYear: number; count: number; districtCount: number; averageDepthCm?: number; totalAreaSquareMeters?: number }>;
+  byEventYearMonth: Array<{ eventYearMonth: string; count: number; districtCount: number; averageDepthCm?: number; totalAreaSquareMeters?: number }>;
+  byFloodingDepthCategory: Array<{ floodingDepthCategory: FloodingDepthCategory; count: number }>;
+  byFloodingAreaCategory: Array<{ floodingAreaCategory: FloodingAreaCategory; count: number }>;
+  byGeometryType: Array<{ geometryType: string; count: number }>;
+  topRoadNames: Array<{ roadName: string; count: number; districtCount: number }>;
+  topAddresses: Array<{ address: string; count: number; districtName?: string }>;
+  dataQuality: {
+    missingEventDateCount: number;
+    invalidEventDateCount: number;
+    missingDistrictCount: number;
+    unknownDistrictCount: number;
+    missingAddressCount: number;
+    missingDepthCount: number;
+    invalidDepthCount: number;
+    missingAreaCount: number;
+    invalidAreaCount: number;
+    missingGeometryCount: number;
+    invalidGeometryCount: number;
+    duplicateFallbackKeyCount: number;
+  };
+};
+
 export type SafetyDataBundle = {
   shelters: AirRaidShelter[];
   burglaries: ResidentialBurglaryRecord[];
@@ -873,6 +1081,8 @@ export type SafetyDataBundle = {
   fireDepartmentDonationInKindSummary: FireDepartmentDonationInKindSummary;
   managedHikingTrails: ManagedHikingTrailRecord[];
   managedHikingTrailSummary: ManagedHikingTrailSummary;
+  fireRescueDifficultAreas: FireRescueDifficultAreaRecord[];
+  fireRescueDifficultAreaSummary: FireRescueDifficultAreaSummary;
   aeds: AedLocation[];
   evacuationGates: EvacuationGate[];
   medicalFacilities: MedicalFacility[];
@@ -884,6 +1094,8 @@ export type SafetyDataBundle = {
   naturalDisasterSuspensionRecords: NaturalDisasterWorkSchoolSuspensionRecord[];
   naturalDisasterSuspensionSummary: NaturalDisasterSuspensionSummary;
   naturalDisasterSuspensionEventGroups: NaturalDisasterSuspensionEventGroup[];
+  historicalFloodingRecords: HistoricalFloodingRecord[];
+  historicalFloodingSummary: HistoricalFloodingSummary;
   dengueRecords: DengueSurveyRecord[];
   dengueDistrictSummaries: DengueDistrictSummary[];
   districtSummaries: DistrictSafetySummary[];
@@ -1035,6 +1247,18 @@ export type ConversionReport = {
     duplicateCoordinatePairs: string[];
     invalidCoordinateExamples: string[];
     slopeParseWarnings: string[];
+  };
+  fireRescueDifficultAreas?: {
+    inputRows: number;
+    outputRows: number;
+    duplicateSequenceNumbers: string[];
+    duplicateAddresses: string[];
+    duplicatePlaceNames: string[];
+    duplicateFallbackKeys: string[];
+    unknownDistrictCodes: string[];
+    unknownRatingLevels: string[];
+    unknownRecognitionItems: string[];
+    areaOrRangeAddressExamples: string[];
   };
   notes: string[];
 };
