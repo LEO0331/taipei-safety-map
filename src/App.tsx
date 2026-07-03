@@ -3357,7 +3357,6 @@ function SafetyOverview({ data, language }: { data: SafetyDataBundle; language: 
   const hikingSummary = data.managedHikingTrailSummary;
   const hikingLabelsForOverview = hikingTrailLabels[language];
   const floodingSummary = data.historicalFloodingSummary;
-  const floodingLabelsForOverview = floodingLabels[language];
 
   return (
     <main className="overview">
@@ -3401,12 +3400,12 @@ function SafetyOverview({ data, language }: { data: SafetyDataBundle; language: 
         <Metric label={hikingLabelsForOverview.wheelchairCount} value={hikingSummary.wheelchairSuitableCount.toLocaleString()} />
         <Metric label={hikingLabelsForOverview.portableToiletCount} value={hikingSummary.portableToiletCount.toLocaleString()} />
         <Metric label={hikingLabelsForOverview.accessibleToiletCount} value={hikingSummary.accessibleToiletCount.toLocaleString()} />
-        <Metric label={floodingLabelsForOverview.recordCount} value={floodingSummary.totalRecords.toLocaleString()} />
-        <Metric label={floodingLabelsForOverview.districtsCovered} value={floodingSummary.districtCount.toLocaleString()} />
-        <Metric label={floodingLabelsForOverview.dateRange} value={`${floodingSummary.minEventDate ?? '-'} - ${floodingSummary.maxEventDate ?? '-'}`} />
-        <Metric label={floodingLabelsForOverview.validGeometryCount} value={floodingSummary.recordsWithValidGeometry.toLocaleString()} />
-        <Metric label={floodingLabelsForOverview.maxDepth} value={`${fmt(floodingSummary.maxFloodingDepthCm)} cm`} />
-        <Metric label={floodingLabelsForOverview.topDistrict} value={floodingSummary.byDistrict[0]?.districtName ?? '-'} />
+        <Metric label={language === 'zh' ? '歷史積水紀錄數' : 'Historical flooding record count'} value={floodingSummary.totalRecords.toLocaleString()} />
+        <Metric label={language === 'zh' ? '涵蓋行政區數' : 'Districts covered'} value={floodingSummary.districtCount.toLocaleString()} />
+        <Metric label={language === 'zh' ? '日期範圍' : 'Date range'} value={`${floodingSummary.minEventDate ?? '-'} - ${floodingSummary.maxEventDate ?? '-'}`} />
+        <Metric label={language === 'zh' ? '有效幾何數' : 'Valid geometry count'} value={floodingSummary.recordsWithValidGeometry.toLocaleString()} />
+        <Metric label={language === 'zh' ? '最大積水深度' : 'Max flooding depth'} value={`${fmt(floodingSummary.maxFloodingDepthCm)} cm`} />
+        <Metric label={language === 'zh' ? '最多紀錄行政區' : 'Top district'} value={floodingSummary.byDistrict[0]?.districtName ?? '-'} />
         <Metric label={t.latestBurglaryMonth} value={latest ? `${latest.year}-${String(latest.month).padStart(2, '0')}` : '-'} />
         <Metric label={t.mostCommonBurglaryTimePeriod} value={commonPeriod?.[0] ?? '-'} />
         <Metric label={t.topBurglaryDistrict} value={topBurglary?.[0] ?? '-'} />
@@ -3497,8 +3496,8 @@ function SafetyOverview({ data, language }: { data: SafetyDataBundle; language: 
         <BarChart title={hikingLabelsForOverview.lengthByDistrict} values={Object.fromEntries(hikingSummary.byDistrict.map((item) => [item.district, item.totalLengthMeters]))} />
         <BarChart title={hikingLabelsForOverview.trailsByGrade} values={Object.fromEntries(hikingSummary.byTrailGrade.map((item) => [item.trailGrade, item.count]))} />
         <BarChart title={hikingLabelsForOverview.trailsByLength} values={Object.fromEntries(hikingSummary.byLengthCategory.map((item) => [formatHikingTrailLengthCategory(item.lengthCategory, language), item.count]))} />
-        <BarChart title={floodingLabelsForOverview.byYear} values={Object.fromEntries(floodingSummary.byEventYear.map((item) => [String(item.eventYear), item.count]))} />
-        <BarChart title={floodingLabelsForOverview.byDistrict} values={Object.fromEntries(floodingSummary.byDistrict.map((item) => [item.districtName, item.count]))} />
+        <BarChart title={language === 'zh' ? '各年份積水紀錄數' : 'Flooding records by year'} values={Object.fromEntries(floodingSummary.byEventYear.map((item) => [String(item.eventYear), item.count]))} />
+        <BarChart title={language === 'zh' ? '各行政區積水紀錄數' : 'Flooding records by district'} values={Object.fromEntries(floodingSummary.byDistrict.map((item) => [item.districtName, item.count]))} />
         <BarChart title={language === 'zh' ? '積水深度類別分布' : 'Flooding depth category distribution'} values={Object.fromEntries(floodingSummary.byFloodingDepthCategory.map((item) => [formatFloodingDepthCategory(item.floodingDepthCategory, language), item.count]))} />
         <BarChart title={t.aedLocationsByDistrict} values={aedByDistrict} />
         <BarChart title={t.fireHydrantsByCity} values={hydrantsByCity} />

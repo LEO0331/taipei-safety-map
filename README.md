@@ -2,7 +2,7 @@
 
 A mobile-first bilingual Vite + React + TypeScript + Leaflet app for public safety information in Taipei.
 
-The app combines AED locations, medical facilities, fire hydrants, fire rescue difficult area records, managed hiking trails, air-raid shelters, emergency shelters, evacuation gates, CCTV equipment locations, police CCTV installation-location records, Fire Department in-kind donation records, historical residential burglary records, bicycle theft records, motorcycle theft records, dengue vector-density survey results, and historical natural-disaster work/school suspension messages. It does not provide real-time availability, remaining shelter capacity, live CCTV video, medical advice, fire-response instructions, evacuation instructions, current closure status, forecasts, crime-risk scoring, route-safety guarantees, privacy or legal advice, insurance advice, real-estate advice, theft-prevention advice, crime prediction, outbreak-risk prediction, donation endorsements, route navigation, weather status, building safety certification, rescue-time prediction, accessibility guarantees, rescue availability, or resource-availability claims.
+The app combines AED locations, medical facilities, fire hydrants, fire rescue difficult area records, managed hiking trails, historical flooding records, air-raid shelters, emergency shelters, evacuation gates, CCTV equipment locations, police CCTV installation-location records, Fire Department in-kind donation records, historical residential burglary records, bicycle theft records, motorcycle theft records, dengue vector-density survey results, and historical natural-disaster work/school suspension messages. It does not provide real-time availability, remaining shelter capacity, live CCTV video, medical advice, fire-response instructions, evacuation instructions, current closure status, flooding status, road conditions, flood forecasts, disaster warnings, crime-risk scoring, route-safety guarantees, privacy or legal advice, insurance advice, real-estate advice, theft-prevention advice, crime prediction, outbreak-risk prediction, donation endorsements, route navigation, weather status, building safety certification, rescue-time prediction, accessibility guarantees, rescue availability, or resource-availability claims.
 
 Fire & emergency facilities: AEDs, medical facilities, and fire hydrants / 消防與緊急設施：AED、醫療院所與消防栓
 
@@ -17,6 +17,8 @@ Fire Department public records: in-kind donation records by year, donor, item, a
 Firefighting and disaster-prevention support: fire rescue difficult areas / 消防防災輔助資訊：火災搶救困難地區
 
 Outdoor activity and trail preparedness: managed hiking trails / 戶外活動與步道安全準備：列管登山步道
+
+Urban hydrology history: historical flooding records with source KML geometry / 都市水文歷史：歷史積水紀錄與來源 KML 幾何
 
 Crime records and public safety: historical bicycle and motorcycle theft records with district, time-band, and fuzzy-location summaries / 治安紀錄與生活安全：自行車與機車竊盜歷史紀錄、行政區、發生時段與模糊地點彙總
 
@@ -36,6 +38,7 @@ Disaster information history: historical natural-disaster work/school suspension
 - `臺北市政府消防局各年度接受各界捐贈實物明細表`: Fire Department in-kind donation records by year, donor, donated item, and use purpose. Current CSV resources are converted; legacy ODS resources are listed as unsupported.
 - `臺北市火災搶救困難地區`: UTF-8-SIG Fire Department records with sequence number, rating level, recognition item, district code, address, and place name. The source has no official coordinates.
 - `臺北市列管登山步道`: Big5 / CP950 managed hiking trail records with district, trail route, length, walking time, grade, source start/end coordinates, stairs, roadblock, wheelchair suitability, mobile signal, portable toilet, and accessible toilet fields.
+- `臺北市水利處歷史積水紀錄圖`: KML historical flooding records from 工務局水利處 with `area`, `FDATE`, `TOWN_NAME`, `ADDRESS`, `Depth`, and source geometry converted to GeoJSON.
 - `臺北市可供避難收容處所一覽表`: UTF-8-SIG emergency shelter directory with disaster applicability, listed capacity, area, served villages, and public contact fields.
 - `臺北市CCTV設施`: Big5 / CP950 traffic CCTV equipment locations with sequence number, city, camera location/code, and WGS84 coordinates.
 - `臺北市政府警察局錄影監視系統設置區位`: UTF-8-SIG police CCTV installation-location records with city/county code, sequence number, police unit, installation address, and camera direction. The source has no official coordinates.
@@ -62,6 +65,8 @@ Fire Department donation records are a no-coordinate public-records module. The 
 Fire rescue difficult area records are an address-only Fire Department public-records module. The app maps district codes to Taipei districts, parses rating level and recognition item codes, detects area/range-style addresses, and shows district summaries plus an address directory with external map lookup links. It does not geocode exact points, represent real-time fire risk, current emergency status, building safety certification, rescue accessibility, rescue-time prediction, insurance advice, real-estate advice, legal liability, violation records, official danger ranking, or official endorsement.
 
 Managed hiking trail records provide source start and end coordinates, not full route geometry. The app validates start/end WGS84-like coordinates, shows start/end markers, and can draw an approximate start-end connector only. It does not draw exact trail paths, provide navigation, represent real-time open/closed status, weather, disaster risk, rescue availability, accessibility guarantees, personal fitness advice, medical advice, official recommendations, or safety guarantees.
+
+Historical flooding records are converted from the source KML into record JSON, GeoJSON, and summary JSON. Conversion preserves source fields and source geometry, validates WGS84 coordinates against Taipei-nearby bounds, and uses centroids only for popup/sorting support. The module is historical record lookup only; it does not represent real-time flooding, current road conditions, flood forecasts, disaster warnings, property risk, insurance advice, real-estate advice, legal liability, complete disaster history, or official safety guarantees.
 
 Natural-disaster suspension records are a no-coordinate history module. Conversion parses ROC dates to Gregorian dates, classifies disaster type from the disaster name, classifies suspension messages heuristically, preserves the raw official message text, and groups events by year plus disaster name. The module does not provide real-time closure status, forecasts, current disaster status, emergency instructions, route safety, or evacuation guidance.
 
@@ -102,6 +107,7 @@ data/raw/fire-hydrants/fire-hydrants.csv
 data/raw/fire-department-donation-in-kind-records/*.csv
 data/raw/fire-rescue-difficult-areas/fire-rescue-difficult-areas.csv
 data/raw/managed-hiking-trails/managed-hiking-trails.csv
+data/raw/historical-flooding-records/historical-flooding-records.kml
 data/raw/emergency-shelters/emergency-shelters.csv
 data/raw/traffic-cctv/traffic-cctv.csv
 data/raw/police-cctv-installation-locations/police-cctv-installation-locations.csv
@@ -119,6 +125,8 @@ Fire Department donation CSVs are UTF-8-SIG with Big5 fallback. Conversion parse
 Fire rescue difficult area CSVs are UTF-8-SIG with Big5 / CP950 fallback. Conversion parses sequence number, rating level, recognition item, district code, address, road name, area/range-style address flags, and place name. Records are address-only by default; no automatic geocoding or exact markers are created.
 
 Managed hiking trail CSVs are Big5 / CP950 with UTF-8-SIG fallback. Conversion parses district, route name, length, walking time, grade, start/end point names, start/end coordinates, stairs, roadblocks, wheelchair fields, mobile signal, portable toilet, and accessible toilet fields. Start/end coordinates are validated against Taipei-nearby bounds; approximate connectors are labeled as start-end context only, not route geometry.
+
+Historical flooding KML preserves source geometry and source values. Conversion parses `area`, `FDATE`, `TOWN_NAME`, `ADDRESS`, and `Depth`, classifies depth/area bands, validates coordinates against Taipei-nearby bounds, writes GeoJSON, and keeps raw source values available for audit.
 
 Emergency shelter CSVs are UTF-8-SIG with Big5 fallback. Conversion parses `Y` / `N` / `備用` / `老舊聚落`, listed capacity, area, shelter type, served villages, accessibility, indoor/outdoor flags, and relief-station flags. Optional verified coordinates can be added later through `public/data/emergency-shelter-locations.json`; the app does not geocode addresses automatically.
 
@@ -142,4 +150,4 @@ In repository settings, enable Pages with `GitHub Actions` as the source.
 
 ## Disclaimer
 
-This site presents public AED, medical-facility, fire-hydrant, fire rescue difficult area, managed hiking trail, air-raid shelter, emergency shelter, evacuation-gate, CCTV equipment, Fire Department donation, historical theft, historical disaster-suspension, and dengue vector-density records. It does not represent real-time availability, fire-response deployment, shelter opening status, remaining capacity, CCTV live video, monitoring coverage, real-time fire risk, building safety certification, rescue-time prediction, trail opening status, weather, route navigation, rescue availability, accessibility guarantee, official endorsement, current inventory, insurance advice, real-estate advice, legal advice, or official evacuation instructions. In an emergency, call 119 and follow official authorities and on-site command.
+This site presents public AED, medical-facility, fire-hydrant, fire rescue difficult area, managed hiking trail, historical flooding, air-raid shelter, emergency shelter, evacuation-gate, CCTV equipment, Fire Department donation, historical theft, historical disaster-suspension, and dengue vector-density records. It does not represent real-time availability, fire-response deployment, shelter opening status, remaining capacity, CCTV live video, monitoring coverage, real-time fire risk, real-time flooding status, current road conditions, flood forecasts, disaster warnings, building safety certification, rescue-time prediction, trail opening status, weather, route navigation, rescue availability, accessibility guarantee, official endorsement, current inventory, insurance advice, real-estate advice, legal advice, or official evacuation instructions. In an emergency, call 119 and follow official authorities and on-site command.
