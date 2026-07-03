@@ -2,7 +2,7 @@
 
 A mobile-first bilingual Vite + React + TypeScript + Leaflet app for public safety information in Taipei.
 
-The app combines AED locations, medical facilities, fire hydrants, fire rescue difficult area records, managed hiking trails, historical flooding records, air-raid shelters, emergency shelters, evacuation gates, CCTV equipment locations, police CCTV installation-location records, Fire Department in-kind donation records, historical residential burglary records, bicycle theft records, motorcycle theft records, dengue vector-density survey results, and historical natural-disaster work/school suspension messages. It does not provide real-time availability, remaining shelter capacity, live CCTV video, medical advice, fire-response instructions, evacuation instructions, current closure status, flooding status, road conditions, flood forecasts, disaster warnings, crime-risk scoring, route-safety guarantees, privacy or legal advice, insurance advice, real-estate advice, theft-prevention advice, crime prediction, outbreak-risk prediction, donation endorsements, route navigation, weather status, building safety certification, rescue-time prediction, accessibility guarantees, rescue availability, or resource-availability claims.
+The app combines AED locations, medical facilities, fire hydrants, fire rescue difficult area records, managed hiking trails, historical flooding records, air-raid shelters, emergency shelters, evacuation gates, CCTV equipment locations, police CCTV installation-location records, Fire Department in-kind donation records, historical residential burglary records, bicycle theft records, motorcycle theft records, street random snatch incident records, dengue vector-density survey results, and historical natural-disaster work/school suspension messages. It does not provide real-time availability, remaining shelter capacity, live CCTV video, medical advice, fire-response instructions, evacuation instructions, current closure status, flooding status, road conditions, flood forecasts, disaster warnings, crime-risk scoring, route-safety guarantees, privacy or legal advice, insurance advice, real-estate advice, theft-prevention advice, crime prediction, outbreak-risk prediction, donation endorsements, route navigation, weather status, building safety certification, rescue-time prediction, accessibility guarantees, rescue availability, or resource-availability claims.
 
 Fire & emergency facilities: AEDs, medical facilities, and fire hydrants / 消防與緊急設施：AED、醫療院所與消防栓
 
@@ -20,7 +20,7 @@ Outdoor activity and trail preparedness: managed hiking trails / 戶外活動與
 
 Urban hydrology history: historical flooding records with source KML geometry / 都市水文歷史：歷史積水紀錄與來源 KML 幾何
 
-Crime records and public safety: historical bicycle and motorcycle theft records with district, time-band, and fuzzy-location summaries / 治安紀錄與生活安全：自行車與機車竊盜歷史紀錄、行政區、發生時段與模糊地點彙總
+Crime records and public safety: historical burglary, theft, and street snatch records with district, time-band, and fuzzy-location summaries / 治安紀錄與生活安全：住宅竊盜、自行車竊盜、機車竊盜與街頭搶奪歷史紀錄、行政區、發生時段與模糊地點彙總
 
 Disaster information history: historical natural-disaster work/school suspension messages / 災害資訊歷史：歷次天然災害停止上班上課訊息
 
@@ -30,6 +30,7 @@ Disaster information history: historical natural-disaster work/school suspension
 - `臺北市住宅竊盜點位資訊`: historical residential burglary records. Source location text is pre-blurred to avoid exposing personally identifiable information.
 - `臺北市自行車竊盜點位資訊`: historical bicycle theft records with CP950 / Big5-family encoding, compact ROC dates, incident time bands, and pre-fuzzed location text.
 - `臺北市機車竊盜點位資訊`: historical motorcycle theft records with CP950 / Big5-family encoding, compact ROC dates, incident time bands, and pre-fuzzed location text.
+- `臺北市街頭隨機搶奪案件點位資訊`: historical street random snatch incident records with CP950 / Big5-family encoding, compact ROC dates, time bands, and pre-fuzzed location text.
 - `臺北市AED自動體外心臟去顫器設置地點`: public AED placement locations with coordinates and placement descriptions.
 - `臺北市登革熱病媒蚊密度調查結果`: public-health survey results aggregated by district and village.
 - `臺北市疏散門資訊`: WGS84 evacuation-gate location records with riverside park, name, and location description.
@@ -49,6 +50,8 @@ Burglary records are never geocoded to exact household-level markers. The app us
 Bicycle theft records are never geocoded to exact markers. The app parses compact ROC dates, incident time bands, district, village, road names, and address ranges, then shows district centroid bubbles, road summaries, and fuzzy-location buckets. It does not represent current crime risk, exact incident addresses, route safety, legal advice, or theft-prevention advice.
 
 Motorcycle theft records are never geocoded to exact markers. The app parses compact ROC dates, incident time bands, district, village, road names, and address ranges, then shows district centroid bubbles, road summaries, and fuzzy-location buckets. It does not represent current crime risk, exact incident addresses, route safety, legal advice, insurance advice, or theft-prevention advice.
+
+Street random snatch incident records are never geocoded to exact markers. The app preserves the source case type, ROC date, occurrence time band, and fuzzed location text, then shows district centroid bubbles, time trends, and source-location tables. It does not represent real-time crime risk, exact incident locations, route safety, housing or insurance risk, police performance, legal advice, or personal safety guarantees.
 
 Dengue survey records do not include coordinates. The app uses district centroids for aggregate bubbles and never represents them as exact village or survey locations. The Breteau index generally represents positive water-holding containers per 100 surveyed households; the container index generally represents the proportion of inspected containers that were positive. Refer to official public-health sources for interpretation.
 
@@ -114,6 +117,7 @@ data/raw/police-cctv-installation-locations/police-cctv-installation-locations.c
 data/raw/natural-disaster-work-school-suspension-records/natural-disaster-work-school-suspension-records.csv
 data/raw/bicycle-theft-records/bicycle-theft-records.csv
 data/raw/motorcycle-theft-records/motorcycle-theft-records.csv
+data/raw/street-random-snatch-incidents/street-random-snatch-incidents.csv
 ```
 
 ## Coordinate Handling
@@ -140,6 +144,8 @@ Bicycle theft CSVs are CP950 / Big5-family with UTF-8-SIG fallback. Conversion p
 
 Motorcycle theft CSVs are CP950 / Big5-family with UTF-8-SIG fallback. Conversion parses `編號`, `案類`, compact ROC `發生日期`, `發生時段`, and fuzzy `發生地點`; it extracts district, village, road, and address-range text where practical, but never geocodes or creates exact incident points.
 
+Street random snatch incident CSVs are CP950 / Big5-family with UTF-8-SIG fallback. Conversion preserves invalid source time bands for QA, parses district/road hints from already-fuzzed locations, and never geocodes or creates exact incident points.
+
 `fire-hydrants.json` is intentionally not precached because it is large. The app caches `fire-hydrant-summary.json` and lazy-loads exact hydrant points only when the hydrant layer or nearby hydrant lookup is used.
 
 ## Deployment
@@ -150,4 +156,4 @@ In repository settings, enable Pages with `GitHub Actions` as the source.
 
 ## Disclaimer
 
-This site presents public AED, medical-facility, fire-hydrant, fire rescue difficult area, managed hiking trail, historical flooding, air-raid shelter, emergency shelter, evacuation-gate, CCTV equipment, Fire Department donation, historical theft, historical disaster-suspension, and dengue vector-density records. It does not represent real-time availability, fire-response deployment, shelter opening status, remaining capacity, CCTV live video, monitoring coverage, real-time fire risk, real-time flooding status, current road conditions, flood forecasts, disaster warnings, building safety certification, rescue-time prediction, trail opening status, weather, route navigation, rescue availability, accessibility guarantee, official endorsement, current inventory, insurance advice, real-estate advice, legal advice, or official evacuation instructions. In an emergency, call 119 and follow official authorities and on-site command.
+This site presents public AED, medical-facility, fire-hydrant, fire rescue difficult area, managed hiking trail, historical flooding, air-raid shelter, emergency shelter, evacuation-gate, CCTV equipment, Fire Department donation, historical burglary/theft/street-snatch, historical disaster-suspension, and dengue vector-density records. It does not represent real-time availability, fire-response deployment, shelter opening status, remaining capacity, CCTV live video, monitoring coverage, real-time fire risk, real-time crime risk, real-time flooding status, current road conditions, flood forecasts, disaster warnings, building safety certification, rescue-time prediction, trail opening status, weather, route navigation, rescue availability, accessibility guarantee, personal safety guarantee, official endorsement, current inventory, insurance advice, real-estate advice, legal advice, or official evacuation instructions. In an emergency, call 119 and follow official authorities and on-site command.

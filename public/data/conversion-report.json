@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-03T00:49:15.637Z",
+  "generatedAt": "2026-07-03T07:09:27.393Z",
   "sources": [
     {
       "name": "北市警政APP_防空避難設備位置",
@@ -111,6 +111,15 @@
       "notes": "Historical motorcycle theft public-safety records from 警察局刑警大隊; incident locations are pre-fuzzed text and are never geocoded into exact markers."
     },
     {
+      "name": "臺北市街頭隨機搶奪案件點位資訊",
+      "url": "https://data.taipei/dataset/detail?id=404ca667-bcc4-4f3b-9217-fdcc1da400b2",
+      "downloadUrl": "",
+      "downloadedAt": "2026-07-03T07:02:49.117Z",
+      "fileSize": 2993,
+      "encoding": "CP950 / Big5-family",
+      "notes": "Historical street random snatch public-safety records from 警察局刑警大隊; locations are pre-fuzzed text and are never geocoded into exact markers."
+    },
+    {
       "name": "臺北市政府警察局錄影監視系統設置區位",
       "url": "https://data.taipei/dataset/detail?id=e9b913ee-6df8-4663-bee5-aef6729d4389",
       "downloadUrl": "https://data.taipei/api/frontstage/tpeod/dataset/resource.download?rid=5929d4ff-b7c5-4fa1-94e3-9d45576e8f37",
@@ -204,6 +213,20 @@
       "臺北市中坡北路37巷1 - 30號",
       "臺北市忠孝東路7段124巷的橋上"
     ],
+    "duplicateExamples": []
+  },
+  "streetRandomSnatchIncidents": {
+    "inputRows": 54,
+    "outputRows": 54,
+    "fileSize": 2993,
+    "encoding": "CP950 / Big5 with UTF-8-SIG fallback",
+    "duplicateRows": 0,
+    "dateParseWarnings": [],
+    "timeBandParseWarnings": [
+      "04~60"
+    ],
+    "locationParseWarnings": [],
+    "unexpectedCaseTypeWarnings": [],
     "duplicateExamples": []
   },
   "policeCctvInstallationLocations": {
@@ -776,6 +799,7 @@
     "Residential burglary records remain blurred and are never geocoded into exact household-level markers.",
     "Bicycle theft records use pre-fuzzed address text and are shown only as district, road, and fuzzy-location summaries.",
     "Motorcycle theft records use pre-fuzzed address text and are shown only as district, road, and fuzzy-location summaries.",
+    "Street random snatch records use 54 pre-fuzzed source-location rows and are never shown as exact incident points.",
     "Police CCTV installation-location records are shown as district summaries and address lookup records because the source has no official coordinates.",
     "Fire Department in-kind donation records have no official location fields and are shown as trends and directory records only.",
     "Managed hiking trail records provide start/end source coordinates only; connectors are approximate and not route geometry.",

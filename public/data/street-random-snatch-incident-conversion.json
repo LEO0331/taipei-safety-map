@@ -1,0 +1,14 @@
+{
+  "inputRows": 54,
+  "outputRows": 54,
+  "fileSize": 2993,
+  "encoding": "CP950 / Big5 with UTF-8-SIG fallback",
+  "duplicateRows": 0,
+  "dateParseWarnings": [],
+  "timeBandParseWarnings": [
+    "04~60"
+  ],
+  "locationParseWarnings": [],
+  "unexpectedCaseTypeWarnings": [],
+  "duplicateExamples": []
+}

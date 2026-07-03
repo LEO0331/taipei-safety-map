@@ -7,6 +7,7 @@ export type SafetyLayer =
   | 'residential_burglary_record'
   | 'bicycle_theft_records'
   | 'motorcycle_theft_record'
+  | 'street_random_snatch_incidents'
   | 'aed_location'
   | 'dengue_vector_density'
   | 'evacuation_gate'
@@ -68,6 +69,7 @@ export type ResidentialBurglaryRecord = {
 
 export type BicycleTheftCaseType = 'bicycle_theft' | 'other' | 'unknown';
 export type MotorcycleTheftCaseType = 'motorcycle_theft' | 'other' | 'unknown';
+export type StreetRandomSnatchCaseType = 'street_random_snatch' | 'other' | 'unknown';
 export type IncidentTimeOfDayCategory =
   | 'late_night'
   | 'early_morning'
@@ -167,6 +169,24 @@ export type MotorcycleTheftRecord = Omit<BicycleTheftRecord, 'module' | 'caseTyp
 
 export type MotorcycleTheftSummary = Omit<BicycleTheftSummary, 'latestRecords'> & {
   latestRecords: MotorcycleTheftRecord[];
+};
+
+export type StreetRandomSnatchIncidentRecord = Omit<BicycleTheftRecord, 'module' | 'caseType'> & {
+  module: 'street_random_snatch_incidents';
+  caseType: StreetRandomSnatchCaseType;
+  timePeriodValid: boolean;
+  timePeriodWarning?: string;
+  locationIsFuzzed: true;
+  note?: string;
+  geocodingStatus: 'not_geocoded_fuzzed_location_only';
+  coordinateSource: 'none';
+};
+
+export type StreetRandomSnatchIncidentSummary = Omit<BicycleTheftSummary, 'latestRecords'> & {
+  latestRecords: StreetRandomSnatchIncidentRecord[];
+  recordsWithValidTimePeriod: number;
+  recordsWithInvalidTimePeriod: number;
+  recordsWithNotes: number;
 };
 
 export type PublicSafetyInfrastructureLocationPrecision =
@@ -1075,6 +1095,8 @@ export type SafetyDataBundle = {
   bicycleTheftSummary: BicycleTheftSummary;
   motorcycleThefts: MotorcycleTheftRecord[];
   motorcycleTheftSummary: MotorcycleTheftSummary;
+  streetRandomSnatchIncidents: StreetRandomSnatchIncidentRecord[];
+  streetRandomSnatchIncidentSummary: StreetRandomSnatchIncidentSummary;
   policeCctvInstallationLocations: PoliceCctvInstallationLocationRecord[];
   policeCctvInstallationLocationSummary: PoliceCctvInstallationLocationSummary;
   fireDepartmentDonationInKindRecords: FireDepartmentDonationInKindRecord[];
@@ -1216,6 +1238,16 @@ export type ConversionReport = {
     dateParseWarnings: string[];
     timeBandParseWarnings: string[];
     locationParseWarnings: string[];
+    duplicateExamples: string[];
+  };
+  streetRandomSnatchIncidents?: {
+    inputRows: number;
+    outputRows: number;
+    duplicateRows: number;
+    dateParseWarnings: string[];
+    timeBandParseWarnings: string[];
+    locationParseWarnings: string[];
+    unexpectedCaseTypeWarnings: string[];
     duplicateExamples: string[];
   };
   policeCctvInstallationLocations?: {

@@ -52,6 +52,8 @@ import type {
   NaturalDisasterWorkSchoolSuspensionRecord,
   PoliceCctvInstallationLocationRecord,
   ResidentialBurglaryRecord,
+  StreetRandomSnatchCaseType,
+  StreetRandomSnatchIncidentRecord,
   SuspensionMessageKeywordTag,
   TrafficCctvFacility,
   WorkOrSchoolSuspensionStatus,
@@ -68,6 +70,8 @@ export const BICYCLE_THEFT_SOURCE = '臺北市自行車竊盜點位資訊';
 export const BICYCLE_THEFT_AGENCY = '臺北市政府警察局刑事警察大隊';
 export const MOTORCYCLE_THEFT_SOURCE = '臺北市機車竊盜點位資訊';
 export const MOTORCYCLE_THEFT_AGENCY = '臺北市政府警察局刑警大隊';
+export const STREET_RANDOM_SNATCH_SOURCE = '臺北市街頭隨機搶奪案件點位資訊';
+export const STREET_RANDOM_SNATCH_AGENCY = '臺北市政府警察局刑事警察大隊';
 export const AED_SOURCE = '臺北市AED自動體外心臟去顫器設置地點';
 export const DENGUE_SOURCE = '臺北市登革熱病媒蚊密度調查結果';
 export const EVACUATION_GATE_SOURCE = '臺北市疏散門資訊';
@@ -254,6 +258,12 @@ export function classifyMotorcycleTheftCaseType(raw: string | undefined): Motorc
   return text.includes('機車竊盜') ? 'motorcycle_theft' : 'other';
 }
 
+export function classifyStreetRandomSnatchCaseType(raw: string | undefined): StreetRandomSnatchCaseType {
+  const text = raw?.trim() ?? '';
+  if (!text) return 'unknown';
+  return text.includes('搶奪') ? 'street_random_snatch' : 'other';
+}
+
 export function classifyIncidentTimeOfDayCategory(
   startHour: number | undefined,
   endHour: number | undefined,
@@ -416,6 +426,35 @@ export function convertMotorcycleTheftRow(row: Record<string, string>, index: nu
     locationPrecision: location.roadName ? 'road_or_segment_level' : location.district ? 'district_centroid' : 'fuzzy_address_text',
     source: MOTORCYCLE_THEFT_SOURCE,
     sourceAgency: MOTORCYCLE_THEFT_AGENCY,
+  };
+}
+
+export function convertStreetRandomSnatchIncidentRow(row: Record<string, string>, index: number): StreetRandomSnatchIncidentRecord {
+  const date = parseRocCompactDate(row['發生日期']);
+  const time = parseIncidentTimeBand(row['發生時段']);
+  const location = parseBicycleTheftLocation(row['發生地點']);
+  const sourceRecordNumber = parseIntegerValue(row['編號']);
+  const caseTypeRaw = emptyToUndefined(row['案類']);
+  const note = emptyToUndefined(row['備註']);
+  return {
+    id: `street-random-snatch-${sourceRecordNumber ?? index + 1}`,
+    module: 'street_random_snatch_incidents',
+    sourceRecordNumber,
+    caseTypeRaw,
+    caseType: classifyStreetRandomSnatchCaseType(caseTypeRaw),
+    ...date,
+    ...time,
+    ...location,
+    eventGroupKey: [date.date, time.incidentTimeBand, location.locationBucketKey].filter(Boolean).join('|') || undefined,
+    locationPrecision: location.roadName ? 'road_or_segment_level' : location.district ? 'district_centroid' : 'fuzzy_address_text',
+    timePeriodValid: Boolean(time.incidentTimeBand && !time.warning),
+    timePeriodWarning: time.warning,
+    locationIsFuzzed: true,
+    note,
+    geocodingStatus: 'not_geocoded_fuzzed_location_only',
+    coordinateSource: 'none',
+    source: STREET_RANDOM_SNATCH_SOURCE,
+    sourceAgency: STREET_RANDOM_SNATCH_AGENCY,
   };
 }
 
@@ -1485,6 +1524,7 @@ export async function loadConvertedData() {
     burglaries,
     bicycleThefts,
     motorcycleThefts,
+    streetRandomSnatchIncidents,
     policeCctvInstallationLocations,
     fireDepartmentDonationInKindRecords,
     managedHikingTrails,
@@ -1500,6 +1540,7 @@ export async function loadConvertedData() {
     readJsonFile<ResidentialBurglaryRecord[]>(`${PUBLIC_DATA_DIR}/residential-burglary-records.json`),
     readJsonFile<BicycleTheftRecord[]>(`${PUBLIC_DATA_DIR}/bicycle-theft-records.json`),
     readJsonFile<MotorcycleTheftRecord[]>(`${PUBLIC_DATA_DIR}/motorcycle-theft-records.json`),
+    readJsonFile<StreetRandomSnatchIncidentRecord[]>(`${PUBLIC_DATA_DIR}/street-random-snatch-incidents.json`),
     readJsonFile<PoliceCctvInstallationLocationRecord[]>(`${PUBLIC_DATA_DIR}/police-cctv-installation-locations.json`),
     readJsonFile<FireDepartmentDonationInKindRecord[]>(`${PUBLIC_DATA_DIR}/fire-department-donation-in-kind-records.json`),
     readJsonFile<ManagedHikingTrailRecord[]>(`${PUBLIC_DATA_DIR}/managed-hiking-trails.json`),
@@ -1516,6 +1557,7 @@ export async function loadConvertedData() {
     burglaries,
     bicycleThefts,
     motorcycleThefts,
+    streetRandomSnatchIncidents,
     policeCctvInstallationLocations,
     fireDepartmentDonationInKindRecords,
     managedHikingTrails,

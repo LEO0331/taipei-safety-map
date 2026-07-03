@@ -30,6 +30,8 @@ import type {
   PoliceCctvInstallationLocationSummary,
   ResidentialBurglaryRecord,
   SafetyDataBundle,
+  StreetRandomSnatchIncidentRecord,
+  StreetRandomSnatchIncidentSummary,
   TrafficCctvFacility,
   TrafficCctvSummary,
 } from '../types';
@@ -50,6 +52,7 @@ export async function loadSafetyData(): Promise<SafetyDataBundle> {
     burglaries,
     bicycleThefts,
     motorcycleThefts,
+    streetRandomSnatchIncidents,
     policeCctvInstallationLocations,
     fireDepartmentDonationInKindRecords,
     managedHikingTrails,
@@ -70,6 +73,7 @@ export async function loadSafetyData(): Promise<SafetyDataBundle> {
     loadJson<ResidentialBurglaryRecord[]>('residential-burglary-records.json'),
     loadJson<BicycleTheftRecord[]>('bicycle-theft-records.json'),
     loadJson<MotorcycleTheftRecord[]>('motorcycle-theft-records.json'),
+    loadJson<StreetRandomSnatchIncidentRecord[]>('street-random-snatch-incidents.json'),
     loadJson<PoliceCctvInstallationLocationRecord[]>('police-cctv-installation-locations.json'),
     loadJson<FireDepartmentDonationInKindRecord[]>('fire-department-donation-in-kind-records.json'),
     loadJson<ManagedHikingTrailRecord[]>('managed-hiking-trails.json'),
@@ -91,6 +95,7 @@ export async function loadSafetyData(): Promise<SafetyDataBundle> {
       trafficCctvSummary: TrafficCctvSummary;
       bicycleTheftSummary: BicycleTheftSummary;
       motorcycleTheftSummary: MotorcycleTheftSummary;
+      streetRandomSnatchIncidentSummary: StreetRandomSnatchIncidentSummary;
       policeCctvInstallationLocationSummary: PoliceCctvInstallationLocationSummary;
       fireDepartmentDonationInKindSummary: FireDepartmentDonationInKindSummary;
       managedHikingTrailSummary: ManagedHikingTrailSummary;
@@ -108,6 +113,8 @@ export async function loadSafetyData(): Promise<SafetyDataBundle> {
     bicycleTheftSummary: dashboard.bicycleTheftSummary,
     motorcycleThefts,
     motorcycleTheftSummary: dashboard.motorcycleTheftSummary,
+    streetRandomSnatchIncidents,
+    streetRandomSnatchIncidentSummary: dashboard.streetRandomSnatchIncidentSummary,
     policeCctvInstallationLocations,
     policeCctvInstallationLocationSummary: dashboard.policeCctvInstallationLocationSummary,
     fireDepartmentDonationInKindRecords,

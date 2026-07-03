@@ -15,6 +15,7 @@ import {
   convertMotorcycleTheftRow,
   convertPoliceCctvInstallationLocationRow,
   convertShelterRow,
+  convertStreetRandomSnatchIncidentRow,
   convertTrafficCctvRow,
   convertNaturalDisasterSuspensionRow,
   parseIncidentTimeBand,
@@ -518,6 +519,33 @@ describe('CSV script helpers', () => {
       addressRangeText: '31-60號',
       caseType: 'motorcycle_theft',
       locationPrecision: 'road_or_segment_level',
+    });
+    expect(record).not.toHaveProperty('latitude');
+    expect(record).not.toHaveProperty('longitude');
+  });
+
+  it('converts street random snatch rows without exact coordinates and preserves invalid time bands', () => {
+    const record = convertStreetRandomSnatchIncidentRow(
+      {
+        編號: '1',
+        案類: '搶奪',
+        發生日期: '1150419',
+        發生時段: '04~60',
+        發生地點: '台北市中正區富水里思源街與永春街口',
+        備註: '',
+      },
+      0,
+    );
+    expect(record).toMatchObject({
+      date: '2026-04-19',
+      district: '中正區',
+      roadName: '思源街與永春街',
+      caseType: 'street_random_snatch',
+      timePeriodValid: false,
+      timePeriodWarning: 'Invalid time band: 04~60',
+      locationIsFuzzed: true,
+      geocodingStatus: 'not_geocoded_fuzzed_location_only',
+      coordinateSource: 'none',
     });
     expect(record).not.toHaveProperty('latitude');
     expect(record).not.toHaveProperty('longitude');

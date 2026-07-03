@@ -47,7 +47,7 @@ import type {
   TrafficCctvFacility,
 } from './types';
 
-type Tab = 'map' | 'nearby' | 'burglary' | 'bike' | 'motorcycle' | 'policeCctv' | 'fireDonations' | 'fireRescueAreas' | 'hikingTrails' | 'flooding' | 'health' | 'disaster' | 'overview' | 'notes';
+type Tab = 'map' | 'nearby' | 'burglary' | 'bike' | 'motorcycle' | 'streetSnatch' | 'policeCctv' | 'fireDonations' | 'fireRescueAreas' | 'hikingTrails' | 'flooding' | 'health' | 'disaster' | 'overview' | 'notes';
 type CapacityRange = 'all' | 'under100' | '100-499' | '500-999' | '1000plus';
 type DenseLayer = 'aeds' | 'medical' | 'fireHydrants' | 'airRaidShelters' | 'evacuationGates' | 'cctv';
 const tileAttribution = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>';
@@ -328,6 +328,40 @@ const motorcycleLabels = {
     byTimeOfDay: 'Motorcycle theft records by time of day',
     mapNotice: 'Motorcycle theft data does not provide coordinates, and incident locations are pre-fuzzed address text. The map shows district-level summaries and does not represent exact incident addresses, real-time public-safety status, or current crime risk.',
     dataNote: 'This data is historical public-safety open data for lookup and trend organization only. It does not represent real-time public-safety status, current crime risk, exact incident address, route-safety guarantee, police reporting, legal advice, insurance advice, or theft-prevention advice.',
+  },
+} as const;
+const streetSnatchLabels = {
+  zh: {
+    ...bicycleLabels.zh,
+    title: '街頭隨機搶奪案件點位資訊',
+    shortTitle: '街頭搶奪案件',
+    subtitle: '查詢臺北市街頭隨機搶奪案件歷史公開資料，包含案類、發生日期、發生時段與已模糊處理之發生地點。',
+    directory: '街頭搶奪案件來源資料表',
+    historicalCount: '案件紀錄數',
+    fuzzyLocationCount: '不重複來源地點數',
+    byYear: '各年度案件數',
+    byMonth: '各月份案件數',
+    byDistrict: '各行政區案件數',
+    byTimeBand: '各來源發生時段案件數',
+    byTimeOfDay: '各時段類別案件數',
+    mapNotice: '街頭隨機搶奪案件點位資訊提供之發生地點已經模糊處理，且未提供官方經緯度。本模組以行政區彙總、時間趨勢與來源地點清單呈現，不顯示精確案發點位。',
+    dataNote: '本資料僅供歷史治安事件公開資料查詢、行政區統計、時間趨勢與安全意識資料探索使用，不代表即時犯罪風險、即時警報、個人安全保證、精確案發位置、治安排名、房價或保險風險、路線安全判斷、警政績效評價、法律意見或官方背書。',
+  },
+  en: {
+    ...bicycleLabels.en,
+    title: 'Street Random Snatch Incident Point Information',
+    shortTitle: 'Street Snatch Incidents',
+    subtitle: 'Explore Taipei historical public open data on street random snatch incidents, including case type, occurrence date, time period, and already-fuzzed occurrence locations.',
+    directory: 'Street Snatch Incident Source Data Table',
+    historicalCount: 'Incident record count',
+    fuzzyLocationCount: 'Unique source location count',
+    byYear: 'Incidents by year',
+    byMonth: 'Incidents by month',
+    byDistrict: 'Incidents by district',
+    byTimeBand: 'Incidents by raw occurrence time period',
+    byTimeOfDay: 'Incidents by time-period category',
+    mapNotice: 'Street random snatch incident records provide occurrence locations that have already been fuzzed and do not include official coordinates. This module uses district summaries, time trends, and source-location lists by default and does not show exact incident points.',
+    dataNote: 'This data is for historical public-safety incident open-data lookup, district-level statistics, time-trend exploration, and safety-awareness data exploration only. It does not represent real-time crime risk, alerts, personal safety guarantees, exact incident locations, public-safety ranking, housing price or insurance risk, route safety judgment, police performance evaluation, legal advice, or official endorsement.',
   },
 } as const;
 const policeCctvLabels = {
@@ -817,6 +851,7 @@ function App() {
             ['burglary', t.burglaryRecords],
             ['bike', language === 'zh' ? '自行車竊盜' : 'Bicycle Theft'],
             ['motorcycle', language === 'zh' ? '機車竊盜' : 'Motorcycle Theft'],
+            ['streetSnatch', streetSnatchLabels[language].shortTitle],
             ['policeCctv', language === 'zh' ? '警察局監視器' : 'Police CCTV'],
             ['fireDonations', language === 'zh' ? '消防捐贈實物' : 'Fire Dept Donations'],
             ['fireRescueAreas', fireRescueAreaLabels[language].shortTitle],
@@ -844,6 +879,7 @@ function App() {
       {activeTab === 'burglary' && <BurglaryRecords data={data} language={language} />}
       {activeTab === 'bike' && <BicycleTheftRecords data={data} language={language} />}
       {activeTab === 'motorcycle' && <BicycleTheftRecords data={data} language={language} mode="motorcycle" />}
+      {activeTab === 'streetSnatch' && <BicycleTheftRecords data={data} language={language} mode="streetSnatch" />}
       {activeTab === 'policeCctv' && <PoliceCctvInstallationLocations data={data} language={language} />}
       {activeTab === 'fireDonations' && <FireDepartmentDonations data={data} language={language} />}
       {activeTab === 'fireRescueAreas' && <FireRescueDifficultAreas data={data} language={language} />}
@@ -2197,11 +2233,11 @@ function BicycleTheftRecords({
 }: {
   data: SafetyDataBundle;
   language: Language;
-  mode?: 'bicycle' | 'motorcycle';
+  mode?: 'bicycle' | 'motorcycle' | 'streetSnatch';
 }) {
-  const labels = mode === 'motorcycle' ? motorcycleLabels[language] : bicycleLabels[language];
-  const records = mode === 'motorcycle' ? data.motorcycleThefts : data.bicycleThefts;
-  const summary = mode === 'motorcycle' ? data.motorcycleTheftSummary : data.bicycleTheftSummary;
+  const labels = mode === 'streetSnatch' ? streetSnatchLabels[language] : mode === 'motorcycle' ? motorcycleLabels[language] : bicycleLabels[language];
+  const records = mode === 'streetSnatch' ? data.streetRandomSnatchIncidents : mode === 'motorcycle' ? data.motorcycleThefts : data.bicycleThefts;
+  const summary = mode === 'streetSnatch' ? data.streetRandomSnatchIncidentSummary : mode === 'motorcycle' ? data.motorcycleTheftSummary : data.bicycleTheftSummary;
   const [district, setDistrict] = useState('all');
   const [year, setYear] = useState('all');
   const [month, setMonth] = useState('all');

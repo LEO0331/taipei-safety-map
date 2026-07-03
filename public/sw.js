@@ -11,6 +11,8 @@ const DATA_FILES = [
   cacheUrl('data/motorcycle-theft-records.json'),
   cacheUrl('data/motorcycle-theft-summary.json'),
   cacheUrl('data/motorcycle-theft-location-buckets.json'),
+  cacheUrl('data/street-random-snatch-incidents.json'),
+  cacheUrl('data/street-random-snatch-incident-summary.json'),
   cacheUrl('data/shelter-summary.json'),
   cacheUrl('data/safety-dashboard-summary.json'),
   cacheUrl('data/aed-locations.json'),

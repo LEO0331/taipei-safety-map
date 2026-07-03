@@ -12,6 +12,7 @@ import type {
   MotorcycleTheftSummary,
   NaturalDisasterSuspensionSummary,
   PoliceCctvInstallationLocationSummary,
+  StreetRandomSnatchIncidentSummary,
   TrafficCctvSummary,
 } from '../src/types.ts';
 
@@ -24,6 +25,7 @@ const {
   dengueRecords,
   districtSummaries,
   dengueDistrictSummaries,
+  streetRandomSnatchIncidents,
 } = await loadConvertedData();
 const evacuationGateFile = await stat('data/raw/evacuation-gates/evacuation-gates.csv').catch(() => null);
 const evacuationGateFetchStatus = await readFile('data/raw/evacuation-gates/fetch-status.json', 'utf8')
@@ -157,6 +159,29 @@ const [motorcycleTheftSummary, motorcycleTheftConversion, motorcycleTheftFile] =
   ),
   stat('data/raw/motorcycle-theft-records/motorcycle-theft-records.csv').catch(() => null),
 ]);
+const [streetRandomSnatchIncidentSummary, streetRandomSnatchIncidentConversion, streetRandomSnatchIncidentFile, streetRandomSnatchIncidentFetchStatus] =
+  await Promise.all([
+    readFile('public/data/street-random-snatch-incident-summary.json', 'utf8').then(
+      (value) => JSON.parse(value) as StreetRandomSnatchIncidentSummary,
+    ),
+    readFile('public/data/street-random-snatch-incident-conversion.json', 'utf8').then(
+      (value) =>
+        JSON.parse(value) as {
+          inputRows: number;
+          outputRows: number;
+          duplicateRows: number;
+          dateParseWarnings: string[];
+          timeBandParseWarnings: string[];
+          locationParseWarnings: string[];
+          unexpectedCaseTypeWarnings: string[];
+          duplicateExamples: string[];
+        },
+    ),
+    stat('data/raw/street-random-snatch-incidents/street-random-snatch-incidents.csv').catch(() => null),
+    readFile('data/raw/street-random-snatch-incidents/fetch-status.json', 'utf8')
+      .then((value) => JSON.parse(value) as { sourceUrl?: string; failure?: string | null })
+      .catch(() => null),
+  ]);
 const [
   policeCctvInstallationLocationSummary,
   policeCctvInstallationLocationConversion,
@@ -267,6 +292,7 @@ await writeJson('public/data/safety-dashboard-summary.json', {
   aedCount: aeds.length,
   bicycleTheftSummary,
   motorcycleTheftSummary,
+  streetRandomSnatchIncidentSummary,
   policeCctvInstallationLocationSummary,
   fireDepartmentDonationInKindSummary,
   managedHikingTrailSummary,
@@ -415,6 +441,17 @@ await writeJson('public/data/conversion-report.json', {
         'Historical motorcycle theft public-safety records from 警察局刑警大隊; incident locations are pre-fuzzed text and are never geocoded into exact markers.',
     },
     {
+      name: '臺北市街頭隨機搶奪案件點位資訊',
+      url: 'https://data.taipei/dataset/detail?id=404ca667-bcc4-4f3b-9217-fdcc1da400b2',
+      downloadUrl: streetRandomSnatchIncidentFetchStatus?.sourceUrl ?? '',
+      downloadedAt: streetRandomSnatchIncidentFile?.mtime.toISOString() ?? null,
+      fileSize: streetRandomSnatchIncidentFile?.size,
+      encoding: 'CP950 / Big5-family',
+      notes: streetRandomSnatchIncidentFetchStatus?.failure
+        ? `Latest street random snatch download failed: ${streetRandomSnatchIncidentFetchStatus.failure}. Existing generated data was retained.`
+        : 'Historical street random snatch public-safety records from 警察局刑警大隊; locations are pre-fuzzed text and are never geocoded into exact markers.',
+    },
+    {
       name: '臺北市政府警察局錄影監視系統設置區位',
       url: 'https://data.taipei/dataset/detail?id=e9b913ee-6df8-4663-bee5-aef6729d4389',
       downloadUrl:
@@ -490,6 +527,7 @@ await writeJson('public/data/conversion-report.json', {
   },
   bicycleThefts: bicycleTheftConversion,
   motorcycleThefts: motorcycleTheftConversion,
+  streetRandomSnatchIncidents: streetRandomSnatchIncidentConversion,
   policeCctvInstallationLocations: policeCctvInstallationLocationConversion,
   fireDepartmentDonations: fireDepartmentDonationInKindConversion,
   managedHikingTrails: managedHikingTrailConversion,
@@ -550,6 +588,7 @@ await writeJson('public/data/conversion-report.json', {
     'Residential burglary records remain blurred and are never geocoded into exact household-level markers.',
     'Bicycle theft records use pre-fuzzed address text and are shown only as district, road, and fuzzy-location summaries.',
     'Motorcycle theft records use pre-fuzzed address text and are shown only as district, road, and fuzzy-location summaries.',
+    `Street random snatch records use ${streetRandomSnatchIncidents.length.toLocaleString()} pre-fuzzed source-location rows and are never shown as exact incident points.`,
     'Police CCTV installation-location records are shown as district summaries and address lookup records because the source has no official coordinates.',
     'Fire Department in-kind donation records have no official location fields and are shown as trends and directory records only.',
     'Managed hiking trail records provide start/end source coordinates only; connectors are approximate and not route geometry.',
