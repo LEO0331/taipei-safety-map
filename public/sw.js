@@ -28,6 +28,8 @@ const DATA_FILES = [
   cacheUrl('data/emergency-shelter-summary.json'),
   cacheUrl('data/traffic-cctv-facilities.json'),
   cacheUrl('data/traffic-cctv-summary.json'),
+  cacheUrl('data/smart-traffic-enforcement-equipment.json'),
+  cacheUrl('data/smart-traffic-enforcement-equipment-summary.json'),
   cacheUrl('data/police-cctv-installation-locations.json'),
   cacheUrl('data/police-cctv-installation-location-summary.json'),
   cacheUrl('data/fire-department-donation-in-kind-records.json'),

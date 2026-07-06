@@ -26,6 +26,7 @@
     "data:fetch:traffic-cctv": "tsx scripts/fetchTrafficCctvFacilities.ts",
     "data:fetch:smart-traffic-enforcement": "tsx scripts/fetchSmartTrafficEnforcementEquipment.ts",
     "data:convert:smart-traffic-enforcement": "tsx scripts/convertSmartTrafficEnforcementEquipment.ts && tsx scripts/buildSafetySummaries.ts",
+    "data:summary:smart-traffic-enforcement": "tsx scripts/buildSmartTrafficEnforcementEquipmentSummary.ts && tsx scripts/buildSafetySummaries.ts",
     "data:fetch:police-cctv": "tsx scripts/fetchPoliceCctvInstallationLocations.ts",
     "data:fetch:fire-donations": "tsx scripts/fetchFireDepartmentDonationInKindRecords.ts",
     "data:convert:fire-donations": "tsx scripts/convertFireDepartmentDonationInKindRecords.ts && tsx scripts/buildSafetySummaries.ts",

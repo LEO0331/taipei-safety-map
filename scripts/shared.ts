@@ -1316,10 +1316,10 @@ export function parseCameraLocationCode(raw: unknown): {
 export function classifySmartTrafficEnforcementEquipmentType(raw: string | undefined): SmartTrafficEnforcementEquipmentTypeCategory {
   const text = raw?.trim() ?? '';
   if (!text) return 'unknown';
-  if (text.includes('路口多功能')) return 'intersection_multi_function';
-  if (text.includes('違規停車')) return 'illegal_parking';
-  if (text.includes('高架道路多功能')) return 'elevated_road_multi_function';
-  if (text.includes('區間平均速率')) return 'average_speed_section';
+  if (text.includes('路口') && text.includes('多功能')) return 'intersection_multi_function';
+  if (text.includes('違停') || text.includes('違規停車')) return 'illegal_parking';
+  if (text.includes('高架') && text.includes('多功能')) return 'elevated_road_multi_function';
+  if (text.includes('區間平均') || text.includes('平均速率')) return 'average_speed_section';
   return 'other';
 }
 
@@ -1327,20 +1327,20 @@ export function classifyTrafficEnforcementItems(raw: string | undefined): Traffi
   const text = raw?.trim() ?? '';
   if (!text) return ['unknown'];
   const categories = new Set<TrafficEnforcementItemCategory>();
-  if (text.includes('超速')) categories.add('speeding');
-  if (text.includes('闖紅燈')) categories.add('red_light');
-  if (text.includes('不停讓行人')) categories.add('pedestrian_yield');
-  if (text.includes('不依規定轉彎')) categories.add('illegal_turn');
-  if (text.includes('不依標誌標線號誌指示')) categories.add('sign_marking_signal_violation');
-  if (text.includes('違規停車')) categories.add('illegal_parking');
-  if (text.includes('跨越雙白線')) categories.add('double_white_line_crossing');
-  if (text.includes('逾10噸大貨車')) categories.add('heavy_truck_restriction');
-  if (text.includes('機車違規行駛')) categories.add('motorcycle_restriction');
-  if (text.includes('行駛路肩')) categories.add('shoulder_driving');
-  if (text.includes('機車道') || text.includes('人行道')) categories.add('motorcycle_lane_or_sidewalk_violation');
-  if (text.includes('路口未淨空')) categories.add('intersection_not_clear');
-  if (text.includes('槽化線')) categories.add('channelized_area_crossing');
-  if (text.includes('再開') && text.includes('不依規定停讓')) categories.add('stop_sign_yield');
+  if (text.includes('超速') || text.includes('速率')) categories.add('speeding');
+  if (text.includes('闖紅燈') || text.includes('紅燈')) categories.add('red_light');
+  if (text.includes('禮讓行人') || text.includes('行人')) categories.add('pedestrian_yield');
+  if (text.includes('違規轉彎') || text.includes('轉彎')) categories.add('illegal_turn');
+  if (text.includes('標誌') || text.includes('標線') || text.includes('號誌')) categories.add('sign_marking_signal_violation');
+  if (text.includes('違停') || text.includes('違規停車')) categories.add('illegal_parking');
+  if (text.includes('雙白線')) categories.add('double_white_line_crossing');
+  if (text.includes('大貨車') || text.includes('貨車')) categories.add('heavy_truck_restriction');
+  if (text.includes('機車禁行') || text.includes('禁行機車')) categories.add('motorcycle_restriction');
+  if (text.includes('路肩')) categories.add('shoulder_driving');
+  if (text.includes('機車') && (text.includes('車道') || text.includes('人行道'))) categories.add('motorcycle_lane_or_sidewalk_violation');
+  if (text.includes('路口淨空')) categories.add('intersection_not_clear');
+  if (text.includes('槽化')) categories.add('channelized_area_crossing');
+  if (text.includes('停車再開') || text.includes('讓路')) categories.add('stop_sign_yield');
   return categories.size ? [...categories] : ['other'];
 }
 
@@ -1349,7 +1349,7 @@ export function classifyTrafficEnforcementRoadSection(raw: string | undefined): 
   if (!text) return 'unknown';
   if (text.includes('隧道')) return 'tunnel';
   if (text.includes('高架')) return 'elevated_road';
-  if (text.includes('路口') || text.includes('與')) return 'intersection';
+  if (text.includes('路口') || text.includes('口')) return 'intersection';
   return 'road_section';
 }
 
@@ -1357,16 +1357,16 @@ function parseSmartTrafficActivationHistory(raw: string | undefined): SmartTraff
   return (raw?.split(/\r?\n/) ?? []).flatMap((sourceText) => {
     const text = sourceText.trim();
     if (!text) return [];
-    const match = text.match(/(\d{2,3})年(\d{1,2})月(?:(\d{1,2})日)?/);
+    const match = text.match(/(\d{2,3})年\s*(?:(\d{1,2})月)?\s*(?:(\d{1,2})日)?/);
     const rocYear = match ? Number(match[1]) : undefined;
-    const month = match ? Number(match[2]) : undefined;
-    const day = match?.[3] ? Number(match[3]) : 1;
+    const month = match?.[2] ? Number(match[2]) : undefined;
+    const day = match?.[3] ? Number(match[3]) : month ? 1 : undefined;
     const year = rocYear === undefined ? undefined : rocYear + 1911;
     const gregorianDate = year && month && day && isValidGregorianDate(year, month, day)
       ? `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`
       : undefined;
     return [{
-      eventType: text.includes('停用') ? 'suspended' as const : text.includes('重啟') ? 'restarted' as const : 'activated' as const,
+      eventType: text.includes('停用') ? 'suspended' as const : /重啟|復用|恢復/.test(text) ? 'restarted' as const : 'activated' as const,
       rocDateRaw: match?.[0],
       gregorianDate,
       sourceText: text,
@@ -1375,15 +1375,23 @@ function parseSmartTrafficActivationHistory(raw: string | undefined): SmartTraff
 }
 
 function extractRoadNameCandidates(text: string | undefined): string[] {
-  return [...new Set(text?.match(/[\u4e00-\u9fff]{1,12}(?:路|街|大道|隧道|高架道路)/g) ?? [])];
+  return [...new Set(text?.match(/[\u4e00-\u9fff]{1,12}(?:路|街|大道|橋|隧道|高架)/g) ?? [])];
+}
+
+function firstField(row: Record<string, string>, names: string[]): string | undefined {
+  for (const name of names) {
+    const value = row[name];
+    if (value !== undefined) return value;
+  }
+  return undefined;
 }
 
 export function convertSmartTrafficEnforcementEquipmentRow(row: Record<string, string>, index: number): SmartTrafficEnforcementEquipmentRecord {
-  const sourceSequenceNumber = parseNumberField(row['編號']);
-  const equipmentNameRaw = cleanText(row['名稱']);
-  const enforcementRoadSection = cleanText(row['取締路段']);
-  const sourceLongitudeRaw = cleanText(row['座標-X']);
-  const sourceLatitudeRaw = cleanText(row['座標-Y']);
+  const sourceSequenceNumber = parseNumberField(firstField(row, ['編號', '蝺刻?']));
+  const equipmentNameRaw = cleanText(firstField(row, ['名稱', '?迂']));
+  const enforcementRoadSection = cleanText(firstField(row, ['取締路段', '??頝舀挾']));
+  const sourceLongitudeRaw = cleanText(firstField(row, ['座標-X', '摨扳?-X']));
+  const sourceLatitudeRaw = cleanText(firstField(row, ['座標-Y', '摨扳?-Y']));
   const longitude = parsePossiblyInvalidNumber(sourceLongitudeRaw);
   const latitude = parsePossiblyInvalidNumber(sourceLatitudeRaw);
   const coordinateStatus: CoordinateStatus =
@@ -1394,9 +1402,10 @@ export function convertSmartTrafficEnforcementEquipmentRow(row: Record<string, s
       : isOutsideTaipeiBounds(longitude.value, latitude.value)
         ? 'outlier'
         : 'valid';
-  const activationDateRaw = emptyToUndefined(String(row['啟用日期'] ?? '').trim());
+  const activationDateRaw = emptyToUndefined(String(firstField(row, ['啟用日期', '??交?']) ?? '').trim());
   const activationEvents = parseSmartTrafficActivationHistory(activationDateRaw);
-  const enforcementItemsRaw = cleanText(row['取締項目']);
+  const firstActivationDate = activationEvents.find((event) => event.eventType === 'activated')?.gregorianDate;
+  const enforcementItemsRaw = cleanText(firstField(row, ['取締項目', '???']));
   const enforcementItemCategories = classifyTrafficEnforcementItems(enforcementItemsRaw);
   return {
     id: `smart-traffic-enforcement-${sourceSequenceNumber ?? index + 1}`,
@@ -1412,20 +1421,28 @@ export function convertSmartTrafficEnforcementEquipmentRow(row: Record<string, s
     longitude: longitude.value,
     latitude: latitude.value,
     coordinateStatus,
+    coordinateValid: coordinateStatus === 'valid',
+    coordinateQuality: coordinateStatus,
     activationDateRaw,
     activationEvents,
-    firstActivationDate: activationEvents.find((event) => event.eventType === 'activated')?.gregorianDate,
+    firstActivationDate,
+    firstActivationGregorianDate: firstActivationDate,
     statusHistoryHasSuspension: activationEvents.some((event) => event.eventType === 'suspended'),
     statusHistoryHasRestart: activationEvents.some((event) => event.eventType === 'restarted'),
     enforcementItemsRaw,
-    enforcementItems: enforcementItemsRaw?.split('、').map((item) => item.trim()).filter(Boolean) ?? [],
+    enforcementItems: enforcementItemsRaw?.split(/[、,，;；\n]/).map((item) => item.trim()).filter(Boolean) ?? [],
     enforcementItemCategories,
+    hasSpeedEnforcement: enforcementItemCategories.includes('speeding'),
+    hasRedLightEnforcement: enforcementItemCategories.includes('red_light'),
+    hasPedestrianYieldEnforcement: enforcementItemCategories.includes('pedestrian_yield'),
+    hasIllegalParkingEnforcement: enforcementItemCategories.includes('illegal_parking'),
+    hasTurnViolationEnforcement: enforcementItemCategories.includes('illegal_turn'),
+    hasLaneOrMarkingViolationEnforcement: enforcementItemCategories.includes('sign_marking_signal_violation'),
     googleMapsQuery: coordinateStatus === 'valid' && latitude.value !== undefined && longitude.value !== undefined ? `${latitude.value},${longitude.value}` : undefined,
     source: SMART_TRAFFIC_ENFORCEMENT_SOURCE,
     sourceAgency: SMART_TRAFFIC_ENFORCEMENT_AGENCY,
   };
 }
-
 export function convertTrafficCctvRow(row: Record<string, string>, index: number): TrafficCctvFacility {
   const longitude = parsePossiblyInvalidNumber(row['WGSX(WGS84經度座標)'] ?? row.WGSX);
   const latitude = parsePossiblyInvalidNumber(row['WGSY(WGS84緯度座標)'] ?? row.WGSY);
@@ -1738,3 +1755,4 @@ async function readJsonFile<T>(path: string): Promise<T> {
 function emptyToUndefined(value: string | undefined): string | undefined {
   return value?.trim() || undefined;
 }
+

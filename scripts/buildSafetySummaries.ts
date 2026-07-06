@@ -12,6 +12,7 @@ import type {
   MotorcycleTheftSummary,
   NaturalDisasterSuspensionSummary,
   PoliceCctvInstallationLocationSummary,
+  SmartTrafficEnforcementEquipmentSummary,
   StreetRandomSnatchIncidentSummary,
   TrafficCctvSummary,
 } from '../src/types.ts';
@@ -26,6 +27,7 @@ const {
   districtSummaries,
   dengueDistrictSummaries,
   streetRandomSnatchIncidents,
+  smartTrafficEnforcementEquipment,
 } = await loadConvertedData();
 const evacuationGateFile = await stat('data/raw/evacuation-gates/evacuation-gates.csv').catch(() => null);
 const evacuationGateFetchStatus = await readFile('data/raw/evacuation-gates/fetch-status.json', 'utf8')
@@ -107,6 +109,26 @@ const [trafficCctvSummary, trafficCctvConversion, trafficCctvFile, trafficCctvFe
   stat('data/raw/traffic-cctv/traffic-cctv.csv').catch(() => null),
   readFile('data/raw/traffic-cctv/fetch-status.json', 'utf8')
     .then((value) => JSON.parse(value) as { failure?: string | null })
+    .catch(() => null),
+]);
+const [smartTrafficEnforcementEquipmentSummary, smartTrafficEnforcementEquipmentConversion, smartTrafficEnforcementEquipmentFile, smartTrafficEnforcementEquipmentFetchStatus] = await Promise.all([
+  readFile('public/data/smart-traffic-enforcement-equipment-summary.json', 'utf8').then(
+    (value) => JSON.parse(value) as SmartTrafficEnforcementEquipmentSummary,
+  ),
+  readFile('public/data/smart-traffic-enforcement-equipment-conversion.json', 'utf8').then(
+    (value) =>
+      JSON.parse(value) as {
+        inputRows: number;
+        outputRows: number;
+        duplicateRows: number;
+        unknownEquipmentTypeExamples: string[];
+        unknownEnforcementItemExamples: string[];
+        duplicateExamples: string[];
+      },
+  ),
+  stat('data/raw/smart-traffic-enforcement-equipment/smart-traffic-enforcement-equipment.csv').catch(() => null),
+  readFile('data/raw/smart-traffic-enforcement-equipment/fetch-status.json', 'utf8')
+    .then((value) => JSON.parse(value) as { sourcePageUrl?: string; failure?: string | null })
     .catch(() => null),
 ]);
 const [naturalDisasterSuspensionSummary, naturalDisasterSuspensionConversion, naturalDisasterSuspensionFile] = await Promise.all([
@@ -304,6 +326,7 @@ await writeJson('public/data/safety-dashboard-summary.json', {
   fireHydrantSummary,
   emergencyShelterSummary,
   trafficCctvSummary,
+  smartTrafficEnforcementEquipmentSummary,
   naturalDisasterSuspensionSummary,
   dengueRecordCount: dengueRecords.length,
 });
@@ -409,6 +432,17 @@ await writeJson('public/data/conversion-report.json', {
       notes: trafficCctvFetchStatus?.failure
         ? `Latest CCTV download failed: ${trafficCctvFetchStatus.failure}. Existing generated data was retained.`
         : 'Traffic CCTV equipment location records from 交通局交工處; no live video, camera direction, or monitoring coverage is provided.',
+    },
+    {
+      name: '臺北市智慧管理科技執法設備資料表',
+      url: smartTrafficEnforcementEquipmentFetchStatus?.sourcePageUrl ?? 'https://data.taipei/dataset/detail?id=986fa73e-c470-4ebf-9f35-3a1c9d2a8788',
+      downloadUrl: '',
+      downloadedAt: smartTrafficEnforcementEquipmentFile?.mtime.toISOString() ?? null,
+      fileSize: smartTrafficEnforcementEquipmentFile?.size,
+      encoding: 'UTF-8-SIG with Big5 / CP950 fallback',
+      notes: smartTrafficEnforcementEquipmentFetchStatus?.failure
+        ? `Latest smart traffic enforcement equipment download failed: ${smartTrafficEnforcementEquipmentFetchStatus.failure}. Existing generated data was retained.`
+        : 'Smart traffic-enforcement equipment public records for safety-awareness lookup only; not real-time enforcement status, route advice, legal advice, or device-operation verification.',
     },
     {
       name: '臺北市歷次天然災害停止上班上課訊息',
@@ -583,6 +617,13 @@ await writeJson('public/data/conversion-report.json', {
     unparsedCoordinates: trafficCctvSummary.unparsedCoordinateCount,
     outlierCoordinates: trafficCctvSummary.outlierCoordinateCount,
   },
+  smartTrafficEnforcementEquipment: {
+    ...smartTrafficEnforcementEquipmentConversion,
+    validCoordinates: smartTrafficEnforcementEquipmentSummary.validCoordinateCount,
+    missingCoordinates: smartTrafficEnforcementEquipmentSummary.missingCoordinateCount,
+    unparsedCoordinates: smartTrafficEnforcementEquipmentSummary.unparsedCoordinateCount,
+    outlierCoordinates: smartTrafficEnforcementEquipmentSummary.outlierCoordinateCount,
+  },
   naturalDisasterSuspensions: naturalDisasterSuspensionConversion,
   notes: [
     'Residential burglary records remain blurred and are never geocoded into exact household-level markers.',
@@ -601,8 +642,10 @@ await writeJson('public/data/conversion-report.json', {
     'Fire hydrant records do not represent real-time availability, fire-response deployment, or fire-safety level.',
     'Emergency shelter records do not represent real-time opening status, remaining capacity, or official evacuation instructions.',
     'CCTV records do not provide live video, camera direction, monitoring coverage, or public-safety scoring.',
+    `Smart traffic enforcement equipment records include ${smartTrafficEnforcementEquipment.length.toLocaleString()} public-data rows; they are not real-time enforcement status, ticket-avoidance advice, route-avoidance advice, legal advice, or official device-operation verification.`,
     'Natural disaster suspension records are historical administrative messages and do not represent real-time closure status, forecasts, or emergency instructions.',
   ],
 });
 
 console.log('Built safety dashboard summaries.');
+

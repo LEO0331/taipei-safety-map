@@ -2,13 +2,15 @@
 
 A mobile-first bilingual Vite + React + TypeScript + Leaflet app for public safety information in Taipei.
 
-The app combines AED locations, medical facilities, fire hydrants, fire rescue difficult area records, managed hiking trails, historical flooding records, air-raid shelters, emergency shelters, evacuation gates, CCTV equipment locations, police CCTV installation-location records, Fire Department in-kind donation records, historical residential burglary records, bicycle theft records, motorcycle theft records, street random snatch incident records, dengue vector-density survey results, and historical natural-disaster work/school suspension messages. It does not provide real-time availability, remaining shelter capacity, live CCTV video, medical advice, fire-response instructions, evacuation instructions, current closure status, flooding status, road conditions, flood forecasts, disaster warnings, crime-risk scoring, route-safety guarantees, privacy or legal advice, insurance advice, real-estate advice, theft-prevention advice, crime prediction, outbreak-risk prediction, donation endorsements, route navigation, weather status, building safety certification, rescue-time prediction, accessibility guarantees, rescue availability, or resource-availability claims.
+The app combines AED locations, medical facilities, fire hydrants, fire rescue difficult area records, managed hiking trails, historical flooding records, air-raid shelters, emergency shelters, evacuation gates, CCTV equipment locations, smart traffic-enforcement equipment public records, police CCTV installation-location records, Fire Department in-kind donation records, historical residential burglary records, bicycle theft records, motorcycle theft records, street random snatch incident records, dengue vector-density survey results, and historical natural-disaster work/school suspension messages. It does not provide real-time availability, remaining shelter capacity, live CCTV video, real-time enforcement status, ticket-avoidance advice, route-avoidance advice, medical advice, fire-response instructions, evacuation instructions, current closure status, flooding status, road conditions, flood forecasts, disaster warnings, crime-risk scoring, route-safety guarantees, privacy or legal advice, insurance advice, real-estate advice, theft-prevention advice, crime prediction, outbreak-risk prediction, donation endorsements, route navigation, weather status, building safety certification, rescue-time prediction, accessibility guarantees, rescue availability, or resource-availability claims.
 
 Fire & emergency facilities: AEDs, medical facilities, and fire hydrants / 消防與緊急設施：AED、醫療院所與消防栓
 
 Shelters & disaster response facilities: air-raid shelters, emergency shelters, and evacuation gates / 避難與災害應變設施：防空避難設備、避難收容處所與疏散門
 
 Traffic monitoring facilities: CCTV equipment locations / 交通監控設施：CCTV設備點位
+
+Traffic safety and technology enforcement: smart traffic-enforcement equipment records / 交通安全與科技執法設備：臺北市智慧管理科技執法設備資料表
 
 Public safety infrastructure: police CCTV installation-location records / 公共安全設施：警察局錄影監視系統設置區位
 
@@ -42,6 +44,7 @@ Disaster information history: historical natural-disaster work/school suspension
 - `臺北市水利處歷史積水紀錄圖`: KML historical flooding records from 工務局水利處 with `area`, `FDATE`, `TOWN_NAME`, `ADDRESS`, `Depth`, and source geometry converted to GeoJSON.
 - `臺北市可供避難收容處所一覽表`: UTF-8-SIG emergency shelter directory with disaster applicability, listed capacity, area, served villages, and public contact fields.
 - `臺北市CCTV設施`: Big5 / CP950 traffic CCTV equipment locations with sequence number, city, camera location/code, and WGS84 coordinates.
+- `臺北市智慧管理科技執法設備資料表`: UTF-8-SIG smart traffic-enforcement equipment records with sequence number, equipment name, enforcement road section, WGS84 longitude/latitude, activation-date source history, and enforcement item text.
 - `臺北市政府警察局錄影監視系統設置區位`: UTF-8-SIG police CCTV installation-location records with city/county code, sequence number, police unit, installation address, and camera direction. The source has no official coordinates.
 - `臺北市歷次天然災害停止上班上課訊息`: UTF-8-SIG historical natural-disaster work/school suspension messages with ROC year/month/day, disaster name, and preserved official decision text.
 
@@ -60,6 +63,8 @@ Emergency shelter records do not include coordinates. The app shows district-lev
 Nearby AED, hospital, clinic, fire-hydrant, air-raid shelter, and evacuation-gate searches use browser geolocation and Haversine distance. Emergency shelters use district/address lookup until verified coordinates are added. Fire hydrant records do not represent real-time availability, fire-response deployment, or on-site accessibility.
 
 CCTV records are shown as traffic monitoring infrastructure points only. The app parses WGS84 coordinates and validates them against Taipei bounds, but does not provide live video access, camera direction, monitoring coverage, camera-feed links, crime-prevention claims, or safety scores. Live traffic image value-added use requires separate official application and usage under the authority rules.
+
+Smart traffic-enforcement equipment records are shown as traffic-safety and road-safety infrastructure public records only. The app validates WGS84 coordinates before showing markers and preserves invalid-coordinate rows in the directory. It does not represent real-time enforcement status, real-time device operating status, violation determination, legal advice, ticket-avoidance advice, route-avoidance advice, camera direction, lane coverage, exact enforcement boundaries, road danger ranking, police performance evaluation, real-estate or insurance risk, or official endorsement.
 
 Police CCTV installation-location records are shown as district-level summaries and an address-based directory only. The app parses district and road text from installation addresses but does not geocode, show exact markers, provide live video, infer field of view, or claim real-time operational status.
 
@@ -113,6 +118,7 @@ data/raw/managed-hiking-trails/managed-hiking-trails.csv
 data/raw/historical-flooding-records/historical-flooding-records.kml
 data/raw/emergency-shelters/emergency-shelters.csv
 data/raw/traffic-cctv/traffic-cctv.csv
+data/raw/smart-traffic-enforcement-equipment/smart-traffic-enforcement-equipment.csv
 data/raw/police-cctv-installation-locations/police-cctv-installation-locations.csv
 data/raw/natural-disaster-work-school-suspension-records/natural-disaster-work-school-suspension-records.csv
 data/raw/bicycle-theft-records/bicycle-theft-records.csv
@@ -136,6 +142,8 @@ Emergency shelter CSVs are UTF-8-SIG with Big5 fallback. Conversion parses `Y` /
 
 CCTV CSVs are Big5 / CP950 with UTF-8 fallback. Conversion parses `流水號`, `縣市`, `攝影機編號位置` / `攝影機編號`, and WGS84 longitude/latitude. Missing, unparsed, and outlier coordinates are reported and are not rendered as exact markers.
 
+Smart traffic-enforcement equipment CSVs are UTF-8-SIG with Big5 / CP950 fallback. Conversion parses `編號`, `名稱`, `取締路段`, `座標-X`, `座標-Y`, `啟用日期`, and `取締項目`; `座標-X` is WGS84 longitude and `座標-Y` is WGS84 latitude. Missing, unparsed, and outlier coordinates are reported and are not rendered as map markers. ROC activation-history lines are preserved and parsed as source-history events only.
+
 Police CCTV installation-location CSVs are UTF-8-SIG with Big5 fallback. Conversion parses `縣市別代碼`, `編號`, `所屬單位`, `安裝地址`, and `攝影方向`; it extracts district and road text where practical, but never geocodes or creates exact device points.
 
 Natural-disaster suspension CSVs are UTF-8-SIG with Big5 fallback. Conversion parses `民國年`, `月`, `日`, `天然災害名稱`, and `臺北市停止上班上課情形`; raw decision text is preserved exactly and classification is only an auxiliary filter.
@@ -154,4 +162,4 @@ The GitHub Actions workflow at `.github/workflows/deploy.yml` builds and deploys
 
 ## Disclaimer
 
-This site presents public AED, medical-facility, fire-hydrant, fire rescue difficult area, managed hiking trail, historical flooding, air-raid shelter, emergency shelter, evacuation-gate, CCTV equipment, Fire Department donation, historical burglary/theft/street-snatch, historical disaster-suspension, and dengue vector-density records. It does not represent real-time availability, fire-response deployment, shelter opening status, remaining capacity, CCTV live video, monitoring coverage, real-time fire risk, real-time crime risk, real-time flooding status, current road conditions, flood forecasts, disaster warnings, building safety certification, rescue-time prediction, trail opening status, weather, route navigation, rescue availability, accessibility guarantee, personal safety guarantee, official endorsement, current inventory, insurance advice, real-estate advice, legal advice, or official evacuation instructions. In an emergency, call 119 and follow official authorities and on-site command.
+This site presents public AED, medical-facility, fire-hydrant, fire rescue difficult area, managed hiking trail, historical flooding, air-raid shelter, emergency shelter, evacuation-gate, CCTV equipment, smart traffic-enforcement equipment, Fire Department donation, historical burglary/theft/street-snatch, historical disaster-suspension, and dengue vector-density records. It does not represent real-time availability, fire-response deployment, shelter opening status, remaining capacity, CCTV live video, monitoring coverage, real-time enforcement status, ticket-avoidance advice, route-avoidance advice, real-time fire risk, real-time crime risk, real-time flooding status, current road conditions, flood forecasts, disaster warnings, building safety certification, rescue-time prediction, trail opening status, weather, route navigation, rescue availability, accessibility guarantee, personal safety guarantee, official endorsement, current inventory, insurance advice, real-estate advice, legal advice, or official evacuation instructions. In an emergency, call 119 and follow official authorities and on-site command.

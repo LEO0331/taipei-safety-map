@@ -1,0 +1,14 @@
+{
+  "inputRows": 39,
+  "outputRows": 39,
+  "fileSize": 6230,
+  "encoding": "UTF-8-SIG with Big5 / CP950 fallback",
+  "duplicateRows": 0,
+  "validCoordinates": 39,
+  "missingCoordinates": 0,
+  "unparsedCoordinates": 0,
+  "outlierCoordinates": 0,
+  "unknownEquipmentTypeExamples": [],
+  "unknownEnforcementItemExamples": [],
+  "duplicateExamples": []
+}

@@ -1,0 +1,2060 @@
+[
+  {
+    "id": "smart-traffic-enforcement-1",
+    "module": "smart_traffic_enforcement_equipment",
+    "sourceSequenceNumber": 1,
+    "equipmentNameRaw": "區間平均速率",
+    "equipmentTypeCategory": "average_speed_section",
+    "enforcementRoadSection": "自強隧道",
+    "roadNameCandidates": [
+      "自強隧道"
+    ],
+    "roadSectionType": "tunnel",
+    "sourceLongitudeRaw": "121.549309",
+    "sourceLatitudeRaw": "25.090898",
+    "longitude": 121.549309,
+    "latitude": 25.090898,
+    "coordinateStatus": "valid",
+    "coordinateValid": true,
+    "coordinateQuality": "valid",
+    "activationDateRaw": "108年9月1日\n109年4月停用\n111年2月21日重啟",
+    "activationEvents": [
+      {
+        "eventType": "activated",
+        "rocDateRaw": "108年9月1日",
+        "gregorianDate": "2019-09-01",
+        "sourceText": "108年9月1日"
+      },
+      {
+        "eventType": "suspended",
+        "rocDateRaw": "109年4月",
+        "gregorianDate": "2020-04-01",
+        "sourceText": "109年4月停用"
+      },
+      {
+        "eventType": "restarted",
+        "rocDateRaw": "111年2月21日",
+        "gregorianDate": "2022-02-21",
+        "sourceText": "111年2月21日重啟"
+      }
+    ],
+    "firstActivationDate": "2019-09-01",
+    "firstActivationGregorianDate": "2019-09-01",
+    "statusHistoryHasSuspension": true,
+    "statusHistoryHasRestart": true,
+    "enforcementItemsRaw": "超速、跨越雙白線",
+    "enforcementItems": [
+      "超速",
+      "跨越雙白線"
+    ],
+    "enforcementItemCategories": [
+      "speeding",
+      "double_white_line_crossing"
+    ],
+    "hasSpeedEnforcement": true,
+    "hasRedLightEnforcement": false,
+    "hasPedestrianYieldEnforcement": false,
+    "hasIllegalParkingEnforcement": false,
+    "hasTurnViolationEnforcement": false,
+    "hasLaneOrMarkingViolationEnforcement": false,
+    "googleMapsQuery": "25.090898,121.549309",
+    "source": "臺北市智慧管理科技執法設備資料表",
+    "sourceAgency": "臺北市政府警察局交通警察大隊"
+  },
+  {
+    "id": "smart-traffic-enforcement-2",
+    "module": "smart_traffic_enforcement_equipment",
+    "sourceSequenceNumber": 2,
+    "equipmentNameRaw": "區間平均速率",
+    "equipmentTypeCategory": "average_speed_section",
+    "enforcementRoadSection": "辛亥隧道",
+    "roadNameCandidates": [
+      "辛亥隧道"
+    ],
+    "roadSectionType": "tunnel",
+    "sourceLongitudeRaw": "121.555481",
+    "sourceLatitudeRaw": "25.011792",
+    "longitude": 121.555481,
+    "latitude": 25.011792,
+    "coordinateStatus": "valid",
+    "coordinateValid": true,
+    "coordinateQuality": "valid",
+    "activationDateRaw": "109年1月1日\n109年4月停用\n111年2月21日重啟",
+    "activationEvents": [
+      {
+        "eventType": "activated",
+        "rocDateRaw": "109年1月1日",
+        "gregorianDate": "2020-01-01",
+        "sourceText": "109年1月1日"
+      },
+      {
+        "eventType": "suspended",
+        "rocDateRaw": "109年4月",
+        "gregorianDate": "2020-04-01",
+        "sourceText": "109年4月停用"
+      },
+      {
+        "eventType": "restarted",
+        "rocDateRaw": "111年2月21日",
+        "gregorianDate": "2022-02-21",
+        "sourceText": "111年2月21日重啟"
+      }
+    ],
+    "firstActivationDate": "2020-01-01",
+    "firstActivationGregorianDate": "2020-01-01",
+    "statusHistoryHasSuspension": true,
+    "statusHistoryHasRestart": true,
+    "enforcementItemsRaw": "超速、跨越雙白線",
+    "enforcementItems": [
+      "超速",
+      "跨越雙白線"
+    ],
+    "enforcementItemCategories": [
+      "speeding",
+      "double_white_line_crossing"
+    ],
+    "hasSpeedEnforcement": true,
+    "hasRedLightEnforcement": false,
+    "hasPedestrianYieldEnforcement": false,
+    "hasIllegalParkingEnforcement": false,
+    "hasTurnViolationEnforcement": false,
+    "hasLaneOrMarkingViolationEnforcement": false,
+    "googleMapsQuery": "25.011792,121.555481",
+    "source": "臺北市智慧管理科技執法設備資料表",
+    "sourceAgency": "臺北市政府警察局交通警察大隊"
+  },
+  {
+    "id": "smart-traffic-enforcement-3",
+    "module": "smart_traffic_enforcement_equipment",
+    "sourceSequenceNumber": 3,
+    "equipmentNameRaw": "高架道路多功能",
+    "equipmentTypeCategory": "elevated_road_multi_function",
+    "enforcementRoadSection": "市民高架道路",
+    "roadNameCandidates": [
+      "市民高架道路"
+    ],
+    "roadSectionType": "elevated_road",
+    "sourceLongitudeRaw": "121.539912",
+    "sourceLatitudeRaw": "25.044799",
+    "longitude": 121.539912,
+    "latitude": 25.044799,
+    "coordinateStatus": "valid",
+    "coordinateValid": true,
+    "coordinateQuality": "valid",
+    "activationDateRaw": "109年1月1日",
+    "activationEvents": [
+      {
+        "eventType": "activated",
+        "rocDateRaw": "109年1月1日",
+        "gregorianDate": "2020-01-01",
+        "sourceText": "109年1月1日"
+      }
+    ],
+    "firstActivationDate": "2020-01-01",
+    "firstActivationGregorianDate": "2020-01-01",
+    "statusHistoryHasSuspension": false,
+    "statusHistoryHasRestart": false,
+    "enforcementItemsRaw": "逾10噸大貨車違規行駛、機車違規行駛及行駛路肩",
+    "enforcementItems": [
+      "逾10噸大貨車違規行駛",
+      "機車違規行駛及行駛路肩"
+    ],
+    "enforcementItemCategories": [
+      "heavy_truck_restriction",
+      "shoulder_driving"
+    ],
+    "hasSpeedEnforcement": false,
+    "hasRedLightEnforcement": false,
+    "hasPedestrianYieldEnforcement": false,
+    "hasIllegalParkingEnforcement": false,
+    "hasTurnViolationEnforcement": false,
+    "hasLaneOrMarkingViolationEnforcement": false,
+    "googleMapsQuery": "25.044799,121.539912",
+    "source": "臺北市智慧管理科技執法設備資料表",
+    "sourceAgency": "臺北市政府警察局交通警察大隊"
+  },
+  {
+    "id": "smart-traffic-enforcement-4",
+    "module": "smart_traffic_enforcement_equipment",
+    "sourceSequenceNumber": 4,
+    "equipmentNameRaw": "高架道路多功能",
+    "equipmentTypeCategory": "elevated_road_multi_function",
+    "enforcementRoadSection": "建國高架道路",
+    "roadNameCandidates": [
+      "建國高架道路"
+    ],
+    "roadSectionType": "elevated_road",
+    "sourceLongitudeRaw": "121.536677",
+    "sourceLatitudeRaw": "25.046272",
+    "longitude": 121.536677,
+    "latitude": 25.046272,
+    "coordinateStatus": "valid",
+    "coordinateValid": true,
+    "coordinateQuality": "valid",
+    "activationDateRaw": "110年3月29日",
+    "activationEvents": [
+      {
+        "eventType": "activated",
+        "rocDateRaw": "110年3月29日",
+        "gregorianDate": "2021-03-29",
+        "sourceText": "110年3月29日"
+      }
+    ],
+    "firstActivationDate": "2021-03-29",
+    "firstActivationGregorianDate": "2021-03-29",
+    "statusHistoryHasSuspension": false,
+    "statusHistoryHasRestart": false,
+    "enforcementItemsRaw": "逾10噸大貨車違規行駛、機車違規行駛及不依標誌標線號誌指示行駛",
+    "enforcementItems": [
+      "逾10噸大貨車違規行駛",
+      "機車違規行駛及不依標誌標線號誌指示行駛"
+    ],
+    "enforcementItemCategories": [
+      "sign_marking_signal_violation",
+      "heavy_truck_restriction"
+    ],
+    "hasSpeedEnforcement": false,
+    "hasRedLightEnforcement": false,
+    "hasPedestrianYieldEnforcement": false,
+    "hasIllegalParkingEnforcement": false,
+    "hasTurnViolationEnforcement": false,
+    "hasLaneOrMarkingViolationEnforcement": true,
+    "googleMapsQuery": "25.046272,121.536677",
+    "source": "臺北市智慧管理科技執法設備資料表",
+    "sourceAgency": "臺北市政府警察局交通警察大隊"
+  },
+  {
+    "id": "smart-traffic-enforcement-5",
+    "module": "smart_traffic_enforcement_equipment",
+    "sourceSequenceNumber": 5,
+    "equipmentNameRaw": "路口多功能",
+    "equipmentTypeCategory": "intersection_multi_function",
+    "enforcementRoadSection": "鄭州路與西寧北路口",
+    "roadNameCandidates": [
+      "鄭州路與西寧北路"
+    ],
+    "roadSectionType": "intersection",
+    "sourceLongitudeRaw": "121.508087",
+    "sourceLatitudeRaw": "25.050537",
+    "longitude": 121.508087,
+    "latitude": 25.050537,
+    "coordinateStatus": "valid",
+    "coordinateValid": true,
+    "coordinateQuality": "valid",
+    "activationDateRaw": "111年1月3日",
+    "activationEvents": [
+      {
+        "eventType": "activated",
+        "rocDateRaw": "111年1月3日",
+        "gregorianDate": "2022-01-03",
+        "sourceText": "111年1月3日"
+      }
+    ],
+    "firstActivationDate": "2022-01-03",
+    "firstActivationGregorianDate": "2022-01-03",
+    "statusHistoryHasSuspension": false,
+    "statusHistoryHasRestart": false,
+    "enforcementItemsRaw": "闖紅燈、不停讓行人、不依規定轉彎、不依標誌標線號誌指示行駛",
+    "enforcementItems": [
+      "闖紅燈",
+      "不停讓行人",
+      "不依規定轉彎",
+      "不依標誌標線號誌指示行駛"
+    ],
+    "enforcementItemCategories": [
+      "red_light",
+      "pedestrian_yield",
+      "illegal_turn",
+      "sign_marking_signal_violation"
+    ],
+    "hasSpeedEnforcement": false,
+    "hasRedLightEnforcement": true,
+    "hasPedestrianYieldEnforcement": true,
+    "hasIllegalParkingEnforcement": false,
+    "hasTurnViolationEnforcement": true,
+    "hasLaneOrMarkingViolationEnforcement": true,
+    "googleMapsQuery": "25.050537,121.508087",
+    "source": "臺北市智慧管理科技執法設備資料表",
+    "sourceAgency": "臺北市政府警察局交通警察大隊"
+  },
+  {
+    "id": "smart-traffic-enforcement-6",
+    "module": "smart_traffic_enforcement_equipment",
+    "sourceSequenceNumber": 6,
+    "equipmentNameRaw": "路口多功能",
+    "equipmentTypeCategory": "intersection_multi_function",
+    "enforcementRoadSection": "市民大道與承德路口",
+    "roadNameCandidates": [
+      "市民大道與承德路"
+    ],
+    "roadSectionType": "intersection",
+    "sourceLongitudeRaw": "121.516415",
+    "sourceLatitudeRaw": "25.048688",
+    "longitude": 121.516415,
+    "latitude": 25.048688,
+    "coordinateStatus": "valid",
+    "coordinateValid": true,
+    "coordinateQuality": "valid",
+    "activationDateRaw": "111年12月1日",
+    "activationEvents": [
+      {
+        "eventType": "activated",
+        "rocDateRaw": "111年12月1日",
+        "gregorianDate": "2022-12-01",
+        "sourceText": "111年12月1日"
+      }
+    ],
+    "firstActivationDate": "2022-12-01",
+    "firstActivationGregorianDate": "2022-12-01",
+    "statusHistoryHasSuspension": false,
+    "statusHistoryHasRestart": false,
+    "enforcementItemsRaw": "闖紅燈、不停讓行人、不依規定轉彎、不依標誌標線號誌指示行駛、違規停車",
+    "enforcementItems": [
+      "闖紅燈",
+      "不停讓行人",
+      "不依規定轉彎",
+      "不依標誌標線號誌指示行駛",
+      "違規停車"
+    ],
+    "enforcementItemCategories": [
+      "red_light",
+      "pedestrian_yield",
+      "illegal_turn",
+      "sign_marking_signal_violation",
+      "illegal_parking"
+    ],
+    "hasSpeedEnforcement": false,
+    "hasRedLightEnforcement": true,
+    "hasPedestrianYieldEnforcement": true,
+    "hasIllegalParkingEnforcement": true,
+    "hasTurnViolationEnforcement": true,
+    "hasLaneOrMarkingViolationEnforcement": true,
+    "googleMapsQuery": "25.048688,121.516415",
+    "source": "臺北市智慧管理科技執法設備資料表",
+    "sourceAgency": "臺北市政府警察局交通警察大隊"
+  },
+  {
+    "id": "smart-traffic-enforcement-7",
+    "module": "smart_traffic_enforcement_equipment",
+    "sourceSequenceNumber": 7,
+    "equipmentNameRaw": "路口多功能",
+    "equipmentTypeCategory": "intersection_multi_function",
+    "enforcementRoadSection": "民權西路與承德路口",
+    "roadNameCandidates": [
+      "民權西路與承德路"
+    ],
+    "roadSectionType": "intersection",
+    "sourceLongitudeRaw": "121.518198",
+    "sourceLatitudeRaw": "25.063106",
+    "longitude": 121.518198,
+    "latitude": 25.063106,
+    "coordinateStatus": "valid",
+    "coordinateValid": true,
+    "coordinateQuality": "valid",
+    "activationDateRaw": "111年12月1日",
+    "activationEvents": [
+      {
+        "eventType": "activated",
+        "rocDateRaw": "111年12月1日",
+        "gregorianDate": "2022-12-01",
+        "sourceText": "111年12月1日"
+      }
+    ],
+    "firstActivationDate": "2022-12-01",
+    "firstActivationGregorianDate": "2022-12-01",
+    "statusHistoryHasSuspension": false,
+    "statusHistoryHasRestart": false,
+    "enforcementItemsRaw": "闖紅燈、不依規定轉彎、不依標誌標線號誌指示行駛",
+    "enforcementItems": [
+      "闖紅燈",
+      "不依規定轉彎",
+      "不依標誌標線號誌指示行駛"
+    ],
+    "enforcementItemCategories": [
+      "red_light",
+      "illegal_turn",
+      "sign_marking_signal_violation"
+    ],
+    "hasSpeedEnforcement": false,
+    "hasRedLightEnforcement": true,
+    "hasPedestrianYieldEnforcement": false,
+    "hasIllegalParkingEnforcement": false,
+    "hasTurnViolationEnforcement": true,
+    "hasLaneOrMarkingViolationEnforcement": true,
+    "googleMapsQuery": "25.063106,121.518198",
+    "source": "臺北市智慧管理科技執法設備資料表",
+    "sourceAgency": "臺北市政府警察局交通警察大隊"
+  },
+  {
+    "id": "smart-traffic-enforcement-8",
+    "module": "smart_traffic_enforcement_equipment",
+    "sourceSequenceNumber": 8,
+    "equipmentNameRaw": "路口多功能",
+    "equipmentTypeCategory": "intersection_multi_function",
+    "enforcementRoadSection": "民權西路與延平北路口",
+    "roadNameCandidates": [
+      "民權西路與延平北路"
+    ],
+    "roadSectionType": "intersection",
+    "sourceLongitudeRaw": "121.511237",
+    "sourceLatitudeRaw": "25.062788",
+    "longitude": 121.511237,
+    "latitude": 25.062788,
+    "coordinateStatus": "valid",
+    "coordinateValid": true,
+    "coordinateQuality": "valid",
+    "activationDateRaw": "111年12月1日",
+    "activationEvents": [
+      {
+        "eventType": "activated",
+        "rocDateRaw": "111年12月1日",
+        "gregorianDate": "2022-12-01",
+        "sourceText": "111年12月1日"
+      }
+    ],
+    "firstActivationDate": "2022-12-01",
+    "firstActivationGregorianDate": "2022-12-01",
+    "statusHistoryHasSuspension": false,
+    "statusHistoryHasRestart": false,
+    "enforcementItemsRaw": "闖紅燈、不停讓行人、不依規定轉彎、不依標誌標線號誌指示行駛、汽車行駛機車道(上匝)",
+    "enforcementItems": [
+      "闖紅燈",
+      "不停讓行人",
+      "不依規定轉彎",
+      "不依標誌標線號誌指示行駛",
+      "汽車行駛機車道(上匝)"
+    ],
+    "enforcementItemCategories": [
+      "red_light",
+      "pedestrian_yield",
+      "illegal_turn",
+      "sign_marking_signal_violation",
+      "motorcycle_lane_or_sidewalk_violation"
+    ],
+    "hasSpeedEnforcement": false,
+    "hasRedLightEnforcement": true,
+    "hasPedestrianYieldEnforcement": true,
+    "hasIllegalParkingEnforcement": false,
+    "hasTurnViolationEnforcement": true,
+    "hasLaneOrMarkingViolationEnforcement": true,
+    "googleMapsQuery": "25.062788,121.511237",
+    "source": "臺北市智慧管理科技執法設備資料表",
+    "sourceAgency": "臺北市政府警察局交通警察大隊"
+  },
+  {
+    "id": "smart-traffic-enforcement-9",
+    "module": "smart_traffic_enforcement_equipment",
+    "sourceSequenceNumber": 9,
+    "equipmentNameRaw": "路口多功能",
+    "equipmentTypeCategory": "intersection_multi_function",
+    "enforcementRoadSection": "民權西路與蘭州街口",
+    "roadNameCandidates": [
+      "民權西路與蘭州街"
+    ],
+    "roadSectionType": "intersection",
+    "sourceLongitudeRaw": "121.514742",
+    "sourceLatitudeRaw": "25.062957",
+    "longitude": 121.514742,
+    "latitude": 25.062957,
+    "coordinateStatus": "valid",
+    "coordinateValid": true,
+    "coordinateQuality": "valid",
+    "activationDateRaw": "111年12月1日",
+    "activationEvents": [
+      {
+        "eventType": "activated",
+        "rocDateRaw": "111年12月1日",
+        "gregorianDate": "2022-12-01",
+        "sourceText": "111年12月1日"
+      }
+    ],
+    "firstActivationDate": "2022-12-01",
+    "firstActivationGregorianDate": "2022-12-01",
+    "statusHistoryHasSuspension": false,
+    "statusHistoryHasRestart": false,
+    "enforcementItemsRaw": "闖紅燈、不依規定轉彎",
+    "enforcementItems": [
+      "闖紅燈",
+      "不依規定轉彎"
+    ],
+    "enforcementItemCategories": [
+      "red_light",
+      "illegal_turn"
+    ],
+    "hasSpeedEnforcement": false,
+    "hasRedLightEnforcement": true,
+    "hasPedestrianYieldEnforcement": false,
+    "hasIllegalParkingEnforcement": false,
+    "hasTurnViolationEnforcement": true,
+    "hasLaneOrMarkingViolationEnforcement": false,
+    "googleMapsQuery": "25.062957,121.514742",
+    "source": "臺北市智慧管理科技執法設備資料表",
+    "sourceAgency": "臺北市政府警察局交通警察大隊"
+  },
+  {
+    "id": "smart-traffic-enforcement-10",
+    "module": "smart_traffic_enforcement_equipment",
+    "sourceSequenceNumber": 10,
+    "equipmentNameRaw": "路口多功能",
+    "equipmentTypeCategory": "intersection_multi_function",
+    "enforcementRoadSection": "大直街與北安路口",
+    "roadNameCandidates": [
+      "大直街與北安路"
+    ],
+    "roadSectionType": "intersection",
+    "sourceLongitudeRaw": "121.549383",
+    "sourceLatitudeRaw": "25.084289",
+    "longitude": 121.549383,
+    "latitude": 25.084289,
+    "coordinateStatus": "valid",
+    "coordinateValid": true,
+    "coordinateQuality": "valid",
+    "activationDateRaw": "111年12月1日",
+    "activationEvents": [
+      {
+        "eventType": "activated",
+        "rocDateRaw": "111年12月1日",
+        "gregorianDate": "2022-12-01",
+        "sourceText": "111年12月1日"
+      }
+    ],
+    "firstActivationDate": "2022-12-01",
+    "firstActivationGregorianDate": "2022-12-01",
+    "statusHistoryHasSuspension": false,
+    "statusHistoryHasRestart": false,
+    "enforcementItemsRaw": "闖紅燈、不依規定轉彎、不依標誌標線號誌指示行駛、違規停車",
+    "enforcementItems": [
+      "闖紅燈",
+      "不依規定轉彎",
+      "不依標誌標線號誌指示行駛",
+      "違規停車"
+    ],
+    "enforcementItemCategories": [
+      "red_light",
+      "illegal_turn",
+      "sign_marking_signal_violation",
+      "illegal_parking"
+    ],
+    "hasSpeedEnforcement": false,
+    "hasRedLightEnforcement": true,
+    "hasPedestrianYieldEnforcement": false,
+    "hasIllegalParkingEnforcement": true,
+    "hasTurnViolationEnforcement": true,
+    "hasLaneOrMarkingViolationEnforcement": true,
+    "googleMapsQuery": "25.084289,121.549383",
+    "source": "臺北市智慧管理科技執法設備資料表",
+    "sourceAgency": "臺北市政府警察局交通警察大隊"
+  },
+  {
+    "id": "smart-traffic-enforcement-11",
+    "module": "smart_traffic_enforcement_equipment",
+    "sourceSequenceNumber": 11,
+    "equipmentNameRaw": "路口多功能",
+    "equipmentTypeCategory": "intersection_multi_function",
+    "enforcementRoadSection": "民權東路與建國北路口",
+    "roadNameCandidates": [
+      "民權東路與建國北路"
+    ],
+    "roadSectionType": "intersection",
+    "sourceLongitudeRaw": "121.537221",
+    "sourceLatitudeRaw": "25.062467",
+    "longitude": 121.537221,
+    "latitude": 25.062467,
+    "coordinateStatus": "valid",
+    "coordinateValid": true,
+    "coordinateQuality": "valid",
+    "activationDateRaw": "111年12月1日",
+    "activationEvents": [
+      {
+        "eventType": "activated",
+        "rocDateRaw": "111年12月1日",
+        "gregorianDate": "2022-12-01",
+        "sourceText": "111年12月1日"
+      }
+    ],
+    "firstActivationDate": "2022-12-01",
+    "firstActivationGregorianDate": "2022-12-01",
+    "statusHistoryHasSuspension": false,
+    "statusHistoryHasRestart": false,
+    "enforcementItemsRaw": "闖紅燈、不停讓行人、不依規定轉彎、不依標誌標線號誌指示行駛、違規停車",
+    "enforcementItems": [
+      "闖紅燈",
+      "不停讓行人",
+      "不依規定轉彎",
+      "不依標誌標線號誌指示行駛",
+      "違規停車"
+    ],
+    "enforcementItemCategories": [
+      "red_light",
+      "pedestrian_yield",
+      "illegal_turn",
+      "sign_marking_signal_violation",
+      "illegal_parking"
+    ],
+    "hasSpeedEnforcement": false,
+    "hasRedLightEnforcement": true,
+    "hasPedestrianYieldEnforcement": true,
+    "hasIllegalParkingEnforcement": true,
+    "hasTurnViolationEnforcement": true,
+    "hasLaneOrMarkingViolationEnforcement": true,
+    "googleMapsQuery": "25.062467,121.537221",
+    "source": "臺北市智慧管理科技執法設備資料表",
+    "sourceAgency": "臺北市政府警察局交通警察大隊"
+  },
+  {
+    "id": "smart-traffic-enforcement-12",
+    "module": "smart_traffic_enforcement_equipment",
+    "sourceSequenceNumber": 12,
+    "equipmentNameRaw": "路口多功能",
+    "equipmentTypeCategory": "intersection_multi_function",
+    "enforcementRoadSection": "市民大道與中山北路口",
+    "roadNameCandidates": [
+      "市民大道與中山北路"
+    ],
+    "roadSectionType": "intersection",
+    "sourceLongitudeRaw": "121.520705",
+    "sourceLatitudeRaw": "25.048303",
+    "longitude": 121.520705,
+    "latitude": 25.048303,
+    "coordinateStatus": "valid",
+    "coordinateValid": true,
+    "coordinateQuality": "valid",
+    "activationDateRaw": "111年12月1日",
+    "activationEvents": [
+      {
+        "eventType": "activated",
+        "rocDateRaw": "111年12月1日",
+        "gregorianDate": "2022-12-01",
+        "sourceText": "111年12月1日"
+      }
+    ],
+    "firstActivationDate": "2022-12-01",
+    "firstActivationGregorianDate": "2022-12-01",
+    "statusHistoryHasSuspension": false,
+    "statusHistoryHasRestart": false,
+    "enforcementItemsRaw": "闖紅燈、不停讓行人、不依規定轉彎、不依標誌標線號誌指示行駛",
+    "enforcementItems": [
+      "闖紅燈",
+      "不停讓行人",
+      "不依規定轉彎",
+      "不依標誌標線號誌指示行駛"
+    ],
+    "enforcementItemCategories": [
+      "red_light",
+      "pedestrian_yield",
+      "illegal_turn",
+      "sign_marking_signal_violation"
+    ],
+    "hasSpeedEnforcement": false,
+    "hasRedLightEnforcement": true,
+    "hasPedestrianYieldEnforcement": true,
+    "hasIllegalParkingEnforcement": false,
+    "hasTurnViolationEnforcement": true,
+    "hasLaneOrMarkingViolationEnforcement": true,
+    "googleMapsQuery": "25.048303,121.520705",
+    "source": "臺北市智慧管理科技執法設備資料表",
+    "sourceAgency": "臺北市政府警察局交通警察大隊"
+  },
+  {
+    "id": "smart-traffic-enforcement-13",
+    "module": "smart_traffic_enforcement_equipment",
+    "sourceSequenceNumber": 13,
+    "equipmentNameRaw": "路口多功能",
+    "equipmentTypeCategory": "intersection_multi_function",
+    "enforcementRoadSection": "市民大道與建國南路口",
+    "roadNameCandidates": [
+      "市民大道與建國南路"
+    ],
+    "roadSectionType": "intersection",
+    "sourceLongitudeRaw": "121.536396",
+    "sourceLatitudeRaw": "25.044857",
+    "longitude": 121.536396,
+    "latitude": 25.044857,
+    "coordinateStatus": "valid",
+    "coordinateValid": true,
+    "coordinateQuality": "valid",
+    "activationDateRaw": "111年12月1日",
+    "activationEvents": [
+      {
+        "eventType": "activated",
+        "rocDateRaw": "111年12月1日",
+        "gregorianDate": "2022-12-01",
+        "sourceText": "111年12月1日"
+      }
+    ],
+    "firstActivationDate": "2022-12-01",
+    "firstActivationGregorianDate": "2022-12-01",
+    "statusHistoryHasSuspension": false,
+    "statusHistoryHasRestart": false,
+    "enforcementItemsRaw": "闖紅燈、不依規定轉彎、不依標誌標線號誌指示行駛",
+    "enforcementItems": [
+      "闖紅燈",
+      "不依規定轉彎",
+      "不依標誌標線號誌指示行駛"
+    ],
+    "enforcementItemCategories": [
+      "red_light",
+      "illegal_turn",
+      "sign_marking_signal_violation"
+    ],
+    "hasSpeedEnforcement": false,
+    "hasRedLightEnforcement": true,
+    "hasPedestrianYieldEnforcement": false,
+    "hasIllegalParkingEnforcement": false,
+    "hasTurnViolationEnforcement": true,
+    "hasLaneOrMarkingViolationEnforcement": true,
+    "googleMapsQuery": "25.044857,121.536396",
+    "source": "臺北市智慧管理科技執法設備資料表",
+    "sourceAgency": "臺北市政府警察局交通警察大隊"
+  },
+  {
+    "id": "smart-traffic-enforcement-14",
+    "module": "smart_traffic_enforcement_equipment",
+    "sourceSequenceNumber": 14,
+    "equipmentNameRaw": "路口多功能",
+    "equipmentTypeCategory": "intersection_multi_function",
+    "enforcementRoadSection": "市民大道與林森北路口",
+    "roadNameCandidates": [
+      "市民大道與林森北路"
+    ],
+    "roadSectionType": "intersection",
+    "sourceLongitudeRaw": "121.524208",
+    "sourceLatitudeRaw": "25.047772",
+    "longitude": 121.524208,
+    "latitude": 25.047772,
+    "coordinateStatus": "valid",
+    "coordinateValid": true,
+    "coordinateQuality": "valid",
+    "activationDateRaw": "111年12月1日",
+    "activationEvents": [
+      {
+        "eventType": "activated",
+        "rocDateRaw": "111年12月1日",
+        "gregorianDate": "2022-12-01",
+        "sourceText": "111年12月1日"
+      }
+    ],
+    "firstActivationDate": "2022-12-01",
+    "firstActivationGregorianDate": "2022-12-01",
+    "statusHistoryHasSuspension": false,
+    "statusHistoryHasRestart": false,
+    "enforcementItemsRaw": "闖紅燈、不依規定轉彎、不依標誌標線號誌指示行駛",
+    "enforcementItems": [
+      "闖紅燈",
+      "不依規定轉彎",
+      "不依標誌標線號誌指示行駛"
+    ],
+    "enforcementItemCategories": [
+      "red_light",
+      "illegal_turn",
+      "sign_marking_signal_violation"
+    ],
+    "hasSpeedEnforcement": false,
+    "hasRedLightEnforcement": true,
+    "hasPedestrianYieldEnforcement": false,
+    "hasIllegalParkingEnforcement": false,
+    "hasTurnViolationEnforcement": true,
+    "hasLaneOrMarkingViolationEnforcement": true,
+    "googleMapsQuery": "25.047772,121.524208",
+    "source": "臺北市智慧管理科技執法設備資料表",
+    "sourceAgency": "臺北市政府警察局交通警察大隊"
+  },
+  {
+    "id": "smart-traffic-enforcement-15",
+    "module": "smart_traffic_enforcement_equipment",
+    "sourceSequenceNumber": 15,
+    "equipmentNameRaw": "路口多功能",
+    "equipmentTypeCategory": "intersection_multi_function",
+    "enforcementRoadSection": "和平東路與基隆路口",
+    "roadNameCandidates": [
+      "和平東路與基隆路"
+    ],
+    "roadSectionType": "intersection",
+    "sourceLongitudeRaw": "121.552499",
+    "sourceLatitudeRaw": "25.024582",
+    "longitude": 121.552499,
+    "latitude": 25.024582,
+    "coordinateStatus": "valid",
+    "coordinateValid": true,
+    "coordinateQuality": "valid",
+    "activationDateRaw": "111年12月1日",
+    "activationEvents": [
+      {
+        "eventType": "activated",
+        "rocDateRaw": "111年12月1日",
+        "gregorianDate": "2022-12-01",
+        "sourceText": "111年12月1日"
+      }
+    ],
+    "firstActivationDate": "2022-12-01",
+    "firstActivationGregorianDate": "2022-12-01",
+    "statusHistoryHasSuspension": false,
+    "statusHistoryHasRestart": false,
+    "enforcementItemsRaw": "闖紅燈、不停讓行人、不依規定轉彎、不依標誌標線號誌指示行駛",
+    "enforcementItems": [
+      "闖紅燈",
+      "不停讓行人",
+      "不依規定轉彎",
+      "不依標誌標線號誌指示行駛"
+    ],
+    "enforcementItemCategories": [
+      "red_light",
+      "pedestrian_yield",
+      "illegal_turn",
+      "sign_marking_signal_violation"
+    ],
+    "hasSpeedEnforcement": false,
+    "hasRedLightEnforcement": true,
+    "hasPedestrianYieldEnforcement": true,
+    "hasIllegalParkingEnforcement": false,
+    "hasTurnViolationEnforcement": true,
+    "hasLaneOrMarkingViolationEnforcement": true,
+    "googleMapsQuery": "25.024582,121.552499",
+    "source": "臺北市智慧管理科技執法設備資料表",
+    "sourceAgency": "臺北市政府警察局交通警察大隊"
+  },
+  {
+    "id": "smart-traffic-enforcement-16",
+    "module": "smart_traffic_enforcement_equipment",
+    "sourceSequenceNumber": 16,
+    "equipmentNameRaw": "路口多功能",
+    "equipmentTypeCategory": "intersection_multi_function",
+    "enforcementRoadSection": "信義路與建國南路口",
+    "roadNameCandidates": [
+      "信義路與建國南路"
+    ],
+    "roadSectionType": "intersection",
+    "sourceLongitudeRaw": "121.537984",
+    "sourceLatitudeRaw": "25.033613",
+    "longitude": 121.537984,
+    "latitude": 25.033613,
+    "coordinateStatus": "valid",
+    "coordinateValid": true,
+    "coordinateQuality": "valid",
+    "activationDateRaw": "111年12月1日",
+    "activationEvents": [
+      {
+        "eventType": "activated",
+        "rocDateRaw": "111年12月1日",
+        "gregorianDate": "2022-12-01",
+        "sourceText": "111年12月1日"
+      }
+    ],
+    "firstActivationDate": "2022-12-01",
+    "firstActivationGregorianDate": "2022-12-01",
+    "statusHistoryHasSuspension": false,
+    "statusHistoryHasRestart": false,
+    "enforcementItemsRaw": "闖紅燈、不停讓行人、不依規定轉彎、不依標誌標線號誌指示行駛",
+    "enforcementItems": [
+      "闖紅燈",
+      "不停讓行人",
+      "不依規定轉彎",
+      "不依標誌標線號誌指示行駛"
+    ],
+    "enforcementItemCategories": [
+      "red_light",
+      "pedestrian_yield",
+      "illegal_turn",
+      "sign_marking_signal_violation"
+    ],
+    "hasSpeedEnforcement": false,
+    "hasRedLightEnforcement": true,
+    "hasPedestrianYieldEnforcement": true,
+    "hasIllegalParkingEnforcement": false,
+    "hasTurnViolationEnforcement": true,
+    "hasLaneOrMarkingViolationEnforcement": true,
+    "googleMapsQuery": "25.033613,121.537984",
+    "source": "臺北市智慧管理科技執法設備資料表",
+    "sourceAgency": "臺北市政府警察局交通警察大隊"
+  },
+  {
+    "id": "smart-traffic-enforcement-17",
+    "module": "smart_traffic_enforcement_equipment",
+    "sourceSequenceNumber": 17,
+    "equipmentNameRaw": "路口多功能",
+    "equipmentTypeCategory": "intersection_multi_function",
+    "enforcementRoadSection": "辛亥路與基隆路口",
+    "roadNameCandidates": [
+      "辛亥路與基隆路"
+    ],
+    "roadSectionType": "intersection",
+    "sourceLongitudeRaw": "121.546794",
+    "sourceLatitudeRaw": "25.019411",
+    "longitude": 121.546794,
+    "latitude": 25.019411,
+    "coordinateStatus": "valid",
+    "coordinateValid": true,
+    "coordinateQuality": "valid",
+    "activationDateRaw": "111年12月1日",
+    "activationEvents": [
+      {
+        "eventType": "activated",
+        "rocDateRaw": "111年12月1日",
+        "gregorianDate": "2022-12-01",
+        "sourceText": "111年12月1日"
+      }
+    ],
+    "firstActivationDate": "2022-12-01",
+    "firstActivationGregorianDate": "2022-12-01",
+    "statusHistoryHasSuspension": false,
+    "statusHistoryHasRestart": false,
+    "enforcementItemsRaw": "闖紅燈、不停讓行人、不依規定轉彎、不依標誌標線號誌指示行駛、機車行駛人行道",
+    "enforcementItems": [
+      "闖紅燈",
+      "不停讓行人",
+      "不依規定轉彎",
+      "不依標誌標線號誌指示行駛",
+      "機車行駛人行道"
+    ],
+    "enforcementItemCategories": [
+      "red_light",
+      "pedestrian_yield",
+      "illegal_turn",
+      "sign_marking_signal_violation",
+      "motorcycle_lane_or_sidewalk_violation"
+    ],
+    "hasSpeedEnforcement": false,
+    "hasRedLightEnforcement": true,
+    "hasPedestrianYieldEnforcement": true,
+    "hasIllegalParkingEnforcement": false,
+    "hasTurnViolationEnforcement": true,
+    "hasLaneOrMarkingViolationEnforcement": true,
+    "googleMapsQuery": "25.019411,121.546794",
+    "source": "臺北市智慧管理科技執法設備資料表",
+    "sourceAgency": "臺北市政府警察局交通警察大隊"
+  },
+  {
+    "id": "smart-traffic-enforcement-18",
+    "module": "smart_traffic_enforcement_equipment",
+    "sourceSequenceNumber": 18,
+    "equipmentNameRaw": "路口多功能",
+    "equipmentTypeCategory": "intersection_multi_function",
+    "enforcementRoadSection": "市民大道與敦化南路口",
+    "roadNameCandidates": [
+      "市民大道與敦化南路"
+    ],
+    "roadSectionType": "intersection",
+    "sourceLongitudeRaw": "121.549172",
+    "sourceLatitudeRaw": "25.044816",
+    "longitude": 121.549172,
+    "latitude": 25.044816,
+    "coordinateStatus": "valid",
+    "coordinateValid": true,
+    "coordinateQuality": "valid",
+    "activationDateRaw": "111年12月1日",
+    "activationEvents": [
+      {
+        "eventType": "activated",
+        "rocDateRaw": "111年12月1日",
+        "gregorianDate": "2022-12-01",
+        "sourceText": "111年12月1日"
+      }
+    ],
+    "firstActivationDate": "2022-12-01",
+    "firstActivationGregorianDate": "2022-12-01",
+    "statusHistoryHasSuspension": false,
+    "statusHistoryHasRestart": false,
+    "enforcementItemsRaw": "闖紅燈、不停讓行人、不依規定轉彎",
+    "enforcementItems": [
+      "闖紅燈",
+      "不停讓行人",
+      "不依規定轉彎"
+    ],
+    "enforcementItemCategories": [
+      "red_light",
+      "pedestrian_yield",
+      "illegal_turn"
+    ],
+    "hasSpeedEnforcement": false,
+    "hasRedLightEnforcement": true,
+    "hasPedestrianYieldEnforcement": true,
+    "hasIllegalParkingEnforcement": false,
+    "hasTurnViolationEnforcement": true,
+    "hasLaneOrMarkingViolationEnforcement": false,
+    "googleMapsQuery": "25.044816,121.549172",
+    "source": "臺北市智慧管理科技執法設備資料表",
+    "sourceAgency": "臺北市政府警察局交通警察大隊"
+  },
+  {
+    "id": "smart-traffic-enforcement-19",
+    "module": "smart_traffic_enforcement_equipment",
+    "sourceSequenceNumber": 19,
+    "equipmentNameRaw": "路口多功能",
+    "equipmentTypeCategory": "intersection_multi_function",
+    "enforcementRoadSection": "忠孝東路與基隆路口",
+    "roadNameCandidates": [
+      "忠孝東路與基隆路"
+    ],
+    "roadSectionType": "intersection",
+    "sourceLongitudeRaw": "121.564334",
+    "sourceLatitudeRaw": "25.041205",
+    "longitude": 121.564334,
+    "latitude": 25.041205,
+    "coordinateStatus": "valid",
+    "coordinateValid": true,
+    "coordinateQuality": "valid",
+    "activationDateRaw": "111年12月1日",
+    "activationEvents": [
+      {
+        "eventType": "activated",
+        "rocDateRaw": "111年12月1日",
+        "gregorianDate": "2022-12-01",
+        "sourceText": "111年12月1日"
+      }
+    ],
+    "firstActivationDate": "2022-12-01",
+    "firstActivationGregorianDate": "2022-12-01",
+    "statusHistoryHasSuspension": false,
+    "statusHistoryHasRestart": false,
+    "enforcementItemsRaw": "闖紅燈、不停讓行人、不依規定轉彎、不依標誌標線號誌指示行駛",
+    "enforcementItems": [
+      "闖紅燈",
+      "不停讓行人",
+      "不依規定轉彎",
+      "不依標誌標線號誌指示行駛"
+    ],
+    "enforcementItemCategories": [
+      "red_light",
+      "pedestrian_yield",
+      "illegal_turn",
+      "sign_marking_signal_violation"
+    ],
+    "hasSpeedEnforcement": false,
+    "hasRedLightEnforcement": true,
+    "hasPedestrianYieldEnforcement": true,
+    "hasIllegalParkingEnforcement": false,
+    "hasTurnViolationEnforcement": true,
+    "hasLaneOrMarkingViolationEnforcement": true,
+    "googleMapsQuery": "25.041205,121.564334",
+    "source": "臺北市智慧管理科技執法設備資料表",
+    "sourceAgency": "臺北市政府警察局交通警察大隊"
+  },
+  {
+    "id": "smart-traffic-enforcement-20",
+    "module": "smart_traffic_enforcement_equipment",
+    "sourceSequenceNumber": 20,
+    "equipmentNameRaw": "路口多功能",
+    "equipmentTypeCategory": "intersection_multi_function",
+    "enforcementRoadSection": "信義路與基隆路口",
+    "roadNameCandidates": [
+      "信義路與基隆路"
+    ],
+    "roadSectionType": "intersection",
+    "sourceLongitudeRaw": "121.559749",
+    "sourceLatitudeRaw": "25.033149",
+    "longitude": 121.559749,
+    "latitude": 25.033149,
+    "coordinateStatus": "valid",
+    "coordinateValid": true,
+    "coordinateQuality": "valid",
+    "activationDateRaw": "111年12月1日",
+    "activationEvents": [
+      {
+        "eventType": "activated",
+        "rocDateRaw": "111年12月1日",
+        "gregorianDate": "2022-12-01",
+        "sourceText": "111年12月1日"
+      }
+    ],
+    "firstActivationDate": "2022-12-01",
+    "firstActivationGregorianDate": "2022-12-01",
+    "statusHistoryHasSuspension": false,
+    "statusHistoryHasRestart": false,
+    "enforcementItemsRaw": "闖紅燈、不停讓行人、不依規定轉彎、不依標誌標線號誌指示行駛",
+    "enforcementItems": [
+      "闖紅燈",
+      "不停讓行人",
+      "不依規定轉彎",
+      "不依標誌標線號誌指示行駛"
+    ],
+    "enforcementItemCategories": [
+      "red_light",
+      "pedestrian_yield",
+      "illegal_turn",
+      "sign_marking_signal_violation"
+    ],
+    "hasSpeedEnforcement": false,
+    "hasRedLightEnforcement": true,
+    "hasPedestrianYieldEnforcement": true,
+    "hasIllegalParkingEnforcement": false,
+    "hasTurnViolationEnforcement": true,
+    "hasLaneOrMarkingViolationEnforcement": true,
+    "googleMapsQuery": "25.033149,121.559749",
+    "source": "臺北市智慧管理科技執法設備資料表",
+    "sourceAgency": "臺北市政府警察局交通警察大隊"
+  },
+  {
+    "id": "smart-traffic-enforcement-21",
+    "module": "smart_traffic_enforcement_equipment",
+    "sourceSequenceNumber": 21,
+    "equipmentNameRaw": "路口多功能",
+    "equipmentTypeCategory": "intersection_multi_function",
+    "enforcementRoadSection": "中正路與延平北路口",
+    "roadNameCandidates": [
+      "中正路與延平北路"
+    ],
+    "roadSectionType": "intersection",
+    "sourceLongitudeRaw": "121.509285",
+    "sourceLatitudeRaw": "25.086629",
+    "longitude": 121.509285,
+    "latitude": 25.086629,
+    "coordinateStatus": "valid",
+    "coordinateValid": true,
+    "coordinateQuality": "valid",
+    "activationDateRaw": "111年12月1日",
+    "activationEvents": [
+      {
+        "eventType": "activated",
+        "rocDateRaw": "111年12月1日",
+        "gregorianDate": "2022-12-01",
+        "sourceText": "111年12月1日"
+      }
+    ],
+    "firstActivationDate": "2022-12-01",
+    "firstActivationGregorianDate": "2022-12-01",
+    "statusHistoryHasSuspension": false,
+    "statusHistoryHasRestart": false,
+    "enforcementItemsRaw": "闖紅燈、不停讓行人、不依規定轉彎",
+    "enforcementItems": [
+      "闖紅燈",
+      "不停讓行人",
+      "不依規定轉彎"
+    ],
+    "enforcementItemCategories": [
+      "red_light",
+      "pedestrian_yield",
+      "illegal_turn"
+    ],
+    "hasSpeedEnforcement": false,
+    "hasRedLightEnforcement": true,
+    "hasPedestrianYieldEnforcement": true,
+    "hasIllegalParkingEnforcement": false,
+    "hasTurnViolationEnforcement": true,
+    "hasLaneOrMarkingViolationEnforcement": false,
+    "googleMapsQuery": "25.086629,121.509285",
+    "source": "臺北市智慧管理科技執法設備資料表",
+    "sourceAgency": "臺北市政府警察局交通警察大隊"
+  },
+  {
+    "id": "smart-traffic-enforcement-22",
+    "module": "smart_traffic_enforcement_equipment",
+    "sourceSequenceNumber": 22,
+    "equipmentNameRaw": "路口多功能",
+    "equipmentTypeCategory": "intersection_multi_function",
+    "enforcementRoadSection": "大度路與立德路口",
+    "roadNameCandidates": [
+      "大度路與立德路"
+    ],
+    "roadSectionType": "intersection",
+    "sourceLongitudeRaw": "121.471438",
+    "sourceLatitudeRaw": "25.122991",
+    "longitude": 121.471438,
+    "latitude": 25.122991,
+    "coordinateStatus": "valid",
+    "coordinateValid": true,
+    "coordinateQuality": "valid",
+    "activationDateRaw": "111年12月1日",
+    "activationEvents": [
+      {
+        "eventType": "activated",
+        "rocDateRaw": "111年12月1日",
+        "gregorianDate": "2022-12-01",
+        "sourceText": "111年12月1日"
+      }
+    ],
+    "firstActivationDate": "2022-12-01",
+    "firstActivationGregorianDate": "2022-12-01",
+    "statusHistoryHasSuspension": false,
+    "statusHistoryHasRestart": false,
+    "enforcementItemsRaw": "闖紅燈、不依規定轉彎、不依標誌標線號誌指示行駛",
+    "enforcementItems": [
+      "闖紅燈",
+      "不依規定轉彎",
+      "不依標誌標線號誌指示行駛"
+    ],
+    "enforcementItemCategories": [
+      "red_light",
+      "illegal_turn",
+      "sign_marking_signal_violation"
+    ],
+    "hasSpeedEnforcement": false,
+    "hasRedLightEnforcement": true,
+    "hasPedestrianYieldEnforcement": false,
+    "hasIllegalParkingEnforcement": false,
+    "hasTurnViolationEnforcement": true,
+    "hasLaneOrMarkingViolationEnforcement": true,
+    "googleMapsQuery": "25.122991,121.471438",
+    "source": "臺北市智慧管理科技執法設備資料表",
+    "sourceAgency": "臺北市政府警察局交通警察大隊"
+  },
+  {
+    "id": "smart-traffic-enforcement-23",
+    "module": "smart_traffic_enforcement_equipment",
+    "sourceSequenceNumber": 23,
+    "equipmentNameRaw": "路口多功能",
+    "equipmentTypeCategory": "intersection_multi_function",
+    "enforcementRoadSection": "承德路與福國路口",
+    "roadNameCandidates": [
+      "承德路與福國路"
+    ],
+    "roadSectionType": "intersection",
+    "sourceLongitudeRaw": "121.512434",
+    "sourceLatitudeRaw": "25.101565",
+    "longitude": 121.512434,
+    "latitude": 25.101565,
+    "coordinateStatus": "valid",
+    "coordinateValid": true,
+    "coordinateQuality": "valid",
+    "activationDateRaw": "111年12月1日",
+    "activationEvents": [
+      {
+        "eventType": "activated",
+        "rocDateRaw": "111年12月1日",
+        "gregorianDate": "2022-12-01",
+        "sourceText": "111年12月1日"
+      }
+    ],
+    "firstActivationDate": "2022-12-01",
+    "firstActivationGregorianDate": "2022-12-01",
+    "statusHistoryHasSuspension": false,
+    "statusHistoryHasRestart": false,
+    "enforcementItemsRaw": "闖紅燈、不依規定轉彎、不依標誌標線號誌指示行駛",
+    "enforcementItems": [
+      "闖紅燈",
+      "不依規定轉彎",
+      "不依標誌標線號誌指示行駛"
+    ],
+    "enforcementItemCategories": [
+      "red_light",
+      "illegal_turn",
+      "sign_marking_signal_violation"
+    ],
+    "hasSpeedEnforcement": false,
+    "hasRedLightEnforcement": true,
+    "hasPedestrianYieldEnforcement": false,
+    "hasIllegalParkingEnforcement": false,
+    "hasTurnViolationEnforcement": true,
+    "hasLaneOrMarkingViolationEnforcement": true,
+    "googleMapsQuery": "25.101565,121.512434",
+    "source": "臺北市智慧管理科技執法設備資料表",
+    "sourceAgency": "臺北市政府警察局交通警察大隊"
+  },
+  {
+    "id": "smart-traffic-enforcement-24",
+    "module": "smart_traffic_enforcement_equipment",
+    "sourceSequenceNumber": 24,
+    "equipmentNameRaw": "路口多功能",
+    "equipmentTypeCategory": "intersection_multi_function",
+    "enforcementRoadSection": "和平西路與西園路口",
+    "roadNameCandidates": [
+      "和平西路與西園路"
+    ],
+    "roadSectionType": "intersection",
+    "sourceLongitudeRaw": "121.499245",
+    "sourceLatitudeRaw": "25.035269",
+    "longitude": 121.499245,
+    "latitude": 25.035269,
+    "coordinateStatus": "valid",
+    "coordinateValid": true,
+    "coordinateQuality": "valid",
+    "activationDateRaw": "111年12月1日",
+    "activationEvents": [
+      {
+        "eventType": "activated",
+        "rocDateRaw": "111年12月1日",
+        "gregorianDate": "2022-12-01",
+        "sourceText": "111年12月1日"
+      }
+    ],
+    "firstActivationDate": "2022-12-01",
+    "firstActivationGregorianDate": "2022-12-01",
+    "statusHistoryHasSuspension": false,
+    "statusHistoryHasRestart": false,
+    "enforcementItemsRaw": "闖紅燈、不停讓行人、不依規定轉彎、不依標誌標線號誌指示行駛",
+    "enforcementItems": [
+      "闖紅燈",
+      "不停讓行人",
+      "不依規定轉彎",
+      "不依標誌標線號誌指示行駛"
+    ],
+    "enforcementItemCategories": [
+      "red_light",
+      "pedestrian_yield",
+      "illegal_turn",
+      "sign_marking_signal_violation"
+    ],
+    "hasSpeedEnforcement": false,
+    "hasRedLightEnforcement": true,
+    "hasPedestrianYieldEnforcement": true,
+    "hasIllegalParkingEnforcement": false,
+    "hasTurnViolationEnforcement": true,
+    "hasLaneOrMarkingViolationEnforcement": true,
+    "googleMapsQuery": "25.035269,121.499245",
+    "source": "臺北市智慧管理科技執法設備資料表",
+    "sourceAgency": "臺北市政府警察局交通警察大隊"
+  },
+  {
+    "id": "smart-traffic-enforcement-25",
+    "module": "smart_traffic_enforcement_equipment",
+    "sourceSequenceNumber": 25,
+    "equipmentNameRaw": "路口多功能",
+    "equipmentTypeCategory": "intersection_multi_function",
+    "enforcementRoadSection": "辛亥路與木柵路口",
+    "roadNameCandidates": [
+      "辛亥路與木柵路"
+    ],
+    "roadSectionType": "intersection",
+    "sourceLongitudeRaw": "121.552292",
+    "sourceLatitudeRaw": "24.987827",
+    "longitude": 121.552292,
+    "latitude": 24.987827,
+    "coordinateStatus": "valid",
+    "coordinateValid": true,
+    "coordinateQuality": "valid",
+    "activationDateRaw": "111年12月1日",
+    "activationEvents": [
+      {
+        "eventType": "activated",
+        "rocDateRaw": "111年12月1日",
+        "gregorianDate": "2022-12-01",
+        "sourceText": "111年12月1日"
+      }
+    ],
+    "firstActivationDate": "2022-12-01",
+    "firstActivationGregorianDate": "2022-12-01",
+    "statusHistoryHasSuspension": false,
+    "statusHistoryHasRestart": false,
+    "enforcementItemsRaw": "闖紅燈、不停讓行人、不依規定轉彎、不依標誌標線號誌指示行駛",
+    "enforcementItems": [
+      "闖紅燈",
+      "不停讓行人",
+      "不依規定轉彎",
+      "不依標誌標線號誌指示行駛"
+    ],
+    "enforcementItemCategories": [
+      "red_light",
+      "pedestrian_yield",
+      "illegal_turn",
+      "sign_marking_signal_violation"
+    ],
+    "hasSpeedEnforcement": false,
+    "hasRedLightEnforcement": true,
+    "hasPedestrianYieldEnforcement": true,
+    "hasIllegalParkingEnforcement": false,
+    "hasTurnViolationEnforcement": true,
+    "hasLaneOrMarkingViolationEnforcement": true,
+    "googleMapsQuery": "24.987827,121.552292",
+    "source": "臺北市智慧管理科技執法設備資料表",
+    "sourceAgency": "臺北市政府警察局交通警察大隊"
+  },
+  {
+    "id": "smart-traffic-enforcement-26",
+    "module": "smart_traffic_enforcement_equipment",
+    "sourceSequenceNumber": 26,
+    "equipmentNameRaw": "路口多功能",
+    "equipmentTypeCategory": "intersection_multi_function",
+    "enforcementRoadSection": "港墘路與堤頂大道口",
+    "roadNameCandidates": [
+      "港墘路與堤頂大道"
+    ],
+    "roadSectionType": "intersection",
+    "sourceLongitudeRaw": "121.572149",
+    "sourceLatitudeRaw": "25.074582",
+    "longitude": 121.572149,
+    "latitude": 25.074582,
+    "coordinateStatus": "valid",
+    "coordinateValid": true,
+    "coordinateQuality": "valid",
+    "activationDateRaw": "113年1月1日",
+    "activationEvents": [
+      {
+        "eventType": "activated",
+        "rocDateRaw": "113年1月1日",
+        "gregorianDate": "2024-01-01",
+        "sourceText": "113年1月1日"
+      }
+    ],
+    "firstActivationDate": "2024-01-01",
+    "firstActivationGregorianDate": "2024-01-01",
+    "statusHistoryHasSuspension": false,
+    "statusHistoryHasRestart": false,
+    "enforcementItemsRaw": "闖紅燈、不停讓行人、不依規定轉彎、不依標誌標線號誌指示行駛、路口未淨空",
+    "enforcementItems": [
+      "闖紅燈",
+      "不停讓行人",
+      "不依規定轉彎",
+      "不依標誌標線號誌指示行駛",
+      "路口未淨空"
+    ],
+    "enforcementItemCategories": [
+      "red_light",
+      "pedestrian_yield",
+      "illegal_turn",
+      "sign_marking_signal_violation"
+    ],
+    "hasSpeedEnforcement": false,
+    "hasRedLightEnforcement": true,
+    "hasPedestrianYieldEnforcement": true,
+    "hasIllegalParkingEnforcement": false,
+    "hasTurnViolationEnforcement": true,
+    "hasLaneOrMarkingViolationEnforcement": true,
+    "googleMapsQuery": "25.074582,121.572149",
+    "source": "臺北市智慧管理科技執法設備資料表",
+    "sourceAgency": "臺北市政府警察局交通警察大隊"
+  },
+  {
+    "id": "smart-traffic-enforcement-27",
+    "module": "smart_traffic_enforcement_equipment",
+    "sourceSequenceNumber": 27,
+    "equipmentNameRaw": "路口多功能",
+    "equipmentTypeCategory": "intersection_multi_function",
+    "enforcementRoadSection": "南京東路與建國北路口",
+    "roadNameCandidates": [
+      "南京東路與建國北路"
+    ],
+    "roadSectionType": "intersection",
+    "sourceLongitudeRaw": "121.537035",
+    "sourceLatitudeRaw": "25.052061",
+    "longitude": 121.537035,
+    "latitude": 25.052061,
+    "coordinateStatus": "valid",
+    "coordinateValid": true,
+    "coordinateQuality": "valid",
+    "activationDateRaw": "113年1月1日",
+    "activationEvents": [
+      {
+        "eventType": "activated",
+        "rocDateRaw": "113年1月1日",
+        "gregorianDate": "2024-01-01",
+        "sourceText": "113年1月1日"
+      }
+    ],
+    "firstActivationDate": "2024-01-01",
+    "firstActivationGregorianDate": "2024-01-01",
+    "statusHistoryHasSuspension": false,
+    "statusHistoryHasRestart": false,
+    "enforcementItemsRaw": "闖紅燈、不停讓行人、不依規定轉彎、不依標誌標線號誌指示行駛、違規停車",
+    "enforcementItems": [
+      "闖紅燈",
+      "不停讓行人",
+      "不依規定轉彎",
+      "不依標誌標線號誌指示行駛",
+      "違規停車"
+    ],
+    "enforcementItemCategories": [
+      "red_light",
+      "pedestrian_yield",
+      "illegal_turn",
+      "sign_marking_signal_violation",
+      "illegal_parking"
+    ],
+    "hasSpeedEnforcement": false,
+    "hasRedLightEnforcement": true,
+    "hasPedestrianYieldEnforcement": true,
+    "hasIllegalParkingEnforcement": true,
+    "hasTurnViolationEnforcement": true,
+    "hasLaneOrMarkingViolationEnforcement": true,
+    "googleMapsQuery": "25.052061,121.537035",
+    "source": "臺北市智慧管理科技執法設備資料表",
+    "sourceAgency": "臺北市政府警察局交通警察大隊"
+  },
+  {
+    "id": "smart-traffic-enforcement-28",
+    "module": "smart_traffic_enforcement_equipment",
+    "sourceSequenceNumber": 28,
+    "equipmentNameRaw": "路口多功能",
+    "equipmentTypeCategory": "intersection_multi_function",
+    "enforcementRoadSection": "民權東路與舊宗、行忠路口",
+    "roadNameCandidates": [
+      "民權東路",
+      "行忠路"
+    ],
+    "roadSectionType": "intersection",
+    "sourceLongitudeRaw": "121.575124",
+    "sourceLatitudeRaw": "25.065846",
+    "longitude": 121.575124,
+    "latitude": 25.065846,
+    "coordinateStatus": "valid",
+    "coordinateValid": true,
+    "coordinateQuality": "valid",
+    "activationDateRaw": "113年1月1日",
+    "activationEvents": [
+      {
+        "eventType": "activated",
+        "rocDateRaw": "113年1月1日",
+        "gregorianDate": "2024-01-01",
+        "sourceText": "113年1月1日"
+      }
+    ],
+    "firstActivationDate": "2024-01-01",
+    "firstActivationGregorianDate": "2024-01-01",
+    "statusHistoryHasSuspension": false,
+    "statusHistoryHasRestart": false,
+    "enforcementItemsRaw": "闖紅燈、不停讓行人、不依規定轉彎、不依標誌標線號誌指示行駛、路口未淨空、跨越槽化線",
+    "enforcementItems": [
+      "闖紅燈",
+      "不停讓行人",
+      "不依規定轉彎",
+      "不依標誌標線號誌指示行駛",
+      "路口未淨空",
+      "跨越槽化線"
+    ],
+    "enforcementItemCategories": [
+      "red_light",
+      "pedestrian_yield",
+      "illegal_turn",
+      "sign_marking_signal_violation",
+      "channelized_area_crossing"
+    ],
+    "hasSpeedEnforcement": false,
+    "hasRedLightEnforcement": true,
+    "hasPedestrianYieldEnforcement": true,
+    "hasIllegalParkingEnforcement": false,
+    "hasTurnViolationEnforcement": true,
+    "hasLaneOrMarkingViolationEnforcement": true,
+    "googleMapsQuery": "25.065846,121.575124",
+    "source": "臺北市智慧管理科技執法設備資料表",
+    "sourceAgency": "臺北市政府警察局交通警察大隊"
+  },
+  {
+    "id": "smart-traffic-enforcement-29",
+    "module": "smart_traffic_enforcement_equipment",
+    "sourceSequenceNumber": 29,
+    "equipmentNameRaw": "路口多功能",
+    "equipmentTypeCategory": "intersection_multi_function",
+    "enforcementRoadSection": "忠孝東路與敦化南路口 (含敦化南路1段270巷與仁愛路4段71巷口)",
+    "roadNameCandidates": [
+      "忠孝東路與敦化南路",
+      "含敦化南路",
+      "巷與仁愛路"
+    ],
+    "roadSectionType": "intersection",
+    "sourceLongitudeRaw": "121.548561",
+    "sourceLatitudeRaw": "25.041628",
+    "longitude": 121.548561,
+    "latitude": 25.041628,
+    "coordinateStatus": "valid",
+    "coordinateValid": true,
+    "coordinateQuality": "valid",
+    "activationDateRaw": "113年1月1日",
+    "activationEvents": [
+      {
+        "eventType": "activated",
+        "rocDateRaw": "113年1月1日",
+        "gregorianDate": "2024-01-01",
+        "sourceText": "113年1月1日"
+      }
+    ],
+    "firstActivationDate": "2024-01-01",
+    "firstActivationGregorianDate": "2024-01-01",
+    "statusHistoryHasSuspension": false,
+    "statusHistoryHasRestart": false,
+    "enforcementItemsRaw": "闖紅燈、不停讓行人、不依規定轉彎、不依標誌標線號誌指示行駛、違規停車、行經設有停車 再開標誌、標字之交岔路口不依規定停讓",
+    "enforcementItems": [
+      "闖紅燈",
+      "不停讓行人",
+      "不依規定轉彎",
+      "不依標誌標線號誌指示行駛",
+      "違規停車",
+      "行經設有停車 再開標誌",
+      "標字之交岔路口不依規定停讓"
+    ],
+    "enforcementItemCategories": [
+      "red_light",
+      "pedestrian_yield",
+      "illegal_turn",
+      "sign_marking_signal_violation",
+      "illegal_parking"
+    ],
+    "hasSpeedEnforcement": false,
+    "hasRedLightEnforcement": true,
+    "hasPedestrianYieldEnforcement": true,
+    "hasIllegalParkingEnforcement": true,
+    "hasTurnViolationEnforcement": true,
+    "hasLaneOrMarkingViolationEnforcement": true,
+    "googleMapsQuery": "25.041628,121.548561",
+    "source": "臺北市智慧管理科技執法設備資料表",
+    "sourceAgency": "臺北市政府警察局交通警察大隊"
+  },
+  {
+    "id": "smart-traffic-enforcement-30",
+    "module": "smart_traffic_enforcement_equipment",
+    "sourceSequenceNumber": 30,
+    "equipmentNameRaw": "違規停車",
+    "equipmentTypeCategory": "illegal_parking",
+    "enforcementRoadSection": "市府轉運站公車停靠區 (忠孝東路5段)",
+    "roadNameCandidates": [
+      "忠孝東路"
+    ],
+    "roadSectionType": "road_section",
+    "sourceLongitudeRaw": "121.564869",
+    "sourceLatitudeRaw": "25.041099",
+    "longitude": 121.564869,
+    "latitude": 25.041099,
+    "coordinateStatus": "valid",
+    "coordinateValid": true,
+    "coordinateQuality": "valid",
+    "activationDateRaw": "108年11月1日",
+    "activationEvents": [
+      {
+        "eventType": "activated",
+        "rocDateRaw": "108年11月1日",
+        "gregorianDate": "2019-11-01",
+        "sourceText": "108年11月1日"
+      }
+    ],
+    "firstActivationDate": "2019-11-01",
+    "firstActivationGregorianDate": "2019-11-01",
+    "statusHistoryHasSuspension": false,
+    "statusHistoryHasRestart": false,
+    "enforcementItemsRaw": "違規停車",
+    "enforcementItems": [
+      "違規停車"
+    ],
+    "enforcementItemCategories": [
+      "illegal_parking"
+    ],
+    "hasSpeedEnforcement": false,
+    "hasRedLightEnforcement": false,
+    "hasPedestrianYieldEnforcement": false,
+    "hasIllegalParkingEnforcement": true,
+    "hasTurnViolationEnforcement": false,
+    "hasLaneOrMarkingViolationEnforcement": false,
+    "googleMapsQuery": "25.041099,121.564869",
+    "source": "臺北市智慧管理科技執法設備資料表",
+    "sourceAgency": "臺北市政府警察局交通警察大隊"
+  },
+  {
+    "id": "smart-traffic-enforcement-31",
+    "module": "smart_traffic_enforcement_equipment",
+    "sourceSequenceNumber": 31,
+    "equipmentNameRaw": "違規停車",
+    "equipmentTypeCategory": "illegal_parking",
+    "enforcementRoadSection": "臺北車站北側公車停靠區 (市民大道一段)",
+    "roadNameCandidates": [
+      "市民大道"
+    ],
+    "roadSectionType": "road_section",
+    "sourceLongitudeRaw": "121.513956",
+    "sourceLatitudeRaw": "25.049129",
+    "longitude": 121.513956,
+    "latitude": 25.049129,
+    "coordinateStatus": "valid",
+    "coordinateValid": true,
+    "coordinateQuality": "valid",
+    "activationDateRaw": "110年1月4日",
+    "activationEvents": [
+      {
+        "eventType": "activated",
+        "rocDateRaw": "110年1月4日",
+        "gregorianDate": "2021-01-04",
+        "sourceText": "110年1月4日"
+      }
+    ],
+    "firstActivationDate": "2021-01-04",
+    "firstActivationGregorianDate": "2021-01-04",
+    "statusHistoryHasSuspension": false,
+    "statusHistoryHasRestart": false,
+    "enforcementItemsRaw": "違規停車",
+    "enforcementItems": [
+      "違規停車"
+    ],
+    "enforcementItemCategories": [
+      "illegal_parking"
+    ],
+    "hasSpeedEnforcement": false,
+    "hasRedLightEnforcement": false,
+    "hasPedestrianYieldEnforcement": false,
+    "hasIllegalParkingEnforcement": true,
+    "hasTurnViolationEnforcement": false,
+    "hasLaneOrMarkingViolationEnforcement": false,
+    "googleMapsQuery": "25.049129,121.513956",
+    "source": "臺北市智慧管理科技執法設備資料表",
+    "sourceAgency": "臺北市政府警察局交通警察大隊"
+  },
+  {
+    "id": "smart-traffic-enforcement-32",
+    "module": "smart_traffic_enforcement_equipment",
+    "sourceSequenceNumber": 32,
+    "equipmentNameRaw": "違規停車",
+    "equipmentTypeCategory": "illegal_parking",
+    "enforcementRoadSection": "臺北醫學院周邊 (吳興街220巷)",
+    "roadNameCandidates": [
+      "吳興街"
+    ],
+    "roadSectionType": "road_section",
+    "sourceLongitudeRaw": "121.562445",
+    "sourceLatitudeRaw": "25.027146",
+    "longitude": 121.562445,
+    "latitude": 25.027146,
+    "coordinateStatus": "valid",
+    "coordinateValid": true,
+    "coordinateQuality": "valid",
+    "activationDateRaw": "110年1月4日",
+    "activationEvents": [
+      {
+        "eventType": "activated",
+        "rocDateRaw": "110年1月4日",
+        "gregorianDate": "2021-01-04",
+        "sourceText": "110年1月4日"
+      }
+    ],
+    "firstActivationDate": "2021-01-04",
+    "firstActivationGregorianDate": "2021-01-04",
+    "statusHistoryHasSuspension": false,
+    "statusHistoryHasRestart": false,
+    "enforcementItemsRaw": "違規停車",
+    "enforcementItems": [
+      "違規停車"
+    ],
+    "enforcementItemCategories": [
+      "illegal_parking"
+    ],
+    "hasSpeedEnforcement": false,
+    "hasRedLightEnforcement": false,
+    "hasPedestrianYieldEnforcement": false,
+    "hasIllegalParkingEnforcement": true,
+    "hasTurnViolationEnforcement": false,
+    "hasLaneOrMarkingViolationEnforcement": false,
+    "googleMapsQuery": "25.027146,121.562445",
+    "source": "臺北市智慧管理科技執法設備資料表",
+    "sourceAgency": "臺北市政府警察局交通警察大隊"
+  },
+  {
+    "id": "smart-traffic-enforcement-33",
+    "module": "smart_traffic_enforcement_equipment",
+    "sourceSequenceNumber": 33,
+    "equipmentNameRaw": "違規停車",
+    "equipmentTypeCategory": "illegal_parking",
+    "enforcementRoadSection": "馬偕醫院周邊 (中山北路2段92號)",
+    "roadNameCandidates": [
+      "中山北路"
+    ],
+    "roadSectionType": "road_section",
+    "sourceLongitudeRaw": "121.522755",
+    "sourceLatitudeRaw": "25.058731",
+    "longitude": 121.522755,
+    "latitude": 25.058731,
+    "coordinateStatus": "valid",
+    "coordinateValid": true,
+    "coordinateQuality": "valid",
+    "activationDateRaw": "110年3月29日",
+    "activationEvents": [
+      {
+        "eventType": "activated",
+        "rocDateRaw": "110年3月29日",
+        "gregorianDate": "2021-03-29",
+        "sourceText": "110年3月29日"
+      }
+    ],
+    "firstActivationDate": "2021-03-29",
+    "firstActivationGregorianDate": "2021-03-29",
+    "statusHistoryHasSuspension": false,
+    "statusHistoryHasRestart": false,
+    "enforcementItemsRaw": "違規停車",
+    "enforcementItems": [
+      "違規停車"
+    ],
+    "enforcementItemCategories": [
+      "illegal_parking"
+    ],
+    "hasSpeedEnforcement": false,
+    "hasRedLightEnforcement": false,
+    "hasPedestrianYieldEnforcement": false,
+    "hasIllegalParkingEnforcement": true,
+    "hasTurnViolationEnforcement": false,
+    "hasLaneOrMarkingViolationEnforcement": false,
+    "googleMapsQuery": "25.058731,121.522755",
+    "source": "臺北市智慧管理科技執法設備資料表",
+    "sourceAgency": "臺北市政府警察局交通警察大隊"
+  },
+  {
+    "id": "smart-traffic-enforcement-34",
+    "module": "smart_traffic_enforcement_equipment",
+    "sourceSequenceNumber": 34,
+    "equipmentNameRaw": "違規停車",
+    "equipmentTypeCategory": "illegal_parking",
+    "enforcementRoadSection": "南港車站前 (市民大道8段)",
+    "roadNameCandidates": [
+      "市民大道"
+    ],
+    "roadSectionType": "road_section",
+    "sourceLongitudeRaw": "121.606948",
+    "sourceLatitudeRaw": "25.053241",
+    "longitude": 121.606948,
+    "latitude": 25.053241,
+    "coordinateStatus": "valid",
+    "coordinateValid": true,
+    "coordinateQuality": "valid",
+    "activationDateRaw": "111年3月1日",
+    "activationEvents": [
+      {
+        "eventType": "activated",
+        "rocDateRaw": "111年3月1日",
+        "gregorianDate": "2022-03-01",
+        "sourceText": "111年3月1日"
+      }
+    ],
+    "firstActivationDate": "2022-03-01",
+    "firstActivationGregorianDate": "2022-03-01",
+    "statusHistoryHasSuspension": false,
+    "statusHistoryHasRestart": false,
+    "enforcementItemsRaw": "違規停車",
+    "enforcementItems": [
+      "違規停車"
+    ],
+    "enforcementItemCategories": [
+      "illegal_parking"
+    ],
+    "hasSpeedEnforcement": false,
+    "hasRedLightEnforcement": false,
+    "hasPedestrianYieldEnforcement": false,
+    "hasIllegalParkingEnforcement": true,
+    "hasTurnViolationEnforcement": false,
+    "hasLaneOrMarkingViolationEnforcement": false,
+    "googleMapsQuery": "25.053241,121.606948",
+    "source": "臺北市智慧管理科技執法設備資料表",
+    "sourceAgency": "臺北市政府警察局交通警察大隊"
+  },
+  {
+    "id": "smart-traffic-enforcement-35",
+    "module": "smart_traffic_enforcement_equipment",
+    "sourceSequenceNumber": 35,
+    "equipmentNameRaw": "違規停車",
+    "equipmentTypeCategory": "illegal_parking",
+    "enforcementRoadSection": "臺北轉運站前 (市民大道1段)",
+    "roadNameCandidates": [
+      "市民大道"
+    ],
+    "roadSectionType": "road_section",
+    "sourceLongitudeRaw": "121.517907",
+    "sourceLatitudeRaw": "25.048731",
+    "longitude": 121.517907,
+    "latitude": 25.048731,
+    "coordinateStatus": "valid",
+    "coordinateValid": true,
+    "coordinateQuality": "valid",
+    "activationDateRaw": "111年3月1日",
+    "activationEvents": [
+      {
+        "eventType": "activated",
+        "rocDateRaw": "111年3月1日",
+        "gregorianDate": "2022-03-01",
+        "sourceText": "111年3月1日"
+      }
+    ],
+    "firstActivationDate": "2022-03-01",
+    "firstActivationGregorianDate": "2022-03-01",
+    "statusHistoryHasSuspension": false,
+    "statusHistoryHasRestart": false,
+    "enforcementItemsRaw": "違規停車",
+    "enforcementItems": [
+      "違規停車"
+    ],
+    "enforcementItemCategories": [
+      "illegal_parking"
+    ],
+    "hasSpeedEnforcement": false,
+    "hasRedLightEnforcement": false,
+    "hasPedestrianYieldEnforcement": false,
+    "hasIllegalParkingEnforcement": true,
+    "hasTurnViolationEnforcement": false,
+    "hasLaneOrMarkingViolationEnforcement": false,
+    "googleMapsQuery": "25.048731,121.517907",
+    "source": "臺北市智慧管理科技執法設備資料表",
+    "sourceAgency": "臺北市政府警察局交通警察大隊"
+  },
+  {
+    "id": "smart-traffic-enforcement-36",
+    "module": "smart_traffic_enforcement_equipment",
+    "sourceSequenceNumber": 36,
+    "equipmentNameRaw": "違規停車",
+    "equipmentTypeCategory": "illegal_parking",
+    "enforcementRoadSection": "內湖路1段739號前",
+    "roadNameCandidates": [
+      "內湖路"
+    ],
+    "roadSectionType": "road_section",
+    "sourceLongitudeRaw": "121.578366",
+    "sourceLatitudeRaw": "25.078948",
+    "longitude": 121.578366,
+    "latitude": 25.078948,
+    "coordinateStatus": "valid",
+    "coordinateValid": true,
+    "coordinateQuality": "valid",
+    "activationDateRaw": "111年3月1日",
+    "activationEvents": [
+      {
+        "eventType": "activated",
+        "rocDateRaw": "111年3月1日",
+        "gregorianDate": "2022-03-01",
+        "sourceText": "111年3月1日"
+      }
+    ],
+    "firstActivationDate": "2022-03-01",
+    "firstActivationGregorianDate": "2022-03-01",
+    "statusHistoryHasSuspension": false,
+    "statusHistoryHasRestart": false,
+    "enforcementItemsRaw": "違規停車",
+    "enforcementItems": [
+      "違規停車"
+    ],
+    "enforcementItemCategories": [
+      "illegal_parking"
+    ],
+    "hasSpeedEnforcement": false,
+    "hasRedLightEnforcement": false,
+    "hasPedestrianYieldEnforcement": false,
+    "hasIllegalParkingEnforcement": true,
+    "hasTurnViolationEnforcement": false,
+    "hasLaneOrMarkingViolationEnforcement": false,
+    "googleMapsQuery": "25.078948,121.578366",
+    "source": "臺北市智慧管理科技執法設備資料表",
+    "sourceAgency": "臺北市政府警察局交通警察大隊"
+  },
+  {
+    "id": "smart-traffic-enforcement-37",
+    "module": "smart_traffic_enforcement_equipment",
+    "sourceSequenceNumber": 37,
+    "equipmentNameRaw": "違規停車",
+    "equipmentTypeCategory": "illegal_parking",
+    "enforcementRoadSection": "捷運公館站前 羅斯福路4段68號至108巷前",
+    "roadNameCandidates": [
+      "羅斯福路"
+    ],
+    "roadSectionType": "road_section",
+    "sourceLongitudeRaw": "121.534219",
+    "sourceLatitudeRaw": "25.014762",
+    "longitude": 121.534219,
+    "latitude": 25.014762,
+    "coordinateStatus": "valid",
+    "coordinateValid": true,
+    "coordinateQuality": "valid",
+    "activationDateRaw": "111年7月1日",
+    "activationEvents": [
+      {
+        "eventType": "activated",
+        "rocDateRaw": "111年7月1日",
+        "gregorianDate": "2022-07-01",
+        "sourceText": "111年7月1日"
+      }
+    ],
+    "firstActivationDate": "2022-07-01",
+    "firstActivationGregorianDate": "2022-07-01",
+    "statusHistoryHasSuspension": false,
+    "statusHistoryHasRestart": false,
+    "enforcementItemsRaw": "違規停車",
+    "enforcementItems": [
+      "違規停車"
+    ],
+    "enforcementItemCategories": [
+      "illegal_parking"
+    ],
+    "hasSpeedEnforcement": false,
+    "hasRedLightEnforcement": false,
+    "hasPedestrianYieldEnforcement": false,
+    "hasIllegalParkingEnforcement": true,
+    "hasTurnViolationEnforcement": false,
+    "hasLaneOrMarkingViolationEnforcement": false,
+    "googleMapsQuery": "25.014762,121.534219",
+    "source": "臺北市智慧管理科技執法設備資料表",
+    "sourceAgency": "臺北市政府警察局交通警察大隊"
+  },
+  {
+    "id": "smart-traffic-enforcement-38",
+    "module": "smart_traffic_enforcement_equipment",
+    "sourceSequenceNumber": 38,
+    "equipmentNameRaw": "違規停車",
+    "equipmentTypeCategory": "illegal_parking",
+    "enforcementRoadSection": "臺北榮總醫院周邊 (石牌路二段與立農街口、石牌路二段與天母西路口周邊)",
+    "roadNameCandidates": [
+      "石牌路二段與立農街",
+      "石牌路二段與天母西路"
+    ],
+    "roadSectionType": "intersection",
+    "sourceLongitudeRaw": "121.518793",
+    "sourceLatitudeRaw": "25.118811",
+    "longitude": 121.518793,
+    "latitude": 25.118811,
+    "coordinateStatus": "valid",
+    "coordinateValid": true,
+    "coordinateQuality": "valid",
+    "activationDateRaw": "111年12月1日",
+    "activationEvents": [
+      {
+        "eventType": "activated",
+        "rocDateRaw": "111年12月1日",
+        "gregorianDate": "2022-12-01",
+        "sourceText": "111年12月1日"
+      }
+    ],
+    "firstActivationDate": "2022-12-01",
+    "firstActivationGregorianDate": "2022-12-01",
+    "statusHistoryHasSuspension": false,
+    "statusHistoryHasRestart": false,
+    "enforcementItemsRaw": "違規停車",
+    "enforcementItems": [
+      "違規停車"
+    ],
+    "enforcementItemCategories": [
+      "illegal_parking"
+    ],
+    "hasSpeedEnforcement": false,
+    "hasRedLightEnforcement": false,
+    "hasPedestrianYieldEnforcement": false,
+    "hasIllegalParkingEnforcement": true,
+    "hasTurnViolationEnforcement": false,
+    "hasLaneOrMarkingViolationEnforcement": false,
+    "googleMapsQuery": "25.118811,121.518793",
+    "source": "臺北市智慧管理科技執法設備資料表",
+    "sourceAgency": "臺北市政府警察局交通警察大隊"
+  },
+  {
+    "id": "smart-traffic-enforcement-39",
+    "module": "smart_traffic_enforcement_equipment",
+    "sourceSequenceNumber": 39,
+    "equipmentNameRaw": "違規停車",
+    "equipmentTypeCategory": "illegal_parking",
+    "enforcementRoadSection": "臺北大巨蛋前(忠孝東路四段)",
+    "roadNameCandidates": [
+      "忠孝東路"
+    ],
+    "roadSectionType": "road_section",
+    "sourceLongitudeRaw": "121.558198",
+    "sourceLatitudeRaw": "25.041455",
+    "longitude": 121.558198,
+    "latitude": 25.041455,
+    "coordinateStatus": "valid",
+    "coordinateValid": true,
+    "coordinateQuality": "valid",
+    "activationDateRaw": "113年7月1日",
+    "activationEvents": [
+      {
+        "eventType": "activated",
+        "rocDateRaw": "113年7月1日",
+        "gregorianDate": "2024-07-01",
+        "sourceText": "113年7月1日"
+      }
+    ],
+    "firstActivationDate": "2024-07-01",
+    "firstActivationGregorianDate": "2024-07-01",
+    "statusHistoryHasSuspension": false,
+    "statusHistoryHasRestart": false,
+    "enforcementItemsRaw": "違規停車",
+    "enforcementItems": [
+      "違規停車"
+    ],
+    "enforcementItemCategories": [
+      "illegal_parking"
+    ],
+    "hasSpeedEnforcement": false,
+    "hasRedLightEnforcement": false,
+    "hasPedestrianYieldEnforcement": false,
+    "hasIllegalParkingEnforcement": true,
+    "hasTurnViolationEnforcement": false,
+    "hasLaneOrMarkingViolationEnforcement": false,
+    "googleMapsQuery": "25.041455,121.558198",
+    "source": "臺北市智慧管理科技執法設備資料表",
+    "sourceAgency": "臺北市政府警察局交通警察大隊"
+  }
+]

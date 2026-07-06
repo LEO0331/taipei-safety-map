@@ -1,4 +1,4 @@
-import L from 'leaflet';
+﻿import L from 'leaflet';
 import { useEffect, useMemo, useState } from 'react';
 import { CircleMarker, MapContainer, Marker, Polygon, Polyline, Popup, TileLayer, useMap, useMapEvents } from 'react-leaflet';
 import { loadSafetyData } from './lib/loadSafetyData';
@@ -44,10 +44,13 @@ import type {
   WorkSchoolSuspensionDecisionCategory,
   ResidentialBurglaryRecord,
   SafetyDataBundle,
+  SmartTrafficEnforcementEquipmentTypeCategory,
+  TrafficEnforcementItemCategory,
+  TrafficEnforcementRoadSectionType,
   TrafficCctvFacility,
 } from './types';
 
-type Tab = 'map' | 'nearby' | 'burglary' | 'bike' | 'motorcycle' | 'streetSnatch' | 'policeCctv' | 'fireDonations' | 'fireRescueAreas' | 'hikingTrails' | 'flooding' | 'health' | 'disaster' | 'overview' | 'notes';
+type Tab = 'map' | 'nearby' | 'burglary' | 'bike' | 'motorcycle' | 'streetSnatch' | 'policeCctv' | 'smartTrafficEnforcement' | 'fireDonations' | 'fireRescueAreas' | 'hikingTrails' | 'flooding' | 'health' | 'disaster' | 'overview' | 'notes';
 type CapacityRange = 'all' | 'under100' | '100-499' | '500-999' | '1000plus';
 type DenseLayer = 'aeds' | 'medical' | 'fireHydrants' | 'airRaidShelters' | 'evacuationGates' | 'cctv';
 const tileAttribution = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>';
@@ -446,6 +449,108 @@ const policeCctvLabels = {
     popupNotice: 'This map summarizes installation-location records by district and does not represent exact device locations, real-time operational status, or camera field of view.',
     dataNote: 'Police CCTV installation-location data provides Taipei City Police Department public records for video-surveillance system installation locations. Fields include city/county code, sequence number, police unit, installation address, and camera direction. This site parses district and road name from installation addresses and presents district-level summaries. The data does not provide official coordinates, so exact points are not shown by default.',
     interpretationNote: 'This data is public record information for video-surveillance system installation locations and is for lookup and statistical organization only. It does not represent live video, real-time operational status, a complete camera inventory, exact field of view, crime prediction, public-safety risk determination, route-safety guarantee, privacy or legal advice, police notification, or official guarantee. Actual equipment status, footage request procedures, policing operations, CCTV management, and latest information should be verified with Taipei City Police Department and competent-authority announcements.',
+  },
+} as const;
+const smartTrafficLabels = {
+  zh: {
+    all: '全部',
+    title: '臺北市智慧管理科技執法設備資料表',
+    shortTitle: '科技執法設備',
+    subtitle: '交通安全與道路安全設施公開資料查詢。',
+    notice: '本資料僅供交通安全、科技執法設備位置、道路安全設施與公開資訊探索使用，不代表即時執法狀態、設備即時運作狀態、違規認定、法律建議、避開取締或路線建議、道路危險排名、警政績效評比或官方背書。最新資訊請洽臺北市政府警察局交通警察大隊及主管機關確認。',
+    mapNotice: '地圖只顯示座標通過臺北鄰近範圍檢核的紀錄；無效座標仍保留於目錄。',
+    directory: '設備目錄',
+    sourceSequenceNumber: '編號 / ID',
+    equipmentName: '名稱 / Equipment name',
+    roadSection: '取締路段 / Enforcement road section',
+    activationDate: '啟用日期 / Activation date',
+    enforcementItems: '取締項目 / Enforcement items',
+    coordinateQuality: '座標品質 / Coordinate quality',
+    mapLookup: '地圖查詢 / Map lookup',
+    search: '搜尋',
+    searchPlaceholder: '搜尋編號、名稱、路段、啟用日期或取締項目',
+    recordCount: '紀錄數',
+    validCoordinateCount: '有效座標',
+    equipmentTypeCount: '設備類型',
+    roadSectionCount: '取締路段',
+    topEquipmentType: '最多設備類型',
+    topEnforcementItem: '最多取締項目',
+    firstActivationYearRange: '首次啟用年份範圍',
+    suspensionHistoryCount: '含停用歷史',
+    restartHistoryCount: '含重啟歷史',
+    intersectionEquipmentCount: '路口多功能設備',
+    illegalParkingEquipmentCount: '違停設備',
+    averageSpeedSectionCount: '區間平均速率',
+    equipmentType: '設備類型',
+    roadSectionType: '路段類型',
+    itemCategory: '取締項目分類',
+    firstActivationYear: '首次啟用年份',
+    validCoordinate: '有效座標',
+    hasSuspension: '含停用歷史',
+    hasRestart: '含重啟歷史',
+    speed: '超速',
+    redLight: '闖紅燈',
+    pedestrianYield: '未禮讓行人',
+    illegalParking: '違停',
+    illegalTurn: '違規轉彎',
+    laneMarking: '標誌 / 標線 / 號誌',
+    overview: '總覽',
+    map: '執法設備地圖',
+    equipmentTypes: '設備類型',
+    enforcementItemsView: '取締項目',
+    activationHistory: '啟用日期與狀態歷史',
+    dataQuality: '資料品質',
+    dataNotes: '資料說明',
+  },
+  en: {
+    all: 'All',
+    title: 'Smart Traffic Enforcement Equipment',
+    shortTitle: 'Traffic Enforcement Equipment',
+    subtitle: 'Public-data lookup for traffic-safety and road-safety infrastructure.',
+    notice: 'This dataset contains Taipei smart traffic-enforcement equipment public records. It is for traffic safety, technology enforcement equipment location, road-safety infrastructure, and public information data exploration only. It does not represent real-time enforcement status, real-time device operating status, enforcement guarantee, violation determination, legal advice, ticket-avoidance advice, route-avoidance advice, road danger ranking, police performance evaluation, or official endorsement. Latest information should be verified with Taipei City Police Department Traffic Division and competent authorities.',
+    mapNotice: 'The map shows only records with coordinates validated against nearby Taipei bounds. Invalid-coordinate records remain in the directory.',
+    directory: 'Equipment Directory',
+    sourceSequenceNumber: 'ID',
+    equipmentName: 'Equipment name',
+    roadSection: 'Enforcement road section',
+    activationDate: 'Activation date',
+    enforcementItems: 'Enforcement items',
+    coordinateQuality: 'Coordinate quality',
+    mapLookup: 'Map lookup',
+    search: 'Search',
+    searchPlaceholder: 'Search ID, equipment name, road section, activation date, or enforcement items',
+    recordCount: 'Records',
+    validCoordinateCount: 'Valid coordinates',
+    equipmentTypeCount: 'Equipment types',
+    roadSectionCount: 'Road sections',
+    topEquipmentType: 'Most common equipment type',
+    topEnforcementItem: 'Most common enforcement item',
+    firstActivationYearRange: 'First activation year range',
+    suspensionHistoryCount: 'Records with suspension history',
+    restartHistoryCount: 'Records with restart history',
+    intersectionEquipmentCount: 'Intersection equipment',
+    illegalParkingEquipmentCount: 'Illegal-parking equipment',
+    averageSpeedSectionCount: 'Average-speed sections',
+    equipmentType: 'Equipment type',
+    roadSectionType: 'Road-section type',
+    itemCategory: 'Enforcement item category',
+    firstActivationYear: 'First activation year',
+    validCoordinate: 'Valid coordinate',
+    hasSuspension: 'Has suspension history',
+    hasRestart: 'Has restart history',
+    speed: 'Speed enforcement',
+    redLight: 'Red-light enforcement',
+    pedestrianYield: 'Pedestrian-yield enforcement',
+    illegalParking: 'Illegal-parking enforcement',
+    illegalTurn: 'Turn-violation enforcement',
+    laneMarking: 'Lane / marking / signal violation',
+    overview: 'Overview',
+    map: 'Enforcement Equipment Map',
+    equipmentTypes: 'Equipment Types',
+    enforcementItemsView: 'Enforcement Items',
+    activationHistory: 'Activation Dates & Status History',
+    dataQuality: 'Data Quality',
+    dataNotes: 'Data Notes',
   },
 } as const;
 const fireDonationLabels = {
@@ -853,6 +958,7 @@ function App() {
             ['motorcycle', language === 'zh' ? '機車竊盜' : 'Motorcycle Theft'],
             ['streetSnatch', streetSnatchLabels[language].shortTitle],
             ['policeCctv', language === 'zh' ? '警察局監視器' : 'Police CCTV'],
+            ['smartTrafficEnforcement', smartTrafficLabels[language].shortTitle],
             ['fireDonations', language === 'zh' ? '消防捐贈實物' : 'Fire Dept Donations'],
             ['fireRescueAreas', fireRescueAreaLabels[language].shortTitle],
             ['hikingTrails', hikingTrailLabels[language].shortTitle],
@@ -881,6 +987,7 @@ function App() {
       {activeTab === 'motorcycle' && <BicycleTheftRecords data={data} language={language} mode="motorcycle" />}
       {activeTab === 'streetSnatch' && <BicycleTheftRecords data={data} language={language} mode="streetSnatch" />}
       {activeTab === 'policeCctv' && <PoliceCctvInstallationLocations data={data} language={language} />}
+      {activeTab === 'smartTrafficEnforcement' && <SmartTrafficEnforcementEquipment data={data} language={language} />}
       {activeTab === 'fireDonations' && <FireDepartmentDonations data={data} language={language} />}
       {activeTab === 'fireRescueAreas' && <FireRescueDifficultAreas data={data} language={language} />}
       {activeTab === 'hikingTrails' && <ManagedHikingTrails data={data} language={language} />}
@@ -2537,6 +2644,156 @@ function PoliceCctvInstallationLocations({ data, language }: { data: SafetyDataB
   );
 }
 
+function SmartTrafficEnforcementEquipment({ data, language }: { data: SafetyDataBundle; language: Language }) {
+  const labels = smartTrafficLabels[language];
+  const records = data.smartTrafficEnforcementEquipment;
+  const summary = data.smartTrafficEnforcementEquipmentSummary;
+  const [equipmentType, setEquipmentType] = useState('all');
+  const [roadSectionType, setRoadSectionType] = useState('all');
+  const [itemCategory, setItemCategory] = useState('all');
+  const [firstYear, setFirstYear] = useState('all');
+  const [coordinateQuality, setCoordinateQuality] = useState('all');
+  const [validCoordinate, setValidCoordinate] = useState('all');
+  const [speed, setSpeed] = useState(false);
+  const [redLight, setRedLight] = useState(false);
+  const [pedestrianYield, setPedestrianYield] = useState(false);
+  const [illegalParking, setIllegalParking] = useState(false);
+  const [illegalTurn, setIllegalTurn] = useState(false);
+  const [laneMarking, setLaneMarking] = useState(false);
+  const [hasSuspension, setHasSuspension] = useState(false);
+  const [hasRestart, setHasRestart] = useState(false);
+  const [search, setSearch] = useState('');
+  const firstYears = summary.byFirstActivationYear.map((item) => item.year);
+  const filtered = records.filter((record) => {
+    const query = search.trim().toLowerCase();
+    const haystack = [
+      record.sourceSequenceNumber,
+      record.equipmentNameRaw,
+      record.enforcementRoadSection,
+      record.activationDateRaw,
+      record.enforcementItemsRaw,
+    ].join(' ').toLowerCase();
+    return (
+      (equipmentType === 'all' || record.equipmentTypeCategory === equipmentType) &&
+      (roadSectionType === 'all' || record.roadSectionType === roadSectionType) &&
+      (itemCategory === 'all' || record.enforcementItemCategories.includes(itemCategory as TrafficEnforcementItemCategory)) &&
+      (firstYear === 'all' || record.firstActivationGregorianDate?.startsWith(firstYear)) &&
+      (coordinateQuality === 'all' || record.coordinateQuality === coordinateQuality) &&
+      (validCoordinate === 'all' || record.coordinateValid === (validCoordinate === 'valid')) &&
+      (!speed || record.hasSpeedEnforcement) &&
+      (!redLight || record.hasRedLightEnforcement) &&
+      (!pedestrianYield || record.hasPedestrianYieldEnforcement) &&
+      (!illegalParking || record.hasIllegalParkingEnforcement) &&
+      (!illegalTurn || record.hasTurnViolationEnforcement) &&
+      (!laneMarking || record.hasLaneOrMarkingViolationEnforcement) &&
+      (!hasSuspension || record.statusHistoryHasSuspension) &&
+      (!hasRestart || record.statusHistoryHasRestart) &&
+      (!query || haystack.includes(query))
+    );
+  });
+  const validMarkers = filtered.filter(hasValidPoint);
+  const topEquipmentType = summary.byEquipmentType.slice().sort((a, b) => b.count - a.count)[0];
+  const topItemCategory = summary.byEnforcementItemCategory.slice().sort((a, b) => b.count - a.count)[0];
+  const yearRange = firstYears.length ? `${firstYears[0]} - ${firstYears.at(-1)}` : '-';
+
+  return (
+    <main className="overview">
+      <section className="filter-panel health-filters">
+        <label>{labels.equipmentType}<select value={equipmentType} onChange={(event) => setEquipmentType(event.target.value)}><option value="all">{labels.all}</option>{summary.byEquipmentType.map((item) => <option key={item.equipmentTypeCategory} value={item.equipmentTypeCategory}>{formatSmartEquipmentType(item.equipmentTypeCategory, language)}</option>)}</select></label>
+        <label>{labels.roadSectionType}<select value={roadSectionType} onChange={(event) => setRoadSectionType(event.target.value)}><option value="all">{labels.all}</option>{summary.byRoadSectionType.map((item) => <option key={item.roadSectionType} value={item.roadSectionType}>{formatSmartRoadSectionType(item.roadSectionType, language)}</option>)}</select></label>
+        <label>{labels.itemCategory}<select value={itemCategory} onChange={(event) => setItemCategory(event.target.value)}><option value="all">{labels.all}</option>{summary.byEnforcementItemCategory.map((item) => <option key={item.enforcementItemCategory} value={item.enforcementItemCategory}>{formatSmartItemCategory(item.enforcementItemCategory, language)}</option>)}</select></label>
+        <label>{labels.firstActivationYear}<select value={firstYear} onChange={(event) => setFirstYear(event.target.value)}><option value="all">{labels.all}</option>{firstYears.map((year) => <option key={year}>{year}</option>)}</select></label>
+        <label>{labels.coordinateQuality}<select value={coordinateQuality} onChange={(event) => setCoordinateQuality(event.target.value)}><option value="all">{labels.all}</option>{(['valid', 'missing', 'unparsed', 'outlier'] as CoordinateStatus[]).map((value) => <option key={value} value={value}>{formatCoordinateStatus(value, language)}</option>)}</select></label>
+        <label>{labels.validCoordinate}<select value={validCoordinate} onChange={(event) => setValidCoordinate(event.target.value)}><option value="all">{labels.all}</option><option value="valid">{language === 'zh' ? '是' : 'Yes'}</option><option value="invalid">{language === 'zh' ? '否' : 'No'}</option></select></label>
+        <label>{labels.search}<input value={search} placeholder={labels.searchPlaceholder} onChange={(event) => setSearch(event.target.value)} /></label>
+        <label className="checkbox-row"><input type="checkbox" checked={speed} onChange={(event) => setSpeed(event.target.checked)} />{labels.speed}</label>
+        <label className="checkbox-row"><input type="checkbox" checked={redLight} onChange={(event) => setRedLight(event.target.checked)} />{labels.redLight}</label>
+        <label className="checkbox-row"><input type="checkbox" checked={pedestrianYield} onChange={(event) => setPedestrianYield(event.target.checked)} />{labels.pedestrianYield}</label>
+        <label className="checkbox-row"><input type="checkbox" checked={illegalParking} onChange={(event) => setIllegalParking(event.target.checked)} />{labels.illegalParking}</label>
+        <label className="checkbox-row"><input type="checkbox" checked={illegalTurn} onChange={(event) => setIllegalTurn(event.target.checked)} />{labels.illegalTurn}</label>
+        <label className="checkbox-row"><input type="checkbox" checked={laneMarking} onChange={(event) => setLaneMarking(event.target.checked)} />{labels.laneMarking}</label>
+        <label className="checkbox-row"><input type="checkbox" checked={hasSuspension} onChange={(event) => setHasSuspension(event.target.checked)} />{labels.hasSuspension}</label>
+        <label className="checkbox-row"><input type="checkbox" checked={hasRestart} onChange={(event) => setHasRestart(event.target.checked)} />{labels.hasRestart}</label>
+      </section>
+      <h1>{labels.title}</h1>
+      <p>{labels.subtitle}</p>
+      <p className="notice">{labels.notice}</p>
+      <h2>{labels.overview}</h2>
+      <section className="summary-grid">
+        <Metric label={labels.recordCount} value={summary.totalRecords.toLocaleString()} />
+        <Metric label={labels.validCoordinateCount} value={summary.validCoordinateCount.toLocaleString()} />
+        <Metric label={labels.equipmentTypeCount} value={summary.equipmentTypeCount.toLocaleString()} />
+        <Metric label={labels.roadSectionCount} value={summary.roadSectionCount.toLocaleString()} />
+        <Metric label={labels.topEquipmentType} value={topEquipmentType ? formatSmartEquipmentType(topEquipmentType.equipmentTypeCategory, language) : '-'} />
+        <Metric label={labels.topEnforcementItem} value={topItemCategory ? formatSmartItemCategory(topItemCategory.enforcementItemCategory, language) : '-'} />
+        <Metric label={labels.firstActivationYearRange} value={yearRange} />
+        <Metric label={labels.suspensionHistoryCount} value={summary.recordsWithSuspensionHistory.toLocaleString()} />
+        <Metric label={labels.restartHistoryCount} value={summary.recordsWithRestartHistory.toLocaleString()} />
+        <Metric label={labels.intersectionEquipmentCount} value={records.filter((record) => record.equipmentTypeCategory === 'intersection_multi_function').length.toLocaleString()} />
+        <Metric label={labels.illegalParkingEquipmentCount} value={records.filter((record) => record.equipmentTypeCategory === 'illegal_parking').length.toLocaleString()} />
+        <Metric label={labels.averageSpeedSectionCount} value={records.filter((record) => record.equipmentTypeCategory === 'average_speed_section').length.toLocaleString()} />
+      </section>
+      <h2>{labels.map}</h2>
+      <p className="notice">{labels.mapNotice}</p>
+      <section className="public-health-grid">
+        <div className="map-stage">
+          <MapContainer center={taipeiCenter} zoom={12} scrollWheelZoom className="map-canvas">
+            <MapSizeSync />
+            <TileLayer attribution={tileAttribution} url={tileUrl} />
+            {validMarkers.map((record) => (
+              <Marker key={record.id} position={[record.latitude, record.longitude]} icon={cctvIcon}>
+                <Popup>
+                  <div className="popup-stack">
+                    <strong>{record.equipmentNameRaw ?? '-'}</strong>
+                    <span>{record.enforcementRoadSection ?? '-'}</span>
+                    <span>{record.enforcementItemsRaw ?? '-'}</span>
+                    <small>{labels.notice}</small>
+                  </div>
+                </Popup>
+              </Marker>
+            ))}
+          </MapContainer>
+        </div>
+        <div className="health-table">
+          <Metric label={labels.recordCount} value={filtered.length.toLocaleString()} />
+          <Metric label={labels.validCoordinateCount} value={validMarkers.length.toLocaleString()} />
+        </div>
+      </section>
+      <h2>{labels.equipmentTypes}</h2>
+      <section className="chart-grid">
+        <BarChart title={labels.equipmentTypes} values={Object.fromEntries(summary.byEquipmentType.map((item) => [formatSmartEquipmentType(item.equipmentTypeCategory, language), item.count]))} />
+        <BarChart title={labels.roadSectionType} values={Object.fromEntries(summary.byRoadSectionType.map((item) => [formatSmartRoadSectionType(item.roadSectionType, language), item.count]))} />
+        <BarChart title={labels.enforcementItemsView} values={Object.fromEntries(summary.byEnforcementItemCategory.map((item) => [formatSmartItemCategory(item.enforcementItemCategory, language), item.count]))} />
+        <BarChart title={`${labels.equipmentType} × ${labels.itemCategory}`} values={Object.fromEntries(Object.entries(countBy(records.flatMap((record) => record.enforcementItemCategories.map((item) => `${formatSmartEquipmentType(record.equipmentTypeCategory, language)} / ${formatSmartItemCategory(item, language)}`)), (value) => value)).slice(0, 20))} />
+        <BarChart title={labels.activationHistory} values={Object.fromEntries(summary.byFirstActivationYear.map((item) => [String(item.year), item.recordCount]))} />
+        <BarChart title={labels.hasSuspension} values={{ [language === 'zh' ? '有' : 'With']: summary.recordsWithSuspensionHistory, [language === 'zh' ? '無' : 'Without']: summary.totalRecords - summary.recordsWithSuspensionHistory }} />
+        <BarChart title={labels.hasRestart} values={{ [language === 'zh' ? '有' : 'With']: summary.recordsWithRestartHistory, [language === 'zh' ? '無' : 'Without']: summary.totalRecords - summary.recordsWithRestartHistory }} />
+        <BarChart title={labels.dataQuality} values={{ [formatCoordinateStatus('valid', language)]: summary.validCoordinateCount, [formatCoordinateStatus('missing', language)]: summary.missingCoordinateCount, [formatCoordinateStatus('unparsed', language)]: summary.unparsedCoordinateCount, [formatCoordinateStatus('outlier', language)]: summary.outlierCoordinateCount }} />
+      </section>
+      <h2>{labels.directory}</h2>
+      <p>{labels.recordCount}: {filtered.length.toLocaleString()}</p>
+      <table>
+        <thead><tr><th>{labels.sourceSequenceNumber}</th><th>{labels.equipmentName}</th><th>{labels.roadSection}</th><th>{labels.activationDate}</th><th>{labels.enforcementItems}</th><th>{labels.coordinateQuality}</th><th>{labels.mapLookup}</th></tr></thead>
+        <tbody>
+          {filtered.slice(0, 200).map((record) => (
+            <tr key={record.id}>
+              <td>{record.sourceSequenceNumber ?? '-'}</td>
+              <td>{record.equipmentNameRaw ?? '-'}</td>
+              <td>{record.enforcementRoadSection ?? '-'}</td>
+              <td>{record.activationDateRaw ?? '-'}</td>
+              <td>{record.enforcementItemsRaw ?? '-'}</td>
+              <td>{formatCoordinateStatus(record.coordinateQuality, language)}</td>
+              <td>{record.googleMapsQuery ? <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(record.googleMapsQuery)}`}>{labels.mapLookup}</a> : '-'}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <h2>{labels.dataNotes}</h2>
+      <p className="notice">{labels.notice}</p>
+    </main>
+  );
+}
+
 function FireDepartmentDonations({ data, language }: { data: SafetyDataBundle; language: Language }) {
   const labels = fireDonationLabels[language];
   const [year, setYear] = useState('all');
@@ -3976,6 +4233,78 @@ function formatEmergencyShelterType(type: EmergencyShelterType, language: Langua
   return labels[type];
 }
 
+function formatSmartEquipmentType(type: SmartTrafficEnforcementEquipmentTypeCategory, language: Language): string {
+  const labels: Record<Language, Record<SmartTrafficEnforcementEquipmentTypeCategory, string>> = {
+    zh: {
+      intersection_multi_function: '路口多功能',
+      illegal_parking: '違停設備',
+      elevated_road_multi_function: '高架道路多功能',
+      average_speed_section: '區間平均速率',
+      other: '其他',
+      unknown: '未知',
+    },
+    en: {
+      intersection_multi_function: 'Intersection multi-function',
+      illegal_parking: 'Illegal parking',
+      elevated_road_multi_function: 'Elevated-road multi-function',
+      average_speed_section: 'Average-speed section',
+      other: 'Other',
+      unknown: 'Unknown',
+    },
+  };
+  return labels[language][type];
+}
+
+function formatSmartRoadSectionType(type: TrafficEnforcementRoadSectionType, language: Language): string {
+  const labels: Record<Language, Record<TrafficEnforcementRoadSectionType, string>> = {
+    zh: { intersection: '路口', tunnel: '隧道', elevated_road: '高架道路', road_section: '路段', unknown: '未知' },
+    en: { intersection: 'Intersection', tunnel: 'Tunnel', elevated_road: 'Elevated road', road_section: 'Road section', unknown: 'Unknown' },
+  };
+  return labels[language][type];
+}
+
+function formatSmartItemCategory(type: TrafficEnforcementItemCategory, language: Language): string {
+  const labels: Record<Language, Record<TrafficEnforcementItemCategory, string>> = {
+    zh: {
+      speeding: '超速',
+      red_light: '闖紅燈',
+      pedestrian_yield: '未禮讓行人',
+      illegal_turn: '違規轉彎',
+      sign_marking_signal_violation: '標誌 / 標線 / 號誌',
+      illegal_parking: '違停',
+      double_white_line_crossing: '跨越雙白線',
+      heavy_truck_restriction: '大貨車限制',
+      motorcycle_restriction: '機車限制',
+      shoulder_driving: '行駛路肩',
+      motorcycle_lane_or_sidewalk_violation: '機車車道 / 人行道違規',
+      intersection_not_clear: '路口淨空',
+      channelized_area_crossing: '槽化區',
+      stop_sign_yield: '停讓',
+      other: '其他',
+      unknown: '未知',
+    },
+    en: {
+      speeding: 'Speeding',
+      red_light: 'Red light',
+      pedestrian_yield: 'Pedestrian yield',
+      illegal_turn: 'Illegal turn',
+      sign_marking_signal_violation: 'Sign / marking / signal',
+      illegal_parking: 'Illegal parking',
+      double_white_line_crossing: 'Double white line crossing',
+      heavy_truck_restriction: 'Heavy-truck restriction',
+      motorcycle_restriction: 'Motorcycle restriction',
+      shoulder_driving: 'Shoulder driving',
+      motorcycle_lane_or_sidewalk_violation: 'Motorcycle lane / sidewalk violation',
+      intersection_not_clear: 'Intersection not clear',
+      channelized_area_crossing: 'Channelized area crossing',
+      stop_sign_yield: 'Stop / yield',
+      other: 'Other',
+      unknown: 'Unknown',
+    },
+  };
+  return labels[language][type];
+}
+
 function formatDisasterStatus(status: DisasterApplicabilityStatus, language: Language): string {
   const t = translations[language];
   const labels: Record<DisasterApplicabilityStatus, string> = {
@@ -4361,3 +4690,4 @@ const localizedUiText: Record<
 };
 
 export default App;
+

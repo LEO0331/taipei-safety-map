@@ -68297,6 +68297,188 @@
       }
     ]
   },
+  "smartTrafficEnforcementEquipmentSummary": {
+    "totalRecords": 39,
+    "validCoordinateCount": 39,
+    "missingCoordinateCount": 0,
+    "outlierCoordinateCount": 0,
+    "unparsedCoordinateCount": 0,
+    "equipmentTypeCount": 4,
+    "roadSectionCount": 39,
+    "recordsWithParsedStatusHistory": 39,
+    "recordsWithSuspensionHistory": 2,
+    "recordsWithRestartHistory": 2,
+    "byEquipmentType": [
+      {
+        "equipmentType": "區間平均速率",
+        "equipmentTypeCategory": "average_speed_section",
+        "count": 2
+      },
+      {
+        "equipmentType": "高架道路多功能",
+        "equipmentTypeCategory": "elevated_road_multi_function",
+        "count": 2
+      },
+      {
+        "equipmentType": "路口多功能",
+        "equipmentTypeCategory": "intersection_multi_function",
+        "count": 25
+      },
+      {
+        "equipmentType": "違規停車",
+        "equipmentTypeCategory": "illegal_parking",
+        "count": 10
+      }
+    ],
+    "byRoadSectionType": [
+      {
+        "roadSectionType": "tunnel",
+        "count": 2
+      },
+      {
+        "roadSectionType": "elevated_road",
+        "count": 2
+      },
+      {
+        "roadSectionType": "intersection",
+        "count": 26
+      },
+      {
+        "roadSectionType": "road_section",
+        "count": 9
+      }
+    ],
+    "byEnforcementItemCategory": [
+      {
+        "enforcementItemCategory": "speeding",
+        "count": 2
+      },
+      {
+        "enforcementItemCategory": "double_white_line_crossing",
+        "count": 2
+      },
+      {
+        "enforcementItemCategory": "heavy_truck_restriction",
+        "count": 2
+      },
+      {
+        "enforcementItemCategory": "shoulder_driving",
+        "count": 1
+      },
+      {
+        "enforcementItemCategory": "sign_marking_signal_violation",
+        "count": 23
+      },
+      {
+        "enforcementItemCategory": "red_light",
+        "count": 25
+      },
+      {
+        "enforcementItemCategory": "pedestrian_yield",
+        "count": 18
+      },
+      {
+        "enforcementItemCategory": "illegal_turn",
+        "count": 25
+      },
+      {
+        "enforcementItemCategory": "illegal_parking",
+        "count": 15
+      },
+      {
+        "enforcementItemCategory": "motorcycle_lane_or_sidewalk_violation",
+        "count": 2
+      },
+      {
+        "enforcementItemCategory": "channelized_area_crossing",
+        "count": 1
+      }
+    ],
+    "byFirstActivationYear": [
+      {
+        "year": 2019,
+        "recordCount": 2
+      },
+      {
+        "year": 2020,
+        "recordCount": 2
+      },
+      {
+        "year": 2021,
+        "recordCount": 4
+      },
+      {
+        "year": 2022,
+        "recordCount": 26
+      },
+      {
+        "year": 2024,
+        "recordCount": 5
+      }
+    ],
+    "topRawEnforcementItemCombinations": [
+      {
+        "enforcementItemsRaw": "違規停車",
+        "count": 10
+      },
+      {
+        "enforcementItemsRaw": "闖紅燈、不停讓行人、不依規定轉彎、不依標誌標線號誌指示行駛",
+        "count": 8
+      },
+      {
+        "enforcementItemsRaw": "闖紅燈、不依規定轉彎、不依標誌標線號誌指示行駛",
+        "count": 5
+      },
+      {
+        "enforcementItemsRaw": "闖紅燈、不停讓行人、不依規定轉彎、不依標誌標線號誌指示行駛、違規停車",
+        "count": 3
+      },
+      {
+        "enforcementItemsRaw": "超速、跨越雙白線",
+        "count": 2
+      },
+      {
+        "enforcementItemsRaw": "闖紅燈、不停讓行人、不依規定轉彎",
+        "count": 2
+      },
+      {
+        "enforcementItemsRaw": "逾10噸大貨車違規行駛、機車違規行駛及行駛路肩",
+        "count": 1
+      },
+      {
+        "enforcementItemsRaw": "逾10噸大貨車違規行駛、機車違規行駛及不依標誌標線號誌指示行駛",
+        "count": 1
+      },
+      {
+        "enforcementItemsRaw": "闖紅燈、不停讓行人、不依規定轉彎、不依標誌標線號誌指示行駛、汽車行駛機車道(上匝)",
+        "count": 1
+      },
+      {
+        "enforcementItemsRaw": "闖紅燈、不依規定轉彎",
+        "count": 1
+      },
+      {
+        "enforcementItemsRaw": "闖紅燈、不依規定轉彎、不依標誌標線號誌指示行駛、違規停車",
+        "count": 1
+      },
+      {
+        "enforcementItemsRaw": "闖紅燈、不停讓行人、不依規定轉彎、不依標誌標線號誌指示行駛、機車行駛人行道",
+        "count": 1
+      },
+      {
+        "enforcementItemsRaw": "闖紅燈、不停讓行人、不依規定轉彎、不依標誌標線號誌指示行駛、路口未淨空",
+        "count": 1
+      },
+      {
+        "enforcementItemsRaw": "闖紅燈、不停讓行人、不依規定轉彎、不依標誌標線號誌指示行駛、路口未淨空、跨越槽化線",
+        "count": 1
+      },
+      {
+        "enforcementItemsRaw": "闖紅燈、不停讓行人、不依規定轉彎、不依標誌標線號誌指示行駛、違規停車、行經設有停車 再開標誌、標字之交岔路口不依規定停讓",
+        "count": 1
+      }
+    ]
+  },
   "naturalDisasterSuspensionSummary": {
     "totalRecords": 123,
     "uniqueDisasterNameCount": 56,
