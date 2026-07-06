@@ -15,6 +15,7 @@ export type SafetyLayer =
   | 'fire_hydrant'
   | 'traffic_cctv'
   | 'police_cctv_installation_location'
+  | 'smart_traffic_enforcement_equipment'
   | 'fire_department_donation_in_kind_records'
   | 'managed_hiking_trails'
   | 'fire_rescue_difficult_areas'
@@ -818,6 +819,77 @@ export type TrafficCctvSummary = {
   coordinateStatus: Array<{ coordinateStatus: CoordinateStatus; count: number }>;
 };
 
+export type SmartTrafficEnforcementEquipmentTypeCategory =
+  | 'intersection_multi_function'
+  | 'illegal_parking'
+  | 'elevated_road_multi_function'
+  | 'average_speed_section'
+  | 'other'
+  | 'unknown';
+export type TrafficEnforcementItemCategory =
+  | 'speeding'
+  | 'red_light'
+  | 'pedestrian_yield'
+  | 'illegal_turn'
+  | 'sign_marking_signal_violation'
+  | 'illegal_parking'
+  | 'double_white_line_crossing'
+  | 'heavy_truck_restriction'
+  | 'motorcycle_restriction'
+  | 'shoulder_driving'
+  | 'motorcycle_lane_or_sidewalk_violation'
+  | 'intersection_not_clear'
+  | 'channelized_area_crossing'
+  | 'stop_sign_yield'
+  | 'other'
+  | 'unknown';
+export type TrafficEnforcementRoadSectionType = 'intersection' | 'tunnel' | 'elevated_road' | 'road_section' | 'unknown';
+
+export type SmartTrafficEnforcementEquipmentRecord = {
+  id: string;
+  module: 'smart_traffic_enforcement_equipment';
+  sourceSequenceNumber?: number;
+  equipmentNameRaw?: string;
+  equipmentTypeCategory: SmartTrafficEnforcementEquipmentTypeCategory;
+  enforcementRoadSection?: string;
+  roadNameCandidates: string[];
+  roadSectionType: TrafficEnforcementRoadSectionType;
+  sourceLongitudeRaw?: string;
+  sourceLatitudeRaw?: string;
+  longitude?: number;
+  latitude?: number;
+  coordinateStatus: CoordinateStatus;
+  activationDateRaw?: string;
+  activationEvents: Array<{ eventType: 'activated' | 'suspended' | 'restarted' | 'unknown'; rocDateRaw?: string; gregorianDate?: string; sourceText: string }>;
+  firstActivationDate?: string;
+  statusHistoryHasSuspension: boolean;
+  statusHistoryHasRestart: boolean;
+  enforcementItemsRaw?: string;
+  enforcementItems: string[];
+  enforcementItemCategories: TrafficEnforcementItemCategory[];
+  googleMapsQuery?: string;
+  source: string;
+  sourceAgency: string;
+};
+
+export type SmartTrafficEnforcementEquipmentSummary = {
+  totalRecords: number;
+  validCoordinateCount: number;
+  missingCoordinateCount: number;
+  outlierCoordinateCount: number;
+  unparsedCoordinateCount: number;
+  equipmentTypeCount: number;
+  roadSectionCount: number;
+  recordsWithParsedStatusHistory: number;
+  recordsWithSuspensionHistory: number;
+  recordsWithRestartHistory: number;
+  byEquipmentType: Array<{ equipmentType: string; equipmentTypeCategory: SmartTrafficEnforcementEquipmentTypeCategory; count: number }>;
+  byRoadSectionType: Array<{ roadSectionType: TrafficEnforcementRoadSectionType; count: number }>;
+  byEnforcementItemCategory: Array<{ enforcementItemCategory: TrafficEnforcementItemCategory; count: number }>;
+  byFirstActivationYear: Array<{ year: number; recordCount: number }>;
+  topRawEnforcementItemCombinations: Array<{ enforcementItemsRaw: string; count: number }>;
+};
+
 export type DengueSurveyRecord = {
   id: string;
   layer: 'dengue_vector_density';
@@ -1113,6 +1185,8 @@ export type SafetyDataBundle = {
   emergencyShelterSummary: EmergencyShelterSummary;
   trafficCctvFacilities: TrafficCctvFacility[];
   trafficCctvSummary: TrafficCctvSummary;
+  smartTrafficEnforcementEquipment: SmartTrafficEnforcementEquipmentRecord[];
+  smartTrafficEnforcementEquipmentSummary: SmartTrafficEnforcementEquipmentSummary;
   naturalDisasterSuspensionRecords: NaturalDisasterWorkSchoolSuspensionRecord[];
   naturalDisasterSuspensionSummary: NaturalDisasterSuspensionSummary;
   naturalDisasterSuspensionEventGroups: NaturalDisasterSuspensionEventGroup[];
@@ -1211,6 +1285,18 @@ export type ConversionReport = {
     outlierCoordinates: number;
     invalidCoordinateExamples: string[];
     outlierCoordinateExamples: string[];
+    duplicateExamples: string[];
+  };
+  smartTrafficEnforcementEquipment?: {
+    inputRows: number;
+    outputRows: number;
+    duplicateRows: number;
+    validCoordinates: number;
+    missingCoordinates: number;
+    unparsedCoordinates: number;
+    outlierCoordinates: number;
+    unknownEquipmentTypeExamples: string[];
+    unknownEnforcementItemExamples: string[];
     duplicateExamples: string[];
   };
   naturalDisasterSuspensions?: {

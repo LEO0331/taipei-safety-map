@@ -55,6 +55,10 @@ import type {
   StreetRandomSnatchCaseType,
   StreetRandomSnatchIncidentRecord,
   SuspensionMessageKeywordTag,
+  SmartTrafficEnforcementEquipmentRecord,
+  SmartTrafficEnforcementEquipmentTypeCategory,
+  TrafficEnforcementItemCategory,
+  TrafficEnforcementRoadSectionType,
   TrafficCctvFacility,
   WorkOrSchoolSuspensionStatus,
   WorkSchoolSuspensionDecisionCategory,
@@ -89,6 +93,8 @@ export const EMERGENCY_SHELTER_SOURCE = '臺北市可供避難收容處所一覽
 export const EMERGENCY_SHELTER_AGENCY = '臺北市政府教育局';
 export const TRAFFIC_CCTV_SOURCE = '臺北市CCTV設施';
 export const TRAFFIC_CCTV_AGENCY = '臺北市政府交通局交通管制工程處';
+export const SMART_TRAFFIC_ENFORCEMENT_SOURCE = '臺北市智慧管理科技執法設備資料表';
+export const SMART_TRAFFIC_ENFORCEMENT_AGENCY = '臺北市政府警察局交通警察大隊';
 export const POLICE_CCTV_SOURCE = '臺北市政府警察局錄影監視系統設置區位';
 export const POLICE_CCTV_AGENCY = '臺北市政府警察局';
 export const NATURAL_DISASTER_SUSPENSION_SOURCE = '臺北市歷次天然災害停止上班上課訊息';
@@ -1307,6 +1313,119 @@ export function parseCameraLocationCode(raw: unknown): {
   };
 }
 
+export function classifySmartTrafficEnforcementEquipmentType(raw: string | undefined): SmartTrafficEnforcementEquipmentTypeCategory {
+  const text = raw?.trim() ?? '';
+  if (!text) return 'unknown';
+  if (text.includes('路口多功能')) return 'intersection_multi_function';
+  if (text.includes('違規停車')) return 'illegal_parking';
+  if (text.includes('高架道路多功能')) return 'elevated_road_multi_function';
+  if (text.includes('區間平均速率')) return 'average_speed_section';
+  return 'other';
+}
+
+export function classifyTrafficEnforcementItems(raw: string | undefined): TrafficEnforcementItemCategory[] {
+  const text = raw?.trim() ?? '';
+  if (!text) return ['unknown'];
+  const categories = new Set<TrafficEnforcementItemCategory>();
+  if (text.includes('超速')) categories.add('speeding');
+  if (text.includes('闖紅燈')) categories.add('red_light');
+  if (text.includes('不停讓行人')) categories.add('pedestrian_yield');
+  if (text.includes('不依規定轉彎')) categories.add('illegal_turn');
+  if (text.includes('不依標誌標線號誌指示')) categories.add('sign_marking_signal_violation');
+  if (text.includes('違規停車')) categories.add('illegal_parking');
+  if (text.includes('跨越雙白線')) categories.add('double_white_line_crossing');
+  if (text.includes('逾10噸大貨車')) categories.add('heavy_truck_restriction');
+  if (text.includes('機車違規行駛')) categories.add('motorcycle_restriction');
+  if (text.includes('行駛路肩')) categories.add('shoulder_driving');
+  if (text.includes('機車道') || text.includes('人行道')) categories.add('motorcycle_lane_or_sidewalk_violation');
+  if (text.includes('路口未淨空')) categories.add('intersection_not_clear');
+  if (text.includes('槽化線')) categories.add('channelized_area_crossing');
+  if (text.includes('再開') && text.includes('不依規定停讓')) categories.add('stop_sign_yield');
+  return categories.size ? [...categories] : ['other'];
+}
+
+export function classifyTrafficEnforcementRoadSection(raw: string | undefined): TrafficEnforcementRoadSectionType {
+  const text = raw?.trim() ?? '';
+  if (!text) return 'unknown';
+  if (text.includes('隧道')) return 'tunnel';
+  if (text.includes('高架')) return 'elevated_road';
+  if (text.includes('路口') || text.includes('與')) return 'intersection';
+  return 'road_section';
+}
+
+function parseSmartTrafficActivationHistory(raw: string | undefined): SmartTrafficEnforcementEquipmentRecord['activationEvents'] {
+  return (raw?.split(/\r?\n/) ?? []).flatMap((sourceText) => {
+    const text = sourceText.trim();
+    if (!text) return [];
+    const match = text.match(/(\d{2,3})年(\d{1,2})月(?:(\d{1,2})日)?/);
+    const rocYear = match ? Number(match[1]) : undefined;
+    const month = match ? Number(match[2]) : undefined;
+    const day = match?.[3] ? Number(match[3]) : 1;
+    const year = rocYear === undefined ? undefined : rocYear + 1911;
+    const gregorianDate = year && month && day && isValidGregorianDate(year, month, day)
+      ? `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`
+      : undefined;
+    return [{
+      eventType: text.includes('停用') ? 'suspended' as const : text.includes('重啟') ? 'restarted' as const : 'activated' as const,
+      rocDateRaw: match?.[0],
+      gregorianDate,
+      sourceText: text,
+    }];
+  });
+}
+
+function extractRoadNameCandidates(text: string | undefined): string[] {
+  return [...new Set(text?.match(/[\u4e00-\u9fff]{1,12}(?:路|街|大道|隧道|高架道路)/g) ?? [])];
+}
+
+export function convertSmartTrafficEnforcementEquipmentRow(row: Record<string, string>, index: number): SmartTrafficEnforcementEquipmentRecord {
+  const sourceSequenceNumber = parseNumberField(row['編號']);
+  const equipmentNameRaw = cleanText(row['名稱']);
+  const enforcementRoadSection = cleanText(row['取締路段']);
+  const sourceLongitudeRaw = cleanText(row['座標-X']);
+  const sourceLatitudeRaw = cleanText(row['座標-Y']);
+  const longitude = parsePossiblyInvalidNumber(sourceLongitudeRaw);
+  const latitude = parsePossiblyInvalidNumber(sourceLatitudeRaw);
+  const coordinateStatus: CoordinateStatus =
+    longitude.status !== 'valid' || latitude.status !== 'valid'
+      ? longitude.status === 'unparsed' || latitude.status === 'unparsed'
+        ? 'unparsed'
+        : 'missing'
+      : isOutsideTaipeiBounds(longitude.value, latitude.value)
+        ? 'outlier'
+        : 'valid';
+  const activationDateRaw = emptyToUndefined(String(row['啟用日期'] ?? '').trim());
+  const activationEvents = parseSmartTrafficActivationHistory(activationDateRaw);
+  const enforcementItemsRaw = cleanText(row['取締項目']);
+  const enforcementItemCategories = classifyTrafficEnforcementItems(enforcementItemsRaw);
+  return {
+    id: `smart-traffic-enforcement-${sourceSequenceNumber ?? index + 1}`,
+    module: 'smart_traffic_enforcement_equipment',
+    sourceSequenceNumber,
+    equipmentNameRaw,
+    equipmentTypeCategory: classifySmartTrafficEnforcementEquipmentType(equipmentNameRaw),
+    enforcementRoadSection,
+    roadNameCandidates: extractRoadNameCandidates(enforcementRoadSection),
+    roadSectionType: classifyTrafficEnforcementRoadSection(enforcementRoadSection),
+    sourceLongitudeRaw,
+    sourceLatitudeRaw,
+    longitude: longitude.value,
+    latitude: latitude.value,
+    coordinateStatus,
+    activationDateRaw,
+    activationEvents,
+    firstActivationDate: activationEvents.find((event) => event.eventType === 'activated')?.gregorianDate,
+    statusHistoryHasSuspension: activationEvents.some((event) => event.eventType === 'suspended'),
+    statusHistoryHasRestart: activationEvents.some((event) => event.eventType === 'restarted'),
+    enforcementItemsRaw,
+    enforcementItems: enforcementItemsRaw?.split('、').map((item) => item.trim()).filter(Boolean) ?? [],
+    enforcementItemCategories,
+    googleMapsQuery: coordinateStatus === 'valid' && latitude.value !== undefined && longitude.value !== undefined ? `${latitude.value},${longitude.value}` : undefined,
+    source: SMART_TRAFFIC_ENFORCEMENT_SOURCE,
+    sourceAgency: SMART_TRAFFIC_ENFORCEMENT_AGENCY,
+  };
+}
+
 export function convertTrafficCctvRow(row: Record<string, string>, index: number): TrafficCctvFacility {
   const longitude = parsePossiblyInvalidNumber(row['WGSX(WGS84經度座標)'] ?? row.WGSX);
   const latitude = parsePossiblyInvalidNumber(row['WGSY(WGS84緯度座標)'] ?? row.WGSY);
@@ -1535,6 +1654,7 @@ export async function loadConvertedData() {
     medicalFacilities,
     emergencyShelters,
     trafficCctvFacilities,
+    smartTrafficEnforcementEquipment,
   ] = await Promise.all([
     readJsonFile<AirRaidShelter[]>(`${PUBLIC_DATA_DIR}/air-raid-shelters.json`),
     readJsonFile<ResidentialBurglaryRecord[]>(`${PUBLIC_DATA_DIR}/residential-burglary-records.json`),
@@ -1551,6 +1671,7 @@ export async function loadConvertedData() {
     readJsonFile<MedicalFacility[]>(`${PUBLIC_DATA_DIR}/medical-facilities.json`),
     readJsonFile<EmergencyShelter[]>(`${PUBLIC_DATA_DIR}/emergency-shelters.json`),
     readJsonFile<TrafficCctvFacility[]>(`${PUBLIC_DATA_DIR}/traffic-cctv-facilities.json`),
+    readJsonFile<SmartTrafficEnforcementEquipmentRecord[]>(`${PUBLIC_DATA_DIR}/smart-traffic-enforcement-equipment.json`),
   ]);
   return {
     shelters,
@@ -1568,6 +1689,7 @@ export async function loadConvertedData() {
     medicalFacilities,
     emergencyShelters,
     trafficCctvFacilities,
+    smartTrafficEnforcementEquipment,
     districtSummaries: buildDistrictSafetySummary(shelters, burglaries),
     dengueDistrictSummaries: buildDengueDistrictSummaries(dengueRecords),
   };
