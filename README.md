@@ -150,9 +150,7 @@ Street random snatch incident CSVs are CP950 / Big5-family with UTF-8-SIG fallba
 
 ## Deployment
 
-The GitHub Actions workflow at `.github/workflows/deploy.yml` builds and deploys the Vite app to GitHub Pages on pushes to `main`.
-
-In repository settings, enable Pages with `GitHub Actions` as the source.
+The GitHub Actions workflow at `.github/workflows/deploy.yml` builds and deploys the Vite app to GitHub Pages on pushes to `main`. In repository settings, enable Pages with `GitHub Actions` as the source.
 
 ## Disclaimer
 
