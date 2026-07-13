@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-06T07:57:51.587Z",
+  "generatedAt": "2026-07-13T02:14:18.800Z",
   "sources": [
     {
       "name": "北市警政APP_防空避難設備位置",
@@ -166,6 +166,14 @@
       "fileSize": 696186,
       "encoding": "KML",
       "notes": "Historical ponding/flooding KML records from 工務局水利處; source geometry is converted to GeoJSON for historical lookup only."
+    },
+    {
+      "name": "臺北市車輛拖吊前十大路段與件數",
+      "url": "https://data.taipei/dataset/detail?id=3a2098a3-0ef1-45d0-9ba6-dccf7dbd865d",
+      "downloadUrl": "https://data.taipei/dataset/detail?id=3a2098a3-0ef1-45d0-9ba6-dccf7dbd865d",
+      "downloadedAt": "2026-07-13T02:14:18.800Z",
+      "encoding": "UTF-8-SIG with Big5 / CP950 fallback",
+      "notes": "Annual towing-ranking statistics; no exact locations or enforcement boundaries are inferred."
     }
   ],
   "shelters": {
@@ -831,5 +839,15 @@
     "CCTV records do not provide live video, camera direction, monitoring coverage, or public-safety scoring.",
     "Smart traffic enforcement equipment records include 39 public-data rows; they are not real-time enforcement status, ticket-avoidance advice, route-avoidance advice, legal advice, or official device-operation verification.",
     "Natural disaster suspension records are historical administrative messages and do not represent real-time closure status, forecasts, or emergency instructions."
-  ]
+  ],
+  "vehicleTowingTopRoadSections": {
+    "inputRows": 50,
+    "outputRows": 50,
+    "duplicateRows": 0,
+    "invalidRows": 0,
+    "duplicateExamples": [],
+    "invalidRowExamples": [],
+    "encoding": "UTF-8-SIG with Big5 / CP950 fallback",
+    "sourcePageUrl": "https://data.taipei/dataset/detail?id=3a2098a3-0ef1-45d0-9ba6-dccf7dbd865d"
+  }
 }

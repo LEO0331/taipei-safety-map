@@ -36,6 +36,8 @@ import type {
   StreetRandomSnatchIncidentSummary,
   TrafficCctvFacility,
   TrafficCctvSummary,
+  VehicleTowingTopRoadSectionRecord,
+  VehicleTowingTopRoadSectionsSummary,
 } from '../types';
 
 const DATA_BASE = `${import.meta.env.BASE_URL}data`;
@@ -65,11 +67,13 @@ export async function loadSafetyData(): Promise<SafetyDataBundle> {
     emergencyShelters,
     trafficCctvFacilities,
     smartTrafficEnforcementEquipment,
+    vehicleTowingTopRoadSections,
     naturalDisasterSuspensionRecords,
     naturalDisasterSuspensionEventGroups,
     historicalFloodingRecords,
     dengueRecords,
     dashboard,
+    vehicleTowingTopRoadSectionsSummary,
     conversionReport,
   ] = await Promise.all([
     loadJson<AirRaidShelter[]>('air-raid-shelters.json'),
@@ -87,6 +91,7 @@ export async function loadSafetyData(): Promise<SafetyDataBundle> {
     loadJson<EmergencyShelter[]>('emergency-shelters.json'),
     loadJson<TrafficCctvFacility[]>('traffic-cctv-facilities.json'),
     loadJson<SmartTrafficEnforcementEquipmentRecord[]>('smart-traffic-enforcement-equipment.json'),
+    loadJson<VehicleTowingTopRoadSectionRecord[]>('vehicle-towing-top-road-sections.json'),
     loadJson<NaturalDisasterWorkSchoolSuspensionRecord[]>('natural-disaster-work-school-suspension-records.json'),
     loadJson<NaturalDisasterSuspensionEventGroup[]>('natural-disaster-work-school-suspension-event-groups.json'),
     loadJson<HistoricalFloodingRecord[]>('historical-flooding-records.json'),
@@ -108,6 +113,7 @@ export async function loadSafetyData(): Promise<SafetyDataBundle> {
       naturalDisasterSuspensionSummary: NaturalDisasterSuspensionSummary;
       historicalFloodingSummary: HistoricalFloodingSummary;
     }>('safety-dashboard-summary.json'),
+    loadJson<VehicleTowingTopRoadSectionsSummary>('vehicle-towing-top-road-sections-summary.json'),
     loadJson<ConversionReport>('conversion-report.json'),
   ]);
 
@@ -138,6 +144,8 @@ export async function loadSafetyData(): Promise<SafetyDataBundle> {
     trafficCctvSummary: dashboard.trafficCctvSummary,
     smartTrafficEnforcementEquipment,
     smartTrafficEnforcementEquipmentSummary: dashboard.smartTrafficEnforcementEquipmentSummary,
+    vehicleTowingTopRoadSections,
+    vehicleTowingTopRoadSectionsSummary,
     naturalDisasterSuspensionRecords,
     naturalDisasterSuspensionSummary: dashboard.naturalDisasterSuspensionSummary,
     naturalDisasterSuspensionEventGroups,

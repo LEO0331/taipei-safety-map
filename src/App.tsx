@@ -48,9 +48,10 @@ import type {
   TrafficEnforcementItemCategory,
   TrafficEnforcementRoadSectionType,
   TrafficCctvFacility,
+  VehicleTowingTopRoadSectionRecord,
 } from './types';
 
-type Tab = 'map' | 'nearby' | 'burglary' | 'bike' | 'motorcycle' | 'streetSnatch' | 'policeCctv' | 'smartTrafficEnforcement' | 'fireDonations' | 'fireRescueAreas' | 'hikingTrails' | 'flooding' | 'health' | 'disaster' | 'overview' | 'notes';
+type Tab = 'map' | 'nearby' | 'burglary' | 'bike' | 'motorcycle' | 'streetSnatch' | 'policeCctv' | 'smartTrafficEnforcement' | 'vehicleTowing' | 'fireDonations' | 'fireRescueAreas' | 'hikingTrails' | 'flooding' | 'health' | 'disaster' | 'overview' | 'notes';
 type CapacityRange = 'all' | 'under100' | '100-499' | '500-999' | '1000plus';
 type DenseLayer = 'aeds' | 'medical' | 'fireHydrants' | 'airRaidShelters' | 'evacuationGates' | 'cctv';
 const tileAttribution = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>';
@@ -908,6 +909,11 @@ const disasterLabels = {
   },
 } as const;
 
+const vehicleTowingLabels = {
+  zh: { shortTitle: '車輛拖吊統計', title: '車輛拖吊前十大路段與件數', subtitle: '以年度排名、跨年趨勢與資料表探索臺北市違規車輛拖吊前十大路段統計。', all: '全部', year: '年度', road: '路段', minimum: '最低拖吊件數', multiYear: '多年度出現', search: '搜尋', searchPlaceholder: '搜尋年度、路段或縣市', overview: '總覽', annual: '年度排名', trends: '路段趨勢', changes: '排名變化', table: '資料表', quality: '資料品質', notes: '資料說明', latestYear: '最新年度', latestTotal: '最新年度拖吊總件數', numberOne: '最新年度第一名路段', multiYearRoads: '多年度出現路段', highest: '單年度最高件數', frequent: '出現最多次路段', increase: '最大年增件數', decrease: '最大年減件數', rank: '排名', count: '拖吊件數', previousRank: '前一年排名', rankChange: '排名變化', yoy: '年增減', map: '地圖查詢', notice: '本資料為臺北市歷年違規車輛拖吊前十大路段與件數統計，僅供交通執法、停車管理與道路秩序資料探索使用，不代表即時拖吊狀態、違規熱點、精確拖吊地點、執法範圍、道路危險程度、執法強度或避開拖吊建議。外部地圖連結僅以路段名稱進行概略文字查詢，並非官方位置。', qualityText: '轉換時以「年度 + 路段名」檢查重複資料，並保留無法解析的年度、序號或件數於轉換報告中。' },
+  en: { shortTitle: 'Vehicle Towing', title: 'Top Vehicle Towing Road Sections and Counts', subtitle: 'Explore annual rankings, cross-year trends, and a searchable directory of Taipei vehicle-towing statistics.', all: 'All', year: 'Year', road: 'Road section', minimum: 'Minimum towing count', multiYear: 'Appeared in multiple years', search: 'Search', searchPlaceholder: 'Search year, road section, or city', overview: 'Overview', annual: 'Annual Rankings', trends: 'Road Section Trends', changes: 'Ranking Changes', table: 'Data Table', quality: 'Data Quality', notes: 'Data Notes', latestYear: 'Latest available year', latestTotal: 'Latest-year total towing count', numberOne: 'Latest-year number-one road section', multiYearRoads: 'Road sections appearing in multiple years', highest: 'Highest single-year towing count', frequent: 'Road section appearing most often', increase: 'Largest year-over-year increase', decrease: 'Largest year-over-year decrease', rank: 'Rank', count: 'Towing count', previousRank: 'Previous-year rank', rankChange: 'Rank change', yoy: 'Year-over-year change', map: 'Approximate map lookup', notice: 'This dataset contains annual statistics for Taipei road sections with the highest vehicle-towing counts. It is for traffic enforcement, parking management, and road-order data exploration only. It does not represent real-time towing status, real-time violation hotspots, exact towing locations, road danger levels, guaranteed enforcement intensity, ticket or towing avoidance advice, police performance evaluation, real-estate risk, or insurance risk. Latest information should be verified with Taipei City Police Department Traffic Division and competent authorities. External map links are approximate text lookups by road-section name only.', qualityText: 'Conversion checks duplicates using year + road-section name and records invalid source values in the conversion report.' },
+} as const;
+
 function App() {
   const [language, setLanguage] = useState<Language>('zh');
   const [activeTab, setActiveTab] = useState<Tab>('map');
@@ -959,6 +965,7 @@ function App() {
             ['streetSnatch', streetSnatchLabels[language].shortTitle],
             ['policeCctv', language === 'zh' ? '警察局監視器' : 'Police CCTV'],
             ['smartTrafficEnforcement', smartTrafficLabels[language].shortTitle],
+            ['vehicleTowing', vehicleTowingLabels[language].shortTitle],
             ['fireDonations', language === 'zh' ? '消防捐贈實物' : 'Fire Dept Donations'],
             ['fireRescueAreas', fireRescueAreaLabels[language].shortTitle],
             ['hikingTrails', hikingTrailLabels[language].shortTitle],
@@ -988,6 +995,7 @@ function App() {
       {activeTab === 'streetSnatch' && <BicycleTheftRecords data={data} language={language} mode="streetSnatch" />}
       {activeTab === 'policeCctv' && <PoliceCctvInstallationLocations data={data} language={language} />}
       {activeTab === 'smartTrafficEnforcement' && <SmartTrafficEnforcementEquipment data={data} language={language} />}
+      {activeTab === 'vehicleTowing' && <VehicleTowingTopRoadSections data={data} language={language} />}
       {activeTab === 'fireDonations' && <FireDepartmentDonations data={data} language={language} />}
       {activeTab === 'fireRescueAreas' && <FireRescueDifficultAreas data={data} language={language} />}
       {activeTab === 'hikingTrails' && <ManagedHikingTrails data={data} language={language} />}
@@ -2642,6 +2650,56 @@ function PoliceCctvInstallationLocations({ data, language }: { data: SafetyDataB
       </table>
     </main>
   );
+}
+
+function VehicleTowingTopRoadSections({ data, language }: { data: SafetyDataBundle; language: Language }) {
+  const labels = vehicleTowingLabels[language];
+  const records = data.vehicleTowingTopRoadSections;
+  const summary = data.vehicleTowingTopRoadSectionsSummary;
+  const [year, setYear] = useState('all');
+  const [road, setRoad] = useState('all');
+  const [minimum, setMinimum] = useState('');
+  const [multiYear, setMultiYear] = useState(false);
+  const [search, setSearch] = useState('');
+  const selectedYear = year === 'all' ? summary.latestYear : Number(year);
+  const roads = [...new Set(records.map((record) => record.roadSectionName))].sort();
+  const filtered = records.filter((record) => {
+    const query = search.trim().toLowerCase();
+    return (year === 'all' || record.yearNumber === Number(year)) &&
+      (road === 'all' || record.roadSectionName === road) &&
+      (!minimum || (record.towingCountNumber ?? 0) >= Number(minimum)) &&
+      (!multiYear || record.appearanceCount > 1) &&
+      (!query || [record.yearNumber, record.roadSectionName, record.cityName].join(' ').toLowerCase().includes(query));
+  });
+  const selectedRecords = records.filter((record) => record.yearNumber === selectedYear);
+  const trendRoad = road === 'all' ? summary.mostFrequentRoadSection?.roadSectionName : road;
+  const trendRecords = records.filter((record) => record.roadSectionName === trendRoad).sort((a, b) => a.yearNumber! - b.yearNumber!);
+  const quality = data.conversionReport.vehicleTowingTopRoadSections as { inputRows?: number; outputRows?: number; duplicateRows?: number; invalidRows?: number } | undefined;
+  const changeLabel = (record: VehicleTowingTopRoadSectionRecord | null) => record ? `${record.roadSectionName} (${record.yearOverYearChange! >= 0 ? '+' : ''}${record.yearOverYearChange!.toLocaleString()})` : '-';
+  return <main className="overview">
+    <h1>{labels.title}</h1><p>{labels.subtitle}</p><p className="notice">{labels.notice}</p>
+    <section className="filter-panel health-filters">
+      <label>{labels.year}<select value={year} onChange={(event) => setYear(event.target.value)}><option value="all">{labels.all}</option>{summary.years.slice().reverse().map((item) => <option key={item} value={item}>{item}</option>)}</select></label>
+      <label>{labels.road}<select value={road} onChange={(event) => setRoad(event.target.value)}><option value="all">{labels.all}</option>{roads.map((item) => <option key={item}>{item}</option>)}</select></label>
+      <label>{labels.minimum}<input type="number" min="0" value={minimum} onChange={(event) => setMinimum(event.target.value)} /></label>
+      <label>{labels.search}<input value={search} placeholder={labels.searchPlaceholder} onChange={(event) => setSearch(event.target.value)} /></label>
+      <label className="checkbox-row"><input type="checkbox" checked={multiYear} onChange={(event) => setMultiYear(event.target.checked)} />{labels.multiYear}</label>
+    </section>
+    <h2>{labels.overview}</h2>
+    <section className="summary-grid">
+      <Metric label={labels.latestYear} value={summary.latestYear?.toLocaleString() ?? '-'} /><Metric label={labels.latestTotal} value={summary.latestYearTotalTowingCount.toLocaleString()} />
+      <Metric label={labels.numberOne} value={summary.latestYearNumberOneRoadSection ?? '-'} /><Metric label={labels.multiYearRoads} value={summary.roadSectionsAppearingMultipleYears.toLocaleString()} />
+      <Metric label={labels.highest} value={summary.highestSingleYearTowingCount ? `${summary.highestSingleYearTowingCount.roadSectionName} (${summary.highestSingleYearTowingCount.towingCount.toLocaleString()})` : '-'} />
+      <Metric label={labels.frequent} value={summary.mostFrequentRoadSection ? `${summary.mostFrequentRoadSection.roadSectionName} (${summary.mostFrequentRoadSection.appearanceCount})` : '-'} />
+      <Metric label={labels.increase} value={changeLabel(summary.largestYearOverYearIncrease)} /><Metric label={labels.decrease} value={changeLabel(summary.largestYearOverYearDecrease)} />
+    </section>
+    <h2>{labels.annual}</h2><section className="chart-grid"><BarChart title={`${labels.annual}: ${selectedYear ?? '-'}`} values={Object.fromEntries(selectedRecords.slice(0, 10).map((record) => [record.roadSectionName, record.towingCountNumber ?? 0]))} /><BarChart title={`${labels.count} by ${labels.year}`} values={Object.fromEntries(summary.byYear.map((item) => [String(item.year), item.totalTowingCount]))} /></section>
+    <h2>{labels.trends}</h2><section className="chart-grid"><BarChart title={trendRoad ? `${trendRoad} ${labels.count}` : labels.trends} values={Object.fromEntries(trendRecords.map((record) => [String(record.yearNumber), record.towingCountNumber ?? 0]))} /><BarChart title={labels.multiYearRoads} values={Object.fromEntries(summary.roadSectionAppearances.filter((item) => item.appearanceCount > 1).slice(0, 10).map((item) => [item.roadSectionName, item.appearanceCount]))} /></section>
+    <h2>{labels.changes}</h2><section className="chart-grid"><BarChart title={labels.rankChange} values={Object.fromEntries(selectedRecords.filter((record) => record.rankChange !== null).map((record) => [record.roadSectionName, record.rankChange ?? 0]))} /><BarChart title={labels.yoy} values={Object.fromEntries(selectedRecords.filter((record) => record.yearOverYearChange !== null).map((record) => [record.roadSectionName, record.yearOverYearChange ?? 0]))} /></section>
+    <h2>{labels.table}</h2><p>{filtered.length.toLocaleString()} records</p><table><thead><tr><th>{labels.year}</th><th>{labels.rank}</th><th>{labels.road}</th><th>{labels.count}</th><th>{labels.previousRank}</th><th>{labels.rankChange}</th><th>{labels.yoy}</th><th>{labels.map}</th></tr></thead><tbody>{filtered.slice(0, 200).map((record) => <tr key={record.id}><td>{record.yearNumber}</td><td>{record.rankWithinYear}</td><td>{record.roadSectionName}</td><td>{record.towingCountNumber?.toLocaleString()}</td><td>{record.previousYearRank ?? '-'}</td><td>{record.rankChange ?? '-'}</td><td>{record.yearOverYearChange ?? '-'}</td><td><a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(record.googleMapsQuery)}`} target="_blank" rel="noreferrer">{labels.map}</a></td></tr>)}</tbody></table>
+    <h2>{labels.quality}</h2><p>{labels.qualityText}</p><section className="summary-grid"><Metric label="Input rows" value={(quality?.inputRows ?? 0).toLocaleString()} /><Metric label="Output rows" value={(quality?.outputRows ?? 0).toLocaleString()} /><Metric label="Duplicate rows" value={(quality?.duplicateRows ?? 0).toLocaleString()} /><Metric label="Invalid rows" value={(quality?.invalidRows ?? 0).toLocaleString()} /></section>
+    <h2>{labels.notes}</h2><p className="notice">{labels.notice}</p>
+  </main>;
 }
 
 function SmartTrafficEnforcementEquipment({ data, language }: { data: SafetyDataBundle; language: Language }) {

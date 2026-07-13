@@ -1,0 +1,10 @@
+{
+  "inputRows": 50,
+  "outputRows": 50,
+  "duplicateRows": 0,
+  "invalidRows": 0,
+  "duplicateExamples": [],
+  "invalidRowExamples": [],
+  "encoding": "UTF-8-SIG with Big5 / CP950 fallback",
+  "sourcePageUrl": "https://data.taipei/dataset/detail?id=3a2098a3-0ef1-45d0-9ba6-dccf7dbd865d"
+}

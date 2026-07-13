@@ -1,0 +1,162 @@
+{
+  "totalRecords": 50,
+  "years": [
+    108,
+    109,
+    110,
+    111,
+    112
+  ],
+  "latestYear": 112,
+  "latestYearTotalTowingCount": 11616,
+  "latestYearNumberOneRoadSection": "敦化南路二段",
+  "roadSectionsAppearingMultipleYears": 12,
+  "highestSingleYearTowingCount": {
+    "roadSectionName": "忠孝東路四段",
+    "year": 109,
+    "towingCount": 2359
+  },
+  "mostFrequentRoadSection": {
+    "roadSectionName": "忠孝東路四段",
+    "appearanceCount": 5
+  },
+  "largestYearOverYearIncrease": {
+    "id": "vehicle-towing-111-31",
+    "module": "vehicle_towing_top_road_sections",
+    "sourceSequenceNumberRaw": "1",
+    "sourceSequenceNumber": 1,
+    "yearRaw": "111",
+    "year": 111,
+    "yearNumber": 111,
+    "cityName": "臺北市",
+    "cityCode": "63000",
+    "roadSectionName": "忠孝東路四段",
+    "roadSectionNameNormalized": "忠孝東路四段",
+    "towingCountRaw": "2089",
+    "towingCount": 2089,
+    "towingCountNumber": 2089,
+    "rankWithinYear": 1,
+    "previousYearRank": 3,
+    "rankChange": 2,
+    "previousYearTowingCount": 1579,
+    "yearOverYearChange": 510,
+    "appearanceCount": 5,
+    "googleMapsQuery": "忠孝東路四段",
+    "source": "臺北市車輛拖吊前十大路段與件數",
+    "sourceAgency": "臺北市政府警察局交通警察大隊"
+  },
+  "largestYearOverYearDecrease": {
+    "id": "vehicle-towing-110-23",
+    "module": "vehicle_towing_top_road_sections",
+    "sourceSequenceNumberRaw": "3",
+    "sourceSequenceNumber": 3,
+    "yearRaw": "110",
+    "year": 110,
+    "yearNumber": 110,
+    "cityName": "臺北市",
+    "cityCode": "63000",
+    "roadSectionName": "忠孝東路四段",
+    "roadSectionNameNormalized": "忠孝東路四段",
+    "towingCountRaw": "1579",
+    "towingCount": 1579,
+    "towingCountNumber": 1579,
+    "rankWithinYear": 3,
+    "previousYearRank": 1,
+    "rankChange": -2,
+    "previousYearTowingCount": 2359,
+    "yearOverYearChange": -780,
+    "appearanceCount": 5,
+    "googleMapsQuery": "忠孝東路四段",
+    "source": "臺北市車輛拖吊前十大路段與件數",
+    "sourceAgency": "臺北市政府警察局交通警察大隊"
+  },
+  "byYear": [
+    {
+      "year": 108,
+      "totalTowingCount": 15277,
+      "recordCount": 10
+    },
+    {
+      "year": 109,
+      "totalTowingCount": 15207,
+      "recordCount": 10
+    },
+    {
+      "year": 110,
+      "totalTowingCount": 12854,
+      "recordCount": 10
+    },
+    {
+      "year": 111,
+      "totalTowingCount": 13436,
+      "recordCount": 10
+    },
+    {
+      "year": 112,
+      "totalTowingCount": 11616,
+      "recordCount": 10
+    }
+  ],
+  "roadSectionAppearances": [
+    {
+      "roadSectionName": "忠孝東路四段",
+      "appearanceCount": 5
+    },
+    {
+      "roadSectionName": "敦化南路一段",
+      "appearanceCount": 5
+    },
+    {
+      "roadSectionName": "八德路四段",
+      "appearanceCount": 5
+    },
+    {
+      "roadSectionName": "敦化南路二段",
+      "appearanceCount": 5
+    },
+    {
+      "roadSectionName": "忠孝東路五段",
+      "appearanceCount": 5
+    },
+    {
+      "roadSectionName": "長春路",
+      "appearanceCount": 5
+    },
+    {
+      "roadSectionName": "成都路",
+      "appearanceCount": 5
+    },
+    {
+      "roadSectionName": "松山路",
+      "appearanceCount": 4
+    },
+    {
+      "roadSectionName": "市民大道一段",
+      "appearanceCount": 2
+    },
+    {
+      "roadSectionName": "民權東路六段",
+      "appearanceCount": 2
+    },
+    {
+      "roadSectionName": "松隆路",
+      "appearanceCount": 2
+    },
+    {
+      "roadSectionName": "博愛路",
+      "appearanceCount": 2
+    },
+    {
+      "roadSectionName": "林森北路",
+      "appearanceCount": 1
+    },
+    {
+      "roadSectionName": "民生西路",
+      "appearanceCount": 1
+    },
+    {
+      "roadSectionName": "鄭州路",
+      "appearanceCount": 1
+    }
+  ]
+}

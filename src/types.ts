@@ -16,6 +16,7 @@ export type SafetyLayer =
   | 'traffic_cctv'
   | 'police_cctv_installation_location'
   | 'smart_traffic_enforcement_equipment'
+  | 'vehicle_towing_top_road_sections'
   | 'fire_department_donation_in_kind_records'
   | 'managed_hiking_trails'
   | 'fire_rescue_difficult_areas'
@@ -899,6 +900,47 @@ export type SmartTrafficEnforcementEquipmentSummary = {
   topRawEnforcementItemCombinations: Array<{ enforcementItemsRaw: string; count: number }>;
 };
 
+export type VehicleTowingTopRoadSectionRecord = {
+  id: string;
+  module: 'vehicle_towing_top_road_sections';
+  sourceSequenceNumberRaw: string;
+  sourceSequenceNumber: number | null;
+  yearRaw: string;
+  year: number | null;
+  yearNumber: number | null;
+  cityName: string;
+  cityCode: string;
+  roadSectionName: string;
+  roadSectionNameNormalized: string;
+  towingCountRaw: string;
+  towingCount: number | null;
+  towingCountNumber: number | null;
+  rankWithinYear: number | null;
+  previousYearRank: number | null;
+  rankChange: number | null;
+  previousYearTowingCount: number | null;
+  yearOverYearChange: number | null;
+  appearanceCount: number;
+  googleMapsQuery: string;
+  source: string;
+  sourceAgency: string;
+};
+
+export type VehicleTowingTopRoadSectionsSummary = {
+  totalRecords: number;
+  years: number[];
+  latestYear: number | null;
+  latestYearTotalTowingCount: number;
+  latestYearNumberOneRoadSection: string | null;
+  roadSectionsAppearingMultipleYears: number;
+  highestSingleYearTowingCount: { roadSectionName: string; year: number; towingCount: number } | null;
+  mostFrequentRoadSection: { roadSectionName: string; appearanceCount: number } | null;
+  largestYearOverYearIncrease: VehicleTowingTopRoadSectionRecord | null;
+  largestYearOverYearDecrease: VehicleTowingTopRoadSectionRecord | null;
+  byYear: Array<{ year: number; totalTowingCount: number; recordCount: number }>;
+  roadSectionAppearances: Array<{ roadSectionName: string; appearanceCount: number }>;
+};
+
 export type DengueSurveyRecord = {
   id: string;
   layer: 'dengue_vector_density';
@@ -1196,6 +1238,8 @@ export type SafetyDataBundle = {
   trafficCctvSummary: TrafficCctvSummary;
   smartTrafficEnforcementEquipment: SmartTrafficEnforcementEquipmentRecord[];
   smartTrafficEnforcementEquipmentSummary: SmartTrafficEnforcementEquipmentSummary;
+  vehicleTowingTopRoadSections: VehicleTowingTopRoadSectionRecord[];
+  vehicleTowingTopRoadSectionsSummary: VehicleTowingTopRoadSectionsSummary;
   naturalDisasterSuspensionRecords: NaturalDisasterWorkSchoolSuspensionRecord[];
   naturalDisasterSuspensionSummary: NaturalDisasterSuspensionSummary;
   naturalDisasterSuspensionEventGroups: NaturalDisasterSuspensionEventGroup[];
@@ -1307,6 +1351,16 @@ export type ConversionReport = {
     unknownEquipmentTypeExamples: string[];
     unknownEnforcementItemExamples: string[];
     duplicateExamples: string[];
+  };
+  vehicleTowingTopRoadSections?: {
+    inputRows: number;
+    outputRows: number;
+    duplicateRows: number;
+    invalidRows: number;
+    duplicateExamples: string[];
+    invalidRowExamples: string[];
+    encoding: string;
+    sourcePageUrl: string;
   };
   naturalDisasterSuspensions?: {
     inputRows: number;

@@ -2,7 +2,7 @@
 
 A mobile-first bilingual Vite + React + TypeScript + Leaflet app for public safety information in Taipei.
 
-The app combines AED locations, medical facilities, fire hydrants, fire rescue difficult area records, managed hiking trails, historical flooding records, air-raid shelters, emergency shelters, evacuation gates, CCTV equipment locations, smart traffic-enforcement equipment public records, police CCTV installation-location records, Fire Department in-kind donation records, historical residential burglary records, bicycle theft records, motorcycle theft records, street random snatch incident records, dengue vector-density survey results, and historical natural-disaster work/school suspension messages. It does not provide real-time availability, remaining shelter capacity, live CCTV video, real-time enforcement status, ticket-avoidance advice, route-avoidance advice, medical advice, fire-response instructions, evacuation instructions, current closure status, flooding status, road conditions, flood forecasts, disaster warnings, crime-risk scoring, route-safety guarantees, privacy or legal advice, insurance advice, real-estate advice, theft-prevention advice, crime prediction, outbreak-risk prediction, donation endorsements, route navigation, weather status, building safety certification, rescue-time prediction, accessibility guarantees, rescue availability, or resource-availability claims.
+The app combines AED locations, medical facilities, fire hydrants, fire rescue difficult area records, managed hiking trails, historical flooding records, air-raid shelters, emergency shelters, evacuation gates, CCTV equipment locations, smart traffic-enforcement equipment public records, annual vehicle-towing top-road-section statistics, police CCTV installation-location records, Fire Department in-kind donation records, historical residential burglary records, bicycle theft records, motorcycle theft records, street random snatch incident records, dengue vector-density survey results, and historical natural-disaster work/school suspension messages. It does not provide real-time availability, remaining shelter capacity, live CCTV video, real-time enforcement status, real-time towing status, ticket-avoidance advice, route-avoidance advice, medical advice, fire-response instructions, evacuation instructions, current closure status, flooding status, road conditions, flood forecasts, disaster warnings, crime-risk scoring, route-safety guarantees, privacy or legal advice, insurance advice, real-estate advice, theft-prevention advice, crime prediction, outbreak-risk prediction, donation endorsements, route navigation, weather status, building safety certification, rescue-time prediction, accessibility guarantees, rescue availability, or resource-availability claims.
 
 Fire & emergency facilities: AEDs, medical facilities, and fire hydrants / 消防與緊急設施：AED、醫療院所與消防栓
 
@@ -11,6 +11,8 @@ Shelters & disaster response facilities: air-raid shelters, emergency shelters, 
 Traffic monitoring facilities: CCTV equipment locations / 交通監控設施：CCTV設備點位
 
 Traffic safety and technology enforcement: smart traffic-enforcement equipment records / 交通安全與科技執法設備：臺北市智慧管理科技執法設備資料表
+
+Traffic safety, parking enforcement and road order: annual top vehicle-towing road sections and counts / 交通安全、停車執法與道路秩序：臺北市車輛拖吊前十大路段與件數
 
 Public safety infrastructure: police CCTV installation-location records / 公共安全設施：警察局錄影監視系統設置區位
 
@@ -119,6 +121,7 @@ data/raw/historical-flooding-records/historical-flooding-records.kml
 data/raw/emergency-shelters/emergency-shelters.csv
 data/raw/traffic-cctv/traffic-cctv.csv
 data/raw/smart-traffic-enforcement-equipment/smart-traffic-enforcement-equipment.csv
+data/raw/vehicle-towing-top-road-sections/*.csv
 data/raw/police-cctv-installation-locations/police-cctv-installation-locations.csv
 data/raw/natural-disaster-work-school-suspension-records/natural-disaster-work-school-suspension-records.csv
 data/raw/bicycle-theft-records/bicycle-theft-records.csv
@@ -143,6 +146,8 @@ Emergency shelter CSVs are UTF-8-SIG with Big5 fallback. Conversion parses `Y` /
 CCTV CSVs are Big5 / CP950 with UTF-8 fallback. Conversion parses `流水號`, `縣市`, `攝影機編號位置` / `攝影機編號`, and WGS84 longitude/latitude. Missing, unparsed, and outlier coordinates are reported and are not rendered as exact markers.
 
 Smart traffic-enforcement equipment CSVs are UTF-8-SIG with Big5 / CP950 fallback. Conversion parses `編號`, `名稱`, `取締路段`, `座標-X`, `座標-Y`, `啟用日期`, and `取締項目`; `座標-X` is WGS84 longitude and `座標-Y` is WGS84 latitude. Missing, unparsed, and outlier coordinates are reported and are not rendered as map markers. ROC activation-history lines are preserved and parsed as source-history events only.
+
+Vehicle-towing top-road-section CSVs are read as strings with UTF-8-SIG, Big5, and CP950 support. The converter parses `序號`, `年度`, and `筆數` only after reading source values, deduplicates with `年度 + 路段名`, reports duplicates and invalid rows, and derives rankings, year-over-year changes, repeated appearances, and approximate road-name-only map lookup text. This module does not create map markers or infer towing locations or enforcement boundaries.
 
 Police CCTV installation-location CSVs are UTF-8-SIG with Big5 fallback. Conversion parses `縣市別代碼`, `編號`, `所屬單位`, `安裝地址`, and `攝影方向`; it extracts district and road text where practical, but never geocodes or creates exact device points.
 
