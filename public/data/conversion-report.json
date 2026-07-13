@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-13T02:14:18.800Z",
+  "generatedAt": "2026-07-13T03:46:33.831Z",
   "sources": [
     {
       "name": "北市警政APP_防空避難設備位置",
@@ -838,7 +838,9 @@
     "Emergency shelter records do not represent real-time opening status, remaining capacity, or official evacuation instructions.",
     "CCTV records do not provide live video, camera direction, monitoring coverage, or public-safety scoring.",
     "Smart traffic enforcement equipment records include 39 public-data rows; they are not real-time enforcement status, ticket-avoidance advice, route-avoidance advice, legal advice, or official device-operation verification.",
-    "Natural disaster suspension records are historical administrative messages and do not represent real-time closure status, forecasts, or emergency instructions."
+    "Natural disaster suspension records are historical administrative messages and do not represent real-time closure status, forecasts, or emergency instructions.",
+    "Fire access route registry records have no confirmed coordinates or route geometry and are shown only as district/village summaries and text lookup records.",
+    "Fire access route registry records have no confirmed coordinates or route geometry and are shown only as district/village summaries and text lookup records."
   ],
   "vehicleTowingTopRoadSections": {
     "inputRows": 50,
@@ -849,5 +851,23 @@
     "invalidRowExamples": [],
     "encoding": "UTF-8-SIG with Big5 / CP950 fallback",
     "sourcePageUrl": "https://data.taipei/dataset/detail?id=3a2098a3-0ef1-45d0-9ba6-dccf7dbd865d"
+  },
+  "fireAccessRouteRegistry": {
+    "inputRows": 185,
+    "outputRows": 185,
+    "sourceFile": {
+      "path": "data/raw/fire-access-route-registry/fire-access-route-registry.csv",
+      "fileSize": 20055
+    },
+    "duplicateSequenceNumbers": [],
+    "unknownDistrictCodes": [],
+    "missingFields": {
+      "sourceSequenceNumber": 0,
+      "districtCode": 0,
+      "villageName": 0,
+      "listedRouteName": 0,
+      "listingCriteria": 0,
+      "responsibleFireStation": 0
+    }
   }
 }

@@ -51,7 +51,7 @@ import type {
   VehicleTowingTopRoadSectionRecord,
 } from './types';
 
-type Tab = 'map' | 'nearby' | 'burglary' | 'bike' | 'motorcycle' | 'streetSnatch' | 'policeCctv' | 'smartTrafficEnforcement' | 'vehicleTowing' | 'fireDonations' | 'fireRescueAreas' | 'hikingTrails' | 'flooding' | 'health' | 'disaster' | 'overview' | 'notes';
+type Tab = 'map' | 'nearby' | 'burglary' | 'bike' | 'motorcycle' | 'streetSnatch' | 'policeCctv' | 'smartTrafficEnforcement' | 'vehicleTowing' | 'fireDonations' | 'fireRescueAreas' | 'fireAccessRoutes' | 'hikingTrails' | 'flooding' | 'health' | 'disaster' | 'overview' | 'notes';
 type CapacityRange = 'all' | 'under100' | '100-499' | '500-999' | '1000plus';
 type DenseLayer = 'aeds' | 'medical' | 'fireHydrants' | 'airRaidShelters' | 'evacuationGates' | 'cctv';
 const tileAttribution = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>';
@@ -742,6 +742,15 @@ const hikingTrailLabels = {
     interpretationNote: 'This data is for hiking trail lookup and outdoor activity preparation reference only. It does not represent real-time open/closed status, weather conditions, disaster risk, rescue availability, complete route geometry, accessibility guarantee, personal fitness advice, medical advice, official route recommendation, or safety guarantee.',
   },
 } as const;
+const fireAccessRouteLabels = {
+  zh: {
+    title: '消防通道清冊', shortTitle: '消防通道', subtitle: '查詢臺北市消防通道列管資料，提供行政區、里別、列管名稱、要件、搶救困難地區場所與轄區分隊的公開資料整理。', all: '全部', district: '行政區', village: '里別', station: '轄區分隊', difficultLocation: '有搶救困難地區場所', phone: '有聯絡電話', search: '搜尋', searchPlaceholder: '搜尋行政區、里別、列管名稱、列管要件、場所、分隊或電話', recordCount: '紀錄數', districts: '涵蓋行政區數', villages: '涵蓋里別數', stations: '轄區分隊數', difficultLocations: '有搶救困難地區場所紀錄', phones: '有聯絡電話紀錄', topDistrict: '紀錄最多行政區', topStation: '紀錄最多轄區分隊', byDistrict: '各行政區紀錄數', byVillage: '各里別紀錄數', byStation: '各轄區分隊紀錄數', difficultDistribution: '搶救困難地區場所欄位分布', phoneDistribution: '聯絡電話欄位分布', directory: '消防通道清冊', id: '項次編號', listedRoute: '列管名稱', criteria: '列管要件', difficultRescueLocation: '搶救困難地區場所', mapLookup: '地圖查詢', quality: '資料品質', notes: '資料說明', yes: '有', no: '無', notice: '本資料未提供已確認的座標、消防通道路線或邊界。本模組僅以行政區與里別彙總、可搜尋清冊及外部文字地圖查詢呈現。', qualityText: '轉換以項次編號作為主鍵，並在轉換報告中列出重複編號、無法對應的行政區代碼與缺漏欄位。', dataNote: '本資料供查詢臺北市消防通道、列管場所與轄區分隊的公開資料；外部地圖連結僅為文字查詢，並非官方位置或路線。', disclaimer: '本資料僅供臺北市消防通道、緊急通行資訊、列管場所與轄區消防分隊的公開查詢使用，不代表即時道路可通行性、即時救援能力、消防通道精確幾何或邊界、即時災害風險、個人安全保證、導航建議或官方緊急指示。緊急狀況請撥打119，並以臺北市政府消防局、主管機關及現場公告的最新資訊為準。',
+  },
+  en: {
+    title: 'Fire Access Route Registry', shortTitle: 'Fire Access Routes', subtitle: 'Look up Taipei public records for listed fire access routes, districts, villages, listed criteria, difficult-rescue locations, and responsible fire stations.', all: 'All', district: 'District', village: 'Village', station: 'Responsible fire station', difficultLocation: 'Has difficult-rescue location', phone: 'Has phone', search: 'Search', searchPlaceholder: 'Search district, village, listed route, criteria, location, station, or phone', recordCount: 'Record count', districts: 'Districts covered', villages: 'Villages covered', stations: 'Responsible fire stations', difficultLocations: 'Records with difficult-rescue locations', phones: 'Records with phone', topDistrict: 'Top district by record count', topStation: 'Top responsible fire station', byDistrict: 'Records by district', byVillage: 'Records by village', byStation: 'Records by responsible fire station', difficultDistribution: 'Difficult-rescue location field distribution', phoneDistribution: 'Phone field distribution', directory: 'Fire Access Route Directory', id: 'ID', listedRoute: 'Listed route name', criteria: 'Listing criteria', difficultRescueLocation: 'Difficult-rescue location', mapLookup: 'Map lookup', quality: 'Data Quality', notes: 'Data Notes', yes: 'Yes', no: 'No', notice: 'The source does not provide confirmed coordinates, fire-access-route geometry, or boundaries. This module presents district and village summaries, a searchable directory, and optional external text map lookups only.', qualityText: 'Conversion uses the source sequence number as the primary key and reports duplicate IDs, unknown district codes, and missing fields.', dataNote: 'This dataset supports public lookup of Taipei fire access routes, listed locations, and responsible fire stations. External map links are text searches only, not official locations or routes.', disclaimer: 'This dataset is for public lookup of Taipei fire-access routes, emergency access information, listed locations, and responsible fire stations. It does not represent real-time road accessibility, real-time rescue capability, exact fire-access route geometry or boundaries, real-time disaster risk, personal safety guarantees, navigation advice, or official emergency instructions. Call 119 in an emergency and verify current information with Taipei City Fire Department, competent authorities, and on-site notices.',
+  },
+} as const;
+
 const fireRescueAreaLabels = {
   zh: {
     all: '全部',
@@ -968,6 +977,7 @@ function App() {
             ['vehicleTowing', vehicleTowingLabels[language].shortTitle],
             ['fireDonations', language === 'zh' ? '消防捐贈實物' : 'Fire Dept Donations'],
             ['fireRescueAreas', fireRescueAreaLabels[language].shortTitle],
+            ['fireAccessRoutes', fireAccessRouteLabels[language].shortTitle],
             ['hikingTrails', hikingTrailLabels[language].shortTitle],
             ['flooding', floodingLabels[language].shortTitle],
             ['health', t.publicHealth],
@@ -998,6 +1008,7 @@ function App() {
       {activeTab === 'vehicleTowing' && <VehicleTowingTopRoadSections data={data} language={language} />}
       {activeTab === 'fireDonations' && <FireDepartmentDonations data={data} language={language} />}
       {activeTab === 'fireRescueAreas' && <FireRescueDifficultAreas data={data} language={language} />}
+      {activeTab === 'fireAccessRoutes' && <FireAccessRouteRegistry data={data} language={language} />}
       {activeTab === 'hikingTrails' && <ManagedHikingTrails data={data} language={language} />}
       {activeTab === 'flooding' && <HistoricalFloodingRecords data={data} language={language} />}
       {activeTab === 'health' && <PublicHealth data={data} language={language} />}
@@ -2947,6 +2958,46 @@ function FireDepartmentDonations({ data, language }: { data: SafetyDataBundle; l
       </table>
     </main>
   );
+}
+
+function FireAccessRouteRegistry({ data, language }: { data: SafetyDataBundle; language: Language }) {
+  const labels = fireAccessRouteLabels[language];
+  const [district, setDistrict] = useState('all');
+  const [village, setVillage] = useState('all');
+  const [station, setStation] = useState('all');
+  const [difficultOnly, setDifficultOnly] = useState(false);
+  const [phoneOnly, setPhoneOnly] = useState(false);
+  const [search, setSearch] = useState('');
+  const records = data.fireAccessRouteRegistry;
+  const summary = data.fireAccessRouteRegistrySummary;
+  const districts = [...new Set(records.flatMap((record) => record.districtName ? [record.districtName] : []))].sort();
+  const villages = [...new Set(records.flatMap((record) => record.villageNameNormalized ? [record.villageNameNormalized] : []))].sort();
+  const stations = [...new Set(records.flatMap((record) => record.responsibleFireStationNormalized ? [record.responsibleFireStationNormalized] : []))].sort();
+  const filtered = records.filter((record) => {
+    const haystack = [record.districtName, record.districtCode, record.villageName, record.listedRouteName, record.listingCriteria, record.difficultRescueLocation, record.responsibleFireStation, record.phone].join(' ').toLowerCase();
+    return (district === 'all' || record.districtName === district) && (village === 'all' || record.villageNameNormalized === village) && (station === 'all' || record.responsibleFireStationNormalized === station) && (!difficultOnly || record.hasDifficultRescueLocation) && (!phoneOnly || record.hasPhone) && (!search.trim() || haystack.includes(search.trim().toLowerCase()));
+  });
+  return <main className="overview">
+    <section className="filter-panel health-filters">
+      <label>{labels.district}<select value={district} onChange={(event) => setDistrict(event.target.value)}><option value="all">{labels.all}</option>{districts.map((value) => <option key={value}>{value}</option>)}</select></label>
+      <label>{labels.village}<select value={village} onChange={(event) => setVillage(event.target.value)}><option value="all">{labels.all}</option>{villages.map((value) => <option key={value}>{value}</option>)}</select></label>
+      <label>{labels.station}<select value={station} onChange={(event) => setStation(event.target.value)}><option value="all">{labels.all}</option>{stations.map((value) => <option key={value}>{value}</option>)}</select></label>
+      <label>{labels.search}<input value={search} placeholder={labels.searchPlaceholder} onChange={(event) => setSearch(event.target.value)} /></label>
+      <label className="checkbox-row"><input type="checkbox" checked={difficultOnly} onChange={(event) => setDifficultOnly(event.target.checked)} />{labels.difficultLocation}</label>
+      <label className="checkbox-row"><input type="checkbox" checked={phoneOnly} onChange={(event) => setPhoneOnly(event.target.checked)} />{labels.phone}</label>
+    </section>
+    <h1>{labels.title}</h1><p>{labels.subtitle}</p><p className="notice">{labels.notice}</p>
+    <section className="summary-grid">
+      <Metric label={labels.recordCount} value={summary.totalRecords.toLocaleString()} /><Metric label={labels.districts} value={summary.districtCount.toLocaleString()} /><Metric label={labels.villages} value={summary.villageCount.toLocaleString()} /><Metric label={labels.stations} value={summary.responsibleFireStationCount.toLocaleString()} />
+      <Metric label={labels.difficultLocations} value={summary.recordsWithDifficultRescueLocation.toLocaleString()} /><Metric label={labels.phones} value={summary.recordsWithPhone.toLocaleString()} /><Metric label={labels.topDistrict} value={summary.byDistrict[0]?.districtName ?? '-'} /><Metric label={labels.topStation} value={summary.byResponsibleFireStation[0]?.responsibleFireStation ?? '-'} />
+    </section>
+    <section className="chart-grid">
+      <BarChart title={labels.byDistrict} values={Object.fromEntries(summary.byDistrict.map((item) => [item.districtName ?? item.districtCode, item.count]))} /><BarChart title={labels.byVillage} values={Object.fromEntries(summary.byVillage.slice(0, 30).map((item) => [item.villageName, item.count]))} /><BarChart title={labels.byStation} values={Object.fromEntries(summary.byResponsibleFireStation.map((item) => [item.responsibleFireStation, item.count]))} /><BarChart title={labels.difficultDistribution} values={{ [labels.yes]: summary.byDifficultRescueLocation.withLocation, [labels.no]: summary.byDifficultRescueLocation.withoutLocation }} /><BarChart title={labels.phoneDistribution} values={{ [labels.yes]: summary.byPhone.withPhone, [labels.no]: summary.byPhone.withoutPhone }} />
+    </section>
+    <h2>{labels.directory}</h2><p>{labels.recordCount}: {filtered.length.toLocaleString()}</p>
+    <table><thead><tr><th>{labels.id}</th><th>{labels.district}</th><th>{labels.village}</th><th>{labels.listedRoute}</th><th>{labels.criteria}</th><th>{labels.difficultRescueLocation}</th><th>{labels.station}</th><th>{labels.phone}</th><th>{labels.mapLookup}</th></tr></thead><tbody>{filtered.slice(0, 100).map((record) => <tr key={record.id}><td>{record.sourceSequenceNumber ?? '-'}</td><td>{record.districtName ?? record.districtCode ?? '-'}</td><td>{record.villageName ?? '-'}</td><td>{record.listedRouteName ?? '-'}</td><td>{record.listingCriteria ?? '-'}</td><td>{record.difficultRescueLocation ?? '-'}</td><td>{record.responsibleFireStation ?? '-'}</td><td>{record.phone ?? '-'}</td><td>{record.externalMapQuery ? <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(record.externalMapQuery)}`}>{labels.mapLookup}</a> : '-'}</td></tr>)}</tbody></table>
+    <h2>{labels.quality}</h2><p>{labels.qualityText}</p><h2>{labels.notes}</h2><p>{labels.dataNote}</p><p className="notice">{labels.disclaimer}</p>
+  </main>;
 }
 
 function FireRescueDifficultAreas({ data, language }: { data: SafetyDataBundle; language: Language }) {

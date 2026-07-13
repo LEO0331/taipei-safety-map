@@ -20,6 +20,7 @@ export type SafetyLayer =
   | 'fire_department_donation_in_kind_records'
   | 'managed_hiking_trails'
   | 'fire_rescue_difficult_areas'
+  | 'fire_access_route_registry'
   | 'natural_disaster_work_school_suspension_records'
   | 'historical_flooding_records';
 
@@ -900,6 +901,58 @@ export type SmartTrafficEnforcementEquipmentSummary = {
   topRawEnforcementItemCombinations: Array<{ enforcementItemsRaw: string; count: number }>;
 };
 
+export type FireAccessRouteRegistryRecord = {
+  id: string;
+  module: 'fire_access_route_registry';
+  sourceSequenceNumber?: string;
+  sourceSequenceNumberNormalized?: string;
+  districtCode?: string;
+  districtCodeNormalized?: string;
+  districtName?: string;
+  villageName?: string;
+  villageNameNormalized?: string;
+  listedRouteName?: string;
+  listedRouteNameNormalized?: string;
+  listingCriteria?: string;
+  listingCriteriaNormalized?: string;
+  difficultRescueLocation?: string;
+  difficultRescueLocationNormalized?: string;
+  responsibleFireStation?: string;
+  responsibleFireStationNormalized?: string;
+  phone?: string;
+  phoneNormalized?: string;
+  hasPhone: boolean;
+  hasDifficultRescueLocation: boolean;
+  externalMapQuery?: string;
+  sourceRecordHash: string;
+  source: string;
+  sourceAgency: string;
+};
+
+export type FireAccessRouteRegistrySummary = {
+  totalRecords: number;
+  districtCount: number;
+  villageCount: number;
+  responsibleFireStationCount: number;
+  recordsWithDifficultRescueLocation: number;
+  recordsWithPhone: number;
+  byDistrict: Array<{ districtCode: string; districtName?: string; count: number }>;
+  byVillage: Array<{ villageName: string; districtName?: string; count: number }>;
+  byResponsibleFireStation: Array<{ responsibleFireStation: string; count: number }>;
+  byDifficultRescueLocation: { withLocation: number; withoutLocation: number };
+  byPhone: { withPhone: number; withoutPhone: number };
+  dataQuality: {
+    missingSequenceNumberCount: number;
+    duplicateSequenceNumberCount: number;
+    unknownDistrictCodeCount: number;
+    missingDistrictCodeCount: number;
+    missingVillageNameCount: number;
+    missingListedRouteNameCount: number;
+    missingListingCriteriaCount: number;
+    missingResponsibleFireStationCount: number;
+  };
+};
+
 export type VehicleTowingTopRoadSectionRecord = {
   id: string;
   module: 'vehicle_towing_top_road_sections';
@@ -1228,6 +1281,8 @@ export type SafetyDataBundle = {
   managedHikingTrailSummary: ManagedHikingTrailSummary;
   fireRescueDifficultAreas: FireRescueDifficultAreaRecord[];
   fireRescueDifficultAreaSummary: FireRescueDifficultAreaSummary;
+  fireAccessRouteRegistry: FireAccessRouteRegistryRecord[];
+  fireAccessRouteRegistrySummary: FireAccessRouteRegistrySummary;
   aeds: AedLocation[];
   evacuationGates: EvacuationGate[];
   medicalFacilities: MedicalFacility[];
@@ -1440,6 +1495,13 @@ export type ConversionReport = {
     unknownRatingLevels: string[];
     unknownRecognitionItems: string[];
     areaOrRangeAddressExamples: string[];
+  };
+  fireAccessRouteRegistry?: {
+    inputRows: number;
+    outputRows: number;
+    duplicateSequenceNumbers: string[];
+    unknownDistrictCodes: string[];
+    missingFields: Record<string, number>;
   };
   notes: string[];
 };

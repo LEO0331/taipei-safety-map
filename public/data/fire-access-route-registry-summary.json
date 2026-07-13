@@ -1,0 +1,858 @@
+{
+  "totalRecords": 185,
+  "districtCount": 12,
+  "villageCount": 126,
+  "responsibleFireStationCount": 34,
+  "recordsWithDifficultRescueLocation": 185,
+  "recordsWithPhone": 185,
+  "byDistrict": [
+    {
+      "districtCode": "63000110",
+      "districtName": "士林區",
+      "count": 34
+    },
+    {
+      "districtCode": "63000120",
+      "districtName": "北投區",
+      "count": 28
+    },
+    {
+      "districtCode": "63000100",
+      "districtName": "內湖區",
+      "count": 26
+    },
+    {
+      "districtCode": "63000040",
+      "districtName": "中山區",
+      "count": 17
+    },
+    {
+      "districtCode": "63000030",
+      "districtName": "大安區",
+      "count": 16
+    },
+    {
+      "districtCode": "63000060",
+      "districtName": "大同區",
+      "count": 14
+    },
+    {
+      "districtCode": "63000050",
+      "districtName": "中正區",
+      "count": 12
+    },
+    {
+      "districtCode": "63000020",
+      "districtName": "信義區",
+      "count": 11
+    },
+    {
+      "districtCode": "63000080",
+      "districtName": "文山區",
+      "count": 9
+    },
+    {
+      "districtCode": "63000010",
+      "districtName": "松山區",
+      "count": 8
+    },
+    {
+      "districtCode": "63000070",
+      "districtName": "萬華區",
+      "count": 8
+    },
+    {
+      "districtCode": "63000090",
+      "districtName": "南港區",
+      "count": 2
+    }
+  ],
+  "byVillage": [
+    {
+      "villageName": "安泰里",
+      "districtName": "內湖區",
+      "count": 7
+    },
+    {
+      "villageName": "蘭雅里",
+      "districtName": "士林區",
+      "count": 5
+    },
+    {
+      "villageName": "中山里",
+      "districtName": "中山區",
+      "count": 4
+    },
+    {
+      "villageName": "陽明里",
+      "districtName": "士林區",
+      "count": 4
+    },
+    {
+      "villageName": "仁勇里",
+      "districtName": "士林區",
+      "count": 4
+    },
+    {
+      "villageName": "林泉里",
+      "districtName": "北投區",
+      "count": 4
+    },
+    {
+      "villageName": "永欣里",
+      "districtName": "北投區",
+      "count": 4
+    },
+    {
+      "villageName": "龍泉里",
+      "districtName": "大安區",
+      "count": 3
+    },
+    {
+      "villageName": "清白里",
+      "districtName": "內湖區",
+      "count": 3
+    },
+    {
+      "villageName": "建明里",
+      "districtName": "大同區",
+      "count": 3
+    },
+    {
+      "villageName": "蘭興里",
+      "districtName": "士林區",
+      "count": 3
+    },
+    {
+      "villageName": "幸福里",
+      "districtName": "中正區",
+      "count": 2
+    },
+    {
+      "villageName": "梅花里",
+      "districtName": "中正區",
+      "count": 2
+    },
+    {
+      "villageName": "林興里",
+      "districtName": "中正區",
+      "count": 2
+    },
+    {
+      "villageName": "試院里",
+      "districtName": "文山區",
+      "count": 2
+    },
+    {
+      "villageName": "華興里",
+      "districtName": "文山區",
+      "count": 2
+    },
+    {
+      "villageName": "新安里",
+      "districtName": "萬華區",
+      "count": 2
+    },
+    {
+      "villageName": "仁愛里",
+      "districtName": "大安區",
+      "count": 2
+    },
+    {
+      "villageName": "六合里",
+      "districtName": "信義區",
+      "count": 2
+    },
+    {
+      "villageName": "樂康里",
+      "districtName": "內湖區",
+      "count": 2
+    },
+    {
+      "villageName": "葫州里",
+      "districtName": "內湖區",
+      "count": 2
+    },
+    {
+      "villageName": "紫雲里",
+      "districtName": "內湖區",
+      "count": 2
+    },
+    {
+      "villageName": "西安里",
+      "districtName": "內湖區",
+      "count": 2
+    },
+    {
+      "villageName": "慈祐里",
+      "districtName": "松山區",
+      "count": 2
+    },
+    {
+      "villageName": "正義里",
+      "districtName": "中山區",
+      "count": 2
+    },
+    {
+      "villageName": "正得里",
+      "districtName": "中山區",
+      "count": 2
+    },
+    {
+      "villageName": "劍潭里",
+      "districtName": "中山區",
+      "count": 2
+    },
+    {
+      "villageName": "恆安里",
+      "districtName": "中山區",
+      "count": 2
+    },
+    {
+      "villageName": "光能里",
+      "districtName": "大同區",
+      "count": 2
+    },
+    {
+      "villageName": "永倫里",
+      "districtName": "士林區",
+      "count": 2
+    },
+    {
+      "villageName": "天壽里",
+      "districtName": "士林區",
+      "count": 2
+    },
+    {
+      "villageName": "天祿里",
+      "districtName": "士林區",
+      "count": 2
+    },
+    {
+      "villageName": "建民里",
+      "districtName": "北投區",
+      "count": 2
+    },
+    {
+      "villageName": "文林里",
+      "districtName": "北投區",
+      "count": 2
+    },
+    {
+      "villageName": "永和里",
+      "districtName": "北投區",
+      "count": 2
+    },
+    {
+      "villageName": "福興里",
+      "districtName": "北投區",
+      "count": 2
+    },
+    {
+      "villageName": "奇岩里",
+      "districtName": "北投區",
+      "count": 2
+    },
+    {
+      "villageName": "富水里",
+      "districtName": "中正區",
+      "count": 1
+    },
+    {
+      "villageName": "螢雪里",
+      "districtName": "中正區",
+      "count": 1
+    },
+    {
+      "villageName": "板溪里",
+      "districtName": "中正區",
+      "count": 1
+    },
+    {
+      "villageName": "光復里",
+      "districtName": "中正區",
+      "count": 1
+    },
+    {
+      "villageName": "文祥里、三愛里",
+      "districtName": "中正區",
+      "count": 1
+    },
+    {
+      "villageName": "文北里",
+      "districtName": "中正區",
+      "count": 1
+    },
+    {
+      "villageName": "樟樹里",
+      "districtName": "文山區",
+      "count": 1
+    },
+    {
+      "villageName": "景美里",
+      "districtName": "文山區",
+      "count": 1
+    },
+    {
+      "villageName": "興安里",
+      "districtName": "文山區",
+      "count": 1
+    },
+    {
+      "villageName": "興家里",
+      "districtName": "文山區",
+      "count": 1
+    },
+    {
+      "villageName": "萬興里",
+      "districtName": "文山區",
+      "count": 1
+    },
+    {
+      "villageName": "糖部里",
+      "districtName": "萬華區",
+      "count": 1
+    },
+    {
+      "villageName": "富民里",
+      "districtName": "萬華區",
+      "count": 1
+    },
+    {
+      "villageName": "富民里、福音里",
+      "districtName": "萬華區",
+      "count": 1
+    },
+    {
+      "villageName": "保德里",
+      "districtName": "萬華區",
+      "count": 1
+    },
+    {
+      "villageName": "雙園里",
+      "districtName": "萬華區",
+      "count": 1
+    },
+    {
+      "villageName": "騰雲里",
+      "districtName": "萬華區",
+      "count": 1
+    },
+    {
+      "villageName": "通化里",
+      "districtName": "大安區",
+      "count": 1
+    },
+    {
+      "villageName": "學府里",
+      "districtName": "大安區",
+      "count": 1
+    },
+    {
+      "villageName": "全安里",
+      "districtName": "大安區",
+      "count": 1
+    },
+    {
+      "villageName": "黎和里",
+      "districtName": "大安區",
+      "count": 1
+    },
+    {
+      "villageName": "永康里",
+      "districtName": "大安區",
+      "count": 1
+    },
+    {
+      "villageName": "福住里",
+      "districtName": "大安區",
+      "count": 1
+    },
+    {
+      "villageName": "龍生里",
+      "districtName": "大安區",
+      "count": 1
+    },
+    {
+      "villageName": "龍淵里",
+      "districtName": "大安區",
+      "count": 1
+    },
+    {
+      "villageName": "群賢里",
+      "districtName": "大安區",
+      "count": 1
+    },
+    {
+      "villageName": "龍坡里",
+      "districtName": "大安區",
+      "count": 1
+    },
+    {
+      "villageName": "誠安里",
+      "districtName": "大安區",
+      "count": 1
+    },
+    {
+      "villageName": "成福里",
+      "districtName": "南港區",
+      "count": 1
+    },
+    {
+      "villageName": "中南里",
+      "districtName": "南港區",
+      "count": 1
+    },
+    {
+      "villageName": "永吉里",
+      "districtName": "信義區",
+      "count": 1
+    },
+    {
+      "villageName": "泰和里",
+      "districtName": "信義區",
+      "count": 1
+    },
+    {
+      "villageName": "中坡里中行里",
+      "districtName": "信義區",
+      "count": 1
+    },
+    {
+      "villageName": "國業里",
+      "districtName": "信義區",
+      "count": 1
+    },
+    {
+      "villageName": "富台里",
+      "districtName": "信義區",
+      "count": 1
+    },
+    {
+      "villageName": "松光里",
+      "districtName": "信義區",
+      "count": 1
+    },
+    {
+      "villageName": "惠安里",
+      "districtName": "信義區",
+      "count": 1
+    },
+    {
+      "villageName": "中興里",
+      "districtName": "信義區",
+      "count": 1
+    },
+    {
+      "villageName": "景勤里黎順里",
+      "districtName": "信義區",
+      "count": 1
+    },
+    {
+      "villageName": "大湖里",
+      "districtName": "內湖區",
+      "count": 1
+    },
+    {
+      "villageName": "紫陽里",
+      "districtName": "內湖區",
+      "count": 1
+    },
+    {
+      "villageName": "秀湖里",
+      "districtName": "內湖區",
+      "count": 1
+    },
+    {
+      "villageName": "西湖里",
+      "districtName": "內湖區",
+      "count": 1
+    },
+    {
+      "villageName": "葫洲里",
+      "districtName": "內湖區",
+      "count": 1
+    },
+    {
+      "villageName": "行善里",
+      "districtName": "內湖區",
+      "count": 1
+    },
+    {
+      "villageName": "金龍里",
+      "districtName": "內湖區",
+      "count": 1
+    },
+    {
+      "villageName": "湖濱里",
+      "districtName": "內湖區",
+      "count": 1
+    },
+    {
+      "villageName": "鵬程里",
+      "districtName": "松山區",
+      "count": 1
+    },
+    {
+      "villageName": "中華里",
+      "districtName": "松山區",
+      "count": 1
+    },
+    {
+      "villageName": "富泰里",
+      "districtName": "松山區",
+      "count": 1
+    },
+    {
+      "villageName": "富錦里",
+      "districtName": "松山區",
+      "count": 1
+    },
+    {
+      "villageName": "新益里",
+      "districtName": "松山區",
+      "count": 1
+    },
+    {
+      "villageName": "安平里",
+      "districtName": "松山區",
+      "count": 1
+    },
+    {
+      "villageName": "北安里",
+      "districtName": "中山區",
+      "count": 1
+    },
+    {
+      "villageName": "大佳里",
+      "districtName": "中山區",
+      "count": 1
+    },
+    {
+      "villageName": "埤頭里",
+      "districtName": "中山區",
+      "count": 1
+    },
+    {
+      "villageName": "康樂里",
+      "districtName": "中山區",
+      "count": 1
+    },
+    {
+      "villageName": "民安里",
+      "districtName": "中山區",
+      "count": 1
+    },
+    {
+      "villageName": "永樂里、玉泉里",
+      "districtName": "大同區",
+      "count": 1
+    },
+    {
+      "villageName": "永樂里",
+      "districtName": "大同區",
+      "count": 1
+    },
+    {
+      "villageName": "大有里",
+      "districtName": "大同區",
+      "count": 1
+    },
+    {
+      "villageName": "永樂里、朝陽里",
+      "districtName": "大同區",
+      "count": 1
+    },
+    {
+      "villageName": "延平里、大有里、雙連里",
+      "districtName": "大同區",
+      "count": 1
+    },
+    {
+      "villageName": "雙連里",
+      "districtName": "大同區",
+      "count": 1
+    },
+    {
+      "villageName": "重慶里",
+      "districtName": "大同區",
+      "count": 1
+    },
+    {
+      "villageName": "民權里",
+      "districtName": "大同區",
+      "count": 1
+    },
+    {
+      "villageName": "景星里",
+      "districtName": "大同區",
+      "count": 1
+    },
+    {
+      "villageName": "菁山里",
+      "districtName": "士林區",
+      "count": 1
+    },
+    {
+      "villageName": "葫蘆里",
+      "districtName": "士林區",
+      "count": 1
+    },
+    {
+      "villageName": "三玉里、蘭雅里",
+      "districtName": "士林區",
+      "count": 1
+    },
+    {
+      "villageName": "三玉里",
+      "districtName": "士林區",
+      "count": 1
+    },
+    {
+      "villageName": "天玉里",
+      "districtName": "士林區",
+      "count": 1
+    },
+    {
+      "villageName": "天福里",
+      "districtName": "士林區",
+      "count": 1
+    },
+    {
+      "villageName": "天和里",
+      "districtName": "士林區",
+      "count": 1
+    },
+    {
+      "villageName": "東山里",
+      "districtName": "士林區",
+      "count": 1
+    },
+    {
+      "villageName": "福林里",
+      "districtName": "士林區",
+      "count": 1
+    },
+    {
+      "villageName": "永福里",
+      "districtName": "士林區",
+      "count": 1
+    },
+    {
+      "villageName": "天山里天和里",
+      "districtName": "士林區",
+      "count": 1
+    },
+    {
+      "villageName": "天母里",
+      "districtName": "士林區",
+      "count": 1
+    },
+    {
+      "villageName": "湖山里",
+      "districtName": "北投區",
+      "count": 1
+    },
+    {
+      "villageName": "中心里",
+      "districtName": "北投區",
+      "count": 1
+    },
+    {
+      "villageName": "永明里",
+      "districtName": "北投區",
+      "count": 1
+    },
+    {
+      "villageName": "振華里",
+      "districtName": "北投區",
+      "count": 1
+    },
+    {
+      "villageName": "長安里",
+      "districtName": "北投區",
+      "count": 1
+    },
+    {
+      "villageName": "一德里",
+      "districtName": "北投區",
+      "count": 1
+    },
+    {
+      "villageName": "關渡里",
+      "districtName": "北投區",
+      "count": 1
+    },
+    {
+      "villageName": "榮華里",
+      "districtName": "北投區",
+      "count": 1
+    },
+    {
+      "villageName": "立農里吉利里",
+      "districtName": "北投區",
+      "count": 1
+    },
+    {
+      "villageName": "中和里",
+      "districtName": "北投區",
+      "count": 1
+    }
+  ],
+  "byResponsibleFireStation": [
+    {
+      "responsibleFireStation": "天母分隊",
+      "count": 20
+    },
+    {
+      "responsibleFireStation": "東湖分隊",
+      "count": 13
+    },
+    {
+      "responsibleFireStation": "石牌分隊",
+      "count": 13
+    },
+    {
+      "responsibleFireStation": "金華分隊",
+      "count": 10
+    },
+    {
+      "responsibleFireStation": "松江分隊",
+      "count": 10
+    },
+    {
+      "responsibleFireStation": "大湖分隊",
+      "count": 8
+    },
+    {
+      "responsibleFireStation": "光明分隊",
+      "count": 8
+    },
+    {
+      "responsibleFireStation": "城中分隊",
+      "count": 7
+    },
+    {
+      "responsibleFireStation": "八德分隊",
+      "count": 7
+    },
+    {
+      "responsibleFireStation": "延平分隊",
+      "count": 7
+    },
+    {
+      "responsibleFireStation": "大同分隊",
+      "count": 7
+    },
+    {
+      "responsibleFireStation": "雙園分隊",
+      "count": 6
+    },
+    {
+      "responsibleFireStation": "安和分隊",
+      "count": 6
+    },
+    {
+      "responsibleFireStation": "信義分隊",
+      "count": 6
+    },
+    {
+      "responsibleFireStation": "山仔后分隊",
+      "count": 6
+    },
+    {
+      "responsibleFireStation": "寶橋分隊",
+      "count": 5
+    },
+    {
+      "responsibleFireStation": "莊敬分隊",
+      "count": 5
+    },
+    {
+      "responsibleFireStation": "內湖分隊",
+      "count": 5
+    },
+    {
+      "responsibleFireStation": "劍潭分隊",
+      "count": 5
+    },
+    {
+      "responsibleFireStation": "古亭分隊",
+      "count": 4
+    },
+    {
+      "responsibleFireStation": "圓山分隊",
+      "count": 4
+    },
+    {
+      "responsibleFireStation": "大直分隊",
+      "count": 3
+    },
+    {
+      "responsibleFireStation": "社子分隊",
+      "count": 3
+    },
+    {
+      "responsibleFireStation": "陽明山分隊",
+      "count": 3
+    },
+    {
+      "responsibleFireStation": "木柵分隊",
+      "count": 2
+    },
+    {
+      "responsibleFireStation": "龍山分隊",
+      "count": 2
+    },
+    {
+      "responsibleFireStation": "秀山分隊",
+      "count": 2
+    },
+    {
+      "responsibleFireStation": "關渡分隊",
+      "count": 2
+    },
+    {
+      "responsibleFireStation": "泉州分隊",
+      "count": 1
+    },
+    {
+      "responsibleFireStation": "景美分隊",
+      "count": 1
+    },
+    {
+      "responsibleFireStation": "萬芳分隊",
+      "count": 1
+    },
+    {
+      "responsibleFireStation": "成德分隊",
+      "count": 1
+    },
+    {
+      "responsibleFireStation": "舊莊分隊",
+      "count": 1
+    },
+    {
+      "responsibleFireStation": "中崙分隊",
+      "count": 1
+    }
+  ],
+  "byDifficultRescueLocation": {
+    "withLocation": 185,
+    "withoutLocation": 0
+  },
+  "byPhone": {
+    "withPhone": 185,
+    "withoutPhone": 0
+  },
+  "dataQuality": {
+    "missingSequenceNumberCount": 0,
+    "duplicateSequenceNumberCount": 0,
+    "unknownDistrictCodeCount": 0,
+    "missingDistrictCodeCount": 0,
+    "missingVillageNameCount": 0,
+    "missingListedRouteNameCount": 0,
+    "missingListingCriteriaCount": 0,
+    "missingResponsibleFireStationCount": 0
+  }
+}

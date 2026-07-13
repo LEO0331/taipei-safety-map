@@ -1,0 +1,18 @@
+{
+  "inputRows": 185,
+  "outputRows": 185,
+  "sourceFile": {
+    "path": "data/raw/fire-access-route-registry/fire-access-route-registry.csv",
+    "fileSize": 20055
+  },
+  "duplicateSequenceNumbers": [],
+  "unknownDistrictCodes": [],
+  "missingFields": {
+    "sourceSequenceNumber": 0,
+    "districtCode": 0,
+    "villageName": 0,
+    "listedRouteName": 0,
+    "listingCriteria": 0,
+    "responsibleFireStation": 0
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "sourcePage": "https://data.taipei/dataset/detail?id=7a800e92-eb22-461f-b29d-8def2127a1bc",
+  "sourceUrl": "https://data.taipei/api/frontstage/tpeod/dataset/resource.download?rid=351307e4-ffda-4660-ac72-1c4ef3808c38",
+  "resourceName": "臺北市消防通道清冊",
+  "downloadedAt": "2026-07-13T03:45:26.913Z",
+  "fileSize": 20055,
+  "encoding": "UTF-8-SIG with Big5 / CP950 fallback",
+  "failure": null,
+  "notes": "Raw fire access route registry CSV ready for conversion."
+}
