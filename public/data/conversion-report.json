@@ -898,7 +898,7 @@
     ]
   },
   "domesticViolenceReportStatistics": {
-    "generatedAt": "2026-07-15T04:14:00.980Z",
+    "generatedAt": "2026-07-15T04:20:43.604Z",
     "headers": [
       "時間",
       "區",
@@ -910,7 +910,7 @@
       "總計"
     ],
     "inputRows": 57967,
-    "outputRows": 57967,
+    "outputRows": 57966,
     "invalidDates": [],
     "invalidCounts": [],
     "duplicateRows": [

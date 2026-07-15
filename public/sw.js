@@ -50,7 +50,6 @@ const DATA_FILES = [
   cacheUrl('data/tobacco-control-inspection-results/summary.json'),
   cacheUrl('data/tobacco-control-inspection-results/schema-report.json'),
   cacheUrl('data/tobacco-control-inspection-results/conversion-report.json'),
-  cacheUrl('data/domestic-violence-report-statistics/records.json'),
   cacheUrl('data/domestic-violence-report-statistics/summary.json'),
   cacheUrl('data/domestic-violence-report-statistics/conversion-report.json'),
   cacheUrl('data/natural-disaster-work-school-suspension-records.json'),

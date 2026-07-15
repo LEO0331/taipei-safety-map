@@ -1011,7 +1011,7 @@ function App() {
       {activeTab === 'smartTrafficEnforcement' && <SmartTrafficEnforcementEquipment data={data} language={language} />}
       {activeTab === 'vehicleTowing' && <VehicleTowingTopRoadSections data={data} language={language} />}
       {activeTab === 'tobaccoControl' && <TobaccoControlInspectionResults records={data.tobaccoControlInspectionResults} summary={data.tobaccoControlInspectionSummary} language={language} />}
-      {activeTab === 'domesticViolence' && <DomesticViolenceReportStatistics records={data.domesticViolenceReportStatistics} summary={data.domesticViolenceReportSummary} language={language} />}
+      {activeTab === 'domesticViolence' && <DomesticViolenceReportStatistics summary={data.domesticViolenceReportSummary} language={language} />}
       {activeTab === 'fireDonations' && <FireDepartmentDonations data={data} language={language} />}
       {activeTab === 'fireRescueAreas' && <FireRescueDifficultAreas data={data} language={language} />}
       {activeTab === 'fireAccessRoutes' && <FireAccessRouteRegistry data={data} language={language} />}

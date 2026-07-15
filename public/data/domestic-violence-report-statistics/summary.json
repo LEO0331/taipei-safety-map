@@ -1,5 +1,5 @@
 {
-  "totalReportedCases": 90935,
+  "totalReportedCases": 90934,
   "latestAvailablePeriod": "2025-12",
   "districtsCovered": 13,
   "villagesRepresented": 904,
@@ -16,7 +16,7 @@
     },
     {
       "name": "2017",
-      "reportCount": 12974
+      "reportCount": 12973
     },
     {
       "name": "2016",
@@ -58,7 +58,7 @@
     },
     {
       "name": "7",
-      "reportCount": 8153
+      "reportCount": 8152
     },
     {
       "name": "8",
@@ -124,7 +124,7 @@
     },
     {
       "name": "不明",
-      "reportCount": 7929
+      "reportCount": 7928
     },
     {
       "name": "中山區",
@@ -158,7 +158,7 @@
   "byCaseType": [
     {
       "name": "婚姻暴力",
-      "reportCount": 33696
+      "reportCount": 33695
     },
     {
       "name": "其他家虐",
@@ -204,7 +204,7 @@
     },
     {
       "name": "未滿6歲",
-      "reportCount": 5964
+      "reportCount": 5963
     },
     {
       "name": "18-未滿20歲",
@@ -218,7 +218,7 @@
     },
     {
       "name": "1",
-      "reportCount": 24035
+      "reportCount": 24034
     },
     {
       "name": "女性",

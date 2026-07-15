@@ -1265,7 +1265,6 @@ export type HistoricalFloodingSummary = {
 };
 
 export type SafetyDataBundle = {
-  domesticViolenceReportStatistics: DomesticViolenceReportRecord[];
   domesticViolenceReportSummary: DomesticViolenceReportSummary;
   tobaccoControlInspectionResults: TobaccoControlInspectionRecord[];
   tobaccoControlInspectionSummary: TobaccoControlInspectionSummary;
