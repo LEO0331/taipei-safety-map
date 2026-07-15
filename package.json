@@ -47,7 +47,9 @@
     "data:fetch:historical-flooding": "tsx scripts/fetchHistoricalFloodingRecords.ts",
     "data:convert:historical-flooding": "tsx scripts/convertHistoricalFloodingRecords.ts && tsx scripts/buildHistoricalFloodingSummary.ts",
     "data:fetch:tobacco-control": "tsx scripts/fetchTobaccoControlInspectionResults.ts",
-    "data:convert:tobacco-control": "tsx scripts/convertTobaccoControlInspectionResults.ts && tsx scripts/buildTobaccoControlInspectionSummary.ts"
+    "data:convert:tobacco-control": "tsx scripts/convertTobaccoControlInspectionResults.ts && tsx scripts/buildTobaccoControlInspectionSummary.ts",
+    "data:fetch:domestic-violence": "tsx scripts/fetchDomesticViolenceReportStatistics.ts",
+    "data:convert:domestic-violence": "tsx scripts/convertDomesticViolenceReportStatistics.ts && tsx scripts/buildDomesticViolenceReportSummary.ts"
   },
   "dependencies": {
     "leaflet": "^1.9.4",

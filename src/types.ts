@@ -1265,6 +1265,8 @@ export type HistoricalFloodingSummary = {
 };
 
 export type SafetyDataBundle = {
+  domesticViolenceReportStatistics: DomesticViolenceReportRecord[];
+  domesticViolenceReportSummary: DomesticViolenceReportSummary;
   tobaccoControlInspectionResults: TobaccoControlInspectionRecord[];
   tobaccoControlInspectionSummary: TobaccoControlInspectionSummary;
   shelters: AirRaidShelter[];
@@ -1307,6 +1309,9 @@ export type SafetyDataBundle = {
   districtSummaries: DistrictSafetySummary[];
   conversionReport: ConversionReport;
 };
+
+export type DomesticViolenceReportRecord = { id: string; timeRaw: string; year: number | null; month: number | null; districtName: string; villageName: string; villageCode: string; ageGroup: string; sex: string; caseType: string; reportCount: number | null; originalValues: Record<string, string> };
+export type DomesticViolenceReportSummary = { totalReportedCases: number; latestAvailablePeriod?: string; districtsCovered: number; villagesRepresented: number; caseTypeCategories: number; largestAgeGroupTotal?: { name: string; reportCount: number }; recordsWithMissingDemographicValues: number };
 
 export type TobaccoControlInspectionRecord = {
   id: string;

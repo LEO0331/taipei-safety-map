@@ -1,0 +1,12 @@
+{
+  "datasetUrl": "https://data.taipei/dataset/detail?id=a5d42395-b37a-49a8-ab30-09c3e8595d6c",
+  "resources": [
+    {
+      "name": "臺北市家暴通報案件數統計資訊",
+      "path": "data/raw/domestic-violence-report-statistics/domestic-violence-report-statistics.csv",
+      "url": "https://data.taipei/api/frontstage/tpeod/dataset/resource.download?rid=cb45bfa3-3262-4862-8505-134fc5458e2f",
+      "downloadedAt": "2026-07-15T04:12:30.931Z",
+      "fileSize": 4140465
+    }
+  ]
+}

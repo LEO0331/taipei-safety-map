@@ -1,0 +1,248 @@
+{
+  "totalReportedCases": 90935,
+  "latestAvailablePeriod": "2025-12",
+  "districtsCovered": 13,
+  "villagesRepresented": 904,
+  "caseTypeCategories": 6,
+  "largestAgeGroupTotal": {
+    "name": "40-未滿65歲",
+    "reportCount": 29024
+  },
+  "recordsWithMissingDemographicValues": 48,
+  "byYear": [
+    {
+      "name": "2018",
+      "reportCount": 13968
+    },
+    {
+      "name": "2017",
+      "reportCount": 12974
+    },
+    {
+      "name": "2016",
+      "reportCount": 12279
+    },
+    {
+      "name": "2019",
+      "reportCount": 10586
+    },
+    {
+      "name": "2025",
+      "reportCount": 8443
+    },
+    {
+      "name": "2024",
+      "reportCount": 8047
+    },
+    {
+      "name": "2020",
+      "reportCount": 6825
+    },
+    {
+      "name": "2021",
+      "reportCount": 6795
+    },
+    {
+      "name": "2023",
+      "reportCount": 6776
+    },
+    {
+      "name": "2022",
+      "reportCount": 4242
+    }
+  ],
+  "byMonth": [
+    {
+      "name": "5",
+      "reportCount": 8424
+    },
+    {
+      "name": "7",
+      "reportCount": 8153
+    },
+    {
+      "name": "8",
+      "reportCount": 7947
+    },
+    {
+      "name": "6",
+      "reportCount": 7807
+    },
+    {
+      "name": "10",
+      "reportCount": 7789
+    },
+    {
+      "name": "11",
+      "reportCount": 7764
+    },
+    {
+      "name": "3",
+      "reportCount": 7610
+    },
+    {
+      "name": "12",
+      "reportCount": 7577
+    },
+    {
+      "name": "9",
+      "reportCount": 7295
+    },
+    {
+      "name": "4",
+      "reportCount": 7063
+    },
+    {
+      "name": "1",
+      "reportCount": 6949
+    },
+    {
+      "name": "2",
+      "reportCount": 6557
+    }
+  ],
+  "byDistrict": [
+    {
+      "name": "士林區",
+      "reportCount": 9621
+    },
+    {
+      "name": "內湖區",
+      "reportCount": 8301
+    },
+    {
+      "name": "北投區",
+      "reportCount": 8213
+    },
+    {
+      "name": "文山區",
+      "reportCount": 8158
+    },
+    {
+      "name": "信義區",
+      "reportCount": 8094
+    },
+    {
+      "name": "不明",
+      "reportCount": 7929
+    },
+    {
+      "name": "中山區",
+      "reportCount": 7668
+    },
+    {
+      "name": "大安區",
+      "reportCount": 7598
+    },
+    {
+      "name": "萬華區",
+      "reportCount": 7527
+    },
+    {
+      "name": "松山區",
+      "reportCount": 5011
+    },
+    {
+      "name": "大同區",
+      "reportCount": 4777
+    },
+    {
+      "name": "南港區",
+      "reportCount": 4282
+    },
+    {
+      "name": "中正區",
+      "reportCount": 3756
+    }
+  ],
+  "byCaseType": [
+    {
+      "name": "婚姻暴力",
+      "reportCount": 33696
+    },
+    {
+      "name": "其他家虐",
+      "reportCount": 25762
+    },
+    {
+      "name": "非保護性案件",
+      "reportCount": 12332
+    },
+    {
+      "name": "不明",
+      "reportCount": 7743
+    },
+    {
+      "name": "兒少保護",
+      "reportCount": 6102
+    },
+    {
+      "name": "老人虐待",
+      "reportCount": 5300
+    }
+  ],
+  "byAgeGroup": [
+    {
+      "name": "40-未滿65歲",
+      "reportCount": 29024
+    },
+    {
+      "name": "20-未滿40歲",
+      "reportCount": 27975
+    },
+    {
+      "name": "65歲以上",
+      "reportCount": 11847
+    },
+    {
+      "name": "12-未滿18歲",
+      "reportCount": 7998
+    },
+    {
+      "name": "6-未滿12歲",
+      "reportCount": 6180
+    },
+    {
+      "name": "未滿6歲",
+      "reportCount": 5964
+    },
+    {
+      "name": "18-未滿20歲",
+      "reportCount": 1947
+    }
+  ],
+  "bySex": [
+    {
+      "name": "2",
+      "reportCount": 53271
+    },
+    {
+      "name": "1",
+      "reportCount": 24035
+    },
+    {
+      "name": "女性",
+      "reportCount": 7692
+    },
+    {
+      "name": "男性",
+      "reportCount": 4461
+    },
+    {
+      "name": " ",
+      "reportCount": 997
+    },
+    {
+      "name": "不明",
+      "reportCount": 280
+    },
+    {
+      "name": "0",
+      "reportCount": 117
+    },
+    {
+      "name": "unknown",
+      "reportCount": 82
+    }
+  ]
+}
