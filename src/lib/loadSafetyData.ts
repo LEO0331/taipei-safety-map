@@ -38,6 +38,8 @@ import type {
   StreetRandomSnatchIncidentSummary,
   TrafficCctvFacility,
   TrafficCctvSummary,
+  TobaccoControlInspectionRecord,
+  TobaccoControlInspectionSummary,
   VehicleTowingTopRoadSectionRecord,
   VehicleTowingTopRoadSectionsSummary,
 } from '../types';
@@ -55,6 +57,8 @@ async function loadJson<T>(path: string): Promise<T> {
 export async function loadSafetyData(): Promise<SafetyDataBundle> {
   const [
     shelters,
+    tobaccoControlInspectionResults,
+    tobaccoControlInspectionSummary,
     burglaries,
     bicycleThefts,
     motorcycleThefts,
@@ -81,6 +85,8 @@ export async function loadSafetyData(): Promise<SafetyDataBundle> {
     conversionReport,
   ] = await Promise.all([
     loadJson<AirRaidShelter[]>('air-raid-shelters.json'),
+    loadJson<TobaccoControlInspectionRecord[]>('tobacco-control-inspection-results/records.json'),
+    loadJson<TobaccoControlInspectionSummary>('tobacco-control-inspection-results/summary.json'),
     loadJson<ResidentialBurglaryRecord[]>('residential-burglary-records.json'),
     loadJson<BicycleTheftRecord[]>('bicycle-theft-records.json'),
     loadJson<MotorcycleTheftRecord[]>('motorcycle-theft-records.json'),
@@ -125,6 +131,8 @@ export async function loadSafetyData(): Promise<SafetyDataBundle> {
 
   return {
     shelters,
+    tobaccoControlInspectionResults,
+    tobaccoControlInspectionSummary,
     burglaries,
     bicycleThefts,
     bicycleTheftSummary: dashboard.bicycleTheftSummary,

@@ -99,6 +99,13 @@ input {
   color: #fff;
 }
 
+.sub-tabs { margin: 1rem 0; overflow-x: auto; }
+.tobacco-control .bar-row { display: grid; grid-template-columns: minmax(10rem, 2fr) minmax(8rem, 5fr) auto; gap: .75rem; align-items: center; margin: .55rem 0; }
+.tobacco-control .bar-row span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.tobacco-control .bar-row > div { height: .7rem; background: #e2e8f0; border-radius: 999px; overflow: hidden; }
+.tobacco-control .bar-row i { display: block; height: 100%; background: #0f766e; border-radius: inherit; }
+.tobacco-control .table-wrap { overflow-x: auto; }
+
 .workspace {
   display: grid;
   grid-template-columns: 280px minmax(0, 1fr) 320px;

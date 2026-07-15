@@ -1265,6 +1265,8 @@ export type HistoricalFloodingSummary = {
 };
 
 export type SafetyDataBundle = {
+  tobaccoControlInspectionResults: TobaccoControlInspectionRecord[];
+  tobaccoControlInspectionSummary: TobaccoControlInspectionSummary;
   shelters: AirRaidShelter[];
   burglaries: ResidentialBurglaryRecord[];
   bicycleThefts: BicycleTheftRecord[];
@@ -1304,6 +1306,38 @@ export type SafetyDataBundle = {
   dengueDistrictSummaries: DengueDistrictSummary[];
   districtSummaries: DistrictSafetySummary[];
   conversionReport: ConversionReport;
+};
+
+export type TobaccoControlInspectionRecord = {
+  id: string;
+  module: 'tobacco_control_inspection_results';
+  sourceResourceName: string;
+  sourceResourceYear?: number;
+  legalVersion: 'old_law' | 'amended_law' | 'unknown';
+  districtName: string;
+  districtCode?: string;
+  inspectionCategory: string;
+  normalizedCategory: string;
+  inspectionCount?: number;
+  sourceColumnName: string;
+  sourceValueRaw: string;
+  originalArticleText?: string;
+};
+
+export type TobaccoControlInspectionSummary = {
+  latestAvailableYear?: number;
+  totalInspectionCount: number;
+  districtsCovered: number;
+  inspectionCategories: number;
+  largestDistrictTotal?: { name: string; inspectionCount: number };
+  mostCommonInspectionCategory?: { name: string; inspectionCount: number };
+  oldLawRecordCount: number;
+  amendedLawRecordCount: number;
+  byDistrict: Array<{ name: string; inspectionCount: number }>;
+  byCategory: Array<{ name: string; inspectionCount: number }>;
+  byYear: Array<{ name: string; inspectionCount: number }>;
+  byLegalVersion: Array<{ name: string; inspectionCount: number }>;
+  comparability: string;
 };
 
 export type ConversionReport = {

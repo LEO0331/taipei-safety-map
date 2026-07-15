@@ -1,0 +1,34 @@
+{
+  "datasetUrl": "https://data.taipei/dataset/detail?id=ccfd61e8-1632-421c-915d-2a09aaf3bed4",
+  "fetchedAt": "2026-07-15T03:29:30.327Z",
+  "resources": [
+    {
+      "name": "114年度菸害防制成果",
+      "year": 114,
+      "legalVersion": "amended_law",
+      "rid": "cc167252-9145-456a-bd82-bff830c206ae",
+      "path": "data/raw/tobacco-control-inspection-results/cc167252-9145-456a-bd82-bff830c206ae.csv",
+      "downloadUrl": "https://data.taipei/api/frontstage/tpeod/dataset/resource.download?rid=cc167252-9145-456a-bd82-bff830c206ae",
+      "downloadedAt": "2026-07-15T03:29:30.005Z",
+      "fileSize": 5578
+    },
+    {
+      "name": "臺北市執行菸害防制法稽查成果-新法",
+      "legalVersion": "amended_law",
+      "rid": "99015e4b-7e56-4562-abf9-c3c0fd7b9a8d",
+      "path": "data/raw/tobacco-control-inspection-results/99015e4b-7e56-4562-abf9-c3c0fd7b9a8d.csv",
+      "downloadUrl": "https://data.taipei/api/frontstage/tpeod/dataset/resource.download?rid=99015e4b-7e56-4562-abf9-c3c0fd7b9a8d",
+      "downloadedAt": "2026-07-15T03:29:30.156Z",
+      "fileSize": 5578
+    },
+    {
+      "name": "臺北市執行菸害防制法稽查成果-舊法",
+      "legalVersion": "old_law",
+      "rid": "558923cd-8539-4ddb-8f80-c737eada4e04",
+      "path": "data/raw/tobacco-control-inspection-results/558923cd-8539-4ddb-8f80-c737eada4e04.csv",
+      "downloadUrl": "https://data.taipei/api/frontstage/tpeod/dataset/resource.download?rid=558923cd-8539-4ddb-8f80-c737eada4e04",
+      "downloadedAt": "2026-07-15T03:29:30.326Z",
+      "fileSize": 2469
+    }
+  ]
+}

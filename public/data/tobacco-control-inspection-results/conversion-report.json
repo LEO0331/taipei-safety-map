@@ -1,0 +1,27 @@
+{
+  "generatedAt": "2026-07-15T03:36:54.240Z",
+  "inputRows": 38,
+  "outputRows": 1148,
+  "schemaDifferences": [
+    {
+      "resource": "114年度菸害防制成果",
+      "headerCount": 36
+    },
+    {
+      "resource": "臺北市執行菸害防制法稽查成果-新法",
+      "headerCount": 36
+    },
+    {
+      "resource": "臺北市執行菸害防制法稽查成果-舊法",
+      "headerCount": 24
+    }
+  ],
+  "invalidCounts": [],
+  "duplicateRows": [],
+  "missingDistricts": [],
+  "unmappedCategories": [
+    "尼古丁及焦油含量不得超過最高含量數（依菸害防制法第7條第2項）",
+    "強迫引誘等方式使孕婦吸菸（依菸害防制法第13條第2項）",
+    "下午9時以後開始營業且18歲以上始能進入之酒吧視聽歌唱場所（依菸害防制法第15條第1項第11款）"
+  ]
+}

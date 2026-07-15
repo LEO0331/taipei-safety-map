@@ -16,6 +16,7 @@ import {
   mostCommonEntry,
 } from './lib/safetyData';
 import { timePeriodLabels, translations } from './lib/translations';
+import TobaccoControlInspectionResults from './TobaccoControlInspectionResults';
 import type {
   AedLocation,
   AirRaidShelter,
@@ -51,7 +52,7 @@ import type {
   VehicleTowingTopRoadSectionRecord,
 } from './types';
 
-type Tab = 'map' | 'nearby' | 'burglary' | 'bike' | 'motorcycle' | 'streetSnatch' | 'policeCctv' | 'smartTrafficEnforcement' | 'vehicleTowing' | 'fireDonations' | 'fireRescueAreas' | 'fireAccessRoutes' | 'hikingTrails' | 'flooding' | 'health' | 'disaster' | 'overview' | 'notes';
+type Tab = 'map' | 'nearby' | 'burglary' | 'bike' | 'motorcycle' | 'streetSnatch' | 'policeCctv' | 'smartTrafficEnforcement' | 'vehicleTowing' | 'tobaccoControl' | 'fireDonations' | 'fireRescueAreas' | 'fireAccessRoutes' | 'hikingTrails' | 'flooding' | 'health' | 'disaster' | 'overview' | 'notes';
 type CapacityRange = 'all' | 'under100' | '100-499' | '500-999' | '1000plus';
 type DenseLayer = 'aeds' | 'medical' | 'fireHydrants' | 'airRaidShelters' | 'evacuationGates' | 'cctv';
 const tileAttribution = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>';
@@ -975,6 +976,7 @@ function App() {
             ['policeCctv', language === 'zh' ? '警察局監視器' : 'Police CCTV'],
             ['smartTrafficEnforcement', smartTrafficLabels[language].shortTitle],
             ['vehicleTowing', vehicleTowingLabels[language].shortTitle],
+            ['tobaccoControl', language === 'zh' ? '菸害防制稽查' : 'Tobacco Inspections'],
             ['fireDonations', language === 'zh' ? '消防捐贈實物' : 'Fire Dept Donations'],
             ['fireRescueAreas', fireRescueAreaLabels[language].shortTitle],
             ['fireAccessRoutes', fireAccessRouteLabels[language].shortTitle],
@@ -1006,6 +1008,7 @@ function App() {
       {activeTab === 'policeCctv' && <PoliceCctvInstallationLocations data={data} language={language} />}
       {activeTab === 'smartTrafficEnforcement' && <SmartTrafficEnforcementEquipment data={data} language={language} />}
       {activeTab === 'vehicleTowing' && <VehicleTowingTopRoadSections data={data} language={language} />}
+      {activeTab === 'tobaccoControl' && <TobaccoControlInspectionResults records={data.tobaccoControlInspectionResults} summary={data.tobaccoControlInspectionSummary} language={language} />}
       {activeTab === 'fireDonations' && <FireDepartmentDonations data={data} language={language} />}
       {activeTab === 'fireRescueAreas' && <FireRescueDifficultAreas data={data} language={language} />}
       {activeTab === 'fireAccessRoutes' && <FireAccessRouteRegistry data={data} language={language} />}

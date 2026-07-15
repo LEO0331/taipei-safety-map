@@ -1,0 +1,310 @@
+{
+  "generatedAt": "2026-07-15T03:36:55.063Z",
+  "latestAvailableYear": 114,
+  "totalInspectionCount": 3581972,
+  "districtsCovered": 12,
+  "inspectionCategories": 55,
+  "largestDistrictTotal": {
+    "name": "大安區",
+    "inspectionCount": 207188
+  },
+  "mostCommonInspectionCategory": {
+    "name": "全面禁菸場所不得吸菸數（第18條第1項）",
+    "inspectionCount": 175580
+  },
+  "oldLawRecordCount": 264,
+  "amendedLawRecordCount": 884,
+  "byDistrict": [
+    {
+      "name": "大安區",
+      "inspectionCount": 207188
+    },
+    {
+      "name": "中山區",
+      "inspectionCount": 200318
+    },
+    {
+      "name": "士林區",
+      "inspectionCount": 168443
+    },
+    {
+      "name": "中正區",
+      "inspectionCount": 150477
+    },
+    {
+      "name": "信義區",
+      "inspectionCount": 137985
+    },
+    {
+      "name": "松山區",
+      "inspectionCount": 135449
+    },
+    {
+      "name": "大同區",
+      "inspectionCount": 135254
+    },
+    {
+      "name": "萬華區",
+      "inspectionCount": 121788
+    },
+    {
+      "name": "文山區",
+      "inspectionCount": 109719
+    },
+    {
+      "name": "內湖區",
+      "inspectionCount": 105715
+    },
+    {
+      "name": "北投區",
+      "inspectionCount": 64223
+    },
+    {
+      "name": "南港區",
+      "inspectionCount": 62507
+    }
+  ],
+  "byCategory": [
+    {
+      "name": "全面禁菸場所不得吸菸數（第18條第1項）",
+      "inspectionCount": 175580
+    },
+    {
+      "name": "所有入口處設置明顯禁菸標示且不得供應與吸菸有關器物（第18條第2項）",
+      "inspectionCount": 174294
+    },
+    {
+      "name": "未滿20歲者不得吸菸數（第16條第1項）",
+      "inspectionCount": 168690
+    },
+    {
+      "name": "任何人不得使用類菸品及第15條第1項第3款之指定菸品（第15條第2項）",
+      "inspectionCount": 160220
+    },
+    {
+      "name": "不得製造輸入販賣供應展示或廣告與菸品或菸品容器形狀近似物品（第15條第1項第1款）",
+      "inspectionCount": 153708
+    },
+    {
+      "name": "任何人不得製造輸入販賣供應展示或廣告之物品數（第15條第1項第2款-1販賣）",
+      "inspectionCount": 153530
+    },
+    {
+      "name": "任何人不得製造輸入販賣供應展示或廣告之物品（第15條第1項第2款-2供應）",
+      "inspectionCount": 153510
+    },
+    {
+      "name": "任何人不得製造輸入販賣供應展示或廣告之物品（第15條第1項第2款-5製造）",
+      "inspectionCount": 153502
+    },
+    {
+      "name": "任何人不得製造輸入販賣供應展示或廣告之物品數（第15條第1項第3款-4廣告）",
+      "inspectionCount": 153320
+    },
+    {
+      "name": "任何人不得製造輸入販賣供應展示或廣告之物品數（第15條第1項第3款-6輸入）",
+      "inspectionCount": 152768
+    },
+    {
+      "name": "任何人不得製造輸入販賣供應展示或廣告之物品（第15條第1項第3款-2供應）",
+      "inspectionCount": 152568
+    },
+    {
+      "name": "任何人不得製造輸入販賣供應展示或廣告之物品數（第15條第1項第3款-3展示）",
+      "inspectionCount": 152568
+    },
+    {
+      "name": "任何人不得製造輸入販賣供應展示或廣告之物品（第15條第1項第3款-5製造）",
+      "inspectionCount": 152568
+    },
+    {
+      "name": "任何人不得製造輸入販賣供應展示或廣告之物品（第15條第1項第3款-1販賣）",
+      "inspectionCount": 152560
+    },
+    {
+      "name": "任何人不得製造輸入販賣供應展示或廣告之物品（第15條第1項第2款-4廣告）",
+      "inspectionCount": 152532
+    },
+    {
+      "name": "任何人不得製造輸入販賣供應展示或廣告之物品（第15條第1項第2款-3展示）",
+      "inspectionCount": 152480
+    },
+    {
+      "name": "任何人不得製造輸入販賣供應展示或廣告之物品（第15條第1項第2款-6輸入）",
+      "inspectionCount": 152478
+    },
+    {
+      "name": "不得供應菸品指定菸品必要之組合元件予未滿20歲之人亦不得以強迫引誘或其他方式使孕婦或未滿20歲之人吸菸（第17條第1項）",
+      "inspectionCount": 131806
+    },
+    {
+      "name": "菸品指定菸品必要之組合元件之促銷或廣告數（第12條）",
+      "inspectionCount": 119106
+    },
+    {
+      "name": "販賣菸品場所標示數（第13條第1項）",
+      "inspectionCount": 80522
+    },
+    {
+      "name": "營業場所不得免費供應菸品指定菸品必要之組合元件（第14條）",
+      "inspectionCount": 53496
+    },
+    {
+      "name": "開放式貨架或其他可由消費者直接取得之方式（第8條第2款）",
+      "inspectionCount": 52838
+    },
+    {
+      "name": "自動販賣郵購電子購物或其他無法辨識消費者年齡之方式（第8條第1款）",
+      "inspectionCount": 52834
+    },
+    {
+      "name": "菸品不得使用經中央主管機關公告禁止使用之添加物數（第10條第1項）",
+      "inspectionCount": 52782
+    },
+    {
+      "name": "每一販賣單位以少於20支及其內容物淨重低於15公克之包裝方式（第8條第3款）",
+      "inspectionCount": 52764
+    },
+    {
+      "name": "菸品容器加註之文字及標示數（第9條第1項）",
+      "inspectionCount": 52762
+    },
+    {
+      "name": "菸品容器最大正面及反面明顯位置處應以中文標示健康警示圖文及戒菸相關資訊且其標示面積不得低於該面積50%（第9條第2項）",
+      "inspectionCount": 52762
+    },
+    {
+      "name": "尼古丁及焦油含量標示（第10條第2項）",
+      "inspectionCount": 52132
+    },
+    {
+      "name": "於旅館商場餐飲店酒吧夜店雪茄館或其他供公眾消費之室內場所且未設置獨立空調及獨立隔間之吸菸室內吸菸（第18條第1項第11款）",
+      "inspectionCount": 39140
+    },
+    {
+      "name": "所有入口處及其他適當地點設置明顯禁菸標示或除吸菸區外不得吸菸意旨之標示除吸菸區外不得供應與吸菸有關器物（第19條第2項）",
+      "inspectionCount": 19000
+    },
+    {
+      "name": "吸菸區標示及設置規定（第19條第3項）",
+      "inspectionCount": 18816
+    },
+    {
+      "name": "其他經各級主管機關指定公告之場所及交通工具（第19條第1項第4款）",
+      "inspectionCount": 18360
+    },
+    {
+      "name": "未設吸菸區者全面禁菸（第19條第1項）",
+      "inspectionCount": 17126
+    },
+    {
+      "name": "全面禁菸場所不得吸菸（依菸害防制法第15條第1項）",
+      "inspectionCount": 5274
+    },
+    {
+      "name": "所有入口處設置明顯禁菸標示且不得供應與吸菸有關器物（依菸害防制法第15條第2項）",
+      "inspectionCount": 5260
+    },
+    {
+      "name": "未滿18歲吸菸者人數（依菸害防制法第12條第1項）",
+      "inspectionCount": 4349
+    },
+    {
+      "name": "供應菸品予未滿18歲者（依菸害防制法第13條第1項）",
+      "inspectionCount": 3300
+    },
+    {
+      "name": "強迫引誘等方式使孕婦吸菸（依菸害防制法第13條第2項）",
+      "inspectionCount": 3295
+    },
+    {
+      "name": "促銷菸品或為菸品廣告數（依菸害防制法第9條）",
+      "inspectionCount": 2619
+    },
+    {
+      "name": "不得製造輸入販賣菸品形狀之物品（依菸害防制法第14條）",
+      "inspectionCount": 2494
+    },
+    {
+      "name": "自動販賣郵購電子購物或其他無法辨識消費者年齡之方式（依菸害防制法第5條第1項）",
+      "inspectionCount": 2137
+    },
+    {
+      "name": "營業場所不得免費供應菸品數（依菸害防制法第11條）",
+      "inspectionCount": 2136
+    },
+    {
+      "name": "開放式貨架等可由消費者直接取得且無法辨識年齡之方式（依菸害防制法第5條第2項）",
+      "inspectionCount": 2134
+    },
+    {
+      "name": "每一販賣單位以少於20支及其內容物淨重低於15公克之包裝方式（依菸害防制法第5條第3項）",
+      "inspectionCount": 2134
+    },
+    {
+      "name": "菸品容器加註之文字及標示（依菸害防制法第6條第1項）",
+      "inspectionCount": 2134
+    },
+    {
+      "name": "菸品容器最大外表正反面應以中文標示健康警示圖文與戒菸相關資訊（依菸害防制法第6條第2項）",
+      "inspectionCount": 2134
+    },
+    {
+      "name": "尼古丁及焦油含量標示數（依菸害防制法第7條第1項）",
+      "inspectionCount": 2134
+    },
+    {
+      "name": "尼古丁及焦油含量不得超過最高含量數（依菸害防制法第7條第2項）",
+      "inspectionCount": 2134
+    },
+    {
+      "name": "販賣菸品場所標示及展示（依菸害防制法第10條第1項）",
+      "inspectionCount": 2134
+    },
+    {
+      "name": "下午9時以後開始營業且18歲以上始能進入之酒吧視聽歌唱場所（依菸害防制法第15條第1項第11款）",
+      "inspectionCount": 1542
+    },
+    {
+      "name": "所有入口處及其他適當地點設置明顯禁菸標示或除吸菸區外不得吸菸意旨之標示除吸菸區外不得供應與吸菸有關器物（依菸害防制法第16條第2項）",
+      "inspectionCount": 676
+    },
+    {
+      "name": "未設吸菸區者全面禁菸（依菸害防制法第16條第1項）",
+      "inspectionCount": 471
+    },
+    {
+      "name": "其他經各級主管機關指定公告之場所及交通工具（依菸害防制法第16條第1項第4款）",
+      "inspectionCount": 285
+    },
+    {
+      "name": "吸菸區標示及設置規定（依菸害防制法第16條第3項）",
+      "inspectionCount": 74
+    },
+    {
+      "name": "其他",
+      "inspectionCount": 0
+    }
+  ],
+  "byYear": [
+    {
+      "name": "unknown",
+      "inspectionCount": 1815411
+    },
+    {
+      "name": "114",
+      "inspectionCount": 1766561
+    }
+  ],
+  "byLegalVersion": [
+    {
+      "name": "amended_law",
+      "inspectionCount": 3533122
+    },
+    {
+      "name": "old_law",
+      "inspectionCount": 48850
+    }
+  ],
+  "comparability": "Old-law and amended-law categories are presented separately. Only source fields with an explicitly documented equivalent mapping may be combined."
+}

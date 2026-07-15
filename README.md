@@ -163,6 +163,8 @@ Street random snatch incident CSVs are CP950 / Big5-family with UTF-8-SIG fallba
 
 `fire-hydrants.json` is intentionally not precached because it is large. The app caches `fire-hydrant-summary.json` and lazy-loads exact hydrant points only when the hydrant layer or nearby hydrant lookup is used.
 
+Tobacco-control inspection resources are fetched from all three official CSV releases under `data/raw/tobacco-control-inspection-results/`. They are decoded as UTF-8-SIG with Big5 / CP950 fallback, read as strings, and retain the resource name, legal version, original source field, article wording, and raw value. Blank, dash, and nonnumeric counts remain unknown rather than zero. The district dashboard deliberately has no map markers or premise-level claims; old-law and amended-law categories remain separate unless an explicit mapping is documented.
+
 ## Deployment
 
 The GitHub Actions workflow at `.github/workflows/deploy.yml` builds and deploys the Vite app to GitHub Pages on pushes to `main`. In repository settings, enable Pages with `GitHub Actions` as the source.

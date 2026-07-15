@@ -1,4 +1,4 @@
-const CACHE_NAME = 'taipei-safety-map-v3';
+const CACHE_NAME = 'taipei-safety-map-v4';
 const cacheUrl = (path) => new URL(path, self.registration.scope).toString();
 const APP_SHELL = [cacheUrl(''), cacheUrl('manifest.webmanifest'), cacheUrl('icons/icon.svg')];
 const DATA_FILES = [
@@ -46,6 +46,10 @@ const DATA_FILES = [
   cacheUrl('data/historical-flooding-records.json'),
   cacheUrl('data/historical-flooding-records.geojson'),
   cacheUrl('data/historical-flooding-summary.json'),
+  cacheUrl('data/tobacco-control-inspection-results/records.json'),
+  cacheUrl('data/tobacco-control-inspection-results/summary.json'),
+  cacheUrl('data/tobacco-control-inspection-results/schema-report.json'),
+  cacheUrl('data/tobacco-control-inspection-results/conversion-report.json'),
   cacheUrl('data/natural-disaster-work-school-suspension-records.json'),
   cacheUrl('data/natural-disaster-work-school-suspension-summary.json'),
   cacheUrl('data/natural-disaster-work-school-suspension-event-groups.json'),
