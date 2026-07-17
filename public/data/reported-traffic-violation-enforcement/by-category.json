@@ -1,0 +1,14 @@
+[
+  {
+    "name": "other",
+    "count": 525878
+  },
+  {
+    "name": "illegal_parking",
+    "count": 31885
+  },
+  {
+    "name": "double_parking",
+    "count": 3270
+  }
+]
