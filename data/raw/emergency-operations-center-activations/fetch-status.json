@@ -1,0 +1,12 @@
+[
+  {
+    "level": "level_2_or_higher",
+    "path": "data/raw/emergency-operations-center-activations/level_2_or_higher.csv",
+    "url": "https://data.taipei/api/frontstage/tpeod/dataset/resource.download?rid=8afae55b-cf8f-4fc2-a28f-61219f6748e5"
+  },
+  {
+    "level": "enhanced_level_3",
+    "path": "data/raw/emergency-operations-center-activations/enhanced_level_3.csv",
+    "url": "https://data.taipei/api/frontstage/tpeod/dataset/resource.download?rid=066fd7b4-a1b4-40ca-ad7b-d63e8978403c"
+  }
+]

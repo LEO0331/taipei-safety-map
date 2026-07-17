@@ -19,6 +19,7 @@ import { timePeriodLabels, translations } from './lib/translations';
 import TobaccoControlInspectionResults from './TobaccoControlInspectionResults';
 import DomesticViolenceReportStatistics from './DomesticViolenceReportStatistics';
 import MajorOccupationalAccidents from './MajorOccupationalAccidents';
+import EmergencyOperationsCenterActivations from './EmergencyOperationsCenterActivations';
 import type {
   AedLocation,
   AirRaidShelter,
@@ -54,7 +55,7 @@ import type {
   VehicleTowingTopRoadSectionRecord,
 } from './types';
 
-type Tab = 'map' | 'nearby' | 'burglary' | 'bike' | 'motorcycle' | 'streetSnatch' | 'policeCctv' | 'smartTrafficEnforcement' | 'vehicleTowing' | 'tobaccoControl' | 'domesticViolence' | 'occupationalAccidents' | 'fireDonations' | 'fireRescueAreas' | 'fireAccessRoutes' | 'hikingTrails' | 'flooding' | 'health' | 'disaster' | 'overview' | 'notes';
+type Tab = 'map' | 'nearby' | 'burglary' | 'bike' | 'motorcycle' | 'streetSnatch' | 'policeCctv' | 'smartTrafficEnforcement' | 'vehicleTowing' | 'tobaccoControl' | 'domesticViolence' | 'occupationalAccidents' | 'eocActivations' | 'fireDonations' | 'fireRescueAreas' | 'fireAccessRoutes' | 'hikingTrails' | 'flooding' | 'health' | 'disaster' | 'overview' | 'notes';
 type CapacityRange = 'all' | 'under100' | '100-499' | '500-999' | '1000plus';
 type DenseLayer = 'aeds' | 'medical' | 'fireHydrants' | 'airRaidShelters' | 'evacuationGates' | 'cctv';
 const tileAttribution = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>';
@@ -981,6 +982,7 @@ function App() {
             ['tobaccoControl', language === 'zh' ? '菸害防制稽查' : 'Tobacco Inspections'],
             ['domesticViolence', language === 'zh' ? '家暴通報統計' : 'Domestic Violence Reports'],
             ['occupationalAccidents', language === 'zh' ? '重大職災' : 'Major Occupational Accidents'],
+            ['eocActivations', language === 'zh' ? '應變中心開設' : 'EOC Activations'],
             ['fireDonations', language === 'zh' ? '消防捐贈實物' : 'Fire Dept Donations'],
             ['fireRescueAreas', fireRescueAreaLabels[language].shortTitle],
             ['fireAccessRoutes', fireAccessRouteLabels[language].shortTitle],
@@ -1015,6 +1017,7 @@ function App() {
       {activeTab === 'tobaccoControl' && <TobaccoControlInspectionResults records={data.tobaccoControlInspectionResults} summary={data.tobaccoControlInspectionSummary} language={language} />}
       {activeTab === 'domesticViolence' && <DomesticViolenceReportStatistics summary={data.domesticViolenceReportSummary} language={language} />}
       {activeTab === 'occupationalAccidents' && <MajorOccupationalAccidents records={data.majorOccupationalAccidents} language={language} />}
+      {activeTab === 'eocActivations' && <EmergencyOperationsCenterActivations records={data.emergencyOperationsCenterActivations} language={language} />}
       {activeTab === 'fireDonations' && <FireDepartmentDonations data={data} language={language} />}
       {activeTab === 'fireRescueAreas' && <FireRescueDifficultAreas data={data} language={language} />}
       {activeTab === 'fireAccessRoutes' && <FireAccessRouteRegistry data={data} language={language} />}

@@ -1265,6 +1265,7 @@ export type HistoricalFloodingSummary = {
 };
 
 export type SafetyDataBundle = {
+  emergencyOperationsCenterActivations: EmergencyOperationsCenterActivation[];
   majorOccupationalAccidents: MajorOccupationalAccidentRecord[];
   domesticViolenceReportSummary: DomesticViolenceReportSummary;
   tobaccoControlInspectionResults: TobaccoControlInspectionRecord[];
@@ -1309,6 +1310,7 @@ export type SafetyDataBundle = {
   districtSummaries: DistrictSafetySummary[];
   conversionReport: ConversionReport;
 };
+export type EmergencyOperationsCenterActivation={id:string;sourceResourceName:string;activationLevel:'level_2_or_higher'|'enhanced_level_3'|'unknown';yearRaw:string;year:number|null;disasterName:string;establishedTimeRaw:string;establishedTime:string|null;deactivatedTimeRaw:string;deactivatedTime:string|null;activationDurationHours:number|null;disasterReportRaw:string;originalValues:Record<string,string>};
 export type MajorOccupationalAccidentRecord={id:string;occurrenceDateRaw:string;occurrenceDate:string|null;occurrenceYear:number|null;businessName:string;address:string;districtName:string;accidentType:string;deathCount:number|null;injuryCount:number|null;casualtyCount:number|null;longitude:number|null;latitude:number|null;hasValidCoordinates:boolean;originalValues:Record<string,string>};
 
 export type DomesticViolenceReportRecord = { id: string; timeRaw: string; year: number | null; month: number | null; districtName: string; villageName: string; villageCode: string; ageGroup: string; sex: string; caseType: string; reportCount: number | null; originalValues: Record<string, string> };
