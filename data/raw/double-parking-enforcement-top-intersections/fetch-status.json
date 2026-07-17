@@ -1,0 +1,22 @@
+[
+  {
+    "year": "109",
+    "path": "data/raw/double-parking-enforcement-top-intersections/109.csv",
+    "url": "https://data.taipei/api/frontstage/tpeod/dataset/resource.download?rid=3db56b41-140c-4c19-bf97-10fc1ab22d5d"
+  },
+  {
+    "year": "110",
+    "path": "data/raw/double-parking-enforcement-top-intersections/110.csv",
+    "url": "https://data.taipei/api/frontstage/tpeod/dataset/resource.download?rid=ce7db332-7905-454d-9962-97379022972f"
+  },
+  {
+    "year": "111",
+    "path": "data/raw/double-parking-enforcement-top-intersections/111.csv",
+    "url": "https://data.taipei/api/frontstage/tpeod/dataset/resource.download?rid=0af0ef1d-8234-4442-bc8f-f6b9449c556f"
+  },
+  {
+    "year": "112",
+    "path": "data/raw/double-parking-enforcement-top-intersections/112.csv",
+    "url": "https://data.taipei/api/frontstage/tpeod/dataset/resource.download?rid=0fb50166-e6e3-4e13-a6ae-fdddcc83b609"
+  }
+]

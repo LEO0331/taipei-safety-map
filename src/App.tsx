@@ -20,6 +20,7 @@ import TobaccoControlInspectionResults from './TobaccoControlInspectionResults';
 import DomesticViolenceReportStatistics from './DomesticViolenceReportStatistics';
 import MajorOccupationalAccidents from './MajorOccupationalAccidents';
 import EmergencyOperationsCenterActivations from './EmergencyOperationsCenterActivations';
+import DoubleParkingEnforcementTopIntersections from './DoubleParkingEnforcementTopIntersections';
 import type {
   AedLocation,
   AirRaidShelter,
@@ -55,7 +56,7 @@ import type {
   VehicleTowingTopRoadSectionRecord,
 } from './types';
 
-type Tab = 'map' | 'nearby' | 'burglary' | 'bike' | 'motorcycle' | 'streetSnatch' | 'policeCctv' | 'smartTrafficEnforcement' | 'vehicleTowing' | 'tobaccoControl' | 'domesticViolence' | 'occupationalAccidents' | 'eocActivations' | 'fireDonations' | 'fireRescueAreas' | 'fireAccessRoutes' | 'hikingTrails' | 'flooding' | 'health' | 'disaster' | 'overview' | 'notes';
+type Tab = 'map' | 'nearby' | 'burglary' | 'bike' | 'motorcycle' | 'streetSnatch' | 'policeCctv' | 'smartTrafficEnforcement' | 'vehicleTowing' | 'doubleParking' | 'tobaccoControl' | 'domesticViolence' | 'occupationalAccidents' | 'eocActivations' | 'fireDonations' | 'fireRescueAreas' | 'fireAccessRoutes' | 'hikingTrails' | 'flooding' | 'health' | 'disaster' | 'overview' | 'notes';
 type CapacityRange = 'all' | 'under100' | '100-499' | '500-999' | '1000plus';
 type DenseLayer = 'aeds' | 'medical' | 'fireHydrants' | 'airRaidShelters' | 'evacuationGates' | 'cctv';
 const tileAttribution = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>';
@@ -979,6 +980,7 @@ function App() {
             ['policeCctv', language === 'zh' ? '警察局監視器' : 'Police CCTV'],
             ['smartTrafficEnforcement', smartTrafficLabels[language].shortTitle],
             ['vehicleTowing', vehicleTowingLabels[language].shortTitle],
+            ['doubleParking', language === 'zh' ? '併排停車取締' : 'Double-Parking Enforcement'],
             ['tobaccoControl', language === 'zh' ? '菸害防制稽查' : 'Tobacco Inspections'],
             ['domesticViolence', language === 'zh' ? '家暴通報統計' : 'Domestic Violence Reports'],
             ['occupationalAccidents', language === 'zh' ? '重大職災' : 'Major Occupational Accidents'],
@@ -1014,6 +1016,7 @@ function App() {
       {activeTab === 'policeCctv' && <PoliceCctvInstallationLocations data={data} language={language} />}
       {activeTab === 'smartTrafficEnforcement' && <SmartTrafficEnforcementEquipment data={data} language={language} />}
       {activeTab === 'vehicleTowing' && <VehicleTowingTopRoadSections data={data} language={language} />}
+      {activeTab === 'doubleParking' && <DoubleParkingEnforcementTopIntersections records={data.doubleParkingEnforcementTopIntersections} language={language} />}
       {activeTab === 'tobaccoControl' && <TobaccoControlInspectionResults records={data.tobaccoControlInspectionResults} summary={data.tobaccoControlInspectionSummary} language={language} />}
       {activeTab === 'domesticViolence' && <DomesticViolenceReportStatistics summary={data.domesticViolenceReportSummary} language={language} />}
       {activeTab === 'occupationalAccidents' && <MajorOccupationalAccidents records={data.majorOccupationalAccidents} language={language} />}
