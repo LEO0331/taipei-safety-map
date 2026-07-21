@@ -1265,6 +1265,7 @@ export type HistoricalFloodingSummary = {
 };
 
 export type SafetyDataBundle = {
+  narrowAlleyRegistry: NarrowAlleyRecord[];
   entertainmentBusinessNoiseRecords: EntertainmentBusinessNoiseRecord[];
   doubleParkingEnforcementTopIntersections: DoubleParkingEnforcementRecord[];
   emergencyOperationsCenterActivations: EmergencyOperationsCenterActivation[];
@@ -1312,6 +1313,7 @@ export type SafetyDataBundle = {
   districtSummaries: DistrictSafetySummary[];
   conversionReport: ConversionReport;
 };
+export type NarrowAlleyRecord={id:string;sourceSequenceNumber:string;zoneCategory:string;districtCode:string;districtName:string;responsibleFireStation:string;alleyName:string;widthRaw:string;widthMeters:number|null;note:string;originalValues:Record<string,string>};
 export type EntertainmentBusinessNoiseRecord={id:string;sourceSequenceNumber:string;districtName:string;districtCode:string;inspectionLocationRaw:string;inspectionDateRaw:string;inspectionDate:string|null;inspectionYear:number|null;inspectionMonth:number|null;roadName:string;originalValues:Record<string,string>};
 export type DoubleParkingEnforcementRecord={id:string;sourceResourceName:string;sourceSequenceNumber:string;yearRaw:string;year:number|null;cityName:string;cityCode:string;intersectionName:string;enforcementCount:number|null;rankWithinYear:number|null;intersectionNameNormalized:string;externalMapQuery:string;originalValues:Record<string,string>};
 export type EmergencyOperationsCenterActivation={id:string;sourceResourceName:string;activationLevel:'level_2_or_higher'|'enhanced_level_3'|'unknown';yearRaw:string;year:number|null;disasterName:string;establishedTimeRaw:string;establishedTime:string|null;deactivatedTimeRaw:string;deactivatedTime:string|null;activationDurationHours:number|null;disasterReportRaw:string;originalValues:Record<string,string>};

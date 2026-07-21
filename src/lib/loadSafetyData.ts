@@ -1,5 +1,6 @@
 import type {
   AedLocation,
+  NarrowAlleyRecord,
   EntertainmentBusinessNoiseRecord,
   DoubleParkingEnforcementRecord,
   EmergencyOperationsCenterActivation,
@@ -62,6 +63,7 @@ async function loadJson<T>(path: string): Promise<T> {
 export async function loadSafetyData(): Promise<SafetyDataBundle> {
   const [
     shelters,
+    narrowAlleyRegistry,
     entertainmentBusinessNoiseRecords,
     doubleParkingEnforcementTopIntersections,
     emergencyOperationsCenterActivations,
@@ -95,6 +97,7 @@ export async function loadSafetyData(): Promise<SafetyDataBundle> {
     conversionReport,
   ] = await Promise.all([
     loadJson<AirRaidShelter[]>('air-raid-shelters.json'),
+    loadJson<NarrowAlleyRecord[]>('narrow-alley-red-yellow-registry/records.json'),
     loadJson<EntertainmentBusinessNoiseRecord[]>('entertainment-business-noise-enforcement-records/records.json'),
     loadJson<DoubleParkingEnforcementRecord[]>('double-parking-enforcement-top-intersections/records.json'),
     loadJson<EmergencyOperationsCenterActivation[]>('emergency-operations-center-activations/records.json'),
@@ -146,6 +149,7 @@ export async function loadSafetyData(): Promise<SafetyDataBundle> {
 
   return {
     shelters,
+    narrowAlleyRegistry,
     entertainmentBusinessNoiseRecords,
     doubleParkingEnforcementTopIntersections,
     emergencyOperationsCenterActivations,
