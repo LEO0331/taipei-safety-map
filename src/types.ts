@@ -1265,6 +1265,7 @@ export type HistoricalFloodingSummary = {
 };
 
 export type SafetyDataBundle = {
+  fireSafetyInspectionDeclarations: FireSafetyInspectionDeclarationRecord[];
   narrowAlleyRegistry: NarrowAlleyRecord[];
   entertainmentBusinessNoiseRecords: EntertainmentBusinessNoiseRecord[];
   doubleParkingEnforcementTopIntersections: DoubleParkingEnforcementRecord[];
@@ -1313,6 +1314,7 @@ export type SafetyDataBundle = {
   districtSummaries: DistrictSafetySummary[];
   conversionReport: ConversionReport;
 };
+export type FireSafetyInspectionDeclarationRecord={id:string;areaName:string;districtName:string;isCitywideTotal:boolean;classARequiredDeclarations:number|null;classACurrentDeclarations:number|null;classACurrentDeclarationRate:number|null;nonClassARequiredDeclarations:number|null;nonClassACurrentDeclarations:number|null;nonClassACurrentDeclarationRate:number|null;totalViolationCases:number|null;totalFineAmount:number|null;collectedFineAmount:number|null;compulsoryEnforcementCases:number|null;originalValues:Record<string,string>};
 export type NarrowAlleyRecord={id:string;sourceSequenceNumber:string;zoneCategory:string;districtCode:string;districtName:string;responsibleFireStation:string;alleyName:string;widthRaw:string;widthMeters:number|null;note:string;originalValues:Record<string,string>};
 export type EntertainmentBusinessNoiseRecord={id:string;sourceSequenceNumber:string;districtName:string;districtCode:string;inspectionLocationRaw:string;inspectionDateRaw:string;inspectionDate:string|null;inspectionYear:number|null;inspectionMonth:number|null;roadName:string;originalValues:Record<string,string>};
 export type DoubleParkingEnforcementRecord={id:string;sourceResourceName:string;sourceSequenceNumber:string;yearRaw:string;year:number|null;cityName:string;cityCode:string;intersectionName:string;enforcementCount:number|null;rankWithinYear:number|null;intersectionNameNormalized:string;externalMapQuery:string;originalValues:Record<string,string>};
