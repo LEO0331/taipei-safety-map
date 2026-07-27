@@ -25,6 +25,7 @@ import ReportedTrafficViolationEnforcement from './ReportedTrafficViolationEnfor
 import EntertainmentBusinessNoiseRecords from './EntertainmentBusinessNoiseRecords';
 import NarrowAlleyRegistry from './NarrowAlleyRegistry';
 import FireSafetyInspectionDeclarations from './FireSafetyInspectionDeclarations';
+import LpgFacilitiesAndGasRetailers from './LpgFacilitiesAndGasRetailers';
 import type {
   AedLocation,
   AirRaidShelter,
@@ -60,7 +61,7 @@ import type {
   VehicleTowingTopRoadSectionRecord,
 } from './types';
 
-type Tab = 'map' | 'nearby' | 'burglary' | 'bike' | 'motorcycle' | 'streetSnatch' | 'policeCctv' | 'smartTrafficEnforcement' | 'vehicleTowing' | 'doubleParking' | 'reportedViolations' | 'noiseEnforcement' | 'narrowAlleys' | 'fireSafetyDeclarations' | 'tobaccoControl' | 'domesticViolence' | 'occupationalAccidents' | 'eocActivations' | 'fireDonations' | 'fireRescueAreas' | 'fireAccessRoutes' | 'hikingTrails' | 'flooding' | 'health' | 'disaster' | 'overview' | 'notes';
+type Tab = 'map' | 'nearby' | 'burglary' | 'bike' | 'motorcycle' | 'streetSnatch' | 'policeCctv' | 'smartTrafficEnforcement' | 'vehicleTowing' | 'doubleParking' | 'reportedViolations' | 'noiseEnforcement' | 'narrowAlleys' | 'fireSafetyDeclarations' | 'lpgFacilities' | 'tobaccoControl' | 'domesticViolence' | 'occupationalAccidents' | 'eocActivations' | 'fireDonations' | 'fireRescueAreas' | 'fireAccessRoutes' | 'hikingTrails' | 'flooding' | 'health' | 'disaster' | 'overview' | 'notes';
 type CapacityRange = 'all' | 'under100' | '100-499' | '500-999' | '1000plus';
 type DenseLayer = 'aeds' | 'medical' | 'fireHydrants' | 'airRaidShelters' | 'evacuationGates' | 'cctv';
 const tileAttribution = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>';
@@ -989,6 +990,7 @@ function App() {
             ['noiseEnforcement', language === 'zh' ? '娛樂場所噪音' : 'Entertainment Noise Records'],
             ['narrowAlleys', language === 'zh' ? '狹小巷道清冊' : 'Narrow Alley Registry'],
             ['fireSafetyDeclarations', language === 'zh' ? '消防檢修申報' : 'Fire Safety Declarations'],
+            ['lpgFacilities', language === 'zh' ? '液化石油氣場所' : 'LPG Facilities'],
             ['tobaccoControl', language === 'zh' ? '菸害防制稽查' : 'Tobacco Inspections'],
             ['domesticViolence', language === 'zh' ? '家暴通報統計' : 'Domestic Violence Reports'],
             ['occupationalAccidents', language === 'zh' ? '重大職災' : 'Major Occupational Accidents'],
@@ -1029,6 +1031,7 @@ function App() {
       {activeTab === 'noiseEnforcement' && <EntertainmentBusinessNoiseRecords records={data.entertainmentBusinessNoiseRecords} language={language} />}
       {activeTab === 'narrowAlleys' && <NarrowAlleyRegistry records={data.narrowAlleyRegistry} language={language} />}
       {activeTab === 'fireSafetyDeclarations' && <FireSafetyInspectionDeclarations records={data.fireSafetyInspectionDeclarations} language={language} />}
+      {activeTab === 'lpgFacilities' && <LpgFacilitiesAndGasRetailers records={data.lpgFacilitiesAndGasRetailers} language={language} />}
       {activeTab === 'tobaccoControl' && <TobaccoControlInspectionResults records={data.tobaccoControlInspectionResults} summary={data.tobaccoControlInspectionSummary} language={language} />}
       {activeTab === 'domesticViolence' && <DomesticViolenceReportStatistics summary={data.domesticViolenceReportSummary} language={language} />}
       {activeTab === 'occupationalAccidents' && <MajorOccupationalAccidents records={data.majorOccupationalAccidents} language={language} />}

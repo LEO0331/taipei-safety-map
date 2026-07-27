@@ -1,0 +1,1541 @@
+[
+  {
+    "id": "lpg-1",
+    "sourceSequenceNumber": "1",
+    "name": "忠誠液化煤氣有限公司",
+    "postcode": "100062",
+    "cityCode": "63000",
+    "address": "臺北市中正區中華路二段311巷26號1樓",
+    "districtName": "中正區",
+    "purpose": "瓦斯行",
+    "category": "gas_retailer",
+    "originalValues": {
+      "項次": "1",
+      "場所名稱": "忠誠液化煤氣有限公司",
+      "郵遞區號": "100062",
+      "縣市別代碼": "63000",
+      "場所地址": "臺北市中正區中華路二段311巷26號1樓",
+      "用途名稱": "瓦斯行"
+    }
+  },
+  {
+    "id": "lpg-2",
+    "sourceSequenceNumber": "2",
+    "name": "中華煤氣有限公司",
+    "postcode": "100027",
+    "cityCode": "63000",
+    "address": "臺北市中正區和平西路一段96號1樓",
+    "districtName": "中正區",
+    "purpose": "瓦斯行",
+    "category": "gas_retailer",
+    "originalValues": {
+      "項次": "2",
+      "場所名稱": "中華煤氣有限公司",
+      "郵遞區號": "100027",
+      "縣市別代碼": "63000",
+      "場所地址": "臺北市中正區和平西路一段96號1樓",
+      "用途名稱": "瓦斯行"
+    }
+  },
+  {
+    "id": "lpg-3",
+    "sourceSequenceNumber": "3",
+    "name": "今日企業有限公司",
+    "postcode": "108011",
+    "cityCode": "63000",
+    "address": "臺北市萬華區昆明街266號1樓",
+    "districtName": "萬華區",
+    "purpose": "瓦斯行",
+    "category": "gas_retailer",
+    "originalValues": {
+      "項次": "3",
+      "場所名稱": "今日企業有限公司",
+      "郵遞區號": "108011",
+      "縣市別代碼": "63000",
+      "場所地址": "臺北市萬華區昆明街266號1樓",
+      "用途名稱": "瓦斯行"
+    }
+  },
+  {
+    "id": "lpg-4",
+    "sourceSequenceNumber": "4",
+    "name": "快良瓦斯行",
+    "postcode": "108017",
+    "cityCode": "63000",
+    "address": "臺北市萬華區環河南路二段130巷10號1樓",
+    "districtName": "萬華區",
+    "purpose": "瓦斯行",
+    "category": "gas_retailer",
+    "originalValues": {
+      "項次": "4",
+      "場所名稱": "快良瓦斯行",
+      "郵遞區號": "108017",
+      "縣市別代碼": "63000",
+      "場所地址": "臺北市萬華區環河南路二段130巷10號1樓",
+      "用途名稱": "瓦斯行"
+    }
+  },
+  {
+    "id": "lpg-5",
+    "sourceSequenceNumber": "5",
+    "name": "貴婦煤氣有限公司",
+    "postcode": "108046",
+    "cityCode": "63000",
+    "address": "臺北市萬華區武成街61號1樓",
+    "districtName": "萬華區",
+    "purpose": "瓦斯行",
+    "category": "gas_retailer",
+    "originalValues": {
+      "項次": "5",
+      "場所名稱": "貴婦煤氣有限公司",
+      "郵遞區號": "108046",
+      "縣市別代碼": "63000",
+      "場所地址": "臺北市萬華區武成街61號1樓",
+      "用途名稱": "瓦斯行"
+    }
+  },
+  {
+    "id": "lpg-6",
+    "sourceSequenceNumber": "6",
+    "name": "義山煤氣有限公司",
+    "postcode": "108052",
+    "cityCode": "63000",
+    "address": "臺北市萬華區萬青街93號1樓",
+    "districtName": "萬華區",
+    "purpose": "瓦斯行",
+    "category": "gas_retailer",
+    "originalValues": {
+      "項次": "6",
+      "場所名稱": "義山煤氣有限公司",
+      "郵遞區號": "108052",
+      "縣市別代碼": "63000",
+      "場所地址": "臺北市萬華區萬青街93號1樓",
+      "用途名稱": "瓦斯行"
+    }
+  },
+  {
+    "id": "lpg-7",
+    "sourceSequenceNumber": "7",
+    "name": "大利瓦斯有限公司",
+    "postcode": "108025",
+    "cityCode": "63000",
+    "address": "臺北市萬華區雙園街5號1樓",
+    "districtName": "萬華區",
+    "purpose": "瓦斯行",
+    "category": "gas_retailer",
+    "originalValues": {
+      "項次": "7",
+      "場所名稱": "大利瓦斯有限公司",
+      "郵遞區號": "108025",
+      "縣市別代碼": "63000",
+      "場所地址": "臺北市萬華區雙園街5號1樓",
+      "用途名稱": "瓦斯行"
+    }
+  },
+  {
+    "id": "lpg-8",
+    "sourceSequenceNumber": "8",
+    "name": "福民企業有限公司",
+    "postcode": "108052",
+    "cityCode": "63000",
+    "address": "臺北市萬華區萬青街93號1樓",
+    "districtName": "萬華區",
+    "purpose": "瓦斯行",
+    "category": "gas_retailer",
+    "originalValues": {
+      "項次": "8",
+      "場所名稱": "福民企業有限公司",
+      "郵遞區號": "108052",
+      "縣市別代碼": "63000",
+      "場所地址": "臺北市萬華區萬青街93號1樓",
+      "用途名稱": "瓦斯行"
+    }
+  },
+  {
+    "id": "lpg-9",
+    "sourceSequenceNumber": "9",
+    "name": "洪都煤氣企業有限公司",
+    "postcode": "116066",
+    "cityCode": "63000",
+    "address": "臺北市文山區景興路98號1樓",
+    "districtName": "文山區",
+    "purpose": "瓦斯行",
+    "category": "gas_retailer",
+    "originalValues": {
+      "項次": "9",
+      "場所名稱": "洪都煤氣企業有限公司",
+      "郵遞區號": "116066",
+      "縣市別代碼": "63000",
+      "場所地址": "臺北市文山區景興路98號1樓",
+      "用途名稱": "瓦斯行"
+    }
+  },
+  {
+    "id": "lpg-10",
+    "sourceSequenceNumber": "10",
+    "name": "博嘉煤氣有限公司",
+    "postcode": "116015",
+    "cityCode": "63000",
+    "address": "臺北市文山區和平東路四段396號1樓",
+    "districtName": "文山區",
+    "purpose": "瓦斯行",
+    "category": "gas_retailer",
+    "originalValues": {
+      "項次": "10",
+      "場所名稱": "博嘉煤氣有限公司",
+      "郵遞區號": "116015",
+      "縣市別代碼": "63000",
+      "場所地址": "臺北市文山區和平東路四段396號1樓",
+      "用途名稱": "瓦斯行"
+    }
+  },
+  {
+    "id": "lpg-11",
+    "sourceSequenceNumber": "11",
+    "name": "廣盛實業有限公司",
+    "postcode": "116071",
+    "cityCode": "63000",
+    "address": "臺北市文山區興隆路二段154巷17號1樓",
+    "districtName": "文山區",
+    "purpose": "瓦斯行",
+    "category": "gas_retailer",
+    "originalValues": {
+      "項次": "11",
+      "場所名稱": "廣盛實業有限公司",
+      "郵遞區號": "116071",
+      "縣市別代碼": "63000",
+      "場所地址": "臺北市文山區興隆路二段154巷17號1樓",
+      "用途名稱": "瓦斯行"
+    }
+  },
+  {
+    "id": "lpg-12",
+    "sourceSequenceNumber": "12",
+    "name": "錢來瓦斯配管工程行",
+    "postcode": "116071",
+    "cityCode": "63000",
+    "address": "臺北市文山區興隆路二段154巷21號2樓",
+    "districtName": "文山區",
+    "purpose": "瓦斯行",
+    "category": "gas_retailer",
+    "originalValues": {
+      "項次": "12",
+      "場所名稱": "錢來瓦斯配管工程行",
+      "郵遞區號": "116071",
+      "縣市別代碼": "63000",
+      "場所地址": "臺北市文山區興隆路二段154巷21號2樓",
+      "用途名稱": "瓦斯行"
+    }
+  },
+  {
+    "id": "lpg-13",
+    "sourceSequenceNumber": "13",
+    "name": "百年煤氣有限公司",
+    "postcode": "116005",
+    "cityCode": "63000",
+    "address": "臺北市文山區木柵路一段312號1樓",
+    "districtName": "文山區",
+    "purpose": "瓦斯行",
+    "category": "gas_retailer",
+    "originalValues": {
+      "項次": "13",
+      "場所名稱": "百年煤氣有限公司",
+      "郵遞區號": "116005",
+      "縣市別代碼": "63000",
+      "場所地址": "臺北市文山區木柵路一段312號1樓",
+      "用途名稱": "瓦斯行"
+    }
+  },
+  {
+    "id": "lpg-14",
+    "sourceSequenceNumber": "14",
+    "name": "德山煤氣有限公司",
+    "postcode": "116019",
+    "cityCode": "63000",
+    "address": "臺北市文山區木新路三段365巷8號1樓",
+    "districtName": "文山區",
+    "purpose": "瓦斯行",
+    "category": "gas_retailer",
+    "originalValues": {
+      "項次": "14",
+      "場所名稱": "德山煤氣有限公司",
+      "郵遞區號": "116019",
+      "縣市別代碼": "63000",
+      "場所地址": "臺北市文山區木新路三段365巷8號1樓",
+      "用途名稱": "瓦斯行"
+    }
+  },
+  {
+    "id": "lpg-15",
+    "sourceSequenceNumber": "15",
+    "name": "新興煤氣有限公司",
+    "postcode": "116019",
+    "cityCode": "63000",
+    "address": "臺北市文山區木新路三段365巷8號1樓",
+    "districtName": "文山區",
+    "purpose": "瓦斯行",
+    "category": "gas_retailer",
+    "originalValues": {
+      "項次": "15",
+      "場所名稱": "新興煤氣有限公司",
+      "郵遞區號": "116019",
+      "縣市別代碼": "63000",
+      "場所地址": "臺北市文山區木新路三段365巷8號1樓",
+      "用途名稱": "瓦斯行"
+    }
+  },
+  {
+    "id": "lpg-16",
+    "sourceSequenceNumber": "16",
+    "name": "六張犁企業有限公司",
+    "postcode": "106042",
+    "cityCode": "63000",
+    "address": "臺北市大安區臥龍街188巷42之3號1樓",
+    "districtName": "大安區",
+    "purpose": "瓦斯行",
+    "category": "gas_retailer",
+    "originalValues": {
+      "項次": "16",
+      "場所名稱": "六張犁企業有限公司",
+      "郵遞區號": "106042",
+      "縣市別代碼": "63000",
+      "場所地址": "臺北市大安區臥龍街188巷42之3號1樓",
+      "用途名稱": "瓦斯行"
+    }
+  },
+  {
+    "id": "lpg-17",
+    "sourceSequenceNumber": "17",
+    "name": "陽銘煤氣工業股份有限公司",
+    "postcode": "106044",
+    "cityCode": "63000",
+    "address": "臺北市大安區和平東路三段636巷167號",
+    "districtName": "大安區",
+    "purpose": "瓦斯行",
+    "category": "gas_retailer",
+    "originalValues": {
+      "項次": "17",
+      "場所名稱": "陽銘煤氣工業股份有限公司",
+      "郵遞區號": "106044",
+      "縣市別代碼": "63000",
+      "場所地址": "臺北市大安區和平東路三段636巷167號",
+      "用途名稱": "瓦斯行"
+    }
+  },
+  {
+    "id": "lpg-18",
+    "sourceSequenceNumber": "18",
+    "name": "山合煤氣有限公司",
+    "postcode": "106017",
+    "cityCode": "63000",
+    "address": "臺北市大安區泰順街60巷30號1樓",
+    "districtName": "大安區",
+    "purpose": "瓦斯行",
+    "category": "gas_retailer",
+    "originalValues": {
+      "項次": "18",
+      "場所名稱": "山合煤氣有限公司",
+      "郵遞區號": "106017",
+      "縣市別代碼": "63000",
+      "場所地址": "臺北市大安區泰順街60巷30號1樓",
+      "用途名稱": "瓦斯行"
+    }
+  },
+  {
+    "id": "lpg-19",
+    "sourceSequenceNumber": "19",
+    "name": "志和煤氣有限公司",
+    "postcode": "115002",
+    "cityCode": "63000",
+    "address": "臺北市南港區中南街49號",
+    "districtName": "南港區",
+    "purpose": "瓦斯行",
+    "category": "gas_retailer",
+    "originalValues": {
+      "項次": "19",
+      "場所名稱": "志和煤氣有限公司",
+      "郵遞區號": "115002",
+      "縣市別代碼": "63000",
+      "場所地址": "臺北市南港區中南街49號",
+      "用途名稱": "瓦斯行"
+    }
+  },
+  {
+    "id": "lpg-20",
+    "sourceSequenceNumber": "20",
+    "name": "皆得煤氣有限公司",
+    "postcode": "115015",
+    "cityCode": "63000",
+    "address": "臺北市南港區研究院路二段55號",
+    "districtName": "南港區",
+    "purpose": "瓦斯行",
+    "category": "gas_retailer",
+    "originalValues": {
+      "項次": "20",
+      "場所名稱": "皆得煤氣有限公司",
+      "郵遞區號": "115015",
+      "縣市別代碼": "63000",
+      "場所地址": "臺北市南港區研究院路二段55號",
+      "用途名稱": "瓦斯行"
+    }
+  },
+  {
+    "id": "lpg-21",
+    "sourceSequenceNumber": "21",
+    "name": "聯億瓦斯行",
+    "postcode": "115022",
+    "cityCode": "63000",
+    "address": "臺北市南港區舊莊街一段192巷11號",
+    "districtName": "南港區",
+    "purpose": "瓦斯行",
+    "category": "gas_retailer",
+    "originalValues": {
+      "項次": "21",
+      "場所名稱": "聯億瓦斯行",
+      "郵遞區號": "115022",
+      "縣市別代碼": "63000",
+      "場所地址": "臺北市南港區舊莊街一段192巷11號",
+      "用途名稱": "瓦斯行"
+    }
+  },
+  {
+    "id": "lpg-22",
+    "sourceSequenceNumber": "22",
+    "name": "旗開石油氣有限公司",
+    "postcode": "115020",
+    "cityCode": "63000",
+    "address": "臺北市南港區南港路三段30號1樓",
+    "districtName": "南港區",
+    "purpose": "瓦斯行",
+    "category": "gas_retailer",
+    "originalValues": {
+      "項次": "22",
+      "場所名稱": "旗開石油氣有限公司",
+      "郵遞區號": "115020",
+      "縣市別代碼": "63000",
+      "場所地址": "臺北市南港區南港路三段30號1樓",
+      "用途名稱": "瓦斯行"
+    }
+  },
+  {
+    "id": "lpg-23",
+    "sourceSequenceNumber": "23",
+    "name": "友人煤氣企業股份有限公司",
+    "postcode": "115019",
+    "cityCode": "63000",
+    "address": "臺北市南港區東新街114之1號1樓",
+    "districtName": "南港區",
+    "purpose": "瓦斯行",
+    "category": "gas_retailer",
+    "originalValues": {
+      "項次": "23",
+      "場所名稱": "友人煤氣企業股份有限公司",
+      "郵遞區號": "115019",
+      "縣市別代碼": "63000",
+      "場所地址": "臺北市南港區東新街114之1號1樓",
+      "用途名稱": "瓦斯行"
+    }
+  },
+  {
+    "id": "lpg-24",
+    "sourceSequenceNumber": "24",
+    "name": "時代煤氣有限公司",
+    "postcode": "110007",
+    "cityCode": "63000",
+    "address": "臺北市信義區嘉興街50號1樓",
+    "districtName": "信義區",
+    "purpose": "瓦斯行",
+    "category": "gas_retailer",
+    "originalValues": {
+      "項次": "24",
+      "場所名稱": "時代煤氣有限公司",
+      "郵遞區號": "110007",
+      "縣市別代碼": "63000",
+      "場所地址": "臺北市信義區嘉興街50號1樓",
+      "用途名稱": "瓦斯行"
+    }
+  },
+  {
+    "id": "lpg-25",
+    "sourceSequenceNumber": "25",
+    "name": "金順發煤氣行",
+    "postcode": "110007",
+    "cityCode": "63000",
+    "address": "臺北市信義區嘉興街68號",
+    "districtName": "信義區",
+    "purpose": "瓦斯行",
+    "category": "gas_retailer",
+    "originalValues": {
+      "項次": "25",
+      "場所名稱": "金順發煤氣行",
+      "郵遞區號": "110007",
+      "縣市別代碼": "63000",
+      "場所地址": "臺北市信義區嘉興街68號",
+      "用途名稱": "瓦斯行"
+    }
+  },
+  {
+    "id": "lpg-26",
+    "sourceSequenceNumber": "26",
+    "name": "榮明欣有限公司",
+    "postcode": "110007",
+    "cityCode": "63000",
+    "address": "臺北市信義區嘉興街68號1樓",
+    "districtName": "信義區",
+    "purpose": "瓦斯行",
+    "category": "gas_retailer",
+    "originalValues": {
+      "項次": "26",
+      "場所名稱": "榮明欣有限公司",
+      "郵遞區號": "110007",
+      "縣市別代碼": "63000",
+      "場所地址": "臺北市信義區嘉興街68號1樓",
+      "用途名稱": "瓦斯行"
+    }
+  },
+  {
+    "id": "lpg-27",
+    "sourceSequenceNumber": "27",
+    "name": "順安能源有限公司",
+    "postcode": "110068",
+    "cityCode": "63000",
+    "address": "臺北市信義區松信路130號1樓",
+    "districtName": "信義區",
+    "purpose": "瓦斯行",
+    "category": "gas_retailer",
+    "originalValues": {
+      "項次": "27",
+      "場所名稱": "順安能源有限公司",
+      "郵遞區號": "110068",
+      "縣市別代碼": "63000",
+      "場所地址": "臺北市信義區松信路130號1樓",
+      "用途名稱": "瓦斯行"
+    }
+  },
+  {
+    "id": "lpg-28",
+    "sourceSequenceNumber": "28",
+    "name": "合成煤氣股份有限公司",
+    "postcode": "110036",
+    "cityCode": "63000",
+    "address": "臺北市信義區福德街211號1樓",
+    "districtName": "信義區",
+    "purpose": "瓦斯行",
+    "category": "gas_retailer",
+    "originalValues": {
+      "項次": "28",
+      "場所名稱": "合成煤氣股份有限公司",
+      "郵遞區號": "110036",
+      "縣市別代碼": "63000",
+      "場所地址": "臺北市信義區福德街211號1樓",
+      "用途名稱": "瓦斯行"
+    }
+  },
+  {
+    "id": "lpg-29",
+    "sourceSequenceNumber": "29",
+    "name": "協勝煤氣有限公司",
+    "postcode": "110008",
+    "cityCode": "63000",
+    "address": "臺北市信義區吳興街96號1樓",
+    "districtName": "信義區",
+    "purpose": "瓦斯行",
+    "category": "gas_retailer",
+    "originalValues": {
+      "項次": "29",
+      "場所名稱": "協勝煤氣有限公司",
+      "郵遞區號": "110008",
+      "縣市別代碼": "63000",
+      "場所地址": "臺北市信義區吳興街96號1樓",
+      "用途名稱": "瓦斯行"
+    }
+  },
+  {
+    "id": "lpg-30",
+    "sourceSequenceNumber": "30",
+    "name": "台和盛企業有限公司",
+    "postcode": "110014",
+    "cityCode": "63000",
+    "address": "臺北市信義區莊敬路210號",
+    "districtName": "信義區",
+    "purpose": "瓦斯行",
+    "category": "gas_retailer",
+    "originalValues": {
+      "項次": "30",
+      "場所名稱": "台和盛企業有限公司",
+      "郵遞區號": "110014",
+      "縣市別代碼": "63000",
+      "場所地址": "臺北市信義區莊敬路210號",
+      "用途名稱": "瓦斯行"
+    }
+  },
+  {
+    "id": "lpg-31",
+    "sourceSequenceNumber": "31",
+    "name": "昌隆煤氣企業有限公司",
+    "postcode": "104034",
+    "cityCode": "63000",
+    "address": "臺北市中山區農安街125巷31號1樓",
+    "districtName": "中山區",
+    "purpose": "瓦斯行",
+    "category": "gas_retailer",
+    "originalValues": {
+      "項次": "31",
+      "場所名稱": "昌隆煤氣企業有限公司",
+      "郵遞區號": "104034",
+      "縣市別代碼": "63000",
+      "場所地址": "臺北市中山區農安街125巷31號1樓",
+      "用途名稱": "瓦斯行"
+    }
+  },
+  {
+    "id": "lpg-32",
+    "sourceSequenceNumber": "32",
+    "name": "台灣煤氣股份有限公司",
+    "postcode": "104028",
+    "cityCode": "63000",
+    "address": "臺北市中山區雙城街5-3號",
+    "districtName": "中山區",
+    "purpose": "瓦斯行",
+    "category": "gas_retailer",
+    "originalValues": {
+      "項次": "32",
+      "場所名稱": "台灣煤氣股份有限公司",
+      "郵遞區號": "104028",
+      "縣市別代碼": "63000",
+      "場所地址": "臺北市中山區雙城街5-3號",
+      "用途名稱": "瓦斯行"
+    }
+  },
+  {
+    "id": "lpg-33",
+    "sourceSequenceNumber": "33",
+    "name": "三同煤氣有限公司",
+    "postcode": "104110",
+    "cityCode": "63000",
+    "address": "臺北市中山區興安街64號1樓",
+    "districtName": "中山區",
+    "purpose": "瓦斯行",
+    "category": "gas_retailer",
+    "originalValues": {
+      "項次": "33",
+      "場所名稱": "三同煤氣有限公司",
+      "郵遞區號": "104110",
+      "縣市別代碼": "63000",
+      "場所地址": "臺北市中山區興安街64號1樓",
+      "用途名稱": "瓦斯行"
+    }
+  },
+  {
+    "id": "lpg-34",
+    "sourceSequenceNumber": "34",
+    "name": "永欣煤氣有限公司",
+    "postcode": "104098",
+    "cityCode": "63000",
+    "address": "臺北市中山區安東街18-12號",
+    "districtName": "中山區",
+    "purpose": "瓦斯行",
+    "category": "gas_retailer",
+    "originalValues": {
+      "項次": "34",
+      "場所名稱": "永欣煤氣有限公司",
+      "郵遞區號": "104098",
+      "縣市別代碼": "63000",
+      "場所地址": "臺北市中山區安東街18-12號",
+      "用途名稱": "瓦斯行"
+    }
+  },
+  {
+    "id": "lpg-35",
+    "sourceSequenceNumber": "35",
+    "name": "勝利煤氣有限公司",
+    "postcode": "104094",
+    "cityCode": "63000",
+    "address": "臺北市中山區松江路25巷1號",
+    "districtName": "中山區",
+    "purpose": "瓦斯行",
+    "category": "gas_retailer",
+    "originalValues": {
+      "項次": "35",
+      "場所名稱": "勝利煤氣有限公司",
+      "郵遞區號": "104094",
+      "縣市別代碼": "63000",
+      "場所地址": "臺北市中山區松江路25巷1號",
+      "用途名稱": "瓦斯行"
+    }
+  },
+  {
+    "id": "lpg-36",
+    "sourceSequenceNumber": "36",
+    "name": "煌龍煤氣有限公司",
+    "postcode": "104012",
+    "cityCode": "63000",
+    "address": "臺北市中山區新生北路二段58巷1-1號1樓",
+    "districtName": "中山區",
+    "purpose": "瓦斯行",
+    "category": "gas_retailer",
+    "originalValues": {
+      "項次": "36",
+      "場所名稱": "煌龍煤氣有限公司",
+      "郵遞區號": "104012",
+      "縣市別代碼": "63000",
+      "場所地址": "臺北市中山區新生北路二段58巷1-1號1樓",
+      "用途名稱": "瓦斯行"
+    }
+  },
+  {
+    "id": "lpg-37",
+    "sourceSequenceNumber": "37",
+    "name": "昶新瓦斯行",
+    "postcode": "104009",
+    "cityCode": "63000",
+    "address": "臺北市中山區林森北路85巷2-1號3樓",
+    "districtName": "中山區",
+    "purpose": "瓦斯行",
+    "category": "gas_retailer",
+    "originalValues": {
+      "項次": "37",
+      "場所名稱": "昶新瓦斯行",
+      "郵遞區號": "104009",
+      "縣市別代碼": "63000",
+      "場所地址": "臺北市中山區林森北路85巷2-1號3樓",
+      "用途名稱": "瓦斯行"
+    }
+  },
+  {
+    "id": "lpg-38",
+    "sourceSequenceNumber": "38",
+    "name": "蜂群電子商務股份有限公司",
+    "postcode": "114062",
+    "cityCode": "63000",
+    "address": "臺北市內湖區瑞光路258巷56號1樓",
+    "districtName": "內湖區",
+    "purpose": "瓦斯行",
+    "category": "gas_retailer",
+    "originalValues": {
+      "項次": "38",
+      "場所名稱": "蜂群電子商務股份有限公司",
+      "郵遞區號": "114062",
+      "縣市別代碼": "63000",
+      "場所地址": "臺北市內湖區瑞光路258巷56號1樓",
+      "用途名稱": "瓦斯行"
+    }
+  },
+  {
+    "id": "lpg-39",
+    "sourceSequenceNumber": "39",
+    "name": "智安科創股份有限公司",
+    "postcode": "114062",
+    "cityCode": "63000",
+    "address": "臺北市內湖區瑞光路258巷56號1樓",
+    "districtName": "內湖區",
+    "purpose": "瓦斯行",
+    "category": "gas_retailer",
+    "originalValues": {
+      "項次": "39",
+      "場所名稱": "智安科創股份有限公司",
+      "郵遞區號": "114062",
+      "縣市別代碼": "63000",
+      "場所地址": "臺北市內湖區瑞光路258巷56號1樓",
+      "用途名稱": "瓦斯行"
+    }
+  },
+  {
+    "id": "lpg-40",
+    "sourceSequenceNumber": "40",
+    "name": "盛鋒企業有限公司(分銷商)",
+    "postcode": "114041",
+    "cityCode": "63000",
+    "address": "臺北市內湖區大湖街121號",
+    "districtName": "內湖區",
+    "purpose": "瓦斯行",
+    "category": "gas_retailer",
+    "originalValues": {
+      "項次": "40",
+      "場所名稱": "盛鋒企業有限公司(分銷商)",
+      "郵遞區號": "114041",
+      "縣市別代碼": "63000",
+      "場所地址": "臺北市內湖區大湖街121號",
+      "用途名稱": "瓦斯行"
+    }
+  },
+  {
+    "id": "lpg-41",
+    "sourceSequenceNumber": "41",
+    "name": "九揚瓦斯股份有限公司(分銷商)",
+    "postcode": "114041",
+    "cityCode": "63000",
+    "address": "臺北市內湖區大湖街121號",
+    "districtName": "內湖區",
+    "purpose": "瓦斯行",
+    "category": "gas_retailer",
+    "originalValues": {
+      "項次": "41",
+      "場所名稱": "九揚瓦斯股份有限公司(分銷商)",
+      "郵遞區號": "114041",
+      "縣市別代碼": "63000",
+      "場所地址": "臺北市內湖區大湖街121號",
+      "用途名稱": "瓦斯行"
+    }
+  },
+  {
+    "id": "lpg-42",
+    "sourceSequenceNumber": "42",
+    "name": "東宜實業股份有限公司(分銷商)",
+    "postcode": "114041",
+    "cityCode": "63000",
+    "address": "臺北市內湖區大湖街121號",
+    "districtName": "內湖區",
+    "purpose": "瓦斯行",
+    "category": "gas_retailer",
+    "originalValues": {
+      "項次": "42",
+      "場所名稱": "東宜實業股份有限公司(分銷商)",
+      "郵遞區號": "114041",
+      "縣市別代碼": "63000",
+      "場所地址": "臺北市內湖區大湖街121號",
+      "用途名稱": "瓦斯行"
+    }
+  },
+  {
+    "id": "lpg-43",
+    "sourceSequenceNumber": "43",
+    "name": "志信企業有限公司(分銷商)",
+    "postcode": "114041",
+    "cityCode": "63000",
+    "address": "臺北市內湖區大湖街121號",
+    "districtName": "內湖區",
+    "purpose": "瓦斯行",
+    "category": "gas_retailer",
+    "originalValues": {
+      "項次": "43",
+      "場所名稱": "志信企業有限公司(分銷商)",
+      "郵遞區號": "114041",
+      "縣市別代碼": "63000",
+      "場所地址": "臺北市內湖區大湖街121號",
+      "用途名稱": "瓦斯行"
+    }
+  },
+  {
+    "id": "lpg-44",
+    "sourceSequenceNumber": "44",
+    "name": "聯合煤氣行",
+    "postcode": "105024",
+    "cityCode": "63000",
+    "address": "臺北市松山區南京東路四段133巷5弄3號",
+    "districtName": "松山區",
+    "purpose": "瓦斯行",
+    "category": "gas_retailer",
+    "originalValues": {
+      "項次": "44",
+      "場所名稱": "聯合煤氣行",
+      "郵遞區號": "105024",
+      "縣市別代碼": "63000",
+      "場所地址": "臺北市松山區南京東路四段133巷5弄3號",
+      "用途名稱": "瓦斯行"
+    }
+  },
+  {
+    "id": "lpg-45",
+    "sourceSequenceNumber": "45",
+    "name": "集大工業社有限公司",
+    "postcode": "103006",
+    "cityCode": "63000",
+    "address": "臺北市大同區民樂街197號1樓",
+    "districtName": "大同區",
+    "purpose": "瓦斯行",
+    "category": "gas_retailer",
+    "originalValues": {
+      "項次": "45",
+      "場所名稱": "集大工業社有限公司",
+      "郵遞區號": "103006",
+      "縣市別代碼": "63000",
+      "場所地址": "臺北市大同區民樂街197號1樓",
+      "用途名稱": "瓦斯行"
+    }
+  },
+  {
+    "id": "lpg-46",
+    "sourceSequenceNumber": "46",
+    "name": "裕新煤氣行",
+    "postcode": "103015",
+    "cityCode": "63000",
+    "address": "臺北市大同區華陰街137號1樓",
+    "districtName": "大同區",
+    "purpose": "瓦斯行",
+    "category": "gas_retailer",
+    "originalValues": {
+      "項次": "46",
+      "場所名稱": "裕新煤氣行",
+      "郵遞區號": "103015",
+      "縣市別代碼": "63000",
+      "場所地址": "臺北市大同區華陰街137號1樓",
+      "用途名稱": "瓦斯行"
+    }
+  },
+  {
+    "id": "lpg-47",
+    "sourceSequenceNumber": "47",
+    "name": "天建煤氣行",
+    "postcode": "103015",
+    "cityCode": "63000",
+    "address": "臺北市大同區華陰街153號1樓",
+    "districtName": "大同區",
+    "purpose": "瓦斯行",
+    "category": "gas_retailer",
+    "originalValues": {
+      "項次": "47",
+      "場所名稱": "天建煤氣行",
+      "郵遞區號": "103015",
+      "縣市別代碼": "63000",
+      "場所地址": "臺北市大同區華陰街153號1樓",
+      "用途名稱": "瓦斯行"
+    }
+  },
+  {
+    "id": "lpg-48",
+    "sourceSequenceNumber": "48",
+    "name": "國泰能源有限公司",
+    "postcode": "103004",
+    "cityCode": "63000",
+    "address": "臺北市大同區民權西路292巷19號1樓",
+    "districtName": "大同區",
+    "purpose": "瓦斯行",
+    "category": "gas_retailer",
+    "originalValues": {
+      "項次": "48",
+      "場所名稱": "國泰能源有限公司",
+      "郵遞區號": "103004",
+      "縣市別代碼": "63000",
+      "場所地址": "臺北市大同區民權西路292巷19號1樓",
+      "用途名稱": "瓦斯行"
+    }
+  },
+  {
+    "id": "lpg-49",
+    "sourceSequenceNumber": "49",
+    "name": "大豐煤氣有限公司",
+    "postcode": "103044",
+    "cityCode": "63000",
+    "address": "臺北市大同區酒泉街236號1樓",
+    "districtName": "大同區",
+    "purpose": "瓦斯行",
+    "category": "gas_retailer",
+    "originalValues": {
+      "項次": "49",
+      "場所名稱": "大豐煤氣有限公司",
+      "郵遞區號": "103044",
+      "縣市別代碼": "63000",
+      "場所地址": "臺北市大同區酒泉街236號1樓",
+      "用途名稱": "瓦斯行"
+    }
+  },
+  {
+    "id": "lpg-50",
+    "sourceSequenceNumber": "50",
+    "name": "國成煤氣有限公司",
+    "postcode": "103025",
+    "cityCode": "63000",
+    "address": "臺北市大同區昌吉街118號1樓",
+    "districtName": "大同區",
+    "purpose": "瓦斯行",
+    "category": "gas_retailer",
+    "originalValues": {
+      "項次": "50",
+      "場所名稱": "國成煤氣有限公司",
+      "郵遞區號": "103025",
+      "縣市別代碼": "63000",
+      "場所地址": "臺北市大同區昌吉街118號1樓",
+      "用途名稱": "瓦斯行"
+    }
+  },
+  {
+    "id": "lpg-51",
+    "sourceSequenceNumber": "51",
+    "name": "第一煤氣有限公司",
+    "postcode": "103029",
+    "cityCode": "63000",
+    "address": "臺北市大同區重慶北路三段223巷22號1樓",
+    "districtName": "大同區",
+    "purpose": "瓦斯行",
+    "category": "gas_retailer",
+    "originalValues": {
+      "項次": "51",
+      "場所名稱": "第一煤氣有限公司",
+      "郵遞區號": "103029",
+      "縣市別代碼": "63000",
+      "場所地址": "臺北市大同區重慶北路三段223巷22號1樓",
+      "用途名稱": "瓦斯行"
+    }
+  },
+  {
+    "id": "lpg-52",
+    "sourceSequenceNumber": "52",
+    "name": "六福煤氣企業有限公司",
+    "postcode": "103044",
+    "cityCode": "63000",
+    "address": "臺北市大同區酒泉街236號",
+    "districtName": "大同區",
+    "purpose": "瓦斯行",
+    "category": "gas_retailer",
+    "originalValues": {
+      "項次": "52",
+      "場所名稱": "六福煤氣企業有限公司",
+      "郵遞區號": "103044",
+      "縣市別代碼": "63000",
+      "場所地址": "臺北市大同區酒泉街236號",
+      "用途名稱": "瓦斯行"
+    }
+  },
+  {
+    "id": "lpg-53",
+    "sourceSequenceNumber": "53",
+    "name": "宗和煤氣有限公司",
+    "postcode": "103018",
+    "cityCode": "63000",
+    "address": "臺北市大同區雙連街84號1樓",
+    "districtName": "大同區",
+    "purpose": "瓦斯行",
+    "category": "gas_retailer",
+    "originalValues": {
+      "項次": "53",
+      "場所名稱": "宗和煤氣有限公司",
+      "郵遞區號": "103018",
+      "縣市別代碼": "63000",
+      "場所地址": "臺北市大同區雙連街84號1樓",
+      "用途名稱": "瓦斯行"
+    }
+  },
+  {
+    "id": "lpg-54",
+    "sourceSequenceNumber": "54",
+    "name": "雙連能源有限公司",
+    "postcode": "103047",
+    "cityCode": "63000",
+    "address": "臺北市大同區錦西街38巷16號1樓",
+    "districtName": "大同區",
+    "purpose": "瓦斯行",
+    "category": "gas_retailer",
+    "originalValues": {
+      "項次": "54",
+      "場所名稱": "雙連能源有限公司",
+      "郵遞區號": "103047",
+      "縣市別代碼": "63000",
+      "場所地址": "臺北市大同區錦西街38巷16號1樓",
+      "用途名稱": "瓦斯行"
+    }
+  },
+  {
+    "id": "lpg-55",
+    "sourceSequenceNumber": "55",
+    "name": "雙連發煤氣有限公司",
+    "postcode": "103026",
+    "cityCode": "63000",
+    "address": "臺北市大同區昌吉街61巷9弄1號1樓",
+    "districtName": "大同區",
+    "purpose": "瓦斯行",
+    "category": "gas_retailer",
+    "originalValues": {
+      "項次": "55",
+      "場所名稱": "雙連發煤氣有限公司",
+      "郵遞區號": "103026",
+      "縣市別代碼": "63000",
+      "場所地址": "臺北市大同區昌吉街61巷9弄1號1樓",
+      "用途名稱": "瓦斯行"
+    }
+  },
+  {
+    "id": "lpg-56",
+    "sourceSequenceNumber": "56",
+    "name": "東華行有限公司",
+    "postcode": "111095",
+    "cityCode": "63000",
+    "address": "臺北市士林區建業路11巷6號1樓",
+    "districtName": "士林區",
+    "purpose": "瓦斯行",
+    "category": "gas_retailer",
+    "originalValues": {
+      "項次": "56",
+      "場所名稱": "東華行有限公司",
+      "郵遞區號": "111095",
+      "縣市別代碼": "63000",
+      "場所地址": "臺北市士林區建業路11巷6號1樓",
+      "用途名稱": "瓦斯行"
+    }
+  },
+  {
+    "id": "lpg-57",
+    "sourceSequenceNumber": "57",
+    "name": "新興煤氣行",
+    "postcode": "111092",
+    "cityCode": "63000",
+    "address": "臺北市士林區格致路24號1樓",
+    "districtName": "士林區",
+    "purpose": "瓦斯行",
+    "category": "gas_retailer",
+    "originalValues": {
+      "項次": "57",
+      "場所名稱": "新興煤氣行",
+      "郵遞區號": "111092",
+      "縣市別代碼": "63000",
+      "場所地址": "臺北市士林區格致路24號1樓",
+      "用途名稱": "瓦斯行"
+    }
+  },
+  {
+    "id": "lpg-58",
+    "sourceSequenceNumber": "58",
+    "name": "位立賓煤氣企業有限公司",
+    "postcode": "111038",
+    "cityCode": "63000",
+    "address": "臺北市士林區中山北路七段62號1樓",
+    "districtName": "士林區",
+    "purpose": "瓦斯行",
+    "category": "gas_retailer",
+    "originalValues": {
+      "項次": "58",
+      "場所名稱": "位立賓煤氣企業有限公司",
+      "郵遞區號": "111038",
+      "縣市別代碼": "63000",
+      "場所地址": "臺北市士林區中山北路七段62號1樓",
+      "用途名稱": "瓦斯行"
+    }
+  },
+  {
+    "id": "lpg-59",
+    "sourceSequenceNumber": "59",
+    "name": "一全裕煤氣企業有限公司",
+    "postcode": "111076",
+    "cityCode": "63000",
+    "address": "臺北市士林區延平北路七段215號1樓",
+    "districtName": "士林區",
+    "purpose": "瓦斯行",
+    "category": "gas_retailer",
+    "originalValues": {
+      "項次": "59",
+      "場所名稱": "一全裕煤氣企業有限公司",
+      "郵遞區號": "111076",
+      "縣市別代碼": "63000",
+      "場所地址": "臺北市士林區延平北路七段215號1樓",
+      "用途名稱": "瓦斯行"
+    }
+  },
+  {
+    "id": "lpg-60",
+    "sourceSequenceNumber": "60",
+    "name": "聯祥煤氣有限公司",
+    "postcode": "111076",
+    "cityCode": "63000",
+    "address": "臺北市士林區延平北路七段215號1樓",
+    "districtName": "士林區",
+    "purpose": "瓦斯行",
+    "category": "gas_retailer",
+    "originalValues": {
+      "項次": "60",
+      "場所名稱": "聯祥煤氣有限公司",
+      "郵遞區號": "111076",
+      "縣市別代碼": "63000",
+      "場所地址": "臺北市士林區延平北路七段215號1樓",
+      "用途名稱": "瓦斯行"
+    }
+  },
+  {
+    "id": "lpg-61",
+    "sourceSequenceNumber": "61",
+    "name": "王順亨企業有限公司",
+    "postcode": "111077",
+    "cityCode": "63000",
+    "address": "臺北市士林區延平北路七段106巷148號1樓",
+    "districtName": "士林區",
+    "purpose": "瓦斯行",
+    "category": "gas_retailer",
+    "originalValues": {
+      "項次": "61",
+      "場所名稱": "王順亨企業有限公司",
+      "郵遞區號": "111077",
+      "縣市別代碼": "63000",
+      "場所地址": "臺北市士林區延平北路七段106巷148號1樓",
+      "用途名稱": "瓦斯行"
+    }
+  },
+  {
+    "id": "lpg-62",
+    "sourceSequenceNumber": "62",
+    "name": "宏倫企業有限公司",
+    "postcode": "111074",
+    "cityCode": "63000",
+    "address": "臺北市士林區社中街460號1樓",
+    "districtName": "士林區",
+    "purpose": "瓦斯行",
+    "category": "gas_retailer",
+    "originalValues": {
+      "項次": "62",
+      "場所名稱": "宏倫企業有限公司",
+      "郵遞區號": "111074",
+      "縣市別代碼": "63000",
+      "場所地址": "臺北市士林區社中街460號1樓",
+      "用途名稱": "瓦斯行"
+    }
+  },
+  {
+    "id": "lpg-63",
+    "sourceSequenceNumber": "63",
+    "name": "永順開發煤氣有限公司",
+    "postcode": "111071",
+    "cityCode": "63000",
+    "address": "臺北市士林區社子街63巷16號1樓",
+    "districtName": "士林區",
+    "purpose": "瓦斯行",
+    "category": "gas_retailer",
+    "originalValues": {
+      "項次": "63",
+      "場所名稱": "永順開發煤氣有限公司",
+      "郵遞區號": "111071",
+      "縣市別代碼": "63000",
+      "場所地址": "臺北市士林區社子街63巷16號1樓",
+      "用途名稱": "瓦斯行"
+    }
+  },
+  {
+    "id": "lpg-64",
+    "sourceSequenceNumber": "64",
+    "name": "宣誠煤氣行",
+    "postcode": "111043",
+    "cityCode": "63000",
+    "address": "臺北市士林區小東街32號1樓",
+    "districtName": "士林區",
+    "purpose": "瓦斯行",
+    "category": "gas_retailer",
+    "originalValues": {
+      "項次": "64",
+      "場所名稱": "宣誠煤氣行",
+      "郵遞區號": "111043",
+      "縣市別代碼": "63000",
+      "場所地址": "臺北市士林區小東街32號1樓",
+      "用途名稱": "瓦斯行"
+    }
+  },
+  {
+    "id": "lpg-65",
+    "sourceSequenceNumber": "65",
+    "name": "華珍企業有限公司",
+    "postcode": "111057",
+    "cityCode": "63000",
+    "address": "臺北市士林區福港街107巷17號1樓",
+    "districtName": "士林區",
+    "purpose": "瓦斯行",
+    "category": "gas_retailer",
+    "originalValues": {
+      "項次": "65",
+      "場所名稱": "華珍企業有限公司",
+      "郵遞區號": "111057",
+      "縣市別代碼": "63000",
+      "場所地址": "臺北市士林區福港街107巷17號1樓",
+      "用途名稱": "瓦斯行"
+    }
+  },
+  {
+    "id": "lpg-66",
+    "sourceSequenceNumber": "66",
+    "name": "利欣煤氣行",
+    "postcode": "112034",
+    "cityCode": "63000",
+    "address": "臺北市北投區實踐街48巷1號1樓",
+    "districtName": "北投區",
+    "purpose": "瓦斯行",
+    "category": "gas_retailer",
+    "originalValues": {
+      "項次": "66",
+      "場所名稱": "利欣煤氣行",
+      "郵遞區號": "112034",
+      "縣市別代碼": "63000",
+      "場所地址": "臺北市北投區實踐街48巷1號1樓",
+      "用途名稱": "瓦斯行"
+    }
+  },
+  {
+    "id": "lpg-67",
+    "sourceSequenceNumber": "67",
+    "name": "久大氣體有限公司(限辦)",
+    "postcode": "112057",
+    "cityCode": "63000",
+    "address": "臺北市北投區三合街二段428號1樓",
+    "districtName": "北投區",
+    "purpose": "瓦斯行",
+    "category": "gas_retailer",
+    "originalValues": {
+      "項次": "67",
+      "場所名稱": "久大氣體有限公司(限辦)",
+      "郵遞區號": "112057",
+      "縣市別代碼": "63000",
+      "場所地址": "臺北市北投區三合街二段428號1樓",
+      "用途名稱": "瓦斯行"
+    }
+  },
+  {
+    "id": "lpg-68",
+    "sourceSequenceNumber": "68",
+    "name": "吉利豐煤氣有限公司",
+    "postcode": "112034",
+    "cityCode": "63000",
+    "address": "臺北市北投區實踐街48巷1號1樓",
+    "districtName": "北投區",
+    "purpose": "瓦斯行",
+    "category": "gas_retailer",
+    "originalValues": {
+      "項次": "68",
+      "場所名稱": "吉利豐煤氣有限公司",
+      "郵遞區號": "112034",
+      "縣市別代碼": "63000",
+      "場所地址": "臺北市北投區實踐街48巷1號1樓",
+      "用途名稱": "瓦斯行"
+    }
+  },
+  {
+    "id": "lpg-69",
+    "sourceSequenceNumber": "69",
+    "name": "信良行(限辦)",
+    "postcode": "112017",
+    "cityCode": "63000",
+    "address": "臺北市北投區中央北路四段266號",
+    "districtName": "北投區",
+    "purpose": "瓦斯行",
+    "category": "gas_retailer",
+    "originalValues": {
+      "項次": "69",
+      "場所名稱": "信良行(限辦)",
+      "郵遞區號": "112017",
+      "縣市別代碼": "63000",
+      "場所地址": "臺北市北投區中央北路四段266號",
+      "用途名稱": "瓦斯行"
+    }
+  },
+  {
+    "id": "lpg-70",
+    "sourceSequenceNumber": "70",
+    "name": "中央科技興業有限公司",
+    "postcode": "112018",
+    "cityCode": "63000",
+    "address": "臺北市北投區中央北路三段9號",
+    "districtName": "北投區",
+    "purpose": "瓦斯行",
+    "category": "gas_retailer",
+    "originalValues": {
+      "項次": "70",
+      "場所名稱": "中央科技興業有限公司",
+      "郵遞區號": "112018",
+      "縣市別代碼": "63000",
+      "場所地址": "臺北市北投區中央北路三段9號",
+      "用途名稱": "瓦斯行"
+    }
+  },
+  {
+    "id": "lpg-71",
+    "sourceSequenceNumber": "71",
+    "name": "復興行",
+    "postcode": "112063",
+    "cityCode": "63000",
+    "address": "臺北市北投區石牌路二段75巷2號1樓",
+    "districtName": "北投區",
+    "purpose": "瓦斯行",
+    "category": "gas_retailer",
+    "originalValues": {
+      "項次": "71",
+      "場所名稱": "復興行",
+      "郵遞區號": "112063",
+      "縣市別代碼": "63000",
+      "場所地址": "臺北市北投區石牌路二段75巷2號1樓",
+      "用途名稱": "瓦斯行"
+    }
+  },
+  {
+    "id": "lpg-72",
+    "sourceSequenceNumber": "72",
+    "name": "新北投瓦斯爐具行",
+    "postcode": "112026",
+    "cityCode": "63000",
+    "address": "臺北市北投區義理街58號1樓",
+    "districtName": "北投區",
+    "purpose": "瓦斯行",
+    "category": "gas_retailer",
+    "originalValues": {
+      "項次": "72",
+      "場所名稱": "新北投瓦斯爐具行",
+      "郵遞區號": "112026",
+      "縣市別代碼": "63000",
+      "場所地址": "臺北市北投區義理街58號1樓",
+      "用途名稱": "瓦斯行"
+    }
+  },
+  {
+    "id": "lpg-73",
+    "sourceSequenceNumber": "73",
+    "name": "六韜實業股份有限公司",
+    "postcode": "115031",
+    "cityCode": "63000",
+    "address": "臺北市南港區研究院路3段161巷3號",
+    "districtName": "南港區",
+    "purpose": "液化石油氣分裝場",
+    "category": "filling",
+    "originalValues": {
+      "項次": "73",
+      "場所名稱": "六韜實業股份有限公司",
+      "郵遞區號": "115031",
+      "縣市別代碼": "63000",
+      "場所地址": "臺北市南港區研究院路3段161巷3號",
+      "用途名稱": "液化石油氣分裝場"
+    }
+  },
+  {
+    "id": "lpg-74",
+    "sourceSequenceNumber": "74",
+    "name": "台和實業股份有限公司(分裝場)",
+    "postcode": "106044",
+    "cityCode": "63000",
+    "address": "臺北市大安區和平東路3段636巷167號",
+    "districtName": "大安區",
+    "purpose": "液化石油氣分裝場",
+    "category": "filling",
+    "originalValues": {
+      "項次": "74",
+      "場所名稱": "台和實業股份有限公司(分裝場)",
+      "郵遞區號": "106044",
+      "縣市別代碼": "63000",
+      "場所地址": "臺北市大安區和平東路3段636巷167號",
+      "用途名稱": "液化石油氣分裝場"
+    }
+  },
+  {
+    "id": "lpg-75",
+    "sourceSequenceNumber": "75",
+    "name": "陽明山聯合煤氣分裝場股份有限公司",
+    "postcode": "111076",
+    "cityCode": "63000",
+    "address": "臺北市士林區延平北路7段215號",
+    "districtName": "士林區",
+    "purpose": "液化石油氣分裝場",
+    "category": "filling",
+    "originalValues": {
+      "項次": "75",
+      "場所名稱": "陽明山聯合煤氣分裝場股份有限公司",
+      "郵遞區號": "111076",
+      "縣市別代碼": "63000",
+      "場所地址": "臺北市士林區延平北路7段215號",
+      "用途名稱": "液化石油氣分裝場"
+    }
+  },
+  {
+    "id": "lpg-76",
+    "sourceSequenceNumber": "76",
+    "name": "台和實業股份有限公司",
+    "postcode": "106044",
+    "cityCode": "63000",
+    "address": "臺北市大安區和平東路3段636巷167號1樓",
+    "districtName": "大安區",
+    "purpose": "液化石油氣容器儲存場所",
+    "category": "storage",
+    "originalValues": {
+      "項次": "76",
+      "場所名稱": "台和實業股份有限公司",
+      "郵遞區號": "106044",
+      "縣市別代碼": "63000",
+      "場所地址": "臺北市大安區和平東路3段636巷167號1樓",
+      "用途名稱": "液化石油氣容器儲存場所"
+    }
+  },
+  {
+    "id": "lpg-77",
+    "sourceSequenceNumber": "77",
+    "name": "六韜實業股份有限公司",
+    "postcode": "115031",
+    "cityCode": "63000",
+    "address": "臺北市南港區研究院路3段161巷3號1樓",
+    "districtName": "南港區",
+    "purpose": "液化石油氣容器儲存場所",
+    "category": "storage",
+    "originalValues": {
+      "項次": "77",
+      "場所名稱": "六韜實業股份有限公司",
+      "郵遞區號": "115031",
+      "縣市別代碼": "63000",
+      "場所地址": "臺北市南港區研究院路3段161巷3號1樓",
+      "用途名稱": "液化石油氣容器儲存場所"
+    }
+  },
+  {
+    "id": "lpg-78",
+    "sourceSequenceNumber": "78",
+    "name": "六韜實業股份有限公司",
+    "postcode": "115031",
+    "cityCode": "63000",
+    "address": "臺北市南港區研究院路4段176號",
+    "districtName": "南港區",
+    "purpose": "液化石油氣容器儲存場所",
+    "category": "storage",
+    "originalValues": {
+      "項次": "78",
+      "場所名稱": "六韜實業股份有限公司",
+      "郵遞區號": "115031",
+      "縣市別代碼": "63000",
+      "場所地址": "臺北市南港區研究院路4段176號",
+      "用途名稱": "液化石油氣容器儲存場所"
+    }
+  },
+  {
+    "id": "lpg-79",
+    "sourceSequenceNumber": "79",
+    "name": "東宜實業股份有限公司",
+    "postcode": "114041",
+    "cityCode": "63000",
+    "address": "臺北市內湖區大湖街121號",
+    "districtName": "內湖區",
+    "purpose": "液化石油氣容器儲存場所",
+    "category": "storage",
+    "originalValues": {
+      "項次": "79",
+      "場所名稱": "東宜實業股份有限公司",
+      "郵遞區號": "114041",
+      "縣市別代碼": "63000",
+      "場所地址": "臺北市內湖區大湖街121號",
+      "用途名稱": "液化石油氣容器儲存場所"
+    }
+  },
+  {
+    "id": "lpg-80",
+    "sourceSequenceNumber": "80",
+    "name": "同達興實業股份有限公司",
+    "postcode": "115031",
+    "cityCode": "63000",
+    "address": "臺北市南港區研究院路3段247-1號",
+    "districtName": "南港區",
+    "purpose": "液化石油氣容器儲存場所",
+    "category": "storage",
+    "originalValues": {
+      "項次": "80",
+      "場所名稱": "同達興實業股份有限公司",
+      "郵遞區號": "115031",
+      "縣市別代碼": "63000",
+      "場所地址": "臺北市南港區研究院路3段247-1號",
+      "用途名稱": "液化石油氣容器儲存場所"
+    }
+  },
+  {
+    "id": "lpg-81",
+    "sourceSequenceNumber": "81",
+    "name": "台安鋼瓶製造檢驗股份有限公司",
+    "postcode": "106044",
+    "cityCode": "63000",
+    "address": "臺北市大安區和平東路三段636巷167號",
+    "districtName": "大安區",
+    "purpose": "液化石油氣鋼瓶驗瓶場",
+    "category": "cylinder_inspection",
+    "originalValues": {
+      "項次": "81",
+      "場所名稱": "台安鋼瓶製造檢驗股份有限公司",
+      "郵遞區號": "106044",
+      "縣市別代碼": "63000",
+      "場所地址": "臺北市大安區和平東路三段636巷167號",
+      "用途名稱": "液化石油氣鋼瓶驗瓶場"
+    }
+  }
+]

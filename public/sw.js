@@ -1,4 +1,4 @@
-const CACHE_NAME = 'taipei-safety-map-v10';
+const CACHE_NAME = 'taipei-safety-map-v11';
 const cacheUrl = (path) => new URL(path, self.registration.scope).toString();
 const APP_SHELL = [cacheUrl(''), cacheUrl('manifest.webmanifest'), cacheUrl('icons/icon.svg')];
 const DATA_FILES = [
@@ -61,6 +61,8 @@ const DATA_FILES = [
   cacheUrl('data/reported-traffic-violation-enforcement/by-category.json'),
   cacheUrl('data/reported-traffic-violation-enforcement/by-road.json'),
   cacheUrl('data/entertainment-business-noise-enforcement-records/records.json'),
+  cacheUrl('data/lpg-facilities-and-gas-retailers/records.json'),
+  cacheUrl('data/lpg-facilities-and-gas-retailers/conversion-report.json'),
   cacheUrl('data/natural-disaster-work-school-suspension-records.json'),
   cacheUrl('data/natural-disaster-work-school-suspension-summary.json'),
   cacheUrl('data/natural-disaster-work-school-suspension-event-groups.json'),

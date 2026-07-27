@@ -1,0 +1,15 @@
+{
+  "inputRows": 81,
+  "outputRows": 81,
+  "exactDuplicateRows": 0,
+  "unmappedPurposeValues": [],
+  "recordsWithoutRecognisedDistrict": 0,
+  "sourceColumns": [
+    "項次",
+    "場所名稱",
+    "郵遞區號",
+    "縣市別代碼",
+    "場所地址",
+    "用途名稱"
+  ]
+}

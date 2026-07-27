@@ -1,6 +1,7 @@
 import type {
   AedLocation,
   FireSafetyInspectionDeclarationRecord,
+  LpgFacilityRecord,
   NarrowAlleyRecord,
   EntertainmentBusinessNoiseRecord,
   DoubleParkingEnforcementRecord,
@@ -65,6 +66,7 @@ export async function loadSafetyData(): Promise<SafetyDataBundle> {
   const [
     shelters,
     fireSafetyInspectionDeclarations,
+    lpgFacilitiesAndGasRetailers,
     narrowAlleyRegistry,
     entertainmentBusinessNoiseRecords,
     doubleParkingEnforcementTopIntersections,
@@ -100,6 +102,7 @@ export async function loadSafetyData(): Promise<SafetyDataBundle> {
   ] = await Promise.all([
     loadJson<AirRaidShelter[]>('air-raid-shelters.json'),
     loadJson<FireSafetyInspectionDeclarationRecord[]>('fire-safety-equipment-inspection-declarations/records.json'),
+    loadJson<LpgFacilityRecord[]>('lpg-facilities-and-gas-retailers/records.json'),
     loadJson<NarrowAlleyRecord[]>('narrow-alley-red-yellow-registry/records.json'),
     loadJson<EntertainmentBusinessNoiseRecord[]>('entertainment-business-noise-enforcement-records/records.json'),
     loadJson<DoubleParkingEnforcementRecord[]>('double-parking-enforcement-top-intersections/records.json'),
@@ -153,6 +156,7 @@ export async function loadSafetyData(): Promise<SafetyDataBundle> {
   return {
     shelters,
     fireSafetyInspectionDeclarations,
+    lpgFacilitiesAndGasRetailers,
     narrowAlleyRegistry,
     entertainmentBusinessNoiseRecords,
     doubleParkingEnforcementTopIntersections,
