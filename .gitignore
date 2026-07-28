@@ -18,4 +18,5 @@ data/raw/emergency-shelters/*.json
 data/raw/traffic-cctv/*.csv
 data/raw/traffic-cctv/*.json
 data/raw/lpg-facilities-and-gas-retailers/*.csv
+data/raw/electrical-equipment-inspection-maintenance-businesses/*.csv
 .omx

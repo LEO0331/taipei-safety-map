@@ -1,5 +1,6 @@
 import type {
   AedLocation,
+  ElectricalInspectionMaintenanceBusinessRecord,
   FireSafetyInspectionDeclarationRecord,
   LpgFacilityRecord,
   NarrowAlleyRecord,
@@ -65,6 +66,7 @@ async function loadJson<T>(path: string): Promise<T> {
 export async function loadSafetyData(): Promise<SafetyDataBundle> {
   const [
     shelters,
+    electricalInspectionMaintenanceBusinesses,
     fireSafetyInspectionDeclarations,
     lpgFacilitiesAndGasRetailers,
     narrowAlleyRegistry,
@@ -101,6 +103,7 @@ export async function loadSafetyData(): Promise<SafetyDataBundle> {
     conversionReport,
   ] = await Promise.all([
     loadJson<AirRaidShelter[]>('air-raid-shelters.json'),
+    loadJson<ElectricalInspectionMaintenanceBusinessRecord[]>('electrical-equipment-inspection-maintenance-businesses/records.json'),
     loadJson<FireSafetyInspectionDeclarationRecord[]>('fire-safety-equipment-inspection-declarations/records.json'),
     loadJson<LpgFacilityRecord[]>('lpg-facilities-and-gas-retailers/records.json'),
     loadJson<NarrowAlleyRecord[]>('narrow-alley-red-yellow-registry/records.json'),
@@ -155,6 +158,7 @@ export async function loadSafetyData(): Promise<SafetyDataBundle> {
 
   return {
     shelters,
+    electricalInspectionMaintenanceBusinesses,
     fireSafetyInspectionDeclarations,
     lpgFacilitiesAndGasRetailers,
     narrowAlleyRegistry,

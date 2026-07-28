@@ -1265,6 +1265,7 @@ export type HistoricalFloodingSummary = {
 };
 
 export type SafetyDataBundle = {
+  electricalInspectionMaintenanceBusinesses: ElectricalInspectionMaintenanceBusinessRecord[];
   fireSafetyInspectionDeclarations: FireSafetyInspectionDeclarationRecord[];
   narrowAlleyRegistry: NarrowAlleyRecord[];
   lpgFacilitiesAndGasRetailers: LpgFacilityRecord[];
@@ -1318,6 +1319,7 @@ export type SafetyDataBundle = {
 export type FireSafetyInspectionDeclarationRecord={id:string;areaName:string;districtName:string;isCitywideTotal:boolean;classARequiredDeclarations:number|null;classACurrentDeclarations:number|null;classACurrentDeclarationRate:number|null;nonClassARequiredDeclarations:number|null;nonClassACurrentDeclarations:number|null;nonClassACurrentDeclarationRate:number|null;totalViolationCases:number|null;totalFineAmount:number|null;collectedFineAmount:number|null;compulsoryEnforcementCases:number|null;originalValues:Record<string,string>};
 export type NarrowAlleyRecord={id:string;sourceSequenceNumber:string;zoneCategory:string;districtCode:string;districtName:string;responsibleFireStation:string;alleyName:string;widthRaw:string;widthMeters:number|null;note:string;originalValues:Record<string,string>};
 export type LpgFacilityRecord={id:string;sourceSequenceNumber:string;name:string;postcode:string;cityCode:string;address:string;districtName:string;purpose:string;category:string;originalValues:Record<string,string>};
+export type ElectricalInspectionMaintenanceBusinessRecord={id:string;businessName:string;certificateNumber:string;businessRegistrationNumber:string;businessAddress:string;districtName:string;responsiblePersonName:string;registrationStatusRaw:string;registrationStatus:'active'|'suspended'|'revoked'|'cancelled'|'unknown';approvalDateRaw:string;approvalDate:string|null;approvalDocumentNumber:string;longitudeRaw:string;latitudeRaw:string;longitude:number|null;latitude:number|null;hasValidCoordinates:boolean;externalMapQuery:string;originalValues:Record<string,string>};
 export type EntertainmentBusinessNoiseRecord={id:string;sourceSequenceNumber:string;districtName:string;districtCode:string;inspectionLocationRaw:string;inspectionDateRaw:string;inspectionDate:string|null;inspectionYear:number|null;inspectionMonth:number|null;roadName:string;originalValues:Record<string,string>};
 export type DoubleParkingEnforcementRecord={id:string;sourceResourceName:string;sourceSequenceNumber:string;yearRaw:string;year:number|null;cityName:string;cityCode:string;intersectionName:string;enforcementCount:number|null;rankWithinYear:number|null;intersectionNameNormalized:string;externalMapQuery:string;originalValues:Record<string,string>};
 export type EmergencyOperationsCenterActivation={id:string;sourceResourceName:string;activationLevel:'level_2_or_higher'|'enhanced_level_3'|'unknown';yearRaw:string;year:number|null;disasterName:string;establishedTimeRaw:string;establishedTime:string|null;deactivatedTimeRaw:string;deactivatedTime:string|null;activationDurationHours:number|null;disasterReportRaw:string;originalValues:Record<string,string>};

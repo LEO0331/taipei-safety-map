@@ -51,7 +51,9 @@
     "data:fetch:domestic-violence": "tsx scripts/fetchDomesticViolenceReportStatistics.ts",
     "data:convert:domestic-violence": "tsx scripts/convertDomesticViolenceReportStatistics.ts && tsx scripts/buildDomesticViolenceReportSummary.ts",
     "data:fetch:lpg-facilities": "tsx scripts/fetchLpgFacilitiesAndGasRetailers.ts",
-    "data:convert:lpg-facilities": "tsx scripts/convertLpgFacilitiesAndGasRetailers.ts"
+    "data:convert:lpg-facilities": "tsx scripts/convertLpgFacilitiesAndGasRetailers.ts",
+    "data:fetch:electrical-businesses": "tsx scripts/fetchElectricalInspectionMaintenanceBusinesses.ts",
+    "data:convert:electrical-businesses": "tsx scripts/convertElectricalInspectionMaintenanceBusinesses.ts"
   },
   "dependencies": {
     "leaflet": "^1.9.4",

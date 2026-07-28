@@ -1,0 +1,38 @@
+{
+  "inputRows": 27,
+  "outputRows": 27,
+  "exactDuplicateRows": 0,
+  "sourceColumns": [
+    "維護業名稱",
+    "證號",
+    "營利事業統一編號",
+    "營業地址",
+    "負責人姓名",
+    "狀態",
+    "核設日期",
+    "核設文號",
+    "位置X座標",
+    "位置Y座標"
+  ],
+  "sourceStatusValues": [
+    "營業中"
+  ],
+  "missingBusinessName": 0,
+  "missingCertificateNumber": 0,
+  "missingBusinessRegistrationNumber": 0,
+  "malformedBusinessRegistrationNumber": 0,
+  "missingAddress": 0,
+  "unresolvedDistrict": 27,
+  "unknownStatus": 0,
+  "missingOrMalformedApprovalDate": 0,
+  "missingApprovalDocumentNumber": 0,
+  "invalidCoordinates": 27,
+  "possibleCoordinateReversal": 0,
+  "duplicateCertificateNumbers": [],
+  "duplicateBusinessRegistrationNumbers": [],
+  "conflictingCertificateBusinesses": [],
+  "sameBusinessMultipleStatuses": [],
+  "sameAddressMultipleBusinesses": [
+    "興隆路1段70巷11弄14之3號1樓"
+  ]
+}
