@@ -22,6 +22,7 @@ import MajorOccupationalAccidents from './MajorOccupationalAccidents';
 import EmergencyOperationsCenterActivations from './EmergencyOperationsCenterActivations';
 import DoubleParkingEnforcementTopIntersections from './DoubleParkingEnforcementTopIntersections';
 import ReportedTrafficViolationEnforcement from './ReportedTrafficViolationEnforcement';
+import TrafficViolationAppealTrends from './TrafficViolationAppealTrends';
 import EntertainmentBusinessNoiseRecords from './EntertainmentBusinessNoiseRecords';
 import NarrowAlleyRegistry from './NarrowAlleyRegistry';
 import FireSafetyInspectionDeclarations from './FireSafetyInspectionDeclarations';
@@ -62,7 +63,7 @@ import type {
   VehicleTowingTopRoadSectionRecord,
 } from './types';
 
-type Tab = 'map' | 'nearby' | 'burglary' | 'bike' | 'motorcycle' | 'streetSnatch' | 'policeCctv' | 'smartTrafficEnforcement' | 'vehicleTowing' | 'doubleParking' | 'reportedViolations' | 'noiseEnforcement' | 'narrowAlleys' | 'fireSafetyDeclarations' | 'lpgFacilities' | 'electricalBusinesses' | 'tobaccoControl' | 'domesticViolence' | 'occupationalAccidents' | 'eocActivations' | 'fireDonations' | 'fireRescueAreas' | 'fireAccessRoutes' | 'hikingTrails' | 'flooding' | 'health' | 'disaster' | 'overview' | 'notes';
+type Tab = 'map' | 'nearby' | 'burglary' | 'bike' | 'motorcycle' | 'streetSnatch' | 'policeCctv' | 'smartTrafficEnforcement' | 'vehicleTowing' | 'doubleParking' | 'reportedViolations' | 'trafficViolationAppeals' | 'noiseEnforcement' | 'narrowAlleys' | 'fireSafetyDeclarations' | 'lpgFacilities' | 'electricalBusinesses' | 'tobaccoControl' | 'domesticViolence' | 'occupationalAccidents' | 'eocActivations' | 'fireDonations' | 'fireRescueAreas' | 'fireAccessRoutes' | 'hikingTrails' | 'flooding' | 'health' | 'disaster' | 'overview' | 'notes';
 type CapacityRange = 'all' | 'under100' | '100-499' | '500-999' | '1000plus';
 type DenseLayer = 'aeds' | 'medical' | 'fireHydrants' | 'airRaidShelters' | 'evacuationGates' | 'cctv';
 const tileAttribution = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>';
@@ -988,6 +989,7 @@ function App() {
             ['vehicleTowing', vehicleTowingLabels[language].shortTitle],
             ['doubleParking', language === 'zh' ? '併排停車取締' : 'Double-Parking Enforcement'],
             ['reportedViolations', language === 'zh' ? '檢舉交通違規' : 'Reported Traffic Violations'],
+            ['trafficViolationAppeals', language === 'zh' ? '交通申訴趨勢' : 'Traffic Appeal Trends'],
             ['noiseEnforcement', language === 'zh' ? '娛樂場所噪音' : 'Entertainment Noise Records'],
             ['narrowAlleys', language === 'zh' ? '狹小巷道清冊' : 'Narrow Alley Registry'],
             ['fireSafetyDeclarations', language === 'zh' ? '消防檢修申報' : 'Fire Safety Declarations'],
@@ -1030,6 +1032,7 @@ function App() {
       {activeTab === 'vehicleTowing' && <VehicleTowingTopRoadSections data={data} language={language} />}
       {activeTab === 'doubleParking' && <DoubleParkingEnforcementTopIntersections records={data.doubleParkingEnforcementTopIntersections} language={language} />}
       {activeTab === 'reportedViolations' && <ReportedTrafficViolationEnforcement language={language} />}
+      {activeTab === 'trafficViolationAppeals' && <TrafficViolationAppealTrends language={language} />}
       {activeTab === 'noiseEnforcement' && <EntertainmentBusinessNoiseRecords records={data.entertainmentBusinessNoiseRecords} language={language} />}
       {activeTab === 'narrowAlleys' && <NarrowAlleyRegistry records={data.narrowAlleyRegistry} language={language} />}
       {activeTab === 'fireSafetyDeclarations' && <FireSafetyInspectionDeclarations records={data.fireSafetyInspectionDeclarations} language={language} />}

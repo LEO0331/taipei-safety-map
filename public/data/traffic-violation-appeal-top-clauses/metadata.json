@@ -1,0 +1,81 @@
+{
+  "module": "traffic_violation_appeal_top_clauses",
+  "sourcePageUrl": "https://data.taipei/dataset/detail?id=da715207-29e8-4b8d-b680-7fc120211512",
+  "sourceFileUpdateDate": "2026-08-08",
+  "metadataUpdateDate": "2026-08-08",
+  "ingestionTimestamp": "2026-08-12T00:31:58.047Z",
+  "fields": [
+    "民國年月",
+    "排名",
+    "條款",
+    "條款中文說明",
+    "件數"
+  ],
+  "earliestPeriod": "2026-01",
+  "latestPeriod": "2026-07",
+  "validMonths": [
+    "2026-01",
+    "2026-02",
+    "2026-03",
+    "2026-04",
+    "2026-05",
+    "2026-06",
+    "2026-07"
+  ],
+  "uniqueClauses": 7,
+  "recordCount": 35,
+  "monthlyCompleteness": [
+    {
+      "period": "2026-01",
+      "validRankedRows": 5,
+      "complete": true
+    },
+    {
+      "period": "2026-02",
+      "validRankedRows": 5,
+      "complete": true
+    },
+    {
+      "period": "2026-03",
+      "validRankedRows": 5,
+      "complete": true
+    },
+    {
+      "period": "2026-04",
+      "validRankedRows": 5,
+      "complete": true
+    },
+    {
+      "period": "2026-05",
+      "validRankedRows": 5,
+      "complete": true
+    },
+    {
+      "period": "2026-06",
+      "validRankedRows": 5,
+      "complete": true
+    },
+    {
+      "period": "2026-07",
+      "validRankedRows": 5,
+      "complete": true
+    }
+  ],
+  "dataQuality": {
+    "invalidPeriod": 0,
+    "missingRank": 0,
+    "rankOutsideTopFive": 0,
+    "missingClauseCode": 0,
+    "missingClauseDescription": 0,
+    "malformedCount": 0,
+    "negativeCount": 0,
+    "duplicatePeriodClauseRows": 0,
+    "duplicateRankWithinMonth": 0,
+    "samePeriodRankMultipleClauses": 0,
+    "conflictingClauseDescriptions": 0,
+    "monthsFewerThanFive": 0,
+    "monthsMoreThanFive": 0,
+    "unexpectedMonthlyGaps": 0
+  },
+  "limitations": "Only the five clauses with the most appeals are published for each period; absence from the Top 5 is not zero appeals."
+}

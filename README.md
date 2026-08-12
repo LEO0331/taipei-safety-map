@@ -14,6 +14,16 @@ Traffic safety and technology enforcement: smart traffic-enforcement equipment r
 
 Traffic safety, parking enforcement and road order: annual top vehicle-towing road sections and counts / 交通安全、停車執法與道路秩序：臺北市車輛拖吊前十大路段與件數
 
+Traffic safety, adjudication and appeals: monthly Top-5 traffic-violation appeal clauses / 交通安全、裁決與申訴統計：違反道路交通管理事件提出申訴條款前5名
+
+### Traffic-violation appeal Top-5 clauses
+
+`traffic_violation_appeal_top_clauses` uses the Taipei City Traffic Adjudication Office dataset, [違反道路交通管理事件提出申訴條款前5名](https://data.taipei/dataset/detail?id=da715207-29e8-4b8d-b680-7fc120211512). The customer-facing module reads only local static files at `public/data/traffic-violation-appeal-top-clauses/records.json` and `metadata.json`; its current source-file and metadata update dates are retained in the latter.
+
+The converter preserves all five official fields (`民國年月`, `排名`, `條款`, `條款中文說明`, `件數`) as raw source values. ROC year-month values are conservatively converted only when an unambiguous month 1–12 exists; Gregorian `YYYY-MM` is a derived monthly field, and missing/malformed counts remain missing. Exact duplicate rows are collapsed while conflicting rows are retained for data-quality reporting.
+
+The source publishes only the five clauses with the most appeals in each month. It cannot support citywide appeal totals, appeal-success rates, complete clause distributions, legal interpretation, enforcement-quality claims, or the assumption that a clause absent from the Top 5 has zero appeals. The module’s persistence, rank movement, count movement, Top-5 retention, and within-published-Top-5 concentration are derived descriptive calculations only.
+
 Public safety infrastructure: police CCTV installation-location records / 公共安全設施：警察局錄影監視系統設置區位
 
 Fire Department public records: in-kind donation records by year, donor, item, and purpose / 消防局公開紀錄：各年度接受各界捐贈實物明細
