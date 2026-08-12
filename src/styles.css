@@ -76,30 +76,86 @@ input {
   font-weight: 700;
 }
 
-.tabs {
-  display: grid;
-  grid-template-columns: repeat(15, 1fr);
-  gap: 1px;
+.main-navigation {
   position: sticky;
   top: 0;
   z-index: 500;
-  background: #cad3d2;
+  padding: 10px 20px 12px;
+  border-bottom: 1px solid #cad3d2;
+  background: rgba(245, 247, 247, 0.97);
+  backdrop-filter: blur(10px);
 }
 
-.tabs button {
-  border: 0;
-  border-radius: 0;
-  background: #fff;
+.navigation-groups {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.navigation-groups button {
+  min-height: 54px;
+  padding: 7px 12px;
+  text-align: left;
   color: #41504f;
+  background: #fff;
   font-weight: 700;
 }
 
-.tabs button.active {
+.navigation-groups button.active {
   background: #0f766e;
   color: #fff;
 }
 
-.sub-tabs { margin: 1rem 0; overflow-x: auto; }
+.navigation-groups small {
+  display: block;
+  margin-top: 2px;
+  font-size: .72rem;
+  font-weight: 500;
+  line-height: 1.2;
+  opacity: .78;
+}
+
+.navigation-modules {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.navigation-modules p {
+  flex: 0 0 180px;
+  margin: 0;
+  color: #526260;
+  font-size: .82rem;
+}
+
+.navigation-modules > div,
+.sub-tabs {
+  display: flex;
+  gap: 7px;
+  overflow-x: auto;
+  padding-bottom: 2px;
+}
+
+.navigation-modules button,
+.sub-tabs button {
+  flex: 0 0 auto;
+  min-height: 36px;
+  padding: 6px 10px;
+  color: #41504f;
+  background: #fff;
+  font-size: .88rem;
+  font-weight: 700;
+}
+
+.navigation-modules button.active,
+.sub-tabs button.active {
+  color: #fff;
+  border-color: #0f766e;
+  background: #0f766e;
+}
+
+.sub-tabs { margin: 1rem 0; }
 .appeal-trends .bar-row small { display: block; font-weight: 400; color: #475569; margin-top: .2rem; }
 .appeal-trends pre { max-width: 22rem; white-space: pre-wrap; overflow-wrap: anywhere; }
 .appeal-chart { width: 100%; min-width: 620px; height: auto; color: #64748b; background: #f8fafc; border-radius: .5rem; }
@@ -442,8 +498,26 @@ footer {
     min-height: 270px;
   }
 
-  .tabs {
-    grid-template-columns: repeat(2, 1fr);
+  .main-navigation {
+    padding: 8px 12px 10px;
+  }
+
+  .navigation-groups {
+    display: flex;
+    overflow-x: auto;
+    padding-bottom: 2px;
+  }
+
+  .navigation-groups button {
+    flex: 0 0 148px;
+  }
+
+  .navigation-modules {
+    display: block;
+  }
+
+  .navigation-modules p {
+    margin: 8px 0 6px;
   }
 
   .filter-panel {

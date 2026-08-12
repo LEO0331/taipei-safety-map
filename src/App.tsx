@@ -64,6 +64,7 @@ import type {
 } from './types';
 
 type Tab = 'map' | 'nearby' | 'burglary' | 'bike' | 'motorcycle' | 'streetSnatch' | 'policeCctv' | 'smartTrafficEnforcement' | 'vehicleTowing' | 'doubleParking' | 'reportedViolations' | 'trafficViolationAppeals' | 'noiseEnforcement' | 'narrowAlleys' | 'fireSafetyDeclarations' | 'lpgFacilities' | 'electricalBusinesses' | 'tobaccoControl' | 'domesticViolence' | 'occupationalAccidents' | 'eocActivations' | 'fireDonations' | 'fireRescueAreas' | 'fireAccessRoutes' | 'hikingTrails' | 'flooding' | 'health' | 'disaster' | 'overview' | 'notes';
+type NavigationGroup = 'explore' | 'preparedness' | 'health' | 'traffic' | 'records';
 type CapacityRange = 'all' | 'under100' | '100-499' | '500-999' | '1000plus';
 type DenseLayer = 'aeds' | 'medical' | 'fireHydrants' | 'airRaidShelters' | 'evacuationGates' | 'cctv';
 const tileAttribution = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>';
@@ -938,6 +939,7 @@ const vehicleTowingLabels = {
 function App() {
   const [language, setLanguage] = useState<Language>('zh');
   const [activeTab, setActiveTab] = useState<Tab>('map');
+  const [activeNavigationGroup, setActiveNavigationGroup] = useState<NavigationGroup>('explore');
   const [data, setData] = useState<SafetyDataBundle | null>(null);
   const [error, setError] = useState<string | null>(null);
 
@@ -975,50 +977,26 @@ function App() {
         </button>
       </header>
 
-      <nav className="tabs" aria-label="Main sections">
-        {(
-          [
-            ['map', t.safetyMap],
-            ['nearby', t.nearbyFacilities],
-            ['burglary', t.burglaryRecords],
-            ['bike', language === 'zh' ? '自行車竊盜' : 'Bicycle Theft'],
-            ['motorcycle', language === 'zh' ? '機車竊盜' : 'Motorcycle Theft'],
-            ['streetSnatch', streetSnatchLabels[language].shortTitle],
-            ['policeCctv', language === 'zh' ? '警察局監視器' : 'Police CCTV'],
-            ['smartTrafficEnforcement', smartTrafficLabels[language].shortTitle],
-            ['vehicleTowing', vehicleTowingLabels[language].shortTitle],
-            ['doubleParking', language === 'zh' ? '併排停車取締' : 'Double-Parking Enforcement'],
-            ['reportedViolations', language === 'zh' ? '檢舉交通違規' : 'Reported Traffic Violations'],
-            ['trafficViolationAppeals', language === 'zh' ? '交通申訴趨勢' : 'Traffic Appeal Trends'],
-            ['noiseEnforcement', language === 'zh' ? '娛樂場所噪音' : 'Entertainment Noise Records'],
-            ['narrowAlleys', language === 'zh' ? '狹小巷道清冊' : 'Narrow Alley Registry'],
-            ['fireSafetyDeclarations', language === 'zh' ? '消防檢修申報' : 'Fire Safety Declarations'],
-            ['lpgFacilities', language === 'zh' ? '液化石油氣場所' : 'LPG Facilities'],
-            ['electricalBusinesses', language === 'zh' ? '用電設備檢驗維護業' : 'Electrical Inspection Businesses'],
-            ['tobaccoControl', language === 'zh' ? '菸害防制稽查' : 'Tobacco Inspections'],
-            ['domesticViolence', language === 'zh' ? '家暴通報統計' : 'Domestic Violence Reports'],
-            ['occupationalAccidents', language === 'zh' ? '重大職災' : 'Major Occupational Accidents'],
-            ['eocActivations', language === 'zh' ? '應變中心開設' : 'EOC Activations'],
-            ['fireDonations', language === 'zh' ? '消防捐贈實物' : 'Fire Dept Donations'],
-            ['fireRescueAreas', fireRescueAreaLabels[language].shortTitle],
-            ['fireAccessRoutes', fireAccessRouteLabels[language].shortTitle],
-            ['hikingTrails', hikingTrailLabels[language].shortTitle],
-            ['flooding', floodingLabels[language].shortTitle],
-            ['health', t.publicHealth],
-            ['disaster', language === 'zh' ? '停班停課紀錄' : 'Closure Records'],
-            ['overview', t.safetyOverview],
-            ['notes', t.dataNotes],
-          ] as const
-        ).map(([tab, label]) => (
-          <button
-            key={tab}
-            className={activeTab === tab ? 'active' : ''}
-            type="button"
-            onClick={() => setActiveTab(tab)}
-          >
-            {label}
-          </button>
-        ))}
+      <nav className="main-navigation" aria-label={language === 'zh' ? '主要導覽' : 'Main navigation'}>
+        {(() => {
+          const groups: Array<{ id: NavigationGroup; label: string; description: string; items: Array<[Tab, string]> }> = [
+            { id: 'explore', label: language === 'zh' ? '快速探索' : 'Explore', description: language === 'zh' ? '地圖、附近資源與資料概覽' : 'Map, nearby resources, and data overview', items: [['map', t.safetyMap], ['nearby', t.nearbyFacilities], ['overview', t.safetyOverview], ['notes', t.dataNotes]] },
+            { id: 'preparedness', label: language === 'zh' ? '防災與整備' : 'Preparedness', description: language === 'zh' ? '防救、步道、淹水與災害紀錄' : 'Rescue, trails, flooding, and disaster history', items: [['fireRescueAreas', fireRescueAreaLabels[language].shortTitle], ['fireAccessRoutes', fireAccessRouteLabels[language].shortTitle], ['hikingTrails', hikingTrailLabels[language].shortTitle], ['flooding', floodingLabels[language].shortTitle], ['disaster', language === 'zh' ? '停班停課紀錄' : 'Closure Records'], ['eocActivations', language === 'zh' ? '應變中心開設' : 'EOC Activations'], ['narrowAlleys', language === 'zh' ? '狹小巷道清冊' : 'Narrow Alley Registry']] },
+            { id: 'health', label: language === 'zh' ? '健康與設施' : 'Health & facilities', description: language === 'zh' ? '健康、消防、場所與公用設施資料' : 'Health, fire, premises, and public-facility data', items: [['health', t.publicHealth], ['tobaccoControl', language === 'zh' ? '菸害防制稽查' : 'Tobacco Inspections'], ['fireSafetyDeclarations', language === 'zh' ? '消防檢修申報' : 'Fire Safety Declarations'], ['lpgFacilities', language === 'zh' ? '液化石油氣場所' : 'LPG Facilities'], ['electricalBusinesses', language === 'zh' ? '用電設備檢驗維護業' : 'Electrical Inspection Businesses'], ['fireDonations', language === 'zh' ? '消防捐贈實物' : 'Fire Dept Donations']] },
+            { id: 'traffic', label: language === 'zh' ? '交通與裁決' : 'Traffic & adjudication', description: language === 'zh' ? '設備、取締、拖吊、檢舉與申訴統計' : 'Equipment, enforcement, towing, reports, and appeals', items: [['policeCctv', language === 'zh' ? '警察局監視器' : 'Police CCTV'], ['smartTrafficEnforcement', smartTrafficLabels[language].shortTitle], ['vehicleTowing', vehicleTowingLabels[language].shortTitle], ['doubleParking', language === 'zh' ? '併排停車取締' : 'Double-Parking Enforcement'], ['reportedViolations', language === 'zh' ? '檢舉交通違規' : 'Reported Traffic Violations'], ['trafficViolationAppeals', language === 'zh' ? '交通申訴趨勢' : 'Traffic Appeal Trends']] },
+            { id: 'records', label: language === 'zh' ? '歷史與社區紀錄' : 'Historical records', description: language === 'zh' ? '犯罪、職災、噪音與通報統計' : 'Crime, occupational, noise, and report statistics', items: [['burglary', t.burglaryRecords], ['bike', language === 'zh' ? '自行車竊盜' : 'Bicycle Theft'], ['motorcycle', language === 'zh' ? '機車竊盜' : 'Motorcycle Theft'], ['streetSnatch', streetSnatchLabels[language].shortTitle], ['domesticViolence', language === 'zh' ? '家暴通報統計' : 'Domestic Violence Reports'], ['occupationalAccidents', language === 'zh' ? '重大職災' : 'Major Occupational Accidents'], ['noiseEnforcement', language === 'zh' ? '娛樂場所噪音' : 'Entertainment Noise Records']] },
+          ];
+          const activeGroup = groups.find((group) => group.id === activeNavigationGroup) ?? groups[0];
+          return <>
+            <div className="navigation-groups" role="list" aria-label={language === 'zh' ? '資料分類' : 'Dataset categories'}>
+              {groups.map((group) => <button key={group.id} type="button" aria-pressed={activeGroup.id === group.id} className={activeGroup.id === group.id ? 'active' : ''} onClick={() => setActiveNavigationGroup(group.id)}><span>{group.label}</span><small>{group.description}</small></button>)}
+            </div>
+            <div className="navigation-modules" aria-label={activeGroup.label}>
+              <p>{activeGroup.description}</p>
+              <div>{activeGroup.items.map(([tab, label]) => <button key={tab} type="button" className={activeTab === tab ? 'active' : ''} aria-current={activeTab === tab ? 'page' : undefined} onClick={() => setActiveTab(tab)}>{label}</button>)}</div>
+            </div>
+          </>;
+        })()}
       </nav>
 
       {activeTab === 'map' && <SafetyMap data={data} language={language} />}

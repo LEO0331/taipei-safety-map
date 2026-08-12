@@ -1,188 +1,78 @@
-# Taipei Public Safety Map / 台北公共安全地圖
+# Taipei Public Safety Map
 
-A mobile-first bilingual Vite + React + TypeScript + Leaflet app for public safety information in Taipei.
+**English** · [繁體中文](README-zh.md)
 
-The app combines AED locations, medical facilities, fire hydrants, fire rescue difficult area records, fire access route registry records, managed hiking trails, historical flooding records, air-raid shelters, emergency shelters, evacuation gates, CCTV equipment locations, smart traffic-enforcement equipment public records, annual vehicle-towing top-road-section statistics, police CCTV installation-location records, Fire Department in-kind donation records, historical residential burglary records, bicycle theft records, motorcycle theft records, street random snatch incident records, dengue vector-density survey results, and historical natural-disaster work/school suspension messages. It does not provide real-time availability, remaining shelter capacity, live CCTV video, real-time enforcement status, real-time towing status, ticket-avoidance advice, route-avoidance advice, medical advice, fire-response instructions, evacuation instructions, current closure status, flooding status, road conditions, flood forecasts, disaster warnings, crime-risk scoring, route-safety guarantees, privacy or legal advice, insurance advice, real-estate advice, theft-prevention advice, crime prediction, outbreak-risk prediction, donation endorsements, route navigation, weather status, building safety certification, rescue-time prediction, accessibility guarantees, rescue availability, or resource-availability claims.
+A bilingual Vite, React, TypeScript, and Leaflet dashboard for discovering and exploring Taipei public-safety datasets. It is a public-data reference and historical-analysis tool, not a live emergency service.
 
-Fire & emergency facilities: AEDs, medical facilities, and fire hydrants / 消防與緊急設施：AED、醫療院所與消防栓
+## Use the dashboard responsibly
 
-Shelters & disaster response facilities: air-raid shelters, emergency shelters, and evacuation gates / 避難與災害應變設施：防空避難設備、避難收容處所與疏散門
+- For an emergency, call **119** and follow official on-site instructions.
+- Verify availability, access, operating status, capacity, closures, and instructions with the responsible authority before relying on a published record.
+- Historic records, map markers, rankings, and counts do not establish current safety, risk, enforcement quality, legal outcomes, or personal suitability.
+- The dashboard never creates a combined safety score or infers causation from unrelated datasets.
 
-Traffic monitoring facilities: CCTV equipment locations / 交通監控設施：CCTV設備點位
+## Navigation
 
-Traffic safety and technology enforcement: smart traffic-enforcement equipment records / 交通安全與科技執法設備：臺北市智慧管理科技執法設備資料表
+The main navigation is organised into five categories so customers can find a relevant subject without scanning a long flat tab strip:
 
-Traffic safety, parking enforcement and road order: annual top vehicle-towing road sections and counts / 交通安全、停車執法與道路秩序：臺北市車輛拖吊前十大路段與件數
+1. **Explore** — map, nearby published resources, overview, and data notes.
+2. **Preparedness** — fire-rescue access, trails, flooding, closures, and emergency-operations history.
+3. **Health & facilities** — public-health, fire-safety, LPG, electrical-business, and donation records.
+4. **Traffic & adjudication** — traffic equipment, towing, enforcement, reported violations, and appeal statistics.
+5. **Historical records** — historic crime, domestic-violence reports, occupational accidents, and noise records.
 
-Traffic safety, adjudication and appeals: monthly Top-5 traffic-violation appeal clauses / 交通安全、裁決與申訴統計：違反道路交通管理事件提出申訴條款前5名
+Each category exposes a short, scrollable module row. This keeps the hierarchy usable on small screens while maintaining keyboard-accessible buttons and a visible active destination.
+
+## Datasets and limits
+
+The dashboard includes published directories, statistics, and historical records for AEDs, medical facilities, hydrants, shelters, evacuation gates, CCTV, traffic-enforcement equipment, towing, traffic appeals, trails, flooding, selected crime histories, dengue surveys, fire-rescue records, and other public-safety subjects.
+
+Each module preserves its own scope and limitations. Examples:
+
+- Resource directories do not prove real-time availability, access, capacity, or suitability.
+- Crime and sensitive incident records use aggregate, fuzzy, or deliberately blurred representations; do not use them to judge people, premises, routes, or property.
+- Traffic appeal data contains only the published Top 5 clauses each month. An absent clause is unavailable, not zero; counts are submissions, not appeal outcomes.
+- Historical flooding, closures, and trail data are not forecasts, live warnings, navigation, or evacuation instructions.
+- Non-geographic sources remain directories or summaries; they are not converted into invented map markers.
+
+See [dashboard decision-support advice](doc/dashboard-decision-support-and-design.md) for recommended interpretation, operational governance, and product priorities.
+
+## Local data architecture
+
+The customer-facing app reads generated static JSON from `public/data/`; it does not require a live Taipei Open Data request at runtime. Source snapshots and conversion scripts are stored under `data/raw/` and `scripts/`.
+
+Converters must preserve raw official fields, parse dates and counts conservatively, report quality issues, and avoid silently replacing missing values with zero. The production release should publish updated records, metadata, and PWA cache entries together.
 
 ### Traffic-violation appeal Top-5 clauses
 
-`traffic_violation_appeal_top_clauses` uses the Taipei City Traffic Adjudication Office dataset, [違反道路交通管理事件提出申訴條款前5名](https://data.taipei/dataset/detail?id=da715207-29e8-4b8d-b680-7fc120211512). The customer-facing module reads only local static files at `public/data/traffic-violation-appeal-top-clauses/records.json` and `metadata.json`; its current source-file and metadata update dates are retained in the latter.
+`traffic_violation_appeal_top_clauses` uses the official Taipei City Traffic Adjudication Office dataset, [Top 5 clauses for traffic-violation appeals](https://data.taipei/dataset/detail?id=da715207-29e8-4b8d-b680-7fc120211512).
 
-The converter preserves all five official fields (`民國年月`, `排名`, `條款`, `條款中文說明`, `件數`) as raw source values. ROC year-month values are conservatively converted only when an unambiguous month 1–12 exists; Gregorian `YYYY-MM` is a derived monthly field, and missing/malformed counts remain missing. Exact duplicate rows are collapsed while conflicting rows are retained for data-quality reporting.
+- Customer assets: `public/data/traffic-violation-appeal-top-clauses/records.json` and `metadata.json`
+- Converter: `npm run data:convert:traffic-violation-appeals`
+- Source fields preserved: ROC period, rank, clause, Chinese clause description, and appeal count
+- Derived Gregorian periods use monthly precision only; malformed or missing counts remain missing
 
-The source publishes only the five clauses with the most appeals in each month. It cannot support citywide appeal totals, appeal-success rates, complete clause distributions, legal interpretation, enforcement-quality claims, or the assumption that a clause absent from the Top 5 has zero appeals. The module’s persistence, rank movement, count movement, Top-5 retention, and within-published-Top-5 concentration are derived descriptive calculations only.
+Do not calculate citywide appeal totals, appeal success rates, full clause shares, legal-risk scores, enforcement-quality rankings, or legal interpretations from this source.
 
-Public safety infrastructure: police CCTV installation-location records / 公共安全設施：警察局錄影監視系統設置區位
-
-Fire Department public records: in-kind donation records by year, donor, item, and purpose / 消防局公開紀錄：各年度接受各界捐贈實物明細
-
-Firefighting and disaster-prevention support: fire rescue difficult areas / 消防防災輔助資訊：火災搶救困難地區
-
-Outdoor activity and trail preparedness: managed hiking trails / 戶外活動與步道安全準備：列管登山步道
-
-Urban hydrology history: historical flooding records with source KML geometry / 都市水文歷史：歷史積水紀錄與來源 KML 幾何
-
-Crime records and public safety: historical burglary, theft, and street snatch records with district, time-band, and fuzzy-location summaries / 治安紀錄與生活安全：住宅竊盜、自行車竊盜、機車竊盜與街頭搶奪歷史紀錄、行政區、發生時段與模糊地點彙總
-
-Disaster information history: historical natural-disaster work/school suspension messages / 災害資訊歷史：歷次天然災害停止上班上課訊息
-
-## Data Sources
-
-- `北市警政APP_防空避難設備位置`: public shelter facilities with coordinates and capacity.
-- `臺北市住宅竊盜點位資訊`: historical residential burglary records. Source location text is pre-blurred to avoid exposing personally identifiable information.
-- `臺北市自行車竊盜點位資訊`: historical bicycle theft records with CP950 / Big5-family encoding, compact ROC dates, incident time bands, and pre-fuzzed location text.
-- `臺北市機車竊盜點位資訊`: historical motorcycle theft records with CP950 / Big5-family encoding, compact ROC dates, incident time bands, and pre-fuzzed location text.
-- `臺北市街頭隨機搶奪案件點位資訊`: historical street random snatch incident records with CP950 / Big5-family encoding, compact ROC dates, time bands, and pre-fuzzed location text.
-- `臺北市AED自動體外心臟去顫器設置地點`: public AED placement locations with coordinates and placement descriptions.
-- `臺北市登革熱病媒蚊密度調查結果`: public-health survey results aggregated by district and village.
-- `臺北市疏散門資訊`: WGS84 evacuation-gate location records with riverside park, name, and location description.
-- `臺北市公私立醫療院所`: separate hospital and clinic resources with WGS84 coordinates.
-- `大臺北地區消防栓分布點位圖`: Greater Taipei hydrant records from 北水處 with WGS84 and TWD97 coordinates.
-- `臺北市政府消防局各年度接受各界捐贈實物明細表`: Fire Department in-kind donation records by year, donor, donated item, and use purpose. Current CSV resources are converted; legacy ODS resources are listed as unsupported.
-- `臺北市火災搶救困難地區`: UTF-8-SIG Fire Department records with sequence number, rating level, recognition item, district code, address, and place name. The source has no official coordinates.
-- `臺北市列管登山步道`: Big5 / CP950 managed hiking trail records with district, trail route, length, walking time, grade, source start/end coordinates, stairs, roadblock, wheelchair suitability, mobile signal, portable toilet, and accessible toilet fields.
-- `臺北市水利處歷史積水紀錄圖`: KML historical flooding records from 工務局水利處 with `area`, `FDATE`, `TOWN_NAME`, `ADDRESS`, `Depth`, and source geometry converted to GeoJSON.
-- `臺北市可供避難收容處所一覽表`: UTF-8-SIG emergency shelter directory with disaster applicability, listed capacity, area, served villages, and public contact fields.
-- `臺北市CCTV設施`: Big5 / CP950 traffic CCTV equipment locations with sequence number, city, camera location/code, and WGS84 coordinates.
-- `臺北市智慧管理科技執法設備資料表`: UTF-8-SIG smart traffic-enforcement equipment records with sequence number, equipment name, enforcement road section, WGS84 longitude/latitude, activation-date source history, and enforcement item text.
-- `臺北市政府警察局錄影監視系統設置區位`: UTF-8-SIG police CCTV installation-location records with city/county code, sequence number, police unit, installation address, and camera direction. The source has no official coordinates.
-- `臺北市歷次天然災害停止上班上課訊息`: UTF-8-SIG historical natural-disaster work/school suspension messages with ROC year/month/day, disaster name, and preserved official decision text.
-
-Burglary records are never geocoded to exact household-level markers. The app uses district-level aggregation, blurred location text, and fixed district centroids.
-
-Bicycle theft records are never geocoded to exact markers. The app parses compact ROC dates, incident time bands, district, village, road names, and address ranges, then shows district centroid bubbles, road summaries, and fuzzy-location buckets. It does not represent current crime risk, exact incident addresses, route safety, legal advice, or theft-prevention advice.
-
-Motorcycle theft records are never geocoded to exact markers. The app parses compact ROC dates, incident time bands, district, village, road names, and address ranges, then shows district centroid bubbles, road summaries, and fuzzy-location buckets. It does not represent current crime risk, exact incident addresses, route safety, legal advice, insurance advice, or theft-prevention advice.
-
-Street random snatch incident records are never geocoded to exact markers. The app preserves the source case type, ROC date, occurrence time band, and fuzzed location text, then shows district centroid bubbles, time trends, and source-location tables. It does not represent real-time crime risk, exact incident locations, route safety, housing or insurance risk, police performance, legal advice, or personal safety guarantees.
-
-Dengue survey records do not include coordinates. The app uses district centroids for aggregate bubbles and never represents them as exact village or survey locations. The Breteau index generally represents positive water-holding containers per 100 surveyed households; the container index generally represents the proportion of inspected containers that were positive. Refer to official public-health sources for interpretation.
-
-Emergency shelter records do not include coordinates. The app shows district-level bubbles using Taipei district centroids, renders a searchable directory, and links addresses to Google Maps lookup. It does not automatically geocode, claim real-time opening status, show remaining capacity, or replace official evacuation instructions. Contact and manager fields stay in normalized JSON but are not shown in default cards.
-
-Nearby AED, hospital, clinic, fire-hydrant, air-raid shelter, and evacuation-gate searches use browser geolocation and Haversine distance. Emergency shelters use district/address lookup until verified coordinates are added. Fire hydrant records do not represent real-time availability, fire-response deployment, or on-site accessibility.
-
-CCTV records are shown as traffic monitoring infrastructure points only. The app parses WGS84 coordinates and validates them against Taipei bounds, but does not provide live video access, camera direction, monitoring coverage, camera-feed links, crime-prevention claims, or safety scores. Live traffic image value-added use requires separate official application and usage under the authority rules.
-
-Smart traffic-enforcement equipment records are shown as traffic-safety and road-safety infrastructure public records only. The app validates WGS84 coordinates before showing markers and preserves invalid-coordinate rows in the directory. It does not represent real-time enforcement status, real-time device operating status, violation determination, legal advice, ticket-avoidance advice, route-avoidance advice, camera direction, lane coverage, exact enforcement boundaries, road danger ranking, police performance evaluation, real-estate or insurance risk, or official endorsement.
-
-Electrical equipment inspection and maintenance business records are an administrative registry from Taipei Open Data. The module preserves business identifiers, source-recorded statuses, approval details, raw coordinates, and source fields; it does not assert current registration, qualification, operation, availability, price, insurance, service quality, or official recommendation. The source X/Y values are not converted or mapped unless the dataset confirms their coordinate reference system.
-
-Police CCTV installation-location records are shown as district-level summaries and an address-based directory only. The app parses district and road text from installation addresses but does not geocode, show exact markers, provide live video, infer field of view, or claim real-time operational status.
-
-Fire Department donation records are a no-coordinate public-records module. The app parses ROC years, month/day fields, donor names, donated items, and purpose text into trends and a searchable directory. It does not render map markers, imply official endorsement, or represent current inventory, resource availability, procurement status, tax treatment, or emergency-service readiness.
-
-Fire rescue difficult area records are an address-only Fire Department public-records module. The app maps district codes to Taipei districts, parses rating level and recognition item codes, detects area/range-style addresses, and shows district summaries plus an address directory with external map lookup links. It does not geocode exact points, represent real-time fire risk, current emergency status, building safety certification, rescue accessibility, rescue-time prediction, insurance advice, real-estate advice, legal liability, violation records, official danger ranking, or official endorsement.
-
-Fire access route registry records are a separate, non-geospatial Fire Department module. It preserves the source sequence number, district code, village, listed route name, criteria, difficult-rescue location, responsible fire station, and phone fields; shows district/village/station summaries and external text map lookups; and never draws route lines, boundaries, or exact map markers. Run `npm run data:fetch:fire-access-route-registry` to download the source, or manually place a CSV at `data/raw/fire-access-route-registry/fire-access-route-registry.csv`, then run `npm run data:convert:fire-access-route-registry`.
-
-Managed hiking trail records provide source start and end coordinates, not full route geometry. The app validates start/end WGS84-like coordinates, shows start/end markers, and can draw an approximate start-end connector only. It does not draw exact trail paths, provide navigation, represent real-time open/closed status, weather, disaster risk, rescue availability, accessibility guarantees, personal fitness advice, medical advice, official recommendations, or safety guarantees.
-
-Historical flooding records are converted from the source KML into record JSON, GeoJSON, and summary JSON. Conversion preserves source fields and source geometry, validates WGS84 coordinates against Taipei-nearby bounds, and uses centroids only for popup/sorting support. The module is historical record lookup only; it does not represent real-time flooding, current road conditions, flood forecasts, disaster warnings, property risk, insurance advice, real-estate advice, legal liability, complete disaster history, or official safety guarantees.
-
-Natural-disaster suspension records are a no-coordinate history module. Conversion parses ROC dates to Gregorian dates, classifies disaster type from the disaster name, classifies suspension messages heuristically, preserves the raw official message text, and groups events by year plus disaster name. The module does not provide real-time closure status, forecasts, current disaster status, emergency instructions, route safety, or evacuation guidance.
-
-## Local Workflow
+## Development
 
 ```bash
 npm install
-npm run fetch:data
-npm run convert:data
 npm run dev
 ```
 
-Useful commands:
+Verification:
 
 ```bash
-npm test
 npm run build
-npm run preview
+npm test
 ```
 
-`npm run fetch:data` downloads CSV files into `data/raw/safety/`. Existing raw files are reused unless `--force` is passed:
+For data refreshes, use the module-specific `data:fetch:*` and `data:convert:*` commands in `package.json`. Check the generated metadata and conversion reports before publishing.
 
-```bash
-npm run fetch:data -- --force
-```
+## Project guidance
 
-`npm run convert:data` regenerates JSON files in `public/data/`.
-
-Uploaded AED and dengue CSVs are read from:
-
-```txt
-data/raw/aed-locations/aed-locations.csv
-data/raw/dengue-vector-density/dengue-vector-density.csv
-data/raw/evacuation-gates/evacuation-gates.csv
-data/raw/medical-facilities/hospitals.csv
-data/raw/medical-facilities/clinics.csv
-data/raw/fire-hydrants/fire-hydrants.csv
-data/raw/fire-department-donation-in-kind-records/*.csv
-data/raw/fire-rescue-difficult-areas/fire-rescue-difficult-areas.csv
-data/raw/managed-hiking-trails/managed-hiking-trails.csv
-data/raw/historical-flooding-records/historical-flooding-records.kml
-data/raw/emergency-shelters/emergency-shelters.csv
-data/raw/traffic-cctv/traffic-cctv.csv
-data/raw/smart-traffic-enforcement-equipment/smart-traffic-enforcement-equipment.csv
-data/raw/vehicle-towing-top-road-sections/*.csv
-data/raw/police-cctv-installation-locations/police-cctv-installation-locations.csv
-data/raw/natural-disaster-work-school-suspension-records/natural-disaster-work-school-suspension-records.csv
-data/raw/bicycle-theft-records/bicycle-theft-records.csv
-data/raw/motorcycle-theft-records/motorcycle-theft-records.csv
-data/raw/street-random-snatch-incidents/street-random-snatch-incidents.csv
-```
-
-## Coordinate Handling
-
-Air-raid shelter coordinates are detected as WGS84 when they look like longitude/latitude pairs. TWD97 TM2 / EPSG:3826 coordinates are converted to WGS84 with `proj4`. Medical hospital and clinic CSVs are decoded as Big5 / CP950 with UTF-8 fallback. Fire hydrant CSVs are UTF-8-SIG with Big5 fallback, preserve TWD97 coordinates, classify underground / above-ground hydrants, and validate WGS84 coordinates against Greater Taipei bounds.
-
-Fire Department donation CSVs are UTF-8-SIG with Big5 fallback. Conversion parses ROC years, month/day fields, donor, donated item, and purpose fields; the records have no coordinates and are not geocoded.
-
-Fire rescue difficult area CSVs are UTF-8-SIG with Big5 / CP950 fallback. Conversion parses sequence number, rating level, recognition item, district code, address, road name, area/range-style address flags, and place name. Records are address-only by default; no automatic geocoding or exact markers are created.
-
-Managed hiking trail CSVs are Big5 / CP950 with UTF-8-SIG fallback. Conversion parses district, route name, length, walking time, grade, start/end point names, start/end coordinates, stairs, roadblocks, wheelchair fields, mobile signal, portable toilet, and accessible toilet fields. Start/end coordinates are validated against Taipei-nearby bounds; approximate connectors are labeled as start-end context only, not route geometry.
-
-Historical flooding KML preserves source geometry and source values. Conversion parses `area`, `FDATE`, `TOWN_NAME`, `ADDRESS`, and `Depth`, classifies depth/area bands, validates coordinates against Taipei-nearby bounds, writes GeoJSON, and keeps raw source values available for audit.
-
-Emergency shelter CSVs are UTF-8-SIG with Big5 fallback. Conversion parses `Y` / `N` / `備用` / `老舊聚落`, listed capacity, area, shelter type, served villages, accessibility, indoor/outdoor flags, and relief-station flags. Optional verified coordinates can be added later through `public/data/emergency-shelter-locations.json`; the app does not geocode addresses automatically.
-
-CCTV CSVs are Big5 / CP950 with UTF-8 fallback. Conversion parses `流水號`, `縣市`, `攝影機編號位置` / `攝影機編號`, and WGS84 longitude/latitude. Missing, unparsed, and outlier coordinates are reported and are not rendered as exact markers.
-
-Smart traffic-enforcement equipment CSVs are UTF-8-SIG with Big5 / CP950 fallback. Conversion parses `編號`, `名稱`, `取締路段`, `座標-X`, `座標-Y`, `啟用日期`, and `取締項目`; `座標-X` is WGS84 longitude and `座標-Y` is WGS84 latitude. Missing, unparsed, and outlier coordinates are reported and are not rendered as map markers. ROC activation-history lines are preserved and parsed as source-history events only.
-
-Vehicle-towing top-road-section CSVs are read as strings with UTF-8-SIG, Big5, and CP950 support. The converter parses `序號`, `年度`, and `筆數` only after reading source values, deduplicates with `年度 + 路段名`, reports duplicates and invalid rows, and derives rankings, year-over-year changes, repeated appearances, and approximate road-name-only map lookup text. This module does not create map markers or infer towing locations or enforcement boundaries.
-
-Police CCTV installation-location CSVs are UTF-8-SIG with Big5 fallback. Conversion parses `縣市別代碼`, `編號`, `所屬單位`, `安裝地址`, and `攝影方向`; it extracts district and road text where practical, but never geocodes or creates exact device points.
-
-Natural-disaster suspension CSVs are UTF-8-SIG with Big5 fallback. Conversion parses `民國年`, `月`, `日`, `天然災害名稱`, and `臺北市停止上班上課情形`; raw decision text is preserved exactly and classification is only an auxiliary filter.
-
-Bicycle theft CSVs are CP950 / Big5-family with UTF-8-SIG fallback. Conversion parses `編號`, `案類`, compact ROC `發生日期`, `發生時段`, and fuzzy `發生地點`; it extracts district, village, road, and address-range text where practical, but never geocodes or creates exact incident points.
-
-Motorcycle theft CSVs are CP950 / Big5-family with UTF-8-SIG fallback. Conversion parses `編號`, `案類`, compact ROC `發生日期`, `發生時段`, and fuzzy `發生地點`; it extracts district, village, road, and address-range text where practical, but never geocodes or creates exact incident points.
-
-Street random snatch incident CSVs are CP950 / Big5-family with UTF-8-SIG fallback. Conversion preserves invalid source time bands for QA, parses district/road hints from already-fuzzed locations, and never geocodes or creates exact incident points.
-
-`fire-hydrants.json` is intentionally not precached because it is large. The app caches `fire-hydrant-summary.json` and lazy-loads exact hydrant points only when the hydrant layer or nearby hydrant lookup is used.
-
-Tobacco-control inspection resources are fetched from all three official CSV releases under `data/raw/tobacco-control-inspection-results/`. They are decoded as UTF-8-SIG with Big5 / CP950 fallback, read as strings, and retain the resource name, legal version, original source field, article wording, and raw value. Blank, dash, and nonnumeric counts remain unknown rather than zero. The district dashboard deliberately has no map markers or premise-level claims; old-law and amended-law categories remain separate unless an explicit mapping is documented.
-
-Domestic-violence report statistics are loaded from local JSON generated from the official CSV. The dashboard uses only aggregated district/village reporting counts, has no map markers or household/incident inference, and states prominently that reported counts are not actual prevalence, individual risk, or area safety rankings.
-
-## Deployment
-
-The GitHub Actions workflow at `.github/workflows/deploy.yml` builds and deploys the Vite app to GitHub Pages on pushes to `main`. In repository settings, enable Pages with `GitHub Actions` as the source.
-
-## Disclaimer
-
-This site presents public AED, medical-facility, fire-hydrant, fire rescue difficult area, managed hiking trail, historical flooding, air-raid shelter, emergency shelter, evacuation-gate, CCTV equipment, smart traffic-enforcement equipment, Fire Department donation, historical burglary/theft/street-snatch, historical disaster-suspension, and dengue vector-density records. It does not represent real-time availability, fire-response deployment, shelter opening status, remaining capacity, CCTV live video, monitoring coverage, real-time enforcement status, ticket-avoidance advice, route-avoidance advice, real-time fire risk, real-time crime risk, real-time flooding status, current road conditions, flood forecasts, disaster warnings, building safety certification, rescue-time prediction, trail opening status, weather, route navigation, rescue availability, accessibility guarantee, personal safety guarantee, official endorsement, current inventory, insurance advice, real-estate advice, legal advice, or official evacuation instructions. In an emergency, call 119 and follow official authorities and on-site command.
+- [AGENTS.md](AGENTS.md) — coding-agent startup, scope, and verification rules
+- [feature_list.json](feature_list.json) — feature state and evidence
+- [session-handoff.md](session-handoff.md) — current restart context
+- [Dashboard decision-support advisory](doc/dashboard-decision-support-and-design.md) — customer and governance recommendations
