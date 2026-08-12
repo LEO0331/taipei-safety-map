@@ -1,0 +1,44 @@
+{
+  "features": [
+    {
+      "id": "feat-001",
+      "name": "Harness setup",
+      "description": "Provide restartable agent instructions, state, verification, and handoff artifacts for this Vite React project.",
+      "dependencies": [],
+      "status": "done",
+      "evidence": "Harness validation: 100/100 on 2026-08-12."
+    },
+    {
+      "id": "feat-002",
+      "name": "Traffic Violation Appeal Trends",
+      "description": "Customer-facing, locally cached Top-5 traffic-violation appeal-clause analytics module.",
+      "dependencies": ["feat-001"],
+      "status": "done",
+      "evidence": "35 official records converted; npm run build and npm test passed on 2026-08-12."
+    },
+    {
+      "id": "feat-003",
+      "name": "Verification coverage",
+      "description": "Maintain build, tests, and data-contract verification for changed modules.",
+      "dependencies": ["feat-002"],
+      "status": "in-progress",
+      "evidence": "Current suite: npm run build; npm test (35 tests)."
+    },
+    {
+      "id": "feat-004",
+      "name": "Dataset documentation",
+      "description": "Keep README source attribution, conversion notes, limitations, and update dates aligned with local data.",
+      "dependencies": ["feat-003"],
+      "status": "done",
+      "evidence": "README updated for the traffic-violation appeal Top-5 dataset."
+    },
+    {
+      "id": "feat-005",
+      "name": "Working-tree handoff",
+      "description": "Review, stage, and commit the verified current changes when authorized.",
+      "dependencies": ["feat-004"],
+      "status": "in-progress",
+      "evidence": "Changes remain unstaged; no commit was requested."
+    }
+  ]
+}

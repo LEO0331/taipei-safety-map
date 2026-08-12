@@ -1,82 +1,149 @@
-# 臺北城市安全資料儀表板：使用情境與設計說明
+# Dashboard Decision Support and Design Advisory
 
-本平台將臺北市的消防、防災、交通、公共衛生與生活品質公開資料，整理為可查詢的地圖、目錄與統計儀表板。它的目標不是替使用者判定「哪裡安全或危險」，而是讓公開資料更容易被理解、比對、追溯與驗證。
+## Executive position
 
-每個模組保留來源、資料日期、原始欄位與解讀限制，避免將行政紀錄誤解為即時狀態、完整事實或風險評分。
+This dashboard is useful as a public-data discovery, preparedness, and historical trend-monitoring product for Taipei. It supports a resident, analyst, community organisation, or public-service team who needs to find a published facility, inspect a documented historical pattern, or understand which official dataset is relevant.
 
-## 可支持的決策情境
+It must not be positioned as an emergency command console, a live availability service, a navigation product, a risk prediction system, or a ranking of neighbourhoods, organisations, laws, or public agencies. The data is drawn from separate public sources with different coverage, update dates, geographic precision, and collection purposes. Combining them into a single score or causal narrative would be misleading.
 
-### 1. 快速資料盤點
+The current product already makes many of these limits clear in module notices and source notes. That is a material strength. The next design decisions should make the limits actionable at the point where a user decides what to do.
 
-使用年度、行政區、類型與資料品質篩選，快速回答三個問題：資料涵蓋了什麼、資料缺少什麼、是否適合進一步分析。這可縮短從「找到公開資料」到「形成可討論問題」的時間。
+## What customers can use it for now
 
-### 2. 跨單位溝通
-
-以一致的介面呈現消防、交通、防災與衛生資料，讓討論能先對齊資料年度、統計單位與限制，而不是直接比較不相容的數字。適合用於會議前的共識建立與後續查核清單整理。
-
-### 3. 公開資訊服務
-
-提供民眾、研究者與業務人員一個可查詢、可篩選、可追溯來源的入口；同時透過資料註記清楚區分歷史紀錄、行政統計與即時狀態。
-
-### 4. 資料品質治理
-
-透過轉換報告追蹤欄位異動、缺值、重複列、未解析類別與座標異常，使資料更新從單純的檔案替換，提升為可稽核、可維護的流程。
-
-## 適合與不適合的使用方式
-
-適合：公開資料查詢、歷史趨勢探索、行政區層級盤點、資料品質檢核、跨資料集來源比對，以及研究或業務討論前的問題界定。
-
-不適合：即時災害指揮、個人或特定場所風險判定、執法規避、保險或投資評分，以及把行政區總量解讀為個人風險或機關績效。
-
-## 資料工程挑戰與處理方法
-
-| 挑戰 | 採用方法 | 原因與取捨 |
+| Decision or task | Responsible dashboard use | Required confirmation outside the dashboard |
 | --- | --- | --- |
-| 來源格式不一致 | 原始檔下載後統一轉為本地 JSON；先以字串讀取，再做保守解析 | 可避免 CSV 編碼、欄位順序與空值造成誤判；代價是需維護轉換腳本。 |
-| 大型資料集 | 預先產生摘要、分類/行政區彙整檔與分頁明細 | 避免瀏覽器解析數十 MB CSV；代價是任意交叉分析會受預聚合與分頁結構限制。 |
-| 多年度欄位變動 | 保存來源資源、原始欄名與原始文字；僅在規則明確時加入標準化分類 | 避免把不相容年度直接合併；代價是部分圖表必須分開呈現。 |
-| 資料品質不完整 | 未知或無法解析的值保留為缺值，不自動轉為零 | 避免製造虛假的低值；介面需清楚說明缺值意義。 |
-| 地址與定位風險 | 只使用官方提供的有效座標，不對模糊地址或道路文字自動地理編碼 | 降低誤導、隱私與錯誤定位風險；部分資料只能做文字或行政區分析。 |
+| Find an AED, hydrant, medical facility, shelter, or evacuation gate | Discover a published location or directory entry and open the official or text-map reference | Live availability, access, opening status, capacity, and the official emergency instruction |
+| Prepare for a neighbourhood meeting or facilities audit | Identify public-record coverage gaps, repeated historical records, and datasets worth discussing with the responsible agency | Current site conditions, asset maintenance, and local operational plans |
+| Investigate historical traffic, towing, enforcement, or appeal patterns | Compare only the published time period and source definition, then formulate a question for the responsible authority | Current enforcement practice, legal interpretation, outcomes, or causal explanations |
+| Review historic flooding, trail, or disaster information | Use the historic record as an input to preparedness and source discovery | Forecasts, warnings, closure status, route access, and on-site safety conditions |
+| Explore crime or occupational-safety records | Use aggregate and deliberately fuzzy historic data to understand published patterns | Individual risk, present conditions, business safety, or a route/premises recommendation |
 
-## 大型資料集的處理方式
+## Decision-support guardrails
 
-部分公開資料集超過數十 MB。若讓瀏覽器直接讀取原始 CSV，容易造成首屏載入慢、行動裝置記憶體壓力高，以及 CSV 解析造成頁面卡頓。
+### 1. Separate lookup, monitoring, and emergency modes
 
-平台採用「轉換前置化」策略：
+The product should present three clearly different user intents at the top level:
 
-1. 在資料更新階段下載原始 CSV。
-2. 於本地轉換流程解析、清理與驗證資料。
-3. 產生總覽、行政區、道路、月份與類別的摘要 JSON。
-4. 將詳細資料拆成分頁或分塊 JSON。
-5. 儀表板先載入小型摘要；使用者開啟表格時才載入詳細資料。
+1. **Find a published resource** — location or directory lookup with an explicit "verify before relying" prompt.
+2. **Explore historical records** — trends, filters, and source coverage with an explicit date range.
+3. **Emergency guidance** — a short, highly visible handoff to `119` and official authority channels rather than a map-based recommendation.
 
-此方法適合更新頻率有限、需要公開部署、並重視低維運成本的專案。
+This separation prevents a common and consequential error: treating a historical map marker as an operationally available resource. The existing notices say this in prose; intent-based entry points would make the correct action easier.
 
-## 可替代方案與適用時機
+### 2. Make freshness a first-class decision control
 
-### 伺服器端 API 與資料庫查詢
+Every module should expose a compact, consistent freshness block:
 
-適合數百萬列資料、複雜多條件查詢與全文搜尋。優點是支援伺服器端分頁、排序與篩選；取捨是需要後端服務、資料庫、權限與部署維運。
+- source publisher and official source link;
+- source coverage period and source-file update date;
+- local ingestion/conversion time;
+- refresh frequency where known;
+- a plain-language status: `historical`, `periodic`, `directory`, or `unknown freshness`.
 
-### 資料倉儲或分析型儲存
+Do not use a green/red freshness badge unless the upstream service level is documented. A timestamp is evidence; a status colour implies a reliability guarantee. For datasets without a trustworthy update date, say so plainly and direct users to the source authority.
 
-適合跨資料集分析、長期歷史版本與定期批次更新。優點是大量分析與稽核能力較完整；取捨是系統複雜度與維運成本提高。
+### 3. Keep comparisons descriptive and denominator-aware
 
-### 前端直接讀取完整檔案
+The dashboard correctly avoids claiming that a record count equals risk, safety, enforcement quality, or service availability. Preserve that boundary when adding executive summaries:
 
-僅適合資料量小、欄位單純、更新頻率低的資料集。對大型 CSV 或行動裝置使用者比例高的情境，不建議採用。
+- Never compare raw counts across districts without showing the underlying denominator and coverage period.
+- Do not compare records produced by different reporting systems as if they measure the same phenomenon.
+- Do not infer cause from co-located maps or similarly timed series.
+- Do not create a combined "safety score", "danger score", police-performance score, or property-risk score.
 
-## 設計原則
+Where a comparison is still useful, label it as a source-record comparison and provide the source definition beside the chart. The existing no-causation warning on cross-dataset comparisons should remain mandatory.
 
-- **來源優先**：保留原始欄位、資源名稱與資料品質資訊。
-- **保守解讀**：未知值不轉為零；未明確對應的分類不強行合併。
-- **隱私優先**：不推導未公開座標，不識別個人或特定場所。
-- **情境透明**：標示資料日期、更新頻率、限制與不適用的結論。
-- **分層載入**：摘要優先，詳細資料延後載入。
-- **可追溯性**：資料可回到來源資源與轉換規則。
+### 4. Protect people and organisations from unintended targeting
 
-## 後續可擴充方向
+The project already uses aggregate, blurred, fuzzy, or non-geocoded views for sensitive records. Continue this approach.
 
-可逐步增加資料來源更新監測、欄位異動通知、可下載的資料品質報表、跨資料集相容性註記、資料版本快照，以及依使用角色提供不同深度的檢視模式。
+- Do not add exact household, victim, incident, or vulnerable-person locations.
+- Do not build a searchable watchlist of businesses, donors, residents, or alleged offenders.
+- Do not convert historical occupational or noise records into claims about a premises’ current safety or compliance.
+- Review every new table export for personal names, telephone numbers, addresses, and re-identification risk before making it customer-downloadable.
 
-平台的核心方向，是提升公開資料的可理解性與可使用性，同時避免超出資料本身能支持的結論。
+## High-value product improvements
+
+### P0 — make the data contract visible and consistent
+
+Add a shared `Data status` pattern to every module rather than relying on module-specific prose alone. It should state what the source measures, what it does not measure, the period, and the next authoritative action. This is the highest-return usability and risk-reduction change because the application spans emergency facilities, enforcement, public health, crime, and disaster history.
+
+### P0 — protect critical user journeys from incomplete loading
+
+The primary application loads a large bundle of local data before rendering the main experience (`src/lib/loadSafetyData.ts`). A failed or slow asset currently produces a single error state. Provide per-module loading and failure states, a retry action, and a source link where possible. A user should still be able to access an available directory or static note when an unrelated dataset fails to load.
+
+### P1 — reduce decision fatigue in the main navigation
+
+`src/App.tsx` contains a long flat tab list spanning very different tasks. Group the navigation by intent: `Emergency resources`, `Preparedness and environment`, `Traffic and administration`, `Historical records`, and `Data notes`. Keep a search or quick-access panel for frequent lookups. This will help users reach the right dataset without reading every label.
+
+### P1 — formalise source monitoring and release gates
+
+Static JSON is a sound customer-facing architecture, but it requires an operational data steward. Before publishing a data refresh:
+
+1. download and preserve the source snapshot;
+2. run the converter and data-quality checks;
+3. compare record count, field schema, coverage period, and invalid-row counts with the previous release;
+4. review material deltas; and
+5. publish the refreshed data, metadata, and PWA cache version together.
+
+Use a release note for schema changes or missing months. Do not silently substitute zero, backfill an unverified value, or reuse an old map coordinate as if it were current.
+
+### P1 — test the customer-critical data paths
+
+The current automated suite is small relative to the number of dataset converters and customer modules. Add focused regression tests for:
+
+- malformed or shifted CSV headers;
+- Big5/CP950 and UTF-8 decoding fallback;
+- ROC-date and month parsing;
+- coordinate bounds and no-geocoding safeguards;
+- null versus zero handling in trend modules;
+- PWA cache entries for every locally fetched JSON file;
+- bilingual labels and keyboard navigation for filters, tables, and notices.
+
+### P2 — improve accessibility for maps and dense tables
+
+Leaflet maps should always have a comparable accessible directory, list, or table with the same essential information. Ensure map marker information is keyboard reachable and that a screen-reader user can complete a resource lookup without interacting with the map. For wide data tables, provide responsive card/list alternatives, visible focus states, descriptive table captions, and export a filtered data view rather than forcing horizontal scroll.
+
+### P2 — publish a decision catalogue, not just a dataset catalogue
+
+The README accurately describes data sources and limitations. Add a short customer-facing guide that starts from a question:
+
+- "I need emergency help now" → call 119 and follow official instructions.
+- "I need to check a published nearby resource" → use lookup, then verify availability.
+- "I need a historic public record" → use the relevant trend/directory module and cite the source period.
+- "I need a forecast, legal outcome, current road status, or safety recommendation" → this dashboard is not the source; link to the responsible official service.
+
+## Dataset-specific advisory notes
+
+### Emergency-resource directories
+
+AED, medical, hydrant, shelter, and evacuation-gate data is most valuable for preparedness, source discovery, and non-emergency lookup. It cannot establish real-time availability, entrance access, staffing, usable capacity, or suitability for an incident. Place the verification step next to every "open map" or "nearby" action.
+
+### Traffic, enforcement, and appeal statistics
+
+Traffic equipment, towing, reported-violation, and appeal datasets answer different questions. Keep them separate in navigation and language. In particular, the appeal module publishes only the top five appeal clauses for each period. It cannot show total citywide appeals, success rates, full clause shares, or the appeal count for an absent clause. A high count is a submitted-appeal statistic, not evidence of an incorrect ticket, improper enforcement, or an unfair law.
+
+### Crime, occupational, and noise histories
+
+These records need the strongest anti-stigma framing. They are historic source records with location and reporting limitations, not a current condition or a recommendation about a person, business, street, or property. Continue to favour aggregate/fuzzy views and avoid route advice or premises-level rankings.
+
+### Flooding, trails, and disaster histories
+
+Historic geometry and messages are valuable for education and preparedness. They are not a forecast, warning, closure status, safe route, or evacuation instruction. A future enhancement should link each history view to the responsible live warning service, but must label that service as external and time-sensitive.
+
+## Measurable success criteria
+
+Measure whether the dashboard helps customers make safer, more accurate decisions without increasing overconfidence:
+
+- percentage of resource lookups that expose a source date and verification prompt;
+- percentage of datasets with a validated refresh metadata record;
+- number of converter/schema anomalies caught before release;
+- task-completion success for keyboard-only and screen-reader resource lookup;
+- reduction in users selecting a historical module when they report needing real-time emergency information;
+- support feedback indicating whether users understood data period, coverage, and limitations.
+
+Do not treat clicks, map-marker views, or the number of displayed datasets as evidence of decision quality.
+
+## Consultant recommendation
+
+Invest first in a consistent data-status/verification pattern, resilient per-module loading, and intent-based navigation. These changes improve real-world usefulness across all sources while preserving the project’s most important principle: public data should inform questions and preparation, not manufacture certainty about a live emergency, legal outcome, safety level, or individual risk.
