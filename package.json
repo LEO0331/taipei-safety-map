@@ -56,7 +56,8 @@
     "data:convert:electrical-businesses": "tsx scripts/convertElectricalInspectionMaintenanceBusinesses.ts",
     "data:convert:traffic-violation-appeals": "tsx scripts/convertTrafficViolationAppealTopClauses.ts",
     "data:convert:kindergarten-child-transport-vehicles": "tsx scripts/convertKindergartenChildTransportVehicles.ts",
-    "data:convert:soil-water-conservation-violations": "tsx scripts/convertSoilWaterConservationViolations.ts"
+    "data:convert:soil-water-conservation-violations": "tsx scripts/convertSoilWaterConservationViolations.ts",
+    "data:convert:alcohol-tobacco-business-inspections": "tsx scripts/convertAlcoholTobaccoBusinessInspections.ts"
   },
   "dependencies": {
     "leaflet": "^1.9.4",

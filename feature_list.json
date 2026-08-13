@@ -55,6 +55,14 @@
       "dependencies": ["feat-001"],
       "status": "done",
       "evidence": "Official CSV converted to 1,994 static records; npm run build and npm test (35 tests) passed on 2026-08-13."
+    },
+    {
+      "id": "feat-008",
+      "name": "Tobacco and alcohol business inspections",
+      "description": "Monthly aggregate inspection-activity analytics using locally generated Taipei Department of Finance data.",
+      "dependencies": ["feat-001"],
+      "status": "done",
+      "evidence": "Official CSV converted to 79 static records; npm run build and npm test (35 tests) passed on 2026-08-13."
     }
   ]
 }

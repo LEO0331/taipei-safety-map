@@ -1,0 +1,35 @@
+{
+  "module": "alcohol_tobacco_business_inspections",
+  "datasetId": "d3f0c616-c57b-4f70-96b4-9c9fa1cfa080",
+  "datasetTitle": "臺北市政府財政局年度各月份菸酒業者抽檢情形",
+  "resourceTitle": "臺北市政府財政局_年度各月份菸酒業者抽檢情形",
+  "sourcePageUrl": "https://data.taipei/dataset/detail?id=d3f0c616-c57b-4f70-96b4-9c9fa1cfa080",
+  "sourceAgency": "臺北市政府財政局",
+  "updateFrequency": "每2月 / Every two months",
+  "sourceFileUpdatedAt": "2026-08-06T10:19:20+08:00",
+  "metadataUpdatedAt": "2026-08-06T10:20:24+08:00",
+  "fields": [
+    "統計月份",
+    "當月抽檢家數",
+    "當年度累計抽檢家數",
+    "製造業者",
+    "進口業者",
+    "販賣業者",
+    "未變性酒精業者"
+  ],
+  "dataQuality": {
+    "inputRows": 79,
+    "outputRows": 79,
+    "duplicateSourceRows": 0,
+    "invalidStatisticalMonth": 0,
+    "duplicateMonths": 0,
+    "missingMonthlyInspectionCount": 0,
+    "malformedCounts": 0,
+    "missingOrMalformedCategory": 0,
+    "categoryTotalMismatch": 2,
+    "cumulativeDecreasedWithinYear": 0,
+    "cumulativeDeltaMismatch": 8,
+    "recordsWithWarnings": 8
+  },
+  "limitations": "Aggregate inspection activity only; it does not identify businesses, violations, penalties, compliance, consumer risk, or geographic risk."
+}

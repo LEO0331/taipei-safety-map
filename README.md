@@ -34,6 +34,7 @@ Each module preserves its own scope and limitations. Examples:
 - Traffic appeal data contains only the published Top 5 clauses each month. An absent clause is unavailable, not zero; counts are submissions, not appeal outcomes.
 - Kindergarten child-transport vehicles are a historical Academic Year 109, Semester 1 administrative snapshot. They do not establish a vehicle's current use, inspection, insurance, safety, or a kindergarten's current transport service. Vehicle identifiers are masked in the directory and filtered export.
 - Soil and water conservation violation cases cover historical administrative enforcement records through 2022. Cadastral references are not geocoded and do not establish a parcel's current legal, development, ownership, or safety status.
+- Tobacco and alcohol business inspections are aggregate monthly activity statistics, not business-level findings, violations, product-safety results, or a risk measure.
 - Historical flooding, closures, and trail data are not forecasts, live warnings, navigation, or evacuation instructions.
 - Non-geographic sources remain directories or summaries; they are not converted into invented map markers.
 
@@ -78,6 +79,17 @@ Do not interpret vehicle age as current safety, rank kindergartens, infer curren
 - The module preserves raw case, date, cadastral, area, suspension, and fine fields. It parses only unambiguous dates and non-negative numeric amounts.
 
 This is historical enforcement data, not a current-violation map, legal opinion, property due-diligence service, ownership record, or land-development recommendation.
+
+### Tobacco and alcohol business inspections
+
+`alcohol_tobacco_business_inspections` uses the official Taipei Department of Finance dataset, [臺北市政府財政局年度各月份菸酒業者抽檢情形](https://data.taipei/dataset/detail?id=d3f0c616-c57b-4f70-96b4-9c9fa1cfa080).
+
+- Customer assets: `public/data/alcohol-tobacco-business-inspections/records.json` and `metadata.json`
+- Converter: `npm run data:convert:alcohol-tobacco-business-inspections`
+- Latest official file update: 2026-08-06; source update frequency: every two months
+- Annual totals are calculated only from monthly inspection counts. The module does not sum annual cumulative fields across years.
+
+Inspection activity does not identify inspected businesses or establish violations, penalties, compliance, consumer harm, market share, or regulatory performance.
 
 ## Development
 
