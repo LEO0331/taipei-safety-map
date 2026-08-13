@@ -4,7 +4,7 @@
 
 **Last Updated:** 2026-08-13 Asia/Taipei
 **Session ID:** Codex desktop
-**Active Feature:** feat-006 - Kindergarten child-transport vehicle registry
+**Active Feature:** feat-007 - Soil and water conservation violation cases
 
 ## Status
 
@@ -18,6 +18,9 @@
 - [x] Added the historical kindergarten child-transport vehicle registry and fleet-analysis module.
   - Details: official 109-1 source converted to 262 locally served records with masking, filters, directory, descriptive charts, data-quality view, historical notices, PWA cache coverage, and README attribution.
   - Verification: `npm run build`, `npm test` (35 tests), and `git diff --check` passed on 2026-08-13.
+- [x] Added historical Soil and Water Conservation Act violation analytics.
+  - Details: 1,994 official records are served locally with source-preserving conversion, historical coverage notice, filters, descriptive charts, data-quality reporting, raw source details, CSV export, and no parcel-level mapping.
+  - Verification: `npm run build`, `npm test` (35 tests), and `git diff --check` passed on 2026-08-13.
 
 ### What's Next
 
@@ -28,6 +31,7 @@
 
 - [ ] Build emits the existing >500 kB bundle-size warning; it does not fail the build.
 - [ ] The historical source is not a current fleet, inspection, or safety registry; refresh only when the publisher provides a new resource.
+- [ ] The water-conservation enforcement source ends in 2022; never treat the module as a current parcel-status lookup.
 
 ## Decisions Made
 
@@ -44,6 +48,7 @@
 - `src/KindergartenChildTransportVehicles.tsx`, `src/App.tsx` - historical registry UI and navigation.
 - `scripts/convertKindergartenChildTransportVehicles.ts`, `data/raw/kindergarten-child-transport-vehicles/records.csv` - source-preserving conversion.
 - `public/data/kindergarten-child-transport-vehicles/*`, `public/sw.js`, `README.md` - generated assets, offline cache, and documentation.
+- `src/SoilWaterConservationViolations.tsx`, `scripts/convertSoilWaterConservationViolations.ts`, `data/raw/soil-water-conservation-violations/records.csv`, `public/data/soil-water-conservation-violations/*` - historical enforcement module and static data.
 
 ## Evidence of Completion
 

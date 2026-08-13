@@ -47,6 +47,14 @@
       "dependencies": ["feat-001"],
       "status": "done",
       "evidence": "Official CSV converted to 262 static records; npm run build and npm test (35 tests) passed on 2026-08-13."
+    },
+    {
+      "id": "feat-007",
+      "name": "Soil and water conservation violation cases",
+      "description": "Historical enforcement and land-safety analytics module using locally generated official administrative data.",
+      "dependencies": ["feat-001"],
+      "status": "done",
+      "evidence": "Official CSV converted to 1,994 static records; npm run build and npm test (35 tests) passed on 2026-08-13."
     }
   ]
 }
