@@ -32,6 +32,7 @@ Each module preserves its own scope and limitations. Examples:
 - Resource directories do not prove real-time availability, access, capacity, or suitability.
 - Crime and sensitive incident records use aggregate, fuzzy, or deliberately blurred representations; do not use them to judge people, premises, routes, or property.
 - Traffic appeal data contains only the published Top 5 clauses each month. An absent clause is unavailable, not zero; counts are submissions, not appeal outcomes.
+- Kindergarten child-transport vehicles are a historical Academic Year 109, Semester 1 administrative snapshot. They do not establish a vehicle's current use, inspection, insurance, safety, or a kindergarten's current transport service. Vehicle identifiers are masked in the directory and filtered export.
 - Historical flooding, closures, and trail data are not forecasts, live warnings, navigation, or evacuation instructions.
 - Non-geographic sources remain directories or summaries; they are not converted into invented map markers.
 
@@ -53,6 +54,18 @@ Converters must preserve raw official fields, parse dates and counts conservativ
 - Derived Gregorian periods use monthly precision only; malformed or missing counts remain missing
 
 Do not calculate citywide appeal totals, appeal success rates, full clause shares, legal-risk scores, enforcement-quality rankings, or legal interpretations from this source.
+
+### Kindergarten child-transport vehicles
+
+`kindergarten_child_transport_vehicles` uses the official Taipei Department of Education dataset, [臺北市公私立幼兒園幼童專用車清冊](https://data.taipei/dataset/detail?id=a25d8830-f643-41f9-a4ab-8722da91cc1f).
+
+- Customer assets: `public/data/kindergarten-child-transport-vehicles/records.json` and `metadata.json`
+- Converter: `npm run data:convert:kindergarten-child-transport-vehicles`
+- Represented period: Academic Year 109, Semester 1; file update: 2024-08-07
+- Source fields are retained as strings, including sequence number and license plate. The directory masks plates by default; raw source fields are available only in the expandable record detail.
+- Manufacture date parsing accepts only the unambiguous month-year format present in this source. Source-recorded vehicle age is never overwritten by a calculated age.
+
+Do not interpret vehicle age as current safety, rank kindergartens, infer current ownership or operations, or create a map, route, inspection, insurance, or driver profile from this dataset.
 
 ## Development
 

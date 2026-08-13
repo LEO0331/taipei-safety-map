@@ -1,0 +1,40 @@
+{
+  "module": "kindergarten_child_transport_vehicles",
+  "datasetId": "a25d8830-f643-41f9-a4ab-8722da91cc1f",
+  "datasetTitle": "臺北市公私立幼兒園幼童專用車清冊",
+  "resourceTitle": "臺北市109學年度第1學期公私立幼兒園幼童專用車清冊",
+  "sourcePageUrl": "https://data.taipei/dataset/detail?id=a25d8830-f643-41f9-a4ab-8722da91cc1f",
+  "sourceAgency": "臺北市政府教育局",
+  "sourceFileUpdatedAt": "2024-08-07T11:56:10+08:00",
+  "metadataUpdatedAt": "2025-03-24T19:53:36+08:00",
+  "representedAcademicYearRoc": 109,
+  "representedSemester": 1,
+  "historical": true,
+  "fields": [
+    "序號",
+    "縣市",
+    "鄉鎮市",
+    "公私立",
+    "園名",
+    "車牌號碼",
+    "廠牌型號",
+    "出廠年月",
+    "使用年限【統計數值】"
+  ],
+  "dataQuality": {
+    "inputRows": 262,
+    "outputRows": 262,
+    "duplicateSourceRows": 0,
+    "missingKindergarten": 0,
+    "missingDistrict": 0,
+    "unknownOwnership": 0,
+    "missingLicensePlate": 0,
+    "missingManufacturerModel": 0,
+    "malformedManufactureDate": 0,
+    "malformedVehicleAge": 0,
+    "duplicateLicensePlates": 0,
+    "duplicateSequenceNumbers": 0,
+    "recordsWithWarnings": 0
+  },
+  "limitations": "Historical administrative registry only; it does not establish current vehicle use, inspection, roadworthiness, safety, insurance, or kindergarten transport availability."
+}

@@ -54,7 +54,8 @@
     "data:convert:lpg-facilities": "tsx scripts/convertLpgFacilitiesAndGasRetailers.ts",
     "data:fetch:electrical-businesses": "tsx scripts/fetchElectricalInspectionMaintenanceBusinesses.ts",
     "data:convert:electrical-businesses": "tsx scripts/convertElectricalInspectionMaintenanceBusinesses.ts",
-    "data:convert:traffic-violation-appeals": "tsx scripts/convertTrafficViolationAppealTopClauses.ts"
+    "data:convert:traffic-violation-appeals": "tsx scripts/convertTrafficViolationAppealTopClauses.ts",
+    "data:convert:kindergarten-child-transport-vehicles": "tsx scripts/convertKindergartenChildTransportVehicles.ts"
   },
   "dependencies": {
     "leaflet": "^1.9.4",

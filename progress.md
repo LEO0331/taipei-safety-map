@@ -2,9 +2,9 @@
 
 ## Current State
 
-**Last Updated:** 2026-08-12 Asia/Taipei
+**Last Updated:** 2026-08-13 Asia/Taipei
 **Session ID:** Codex desktop
-**Active Feature:** feat-005 - Working-tree handoff
+**Active Feature:** feat-006 - Kindergarten child-transport vehicle registry
 
 ## Status
 
@@ -13,11 +13,11 @@
 - [x] Created and validated the repository-local coding-agent harness (100/100).
 - [x] Implemented and verified the Traffic Violation Appeal Trends module from local official data.
 
-### What's In Progress
+### What's Done
 
-- [ ] Review, stage, and commit verified working-tree changes if requested.
-  - Details: traffic-appeal module plus harness artifacts are currently unstaged.
-  - Blockers: no commit request or branch instruction has been provided.
+- [x] Added the historical kindergarten child-transport vehicle registry and fleet-analysis module.
+  - Details: official 109-1 source converted to 262 locally served records with masking, filters, directory, descriptive charts, data-quality view, historical notices, PWA cache coverage, and README attribution.
+  - Verification: `npm run build`, `npm test` (35 tests), and `git diff --check` passed on 2026-08-13.
 
 ### What's Next
 
@@ -27,6 +27,7 @@
 ## Blockers / Risks
 
 - [ ] Build emits the existing >500 kB bundle-size warning; it does not fail the build.
+- [ ] The historical source is not a current fleet, inspection, or safety registry; refresh only when the publisher provides a new resource.
 
 ## Decisions Made
 
@@ -40,6 +41,9 @@
 - `scripts/convertTrafficViolationAppealTopClauses.ts` - Big5 source conversion and quality checks.
 - `public/data/traffic-violation-appeal-top-clauses/*` - generated local records and metadata.
 - `AGENTS.md`, `feature_list.json`, `session-handoff.md`, `init.sh` - agent harness.
+- `src/KindergartenChildTransportVehicles.tsx`, `src/App.tsx` - historical registry UI and navigation.
+- `scripts/convertKindergartenChildTransportVehicles.ts`, `data/raw/kindergarten-child-transport-vehicles/records.csv` - source-preserving conversion.
+- `public/data/kindergarten-child-transport-vehicles/*`, `public/sw.js`, `README.md` - generated assets, offline cache, and documentation.
 
 ## Evidence of Completion
 

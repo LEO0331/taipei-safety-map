@@ -39,6 +39,14 @@
       "dependencies": ["feat-004"],
       "status": "in-progress",
       "evidence": "Changes remain unstaged; no commit was requested."
+    },
+    {
+      "id": "feat-006",
+      "name": "Kindergarten child-transport vehicle registry",
+      "description": "Historical Academic Year 109, Semester 1 directory and fleet-analysis module using locally generated official data.",
+      "dependencies": ["feat-001"],
+      "status": "done",
+      "evidence": "Official CSV converted to 262 static records; npm run build and npm test (35 tests) passed on 2026-08-13."
     }
   ]
 }
