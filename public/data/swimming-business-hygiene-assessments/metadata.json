@@ -1,0 +1,30 @@
+{
+  "module": "swimming_business_hygiene_assessments",
+  "datasetId": "e89c0268-d104-493a-8204-387f48bba1fd",
+  "sourceFileUpdatedAt": "2026-03-06T10:01:51+08:00",
+  "metadataUpdatedAt": "2026-07-13T14:37:14+08:00",
+  "fields": [
+    "報名類別",
+    "業者名稱",
+    "營業場所地址",
+    "評核結果",
+    "有效日期"
+  ],
+  "recordCount": 51,
+  "resultValues": [
+    "優",
+    "特優",
+    "良"
+  ],
+  "dataQuality": {
+    "inputRows": 51,
+    "outputRows": 51,
+    "exactDuplicateRows": 0,
+    "missingBusinessName": 0,
+    "missingAddress": 0,
+    "unresolvedDistrict": 0,
+    "missingApplicationCategory": 0,
+    "missingAssessmentResult": 0,
+    "malformedValidityDate": 0
+  }
+}

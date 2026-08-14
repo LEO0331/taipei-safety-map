@@ -1,0 +1,27 @@
+{
+  "module": "cosmetics_inspection_results",
+  "datasetId": "c94a18c3-fdd0-4fd7-94ac-b710b65e9c50",
+  "sourceFileUpdatedAt": "2025-03-11T11:36:28+08:00",
+  "metadataUpdatedAt": "2026-07-14T10:43:05+08:00",
+  "coverageStart": "2023-04-01",
+  "coverageEnd": "2024-12-31",
+  "fields": [
+    "類別",
+    "序號",
+    "抽驗日期",
+    "來源廠商",
+    "產品名稱",
+    "檢驗結果",
+    "標示及登錄查核結果"
+  ],
+  "recordCount": 62,
+  "dataQuality": {
+    "exactDuplicateRows": 0,
+    "missingSequenceNumber": 0,
+    "missingDate": 0,
+    "malformedDate": 0,
+    "missingVendor": 0,
+    "missingProduct": 0,
+    "unknownResults": 48
+  }
+}

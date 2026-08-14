@@ -103,6 +103,16 @@ Inspection activity does not identify inspected businesses or establish violatio
 
 The dashboard has no map because the source offers no authoritative coordinates. Its categories and reference extraction are transparent analytical aids, not official risk ratings or legal interpretations.
 
+### Swimming facility hygiene assessments
+
+`swimming_business_hygiene_assessments` uses the official Taipei Department of Health [swimming-business hygiene self-management assessment registry](https://data.taipei/dataset/detail?id=e89c0268-d104-493a-8204-387f48bba1fd).
+
+- Customer assets: `public/data/swimming-business-hygiene-assessments/records.json` and `metadata.json`
+- Converter: `npm run data:convert:swimming-business-hygiene-assessments`
+- Official resource update: 2026-03-06; all five published source fields are preserved.
+
+Recorded validity status is calculated solely from each source validity date; it is not a live certification or operating-status check. Source addresses are available only as external map-search links—no coordinates are inferred.
+
 ## Development
 
 ```bash
