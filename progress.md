@@ -2,9 +2,9 @@
 
 ## Current State
 
-**Last Updated:** 2026-08-13 Asia/Taipei
+**Last Updated:** 2026-08-14 Asia/Taipei
 **Session ID:** Codex desktop
-**Active Feature:** feat-008 - Tobacco and alcohol business inspections
+**Active Feature:** feat-009 - Business hygiene violation cases
 
 ## Status
 
@@ -24,6 +24,9 @@
 - [x] Added Tobacco and Alcohol Business Inspections analytics.
   - Details: 79 official monthly aggregate records are locally served with yearly views, category composition, cumulative progress, CSV export, source-preserving conversion, and data-quality reporting.
   - Verification: `npm run build`, `npm test` (35 tests), and `git diff --check` passed on 2026-08-13.
+- [x] Added Business Hygiene Violation Cases dashboard.
+  - Details: 47 official historical cases are locally served with source-preserving conversion, conservative ROC-date and fine parsing, text-derived categories, penalty-reference extraction, linked filters, CSV export, raw-text details, data-quality reporting, and no map layer.
+  - Verification: `npm run build` and `npm test` (35 tests) passed on 2026-08-14.
 
 ### What's Next
 
@@ -36,6 +39,7 @@
 - [ ] The historical source is not a current fleet, inspection, or safety registry; refresh only when the publisher provides a new resource.
 - [ ] The water-conservation enforcement source ends in 2022; never treat the module as a current parcel-status lookup.
 - [ ] Inspection statistics are aggregate activity data; do not use them to infer business-level violations, compliance, safety, or enforcement effectiveness.
+- [ ] Business-hygiene cases are historical records; do not infer current conditions, payment status, appeal status, business identity beyond the source text, or locations from descriptions.
 
 ## Decisions Made
 
@@ -54,6 +58,7 @@
 - `public/data/kindergarten-child-transport-vehicles/*`, `public/sw.js`, `README.md` - generated assets, offline cache, and documentation.
 - `src/SoilWaterConservationViolations.tsx`, `scripts/convertSoilWaterConservationViolations.ts`, `data/raw/soil-water-conservation-violations/records.csv`, `public/data/soil-water-conservation-violations/*` - historical enforcement module and static data.
 - `src/AlcoholTobaccoBusinessInspections.tsx`, `scripts/convertAlcoholTobaccoBusinessInspections.ts`, `data/raw/alcohol-tobacco-business-inspections/records.csv`, `public/data/alcohol-tobacco-business-inspections/*` - aggregate monthly inspection module and static data.
+- `src/BusinessHygieneViolationCases.tsx`, `scripts/convertBusinessHygieneViolationCases.ts`, `data/raw/business-hygiene-violation-cases/records.csv`, `public/data/business-hygiene-violation-cases/*`, `public/sw.js` - historical business-hygiene enforcement dashboard, static data, and PWA cache entries.
 
 ## Evidence of Completion
 

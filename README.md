@@ -35,6 +35,7 @@ Each module preserves its own scope and limitations. Examples:
 - Kindergarten child-transport vehicles are a historical Academic Year 109, Semester 1 administrative snapshot. They do not establish a vehicle's current use, inspection, insurance, safety, or a kindergarten's current transport service. Vehicle identifiers are masked in the directory and filtered export.
 - Soil and water conservation violation cases cover historical administrative enforcement records through 2022. Cadastral references are not geocoded and do not establish a parcel's current legal, development, ownership, or safety status.
 - Tobacco and alcohol business inspections are aggregate monthly activity statistics, not business-level findings, violations, product-safety results, or a risk measure.
+- Business-hygiene violation cases are historical administrative enforcement records. They do not establish a current violation, hygiene condition, fine-payment status, or overall assessment of a business.
 - Historical flooding, closures, and trail data are not forecasts, live warnings, navigation, or evacuation instructions.
 - Non-geographic sources remain directories or summaries; they are not converted into invented map markers.
 
@@ -90,6 +91,17 @@ This is historical enforcement data, not a current-violation map, legal opinion,
 - Annual totals are calculated only from monthly inspection counts. The module does not sum annual cumulative fields across years.
 
 Inspection activity does not identify inspected businesses or establish violations, penalties, compliance, consumer harm, market share, or regulatory performance.
+
+### Business hygiene violation cases
+
+`business_hygiene_violation_cases` uses the official Taipei Department of Health dataset, [Taipei business-hygiene management ordinance violation cases](https://data.taipei/dataset/detail?id=cbeb7c62-85c8-4e1f-9d5e-bcb43339196b).
+
+- Customer assets: `public/data/business-hygiene-violation-cases/records.json` and `metadata.json`
+- Converter: `npm run data:convert:business-hygiene-violation-cases`
+- Source coverage: 2024-01-05 through 2024-10-29; official resource update: 2025-06-16
+- All five published columns are retained. ROC dates are converted only when valid; fines are parsed only when clearly non-negative monetary values.
+
+The dashboard has no map because the source offers no authoritative coordinates. Its categories and reference extraction are transparent analytical aids, not official risk ratings or legal interpretations.
 
 ## Development
 

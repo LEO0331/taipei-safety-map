@@ -1,0 +1,47 @@
+{
+  "module": "business_hygiene_violation_cases",
+  "datasetId": "cbeb7c62-85c8-4e1f-9d5e-bcb43339196b",
+  "datasetTitle": "臺北市違反台北市營業衛生管理自治條例違規案件",
+  "resourceTitle": "臺北市政府衛生局113年1-10月營業衛生相關法規違規裁處確定案件一覽表",
+  "sourcePageUrl": "https://data.taipei/dataset/detail?id=cbeb7c62-85c8-4e1f-9d5e-bcb43339196b",
+  "sourceAgency": "臺北市政府衛生局",
+  "sourceFileUpdatedAt": "2025-06-16T13:13:42+08:00",
+  "metadataUpdatedAt": "2026-07-13T16:14:44+08:00",
+  "ingestionDate": "2026-08-14",
+  "historical": true,
+  "fields": [
+    "項次",
+    "日期",
+    "違規情節",
+    "罰鍰金額數",
+    "罰則註記"
+  ],
+  "recordCount": 47,
+  "earliestValidDate": "2024-01-05",
+  "latestValidDate": "2024-10-29",
+  "validFineCount": 47,
+  "invalidFineCount": 0,
+  "totalParsedFineAmount": 158000,
+  "derivedCategoryCounts": {
+    "cleaning_disinfection": 3,
+    "water_quality": 39,
+    "staff_hygiene": 8,
+    "administrative": 7,
+    "pest_control": 2,
+    "sanitation_equipment": 3
+  },
+  "dataQuality": {
+    "inputRows": 47,
+    "outputRows": 47,
+    "exactDuplicateRows": 0,
+    "missingSequenceNumber": 47,
+    "duplicateSequenceNumbers": 0,
+    "malformedDate": 0,
+    "missingViolationDescription": 0,
+    "missingFineAmount": 0,
+    "malformedFineAmount": 0,
+    "missingPenaltyNote": 0,
+    "unusuallyLargeFine": 0,
+    "unknownDerivedCategory": 0
+  }
+}
