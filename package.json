@@ -61,7 +61,8 @@
     "data:convert:business-hygiene-violation-cases": "tsx scripts/convertBusinessHygieneViolationCases.ts",
     "data:convert:swimming-business-hygiene-assessments": "tsx scripts/convertSwimmingBusinessHygieneAssessments.ts",
     "data:convert:cosmetics-inspection-results": "tsx scripts/convertCosmeticsInspectionResults.ts",
-    "data:convert:surgical-medical-institutions": "tsx scripts/convertSurgicalMedicalInstitutions.ts"
+    "data:convert:surgical-medical-institutions": "tsx scripts/convertSurgicalMedicalInstitutions.ts",
+    "data:convert:medical-violation-cases": "tsx scripts/convertMedicalViolationCases.ts"
   },
   "dependencies": {
     "leaflet": "^1.9.4",

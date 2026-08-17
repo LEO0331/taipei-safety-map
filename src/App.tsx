@@ -30,6 +30,7 @@ import BusinessHygieneViolationCases from './BusinessHygieneViolationCases';
 import SwimmingBusinessHygieneAssessments from './SwimmingBusinessHygieneAssessments';
 import CosmeticsInspectionResults from './CosmeticsInspectionResults';
 import SurgicalMedicalInstitutions from './SurgicalMedicalInstitutions';
+import MedicalViolationCases from './MedicalViolationCases';
 import EntertainmentBusinessNoiseRecords from './EntertainmentBusinessNoiseRecords';
 import NarrowAlleyRegistry from './NarrowAlleyRegistry';
 import FireSafetyInspectionDeclarations from './FireSafetyInspectionDeclarations';
@@ -70,7 +71,7 @@ import type {
   VehicleTowingTopRoadSectionRecord,
 } from './types';
 
-type Tab = 'map' | 'nearby' | 'burglary' | 'bike' | 'motorcycle' | 'streetSnatch' | 'policeCctv' | 'smartTrafficEnforcement' | 'vehicleTowing' | 'doubleParking' | 'reportedViolations' | 'trafficViolationAppeals' | 'kindergartenChildTransportVehicles' | 'soilWaterConservationViolations' | 'alcoholTobaccoBusinessInspections' | 'businessHygieneViolationCases' | 'swimmingBusinessHygieneAssessments' | 'cosmeticsInspectionResults' | 'surgicalMedicalInstitutions' | 'noiseEnforcement' | 'narrowAlleys' | 'fireSafetyDeclarations' | 'lpgFacilities' | 'electricalBusinesses' | 'tobaccoControl' | 'domesticViolence' | 'occupationalAccidents' | 'eocActivations' | 'fireDonations' | 'fireRescueAreas' | 'fireAccessRoutes' | 'hikingTrails' | 'flooding' | 'health' | 'disaster' | 'overview' | 'notes';
+type Tab = 'map' | 'nearby' | 'burglary' | 'bike' | 'motorcycle' | 'streetSnatch' | 'policeCctv' | 'smartTrafficEnforcement' | 'vehicleTowing' | 'doubleParking' | 'reportedViolations' | 'trafficViolationAppeals' | 'kindergartenChildTransportVehicles' | 'soilWaterConservationViolations' | 'alcoholTobaccoBusinessInspections' | 'businessHygieneViolationCases' | 'swimmingBusinessHygieneAssessments' | 'cosmeticsInspectionResults' | 'surgicalMedicalInstitutions' | 'medicalViolationCases' | 'noiseEnforcement' | 'narrowAlleys' | 'fireSafetyDeclarations' | 'lpgFacilities' | 'electricalBusinesses' | 'tobaccoControl' | 'domesticViolence' | 'occupationalAccidents' | 'eocActivations' | 'fireDonations' | 'fireRescueAreas' | 'fireAccessRoutes' | 'hikingTrails' | 'flooding' | 'health' | 'disaster' | 'overview' | 'notes';
 type NavigationGroup = 'explore' | 'preparedness' | 'health' | 'traffic' | 'records';
 type CapacityRange = 'all' | 'under100' | '100-499' | '500-999' | '1000plus';
 type DenseLayer = 'aeds' | 'medical' | 'fireHydrants' | 'airRaidShelters' | 'evacuationGates' | 'cctv';
@@ -1025,6 +1026,7 @@ function App() {
       {activeTab === 'swimmingBusinessHygieneAssessments' && <SwimmingBusinessHygieneAssessments language={language} />}
       {activeTab === 'cosmeticsInspectionResults' && <CosmeticsInspectionResults language={language} />}
       {activeTab === 'surgicalMedicalInstitutions' && <SurgicalMedicalInstitutions language={language} />}
+      {activeTab === 'medicalViolationCases' && <MedicalViolationCases language={language} />}
       {activeTab === 'noiseEnforcement' && <EntertainmentBusinessNoiseRecords records={data.entertainmentBusinessNoiseRecords} language={language} />}
       {activeTab === 'narrowAlleys' && <NarrowAlleyRegistry records={data.narrowAlleyRegistry} language={language} />}
       {activeTab === 'fireSafetyDeclarations' && <FireSafetyInspectionDeclarations records={data.fireSafetyInspectionDeclarations} language={language} />}

@@ -1,0 +1,14 @@
+{
+  "module": "medical_violation_cases",
+  "datasetId": "e6a88956-f8b5-4dcc-ae40-84707a2f8c8c",
+  "sourceFileUpdatedAt": "2025-06-04T09:25:01+08:00",
+  "metadataUpdatedAt": "2026-07-13T15:39:08+08:00",
+  "recordCount": 132,
+  "fields": [
+    "項次",
+    "裁處書日期",
+    "違規情節",
+    "罰鍰金額數",
+    "罰則註記"
+  ]
+}
