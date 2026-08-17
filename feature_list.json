@@ -71,6 +71,14 @@
       "dependencies": ["feat-001"],
       "status": "done",
       "evidence": "Official CSV converted to 47 static records; npm run build and npm test (35 tests) passed on 2026-08-14."
+    },
+    {
+      "id": "feat-010",
+      "name": "Medical safety and welfare customer views",
+      "description": "Local-static customer dashboards and directories for recently integrated medical and welfare datasets.",
+      "dependencies": ["feat-001"],
+      "status": "in-progress",
+      "evidence": "Navigation, data conversion, and PWA cache coverage added; final customer workflow review pending."
     }
   ]
 }

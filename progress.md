@@ -2,9 +2,9 @@
 
 ## Current State
 
-**Last Updated:** 2026-08-14 Asia/Taipei
+**Last Updated:** 2026-08-17 Asia/Taipei
 **Session ID:** Codex desktop
-**Active Feature:** feat-009 - Business hygiene violation cases
+**Active Feature:** feat-010 - Medical safety and welfare customer views
 
 ## Status
 
@@ -14,6 +14,10 @@
 - [x] Implemented and verified the Traffic Violation Appeal Trends module from local official data.
 
 ### What's Done
+
+- [x] Added customer-facing local-static medical and welfare views, including the Diabetes Health Promotion Institutions directory.
+  - Details: source-preserving converter, health navigation, level/search filters, external map lookup, and PWA cache coverage for 28 official institutions.
+  - Verification: `npm run data:convert:diabetes-health-institutions`, `npm run build`, and `npm test` (35 tests) passed on 2026-08-17.
 
 - [x] Added the historical kindergarten child-transport vehicle registry and fleet-analysis module.
   - Details: official 109-1 source converted to 262 locally served records with masking, filters, directory, descriptive charts, data-quality view, historical notices, PWA cache coverage, and README attribution.
@@ -40,6 +44,7 @@
 - [ ] The water-conservation enforcement source ends in 2022; never treat the module as a current parcel-status lookup.
 - [ ] Inspection statistics are aggregate activity data; do not use them to infer business-level violations, compliance, safety, or enforcement effectiveness.
 - [ ] Business-hygiene cases are historical records; do not infer current conditions, payment status, appeal status, business identity beyond the source text, or locations from descriptions.
+- [ ] Address-only datasets remain directories with external map links until authoritative, provenance-preserving coordinates are available; do not add inferred markers or nearby distances.
 
 ## Decisions Made
 

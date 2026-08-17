@@ -115,6 +115,12 @@ Recorded validity status is calculated solely from each source validity date; it
 
 ## Development
 
+### Recent local-health and welfare datasets
+
+- Surgical medical institutions, medical violation cases, antivenom stockpile locations, and disability-welfare service periods are locally served from `public/data/`.
+- Antivenom addresses are shown as an external map lookup only: the official source has no authoritative coordinates, so the app never geocodes or plots inferred locations.
+- Medical violation and welfare figures are historical/statistical records, not live clinical availability, facility status, or demand measures.
+
 ```bash
 npm install
 npm run dev
