@@ -77,8 +77,8 @@
       "name": "Medical safety and welfare customer views",
       "description": "Local-static customer dashboards and directories for recently integrated medical and welfare datasets.",
       "dependencies": ["feat-001"],
-      "status": "in-progress",
-      "evidence": "Navigation, data conversion, and PWA cache coverage added; final customer workflow review pending."
+      "status": "done",
+      "evidence": "Navigation, local data conversion, PWA cache coverage, and district-level approximation fallback verified for demo release; npm run build and npm test (35 tests) passed on 2026-08-17."
     }
   ]
 }
