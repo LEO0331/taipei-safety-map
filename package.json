@@ -65,7 +65,8 @@
     "data:convert:medical-violation-cases": "tsx scripts/convertMedicalViolationCases.ts",
     "data:convert:antivenom-stockpiles": "tsx scripts/convertAntivenomStockpiles.ts",
     "data:convert:disability-welfare-services": "tsx scripts/convertDisabilityWelfareServices.ts",
-    "data:convert:diabetes-health-institutions": "tsx scripts/convertDiabetesHealthInstitutions.ts"
+    "data:convert:diabetes-health-institutions": "tsx scripts/convertDiabetesHealthInstitutions.ts",
+    "data:geocode:medical-directories": "tsx scripts/geocodeMedicalDirectories.ts"
   },
   "dependencies": {
     "leaflet": "^1.9.4",
