@@ -60,7 +60,8 @@
     "data:convert:alcohol-tobacco-business-inspections": "tsx scripts/convertAlcoholTobaccoBusinessInspections.ts",
     "data:convert:business-hygiene-violation-cases": "tsx scripts/convertBusinessHygieneViolationCases.ts",
     "data:convert:swimming-business-hygiene-assessments": "tsx scripts/convertSwimmingBusinessHygieneAssessments.ts",
-    "data:convert:cosmetics-inspection-results": "tsx scripts/convertCosmeticsInspectionResults.ts"
+    "data:convert:cosmetics-inspection-results": "tsx scripts/convertCosmeticsInspectionResults.ts",
+    "data:convert:surgical-medical-institutions": "tsx scripts/convertSurgicalMedicalInstitutions.ts"
   },
   "dependencies": {
     "leaflet": "^1.9.4",

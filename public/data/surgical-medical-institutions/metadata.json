@@ -1,0 +1,15 @@
+{
+  "module": "surgical_medical_institutions",
+  "datasetId": "70b71e5c-1eb8-4632-9280-c8f10844649b",
+  "sourceFileUpdatedAt": "2025-06-10T17:26:44+08:00",
+  "metadataUpdatedAt": "2026-07-14T13:04:05+08:00",
+  "recordCount": 99,
+  "fields": [
+    "序號",
+    "機構名稱",
+    "郵遞區號",
+    "地址",
+    "電話"
+  ],
+  "coordinatePolicy": "No authoritative coordinates are published; no browser geocoding or map markers are used."
+}
