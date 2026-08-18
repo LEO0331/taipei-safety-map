@@ -67,7 +67,8 @@
     "data:convert:disability-welfare-services": "tsx scripts/convertDisabilityWelfareServices.ts",
     "data:convert:diabetes-health-institutions": "tsx scripts/convertDiabetesHealthInstitutions.ts",
     "data:geocode:medical-directories": "tsx scripts/geocodeMedicalDirectories.ts",
-    "data:approximate:medical-directories": "tsx scripts/approximateMedicalDirectoryCoordinates.ts"
+    "data:approximate:medical-directories": "tsx scripts/approximateMedicalDirectoryCoordinates.ts",
+    "data:convert:smoking-cessation-providers": "tsx scripts/convertSmokingCessationProviders.ts"
   },
   "dependencies": {
     "leaflet": "^1.9.4",
