@@ -88,3 +88,9 @@ The PWA cache version was bumped to v13 for the two new appeal JSON files. Do no
 - Applied responsive card grids to the antivenom, diabetes-health, and swimming-facility directories; aligned the welfare module with the shared hero/filter/metric/table structure.
 - Confirmed in the rendered dashboard that no customer-facing map API-key message is present and external text-map links do not require an application API key.
 - Verified: `npm run build`; `npm test` (35 tests); browser checks for navigation, language switching, filtered Fire Rescue summaries/charts, responsive directory columns, and absence of an API-key warning.
+
+# 2026-08-28 — Map tile watermark
+
+- Replaced the shared CARTO tile URL with the keyless OpenStreetMap tile service and corrected attribution.
+- Browser screenshot confirms that the map renders without the `API KEY REQUIRED` watermark.
+- Verified: `npm run build`; `npm test` (35 tests).
