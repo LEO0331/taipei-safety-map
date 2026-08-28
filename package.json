@@ -69,6 +69,7 @@
     "data:geocode:medical-directories": "tsx scripts/geocodeMedicalDirectories.ts",
     "data:approximate:medical-directories": "tsx scripts/approximateMedicalDirectoryCoordinates.ts",
     "data:convert:smoking-cessation-providers": "tsx scripts/convertSmokingCessationProviders.ts"
+    ,"data:convert:bridge-inspection-maintenance": "tsx scripts/convertBridgeInspectionMaintenance.ts"
   },
   "dependencies": {
     "leaflet": "^1.9.4",

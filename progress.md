@@ -74,3 +74,8 @@
 ## Notes for Next Session
 
 The PWA cache version was bumped to v13 for the two new appeal JSON files. Do not reinterpret missing Top-5 appearances as zero appeals.
+# 2026-08-28 — Bridge inspection and maintenance
+
+- Added the locally sourced Taipei bridge inspection and maintenance converter and analytical dashboard.
+- The official resource has no coordinates, geometry, or reliable existing-project geographic join, so no bridge markers are created.
+- Verified: `npm run data:convert:bridge-inspection-maintenance` (416 records / 415 unique bridges), `npm run build`, and `npm test` (35 tests) all passed.

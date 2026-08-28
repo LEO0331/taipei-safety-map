@@ -422,6 +422,9 @@ td {
   border: 0;
 }
 
+.bridge-filter-drawer { border: 0; }
+.bridge-filter-drawer > summary { display: none; cursor: pointer; font-weight: 800; }
+
 .public-health-grid {
   display: grid;
   grid-template-columns: minmax(0, 1.4fr) minmax(320px, 1fr);
@@ -527,6 +530,10 @@ footer {
   .health-filters {
     grid-template-columns: 1fr;
   }
+
+  .bridge-filter-drawer { border: 1px solid #d8e1df; border-radius: 8px; background: #eef3f2; }
+  .bridge-filter-drawer > summary { display: block; padding: 12px; }
+  .bridge-filter-drawer:not([open]) > .health-filters { display: none; }
 
   .map-stage,
   .map-canvas {

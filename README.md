@@ -113,6 +113,17 @@ The dashboard has no map because the source offers no authoritative coordinates.
 
 Recorded validity status is calculated solely from each source validity date; it is not a live certification or operating-status check. Source addresses are available only as external map-search links—no coordinates are inferred.
 
+### Bridge inspection and maintenance
+
+`bridge_inspection_maintenance` uses the official Taipei New Construction Office dataset, [臺北市橋梁檢測及維修資料](https://data.taipei/dataset/detail?id=27135efa-d43e-406d-a3e4-fcb07efb3982).
+
+- Customer assets: `public/data/bridge-inspection-maintenance/records.json` and `metadata.json`
+- Converter: `npm run data:convert:bridge-inspection-maintenance`
+- Official resource update: 2025-06-23; source metadata update: 2026-07-07
+- The published CSV has no authoritative coordinates, geometry, or reliable join identifier in this project, so this analytical module does not map bridges.
+
+Inspection age, maintenance records, and maintenance spending are not bridge safety classifications, structural-condition assessments, or real-time status information.
+
 ## Development
 
 ### Recent local-health and welfare datasets

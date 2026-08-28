@@ -1,0 +1,44 @@
+{
+  "module": "bridge_inspection_maintenance",
+  "datasetId": "27135efa-d43e-406d-a3e4-fcb07efb3982",
+  "datasetTitle": "臺北市橋梁檢測及維修資料",
+  "sourcePageUrl": "https://data.taipei/dataset/detail?id=27135efa-d43e-406d-a3e4-fcb07efb3982",
+  "sourceAgency": "臺北市政府工務局新建工程處",
+  "sourceFileUpdatedAt": "2025-06-23T15:55:02+08:00",
+  "metadataUpdatedAt": "2026-07-07T14:20:25+08:00",
+  "localRefreshAt": "2026-08-28T00:48:41.651Z",
+  "recordCount": 416,
+  "uniqueBridgeCount": 415,
+  "fields": [
+    "序號",
+    "橋梁名稱",
+    "轄區",
+    "管轄單位",
+    "管轄單位機關代碼",
+    "最近一期檢測年度",
+    "檢測結果",
+    "最近一期維護年度",
+    "委託維修單位",
+    "年度維修經費金額",
+    "維修結果"
+  ],
+  "coordinateCoverage": {
+    "matched": 0,
+    "total": 415,
+    "note": "The source contains no coordinates or bridge geometry, and no reliable existing project join was found. No bridge locations are mapped."
+  },
+  "dataQuality": {
+    "inputRows": 416,
+    "outputRows": 416,
+    "uniqueBridges": 415,
+    "duplicateExactRows": 0,
+    "missingInspectionYear": 1,
+    "missingInspectionResult": 0,
+    "missingMaintenanceYear": 314,
+    "missingMaintenanceCost": 317,
+    "missingMaintenanceResult": 0,
+    "malformedYears": 0,
+    "malformedMaintenanceCosts": 0
+  },
+  "limitations": "This source is a published bridge inspection and maintenance record. Older inspection information is not a safety classification; maintenance spending does not measure danger; and a maintenance record does not by itself establish a structural problem."
+}
