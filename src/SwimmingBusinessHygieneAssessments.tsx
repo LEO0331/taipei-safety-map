@@ -2,21 +2,301 @@ import { useEffect, useMemo, useState } from 'react';
 import type { Language } from './types';
 
 type Validity = 'valid' | 'expiring_soon' | 'expired' | 'unknown';
-type RecordItem = { id: string; businessName: string; businessAddress: string; districtName: string; applicationCategory: string; assessmentResult: string; validUntilRaw: string; validUntil: string | null; validityStatus: Validity; externalMapQuery: string; originalValues: Record<string, string> };
-type Metadata = { sourceFileUpdatedAt: string; metadataUpdatedAt: string; dataQuality: Record<string, number> };
+
+type RecordItem = {
+  id: string;
+  businessName: string;
+  businessAddress: string;
+  districtName: string;
+  applicationCategory: string;
+  assessmentResult: string;
+  validUntilRaw: string;
+  validUntil: string | null;
+  validityStatus: Validity;
+  externalMapQuery: string;
+  originalValues: Record<string, string>;
+};
+
+type Metadata = {
+  sourceFileUpdatedAt: string;
+  metadataUpdatedAt: string;
+  dataQuality: Record<string, number>;
+};
+
 const base = `${import.meta.env.BASE_URL}data/swimming-business-hygiene-assessments/`;
-const labels: Record<Validity, [string, string]> = { valid: ['\u4f9d\u4f86\u6e90\u65e5\u671f\u4ecd\u5728\u6709\u6548\u671f\u5167', 'Within recorded validity period'], expiring_soon: ['90\u5929\u5167\u5230\u671f', 'Expires within 90 days'], expired: ['\u4f9d\u4f86\u6e90\u65e5\u671f\u5df2\u5230\u671f', 'Past recorded validity date'], unknown: ['\u6709\u6548\u65e5\u671f\u4e0d\u660e', 'Validity date unknown'] };
-const t = (language: Language, zh: string, en: string) => language === 'zh' ? zh : en;
-const group = (records: RecordItem[], key: (record: RecordItem) => string) => Object.entries(records.reduce<Record<string, number>>((all, record) => ({ ...all, [key(record)]: (all[key(record)] ?? 0) + 1 }), {}));
+
+const validityLabels: Record<Validity, [string, string]> = {
+  valid: ['依來源日期仍在有效期內', 'Within recorded validity period'],
+  expiring_soon: ['90 天內到期', 'Expires within 90 days'],
+  expired: ['依來源日期已到期', 'Past recorded validity date'],
+  unknown: ['有效日期不明', 'Validity date unknown'],
+};
+
+const qualityLabels: Record<string, [string, string]> = {
+  inputRows: ['來源列數', 'Input rows'],
+  outputRows: ['輸出列數', 'Output rows'],
+  exactDuplicateRows: ['完全重複列', 'Exact duplicate rows'],
+  missingBusinessName: ['缺少業者名稱', 'Missing business name'],
+  missingAddress: ['缺少營業場所地址', 'Missing address'],
+  unresolvedDistrict: ['無法解析行政區', 'Unresolved district'],
+  missingApplicationCategory: ['缺少報名類別', 'Missing application category'],
+  missingAssessmentResult: ['缺少評核結果', 'Missing assessment result'],
+  malformedValidityDate: ['有效日期格式異常', 'Malformed validity date'],
+};
+
+const sourceFieldLabels: Record<string, [string, string]> = {
+  報名類別: ['報名類別', 'Application category'],
+  業者名稱: ['業者名稱', 'Business name'],
+  營業場所地址: ['營業場所地址', 'Business address'],
+  評核結果: ['評核結果', 'Assessment result'],
+  有效日期: ['有效日期', 'Valid-until date'],
+};
+
+const t = (language: Language, zh: string, en: string) => (language === 'zh' ? zh : en);
+
+const group = (records: RecordItem[], key: (record: RecordItem) => string) =>
+  Object.entries(records.reduce<Record<string, number>>((all, record) => ({ ...all, [key(record)]: (all[key(record)] ?? 0) + 1 }), {}));
+
+const labelFromMap = (language: Language, value: string, map: Record<string, [string, string]>) =>
+  map[value] ? t(language, ...map[value]) : value;
+
+function SourceFieldList({ language, values }: { language: Language; values: Record<string, string> }) {
+  const entries = Object.entries(values).filter(([, value]) => value);
+  if (!entries.length) {
+    return <p>{t(language, '沒有原始欄位內容。', 'No source fields available.')}</p>;
+  }
+
+  return (
+    <ul>
+      {entries.map(([key, value]) => (
+        <li key={key}>
+          {labelFromMap(language, key, sourceFieldLabels)}
+          {language === 'zh' ? '：' : ': '}
+          {value}
+        </li>
+      ))}
+    </ul>
+  );
+}
 
 export default function SwimmingBusinessHygieneAssessments({ language }: { language: Language }) {
-  const [records, setRecords] = useState<RecordItem[]>([]); const [metadata, setMetadata] = useState<Metadata | null>(null); const [query, setQuery] = useState(''); const [district, setDistrict] = useState('all'); const [result, setResult] = useState('all'); const [status, setStatus] = useState('all'); const [view, setView] = useState('find');
-  useEffect(() => { Promise.all([fetch(base + 'records.json').then(response => response.json()), fetch(base + 'metadata.json').then(response => response.json())]).then(([items, meta]) => { setRecords(items); setMetadata(meta); }); }, []);
-  const rows = useMemo(() => records.filter(record => (district === 'all' || record.districtName === district) && (result === 'all' || record.assessmentResult === result) && (status === 'all' || record.validityStatus === status) && [record.businessName, record.businessAddress, record.districtName, record.assessmentResult, record.applicationCategory].join(' ').toLowerCase().includes(query.toLowerCase())), [records, district, result, status, query]);
-  const choices = (key: keyof RecordItem) => [...new Set(records.map(record => record[key]).filter(Boolean) as string[])].sort();
-  const download = () => { const csv = [['Business', 'Category', 'Result', 'Valid until', 'Status', 'District', 'Address'], ...rows.map(record => [record.businessName, record.applicationCategory, record.assessmentResult, record.validUntilRaw, labels[record.validityStatus][1], record.districtName, record.businessAddress])].map(row => row.map(value => `"${value.replaceAll('"', '""')}"`).join(',')).join('\n'); const anchor = document.createElement('a'); anchor.href = URL.createObjectURL(new Blob(['\uFEFF' + csv], { type: 'text/csv' })); anchor.download = 'swimming-assessments.csv'; anchor.click(); };
-  if (!metadata) return <main className="status-screen">Loading...</main>;
-  return <main className="overview appeal-trends"><section className="hero"><p className="eyebrow">Public Health · Business Hygiene · Sports Facilities</p><h2>{t(language, '\u6e38\u6cf3\u696d\u885b\u751f\u81ea\u4e3b\u7ba1\u7406\u8a55\u6838', 'Swimming Facility Hygiene Assessments')}</h2><p className="notice">{t(language, '\u672c\u8cc7\u6599\u70ba\u884c\u653f\u8a55\u6838\u7d00\u9304\uff0c\u4e0d\u4ee3\u8868\u5373\u6642\u6c34\u8cea\u3001\u8a2d\u65bd\u5b89\u5168\u3001\u76ee\u524d\u71df\u696d\u6216\u653f\u5e9c\u63a8\u85a6\u3002', 'Administrative assessment records only; not real-time water quality, safety, operation, or endorsement.')}</p></section><div className="tabs sub-tabs">{[['find', '\u5c0b\u627e\u6e38\u6cf3\u5834\u6240', 'Find a Swimming Facility'], ['overview', '\u8a55\u6838\u6982\u89bd', 'Assessment Overview'], ['directory', '\u5834\u6240\u6e05\u518a', 'Facility Directory'], ['results', '\u8a55\u6838\u7d50\u679c', 'Assessment Results'], ['quality', '\u8cc7\u6599\u54c1\u8cea', 'Data Quality'], ['notes', '\u8cc7\u6599\u8aaa\u660e', 'Data Notes']].map(([id, zh, en]) => <button key={id} className={view === id ? 'active' : ''} onClick={() => setView(id)}>{t(language, zh, en)}</button>)}</div><section className="filter-panel health-filters"><Select language={language} label={t(language, '\u884c\u653f\u5340', 'District')} value={district} setValue={setDistrict} options={choices('districtName')} /><Select language={language} label={t(language, '\u8a55\u6838\u7d50\u679c', 'Assessment result')} value={result} setValue={setResult} options={choices('assessmentResult')} /><Select language={language} label={t(language, '\u6709\u6548\u72c0\u614b', 'Recorded validity status')} value={status} setValue={setStatus} options={Object.keys(labels)} /></section><label className="search-field">{t(language, '\u641c\u5c0b\u6e38\u6cf3\u5834\u6240', 'Find a facility')}<input value={query} onChange={event => setQuery(event.target.value)} placeholder={t(language, '\u696d\u8005\u540d\u7a31\u3001\u5730\u5740\u6216\u884c\u653f\u5340', 'Business, address, or district')} /></label>{view === 'find' && <><section className="summary-grid">{[[t(language, '\u7b26\u5408\u689d\u4ef6\u7d00\u9304', 'Matching records'), rows.length], [t(language, '\u4e0d\u540c\u696d\u8005', 'Unique businesses'), new Set(rows.map(record => record.businessName)).size], [t(language, '\u4f9d\u4f86\u6e90\u65e5\u671f\u6709\u6548', 'Within recorded validity'), rows.filter(record => record.validityStatus === 'valid').length]].map(([name, value]) => <article className="metric" key={String(name)}><span>{name}</span><strong>{String(value)}</strong></article>)}</section>{rows.map(record => <section className="panel" key={record.id}><h3>{record.businessName || '—'}</h3><p>{t(language, '\u885b\u751f\u81ea\u4e3b\u7ba1\u7406\u8a55\u6838\u7d50\u679c\uff1a', 'Assessment result: ')}<strong>{record.assessmentResult || '—'}</strong></p><p>{t(language, '\u6709\u6548\u65e5\u671f\uff1a', 'Valid until: ')}{record.validUntil || '—'} · {t(language, ...labels[record.validityStatus])}</p><p>{record.districtName || '—'} · {record.businessAddress || '—'}</p><a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(record.externalMapQuery)}`} target="_blank" rel="noreferrer">{t(language, '\u5916\u90e8\u5730\u5716\u67e5\u8a62', 'External map lookup')}</a></section>)}</>}{view === 'overview' && <Bars title={t(language, '\u884c\u653f\u5340\u7d00\u9304\u5206\u5e03', 'Records by district')} data={group(rows, record => record.districtName || '—')} />}{view === 'results' && <Bars title={t(language, '\u5b98\u65b9\u8a55\u6838\u7d50\u679c\u5206\u5e03', 'Official assessment result distribution')} data={group(rows, record => record.assessmentResult || '—')} />}{view === 'directory' && <section className="panel table-wrap"><button onClick={download}>{t(language, '\u4e0b\u8f09\u7be9\u9078 CSV', 'Download filtered CSV')}</button><table><thead><tr>{['Business', 'Category', 'Result', 'Valid until', 'Status', 'District', 'Address'].map(column => <th key={column}>{column}</th>)}</tr></thead><tbody>{rows.map(record => <tr key={record.id}><td><details><summary>{record.businessName || '—'}</summary><pre>{JSON.stringify(record.originalValues, null, 2)}</pre></details></td><td>{record.applicationCategory || '—'}</td><td>{record.assessmentResult || '—'}</td><td>{record.validUntilRaw || '—'}</td><td>{t(language, ...labels[record.validityStatus])}</td><td>{record.districtName || '—'}</td><td>{record.businessAddress || '—'}</td></tr>)}</tbody></table></section>}{view === 'quality' && <section className="panel"><h3>Data Quality</h3><pre>{JSON.stringify(metadata.dataQuality, null, 2)}</pre></section>}{view === 'notes' && <section className="panel"><p>{t(language, '\u6709\u6548\u72c0\u614b\u50c5\u4f9d\u4f86\u6e90\u65e5\u671f\u8a08\u7b97\uff0c\u4e26\u975e\u5373\u6642\u8cc7\u683c\u67e5\u6838\u3002\u5730\u5740\u50c5\u4f9b\u5916\u90e8\u6587\u5b57\u5730\u5716\u67e5\u8a62\uff0c\u672a\u81ea\u52d5\u5730\u7406\u7de8\u78bc\u3002', 'Validity status is calculated from the source date only, not live verification. Addresses are external text map lookups only; no automatic geocoding.')}</p></section>}</main>;
+  const [records, setRecords] = useState<RecordItem[]>([]);
+  const [metadata, setMetadata] = useState<Metadata | null>(null);
+  const [query, setQuery] = useState('');
+  const [district, setDistrict] = useState('all');
+  const [result, setResult] = useState('all');
+  const [status, setStatus] = useState('all');
+  const [view, setView] = useState('find');
+
+  useEffect(() => {
+    Promise.all([fetch(base + 'records.json').then((response) => response.json()), fetch(base + 'metadata.json').then((response) => response.json())]).then(([items, meta]) => {
+      setRecords(items);
+      setMetadata(meta);
+    });
+  }, []);
+
+  const rows = useMemo(
+    () =>
+      records.filter(
+        (record) =>
+          (district === 'all' || record.districtName === district) &&
+          (result === 'all' || record.assessmentResult === result) &&
+          (status === 'all' || record.validityStatus === status) &&
+          [record.businessName, record.businessAddress, record.districtName, record.assessmentResult, record.applicationCategory].join(' ').toLowerCase().includes(query.toLowerCase()),
+      ),
+    [records, district, result, status, query],
+  );
+
+  const choices = (key: keyof RecordItem) => [...new Set(records.map((record) => record[key]).filter(Boolean) as string[])].sort();
+
+  const download = () => {
+    const csv = [
+      ['Business', 'Category', 'Result', 'Valid until', 'Status', 'District', 'Address'],
+      ...rows.map((record) => [record.businessName, record.applicationCategory, record.assessmentResult, record.validUntilRaw, validityLabels[record.validityStatus][1], record.districtName, record.businessAddress]),
+    ]
+      .map((row) => row.map((value) => `"${value.replaceAll('"', '""')}"`).join(','))
+      .join('\n');
+    const anchor = document.createElement('a');
+    anchor.href = URL.createObjectURL(new Blob(['\uFEFF' + csv], { type: 'text/csv' }));
+    anchor.download = 'swimming-assessments.csv';
+    anchor.click();
+  };
+
+  if (!metadata) {
+    return <main className="status-screen">{t(language, '載入中…', 'Loading…')}</main>;
+  }
+
+  return (
+    <main className="overview appeal-trends">
+      <section className="hero">
+        <p className="eyebrow">{t(language, '公共衛生 · 營業衛生 · 運動場館', 'Public Health · Business Hygiene · Sports Facilities')}</p>
+        <h2>{t(language, '游泳業衛生自主管理評核', 'Swimming Facility Hygiene Assessments')}</h2>
+        <p className="notice">{t(language, '本資料為行政評核紀錄，不代表即時水質、設施安全、目前營業或政府推薦。', 'Administrative assessment records only; not real-time water quality, safety, operation, or endorsement.')}</p>
+      </section>
+
+      <div className="tabs sub-tabs">
+        {[
+          ['find', '尋找游泳場所', 'Find a Swimming Facility'],
+          ['overview', '評核概覽', 'Assessment Overview'],
+          ['directory', '場所清冊', 'Facility Directory'],
+          ['results', '評核結果', 'Assessment Results'],
+          ['quality', '資料品質', 'Data Quality'],
+          ['notes', '資料說明', 'Data Notes'],
+        ].map(([id, zh, en]) => (
+          <button key={id} className={view === id ? 'active' : ''} onClick={() => setView(id)}>
+            {t(language, zh, en)}
+          </button>
+        ))}
+      </div>
+
+      <section className="filter-panel health-filters">
+        <Select language={language} label={t(language, '行政區', 'District')} value={district} setValue={setDistrict} options={choices('districtName')} />
+        <Select language={language} label={t(language, '評核結果', 'Assessment result')} value={result} setValue={setResult} options={choices('assessmentResult')} />
+        <Select language={language} label={t(language, '有效狀態', 'Recorded validity status')} value={status} setValue={setStatus} options={Object.keys(validityLabels)} />
+      </section>
+
+      <label className="search-field">
+        {t(language, '搜尋游泳場所', 'Find a facility')}
+        <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder={t(language, '業者名稱、地址或行政區', 'Business, address, or district')} />
+      </label>
+
+      {view === 'find' && (
+        <>
+          <section className="summary-grid">
+            {[
+              [t(language, '符合條件紀錄', 'Matching records'), rows.length],
+              [t(language, '不同業者', 'Unique businesses'), new Set(rows.map((record) => record.businessName)).size],
+              [t(language, '依來源日期有效', 'Within recorded validity'), rows.filter((record) => record.validityStatus === 'valid').length],
+            ].map(([name, value]) => (
+              <article className="metric" key={String(name)}>
+                <span>{name}</span>
+                <strong>{String(value)}</strong>
+              </article>
+            ))}
+          </section>
+
+          {rows.map((record) => (
+            <section className="panel" key={record.id}>
+              <h3>{record.businessName || '—'}</h3>
+              <p>
+                {t(language, '衛生自主管理評核結果：', 'Assessment result: ')}
+                <strong>{record.assessmentResult || '—'}</strong>
+              </p>
+              <p>
+                {t(language, '有效日期：', 'Valid until: ')}
+                {record.validUntil || '—'} · {t(language, ...validityLabels[record.validityStatus])}
+              </p>
+              <p>
+                {record.districtName || '—'} · {record.businessAddress || '—'}
+              </p>
+              <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(record.externalMapQuery)}`} target="_blank" rel="noreferrer">
+                {t(language, '外部地圖查詢', 'External map lookup')}
+              </a>
+            </section>
+          ))}
+        </>
+      )}
+
+      {view === 'overview' && <Bars title={t(language, '行政區紀錄分布', 'Records by district')} data={group(rows, (record) => record.districtName || '—')} />}
+      {view === 'results' && <Bars title={t(language, '官方評核結果分布', 'Official assessment result distribution')} data={group(rows, (record) => record.assessmentResult || '—')} />}
+
+      {view === 'directory' && (
+        <section className="panel table-wrap">
+          <button onClick={download}>{t(language, '下載篩選 CSV', 'Download filtered CSV')}</button>
+          <table>
+            <thead>
+              <tr>
+                {[t(language, '業者', 'Business'), t(language, '報名類別', 'Category'), t(language, '評核結果', 'Result'), t(language, '有效日期', 'Valid until'), t(language, '有效狀態', 'Status'), t(language, '行政區', 'District'), t(language, '地址', 'Address')].map((column) => (
+                  <th key={column}>{column}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {rows.map((record) => (
+                <tr key={record.id}>
+                  <td>
+                    <details>
+                      <summary>{record.businessName || '—'}</summary>
+                      <SourceFieldList language={language} values={record.originalValues} />
+                    </details>
+                  </td>
+                  <td>{record.applicationCategory || '—'}</td>
+                  <td>{record.assessmentResult || '—'}</td>
+                  <td>{record.validUntilRaw || '—'}</td>
+                  <td>{t(language, ...validityLabels[record.validityStatus])}</td>
+                  <td>{record.districtName || '—'}</td>
+                  <td>{record.businessAddress || '—'}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </section>
+      )}
+
+      {view === 'quality' && (
+        <section className="panel">
+          <h3>{t(language, '資料品質', 'Data Quality')}</h3>
+          <ul>
+            {Object.entries(metadata.dataQuality).map(([key, value]) => (
+              <li key={key}>
+                {labelFromMap(language, key, qualityLabels)}: <strong>{value}</strong>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {view === 'notes' && (
+        <section className="panel">
+          <p>{t(language, '有效狀態僅依來源日期計算，並非即時資格查核。地址僅供外部文字地圖查詢，未自動地理編碼。', 'Validity status is calculated from the source date only, not live verification. Addresses are external text map lookups only; no automatic geocoding.')}</p>
+        </section>
+      )}
+    </main>
+  );
 }
-function Select({ language, label, value, setValue, options }: { language: Language; label: string; value: string; setValue: (value: string) => void; options: string[] }) { return <label>{label}<select value={value} onChange={event => setValue(event.target.value)}><option value="all">{t(language, '\u5168\u90e8', 'All')}</option>{options.map(option => <option value={option} key={option}>{labels[option as Validity] ? t(language, ...labels[option as Validity]) : option}</option>)}</select></label>; }
-function Bars({ title, data }: { title: string; data: [string, number][] }) { const max = Math.max(...data.map(([, count]) => count), 1); return <section className="panel"><h3>{title}</h3>{data.map(([name, count]) => <div className="bar-row" key={name}><span>{name}</span><div><i style={{ width: `${count / max * 100}%` }} /></div><b>{count}</b></div>)}</section>; }
+
+function Select({
+  language,
+  label,
+  value,
+  setValue,
+  options,
+}: {
+  language: Language;
+  label: string;
+  value: string;
+  setValue: (value: string) => void;
+  options: string[];
+}) {
+  return (
+    <label>
+      {label}
+      <select value={value} onChange={(event) => setValue(event.target.value)}>
+        <option value="all">{t(language, '全部', 'All')}</option>
+        {options.map((option) => (
+          <option value={option} key={option}>
+            {validityLabels[option as Validity] ? t(language, ...validityLabels[option as Validity]) : option}
+          </option>
+        ))}
+      </select>
+    </label>
+  );
+}
+
+function Bars({ title, data }: { title: string; data: [string, number][] }) {
+  const max = Math.max(...data.map(([, count]) => count), 1);
+  return (
+    <section className="panel">
+      <h3>{title}</h3>
+      {data.map(([name, count]) => (
+        <div className="bar-row" key={name}>
+          <span>{name}</span>
+          <div>
+            <i style={{ width: `${(count / max) * 100}%` }} />
+          </div>
+          <b>{count}</b>
+        </div>
+      ))}
+    </section>
+  );
+}

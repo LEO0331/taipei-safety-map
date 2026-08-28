@@ -35,7 +35,6 @@ import AntivenomStockpiles from './AntivenomStockpiles';
 import DisabilityWelfareServices from './DisabilityWelfareServices';
 import DiabetesHealthInstitutions from './DiabetesHealthInstitutions';
 import SmokingCessationProviders from './SmokingCessationProviders';
-import BridgeInspectionMaintenance from './BridgeInspectionMaintenance';
 import EntertainmentBusinessNoiseRecords from './EntertainmentBusinessNoiseRecords';
 import NarrowAlleyRegistry from './NarrowAlleyRegistry';
 import FireSafetyInspectionDeclarations from './FireSafetyInspectionDeclarations';
@@ -76,8 +75,8 @@ import type {
   VehicleTowingTopRoadSectionRecord,
 } from './types';
 
-type Tab = 'map' | 'nearby' | 'burglary' | 'bike' | 'motorcycle' | 'streetSnatch' | 'policeCctv' | 'smartTrafficEnforcement' | 'vehicleTowing' | 'doubleParking' | 'reportedViolations' | 'trafficViolationAppeals' | 'kindergartenChildTransportVehicles' | 'soilWaterConservationViolations' | 'alcoholTobaccoBusinessInspections' | 'businessHygieneViolationCases' | 'swimmingBusinessHygieneAssessments' | 'cosmeticsInspectionResults' | 'surgicalMedicalInstitutions' | 'medicalViolationCases' | 'antivenomStockpiles' | 'diabetesHealthInstitutions' | 'smokingCessationProviders' | 'bridgeInspectionMaintenance' | 'disabilityWelfareServices' | 'noiseEnforcement' | 'narrowAlleys' | 'fireSafetyDeclarations' | 'lpgFacilities' | 'electricalBusinesses' | 'tobaccoControl' | 'domesticViolence' | 'occupationalAccidents' | 'eocActivations' | 'fireDonations' | 'fireRescueAreas' | 'fireAccessRoutes' | 'hikingTrails' | 'flooding' | 'health' | 'disaster' | 'overview' | 'notes';
-type NavigationGroup = 'explore' | 'preparedness' | 'health' | 'traffic' | 'infrastructure' | 'records';
+type Tab = 'map' | 'nearby' | 'burglary' | 'bike' | 'motorcycle' | 'streetSnatch' | 'policeCctv' | 'smartTrafficEnforcement' | 'vehicleTowing' | 'doubleParking' | 'reportedViolations' | 'trafficViolationAppeals' | 'kindergartenChildTransportVehicles' | 'soilWaterConservationViolations' | 'alcoholTobaccoBusinessInspections' | 'businessHygieneViolationCases' | 'swimmingBusinessHygieneAssessments' | 'cosmeticsInspectionResults' | 'surgicalMedicalInstitutions' | 'medicalViolationCases' | 'antivenomStockpiles' | 'diabetesHealthInstitutions' | 'smokingCessationProviders' | 'disabilityWelfareServices' | 'noiseEnforcement' | 'narrowAlleys' | 'fireSafetyDeclarations' | 'lpgFacilities' | 'electricalBusinesses' | 'tobaccoControl' | 'domesticViolence' | 'occupationalAccidents' | 'eocActivations' | 'fireDonations' | 'fireRescueAreas' | 'fireAccessRoutes' | 'hikingTrails' | 'flooding' | 'health' | 'disaster' | 'overview' | 'notes';
+type NavigationGroup = 'explore' | 'preparedness' | 'health' | 'traffic' | 'records';
 type CapacityRange = 'all' | 'under100' | '100-499' | '500-999' | '1000plus';
 type DenseLayer = 'aeds' | 'medical' | 'fireHydrants' | 'airRaidShelters' | 'evacuationGates' | 'cctv';
 const tileAttribution = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
@@ -997,7 +996,6 @@ function App() {
             { id: 'preparedness', label: language === 'zh' ? '防災與整備' : 'Preparedness', description: language === 'zh' ? '防救、步道、淹水與災害紀錄' : 'Rescue, trails, flooding, and disaster history', items: [['fireRescueAreas', fireRescueAreaLabels[language].shortTitle], ['fireAccessRoutes', fireAccessRouteLabels[language].shortTitle], ['hikingTrails', hikingTrailLabels[language].shortTitle], ['flooding', floodingLabels[language].shortTitle], ['disaster', language === 'zh' ? '停班停課紀錄' : 'Closure Records'], ['eocActivations', language === 'zh' ? '應變中心開設' : 'EOC Activations'], ['narrowAlleys', language === 'zh' ? '狹小巷道清冊' : 'Narrow Alley Registry'], ['soilWaterConservationViolations', language === 'zh' ? '水土保持違規（歷史）' : 'Soil Conservation Violations (Historical)']] },
             { id: 'health', label: language === 'zh' ? '健康與設施' : 'Health & facilities', description: language === 'zh' ? '健康、消防、場所與公用設施資料' : 'Health, fire, premises, and public-facility data', items: [['health', t.publicHealth], ['surgicalMedicalInstitutions', language === 'zh' ? '外科醫療機構' : 'Surgical Medical Institutions'], ['antivenomStockpiles', language === 'zh' ? '抗蛇毒血清儲備點' : 'Antivenom Stockpile Locations'], ['diabetesHealthInstitutions', language === 'zh' ? '糖尿病健康促進機構' : 'Diabetes Health Promotion Institutions'], ['medicalViolationCases', language === 'zh' ? '醫療違規裁處' : 'Medical Violation Cases'], ['tobaccoControl', language === 'zh' ? '菸害防制稽查' : 'Tobacco Inspections'], ['businessHygieneViolationCases', language === 'zh' ? '營業衛生違規（歷史）' : 'Business Hygiene Violations (Historical)'], ['swimmingBusinessHygieneAssessments', language === 'zh' ? '游泳業衛生評核' : 'Swimming Hygiene Assessments'], ['cosmeticsInspectionResults', language === 'zh' ? '化粧品抽驗結果' : 'Cosmetics Inspection Results'], ['alcoholTobaccoBusinessInspections', language === 'zh' ? '菸酒業者抽檢' : 'Tobacco & Alcohol Inspections'], ['fireSafetyDeclarations', language === 'zh' ? '消防檢修申報' : 'Fire Safety Declarations'], ['lpgFacilities', language === 'zh' ? '液化石油氣場所' : 'LPG Facilities'], ['electricalBusinesses', language === 'zh' ? '用電設備檢驗維護業' : 'Electrical Inspection Businesses'], ['fireDonations', language === 'zh' ? '消防捐贈實物' : 'Fire Dept Donations']] },
             { id: 'traffic', label: language === 'zh' ? '交通與裁決' : 'Traffic & adjudication', description: language === 'zh' ? '設備、取締、拖吊、檢舉與申訴統計' : 'Equipment, enforcement, towing, reports, and appeals', items: [['policeCctv', language === 'zh' ? '警察局監視器' : 'Police CCTV'], ['smartTrafficEnforcement', smartTrafficLabels[language].shortTitle], ['vehicleTowing', vehicleTowingLabels[language].shortTitle], ['doubleParking', language === 'zh' ? '併排停車取締' : 'Double-Parking Enforcement'], ['reportedViolations', language === 'zh' ? '檢舉交通違規' : 'Reported Traffic Violations'], ['trafficViolationAppeals', language === 'zh' ? '交通申訴趨勢' : 'Traffic Appeal Trends'], ['kindergartenChildTransportVehicles', language === 'zh' ? '幼童專用車（歷史）' : 'Kindergarten Vehicles (Historical)']] },
-            { id: 'infrastructure', label: language === 'zh' ? '基礎設施安全' : 'Infrastructure Safety', description: language === 'zh' ? '橋梁檢測與維修公開資料' : 'Published bridge inspection and maintenance data', items: [['bridgeInspectionMaintenance', language === 'zh' ? '橋梁檢測與維修' : 'Bridge Inspection & Maintenance']] },
             { id: 'records', label: language === 'zh' ? '歷史與社區紀錄' : 'Historical records', description: language === 'zh' ? '犯罪、職災、噪音與通報統計' : 'Crime, occupational, noise, and report statistics', items: [['disabilityWelfareServices', language === 'zh' ? '身心障礙福利服務' : 'Disability Welfare Services'], ['burglary', t.burglaryRecords], ['bike', language === 'zh' ? '自行車竊盜' : 'Bicycle Theft'], ['motorcycle', language === 'zh' ? '機車竊盜' : 'Motorcycle Theft'], ['streetSnatch', streetSnatchLabels[language].shortTitle], ['domesticViolence', language === 'zh' ? '家暴通報統計' : 'Domestic Violence Reports'], ['occupationalAccidents', language === 'zh' ? '重大職災' : 'Major Occupational Accidents'], ['noiseEnforcement', language === 'zh' ? '娛樂場所噪音' : 'Entertainment Noise Records']] },
           ];
           const activeGroup = groups.find((group) => group.id === activeNavigationGroup) ?? groups[0];
@@ -1036,7 +1034,6 @@ function App() {
       {activeTab === 'antivenomStockpiles' && <AntivenomStockpiles language={language} />}
       {activeTab === 'diabetesHealthInstitutions' && <DiabetesHealthInstitutions language={language} />}
       {activeTab === 'smokingCessationProviders' && <SmokingCessationProviders language={language} />}
-      {activeTab === 'bridgeInspectionMaintenance' && <BridgeInspectionMaintenance language={language} />}
       {activeTab === 'disabilityWelfareServices' && <DisabilityWelfareServices language={language} />}
       {activeTab === 'noiseEnforcement' && <EntertainmentBusinessNoiseRecords records={data.entertainmentBusinessNoiseRecords} language={language} />}
       {activeTab === 'narrowAlleys' && <NarrowAlleyRegistry records={data.narrowAlleyRegistry} language={language} />}
@@ -2446,12 +2443,17 @@ function BicycleTheftRecords({
     );
   });
   const countsByDistrict = countBy(filtered, (record) => record.district);
-  const topDistrict = summary.byDistrict.slice().sort((a, b) => b.recordCount - a.recordCount)[0];
-  const topTimeBand = summary.byIncidentTimeBand.slice().sort((a, b) => b.recordCount - a.recordCount)[0];
-  const topTimeOfDay = summary.byTimeOfDayCategory.slice().sort((a, b) => b.recordCount - a.recordCount)[0];
-  const currentYearCount = summary.maxYear
-    ? summary.byYear.find((item) => item.year === summary.maxYear)?.recordCount ?? 0
-    : 0;
+  const filteredByYear = countBy(filtered, (record) => String(record.year ?? '—'));
+  const filteredByMonth = countBy(filtered, (record) => String(record.month ?? '—'));
+  const filteredByTimeBand = countBy(filtered, (record) => record.incidentTimeBand ?? '—');
+  const filteredByTimeOfDay = countBy(filtered, (record) => formatTimeOfDay(record.timeOfDayCategory, language));
+  const filteredByRoad = countBy(filtered, (record) => record.roadName ?? '—');
+  const filteredBuckets = Object.entries(countBy(filtered, (record) => record.locationBucketKey ?? record.locationTextNormalized ?? record.incidentLocationRaw ?? '—')).sort((a, b) => b[1] - a[1]);
+  const topDistrict = Object.entries(countsByDistrict).sort((a, b) => b[1] - a[1])[0];
+  const topTimeBand = Object.entries(filteredByTimeBand).sort((a, b) => b[1] - a[1])[0];
+  const topTimeOfDay = Object.entries(filteredByTimeOfDay).sort((a, b) => b[1] - a[1])[0];
+  const filteredDates = filtered.flatMap((record) => record.date ? [record.date] : []);
+  const latestDate = filteredDates.sort().at(-1);
 
   return (
     <main className="overview">
@@ -2471,16 +2473,16 @@ function BicycleTheftRecords({
       <p>{labels.subtitle}</p>
       <p className="notice">{labels.mapNotice}</p>
       <section className="summary-grid">
-        <Metric label={labels.historicalCount} value={summary.totalRecords.toLocaleString()} />
-        <Metric label={labels.dataDateRange} value={`${summary.minDate ?? '-'} - ${summary.maxDate ?? '-'}`} />
-        <Metric label={labels.districtsCovered} value={summary.districtCount.toLocaleString()} />
-        <Metric label={labels.fuzzyLocationCount} value={summary.uniqueFuzzyLocationCount.toLocaleString()} />
-        <Metric label={labels.recordsWithParsedRoadName} value={summary.recordsWithParsedRoadName.toLocaleString()} />
-        <Metric label={labels.topDistrict} value={topDistrict?.district ?? '-'} />
-        <Metric label={labels.topTimeBand} value={topTimeBand?.incidentTimeBand ?? '-'} />
-        <Metric label={labels.topTimeOfDay} value={topTimeOfDay ? formatTimeOfDay(topTimeOfDay.timeOfDayCategory, language) : '-'} />
-        <Metric label={labels.latestRecordDate} value={summary.maxDate ?? '-'} />
-        <Metric label={labels.currentYearRecordCount} value={currentYearCount.toLocaleString()} />
+        <Metric label={labels.historicalCount} value={filtered.length.toLocaleString()} />
+        <Metric label={labels.dataDateRange} value={`${filteredDates.at(0) ?? '-'} - ${latestDate ?? '-'}`} />
+        <Metric label={labels.districtsCovered} value={Object.keys(countsByDistrict).length.toLocaleString()} />
+        <Metric label={labels.fuzzyLocationCount} value={filteredBuckets.length.toLocaleString()} />
+        <Metric label={labels.recordsWithParsedRoadName} value={filtered.filter((record) => record.roadName).length.toLocaleString()} />
+        <Metric label={labels.topDistrict} value={topDistrict?.[0] ?? '-'} />
+        <Metric label={labels.topTimeBand} value={topTimeBand?.[0] ?? '-'} />
+        <Metric label={labels.topTimeOfDay} value={topTimeOfDay?.[0] ?? '-'} />
+        <Metric label={labels.latestRecordDate} value={latestDate ?? '-'} />
+        <Metric label={labels.currentYearRecordCount} value={latestDate ? (filteredByYear[latestDate.slice(0, 4)] ?? 0).toLocaleString() : '0'} />
       </section>
       <section className="public-health-grid">
         <div className="map-stage">
@@ -2521,23 +2523,23 @@ function BicycleTheftRecords({
         </div>
       </section>
       <section className="chart-grid">
-        <BarChart title={labels.byYear} values={Object.fromEntries(summary.byYear.map((item) => [String(item.year), item.recordCount]))} />
-        <BarChart title={labels.byMonth} values={Object.fromEntries(summary.byMonth.map((item) => [String(item.month), item.recordCount]))} />
-        <BarChart title={labels.byDistrict} values={Object.fromEntries(summary.byDistrict.map((item) => [item.district, item.recordCount]))} />
-        <BarChart title={labels.byTimeBand} values={Object.fromEntries(summary.byIncidentTimeBand.map((item) => [item.incidentTimeBand, item.recordCount]))} />
-        <BarChart title={labels.byTimeOfDay} values={Object.fromEntries(summary.byTimeOfDayCategory.map((item) => [formatTimeOfDay(item.timeOfDayCategory, language), item.recordCount]))} />
-        <BarChart title={labels.topRoads} values={Object.fromEntries(summary.byRoadName.slice(0, 20).map((item) => [item.roadName, item.recordCount]))} />
+        <BarChart title={labels.byYear} values={filteredByYear} />
+        <BarChart title={labels.byMonth} values={filteredByMonth} />
+        <BarChart title={labels.byDistrict} values={countsByDistrict} />
+        <BarChart title={labels.byTimeBand} values={filteredByTimeBand} />
+        <BarChart title={labels.byTimeOfDay} values={filteredByTimeOfDay} />
+        <BarChart title={labels.topRoads} values={Object.fromEntries(Object.entries(filteredByRoad).sort((a, b) => b[1] - a[1]).slice(0, 20))} />
       </section>
       <h2>{labels.topBuckets}</h2>
       <table>
         <thead><tr><th>{labels.district}</th><th>{labels.road}</th><th>{labels.location}</th><th>{labels.recordCount}</th></tr></thead>
         <tbody>
-          {summary.byLocationBucket.slice(0, 30).map((bucket) => (
-            <tr key={bucket.locationBucketKey}>
-              <td>{bucket.district ?? '-'}</td>
-              <td>{bucket.roadName ?? '-'}</td>
-              <td>{bucket.sampleLocationText ?? bucket.locationBucketKey}</td>
-              <td>{bucket.recordCount}</td>
+          {filteredBuckets.slice(0, 30).map(([bucket, count]) => (
+            <tr key={bucket}>
+              <td>{filtered.find((record) => (record.locationBucketKey ?? record.locationTextNormalized ?? record.incidentLocationRaw ?? '—') === bucket)?.district ?? '-'}</td>
+              <td>{filtered.find((record) => (record.locationBucketKey ?? record.locationTextNormalized ?? record.incidentLocationRaw ?? '—') === bucket)?.roadName ?? '-'}</td>
+              <td>{bucket}</td>
+              <td>{count}</td>
             </tr>
           ))}
         </tbody>
@@ -2603,8 +2605,11 @@ function PoliceCctvInstallationLocations({ data, language }: { data: SafetyDataB
     );
   });
   const countsByDistrict = countBy(filtered, (record) => record.district);
-  const topDistrict = summary.byDistrict[0];
-  const topPoliceUnit = summary.byPoliceUnit[0];
+  const filteredByPoliceUnit = countBy(filtered, (record) => record.policeUnit ?? '—');
+  const filteredByRoad = countBy(filtered, (record) => record.roadName ?? '—');
+  const filteredDirectionKeywords = countBy(filtered.flatMap((record) => record.cameraDirectionNormalized ?? []), (value) => value);
+  const topDistrict = Object.entries(countsByDistrict).sort((a,b)=>b[1]-a[1])[0];
+  const topPoliceUnit = Object.entries(filteredByPoliceUnit).sort((a,b)=>b[1]-a[1])[0];
 
   return (
     <main className="overview">
@@ -2623,15 +2628,15 @@ function PoliceCctvInstallationLocations({ data, language }: { data: SafetyDataB
       <p>{labels.subtitle}</p>
       <p className="notice">{labels.mapNotice}</p>
       <section className="summary-grid">
-        <Metric label={labels.installationRecordCount} value={summary.totalRecords.toLocaleString()} />
-        <Metric label={labels.district} value={summary.districtCount.toLocaleString()} />
-        <Metric label={labels.policeUnitCount} value={summary.policeUnitCount.toLocaleString()} />
-        <Metric label={labels.uniqueInstallationAddressCount} value={summary.uniqueInstallationAddressCount.toLocaleString()} />
-        <Metric label={labels.recordsWithCameraDirection} value={summary.recordsWithCameraDirection.toLocaleString()} />
-        <Metric label={labels.recordsWithParsedDistrict} value={summary.recordsWithParsedDistrict.toLocaleString()} />
-        <Metric label={labels.recordsWithParsedRoadName} value={summary.recordsWithParsedRoadName.toLocaleString()} />
-        <Metric label={labels.topDistrict} value={topDistrict?.district ?? '-'} />
-        <Metric label={labels.topPoliceUnit} value={topPoliceUnit?.policeUnit ?? '-'} />
+        <Metric label={labels.installationRecordCount} value={filtered.length.toLocaleString()} />
+        <Metric label={labels.district} value={Object.keys(countsByDistrict).length.toLocaleString()} />
+        <Metric label={labels.policeUnitCount} value={Object.keys(filteredByPoliceUnit).length.toLocaleString()} />
+        <Metric label={labels.uniqueInstallationAddressCount} value={new Set(filtered.map((record)=>record.installationAddress).filter(Boolean)).size.toLocaleString()} />
+        <Metric label={labels.recordsWithCameraDirection} value={filtered.filter((record)=>record.hasCameraDirection).length.toLocaleString()} />
+        <Metric label={labels.recordsWithParsedDistrict} value={filtered.filter((record)=>record.hasParsedDistrict).length.toLocaleString()} />
+        <Metric label={labels.recordsWithParsedRoadName} value={filtered.filter((record)=>record.hasParsedRoadName).length.toLocaleString()} />
+        <Metric label={labels.topDistrict} value={topDistrict?.[0] ?? '-'} />
+        <Metric label={labels.topPoliceUnit} value={topPoliceUnit?.[0] ?? '-'} />
       </section>
       <section className="public-health-grid">
         <div className="map-stage">
@@ -2671,16 +2676,12 @@ function PoliceCctvInstallationLocations({ data, language }: { data: SafetyDataB
         </div>
       </section>
       <section className="chart-grid">
-        <BarChart title={labels.byDistrict} values={Object.fromEntries(summary.byDistrict.map((item) => [item.district, item.recordCount]))} />
-        <BarChart title={labels.byPoliceUnit} values={Object.fromEntries(summary.byPoliceUnit.slice(0, 30).map((item) => [item.policeUnit, item.count]))} />
-        <BarChart title={labels.cameraDirectionAvailability} values={{ [labels.hasCameraDirection]: summary.recordsWithCameraDirection, [language === 'zh' ? '無攝影方向' : 'Without camera direction']: summary.totalRecords - summary.recordsWithCameraDirection }} />
-        <BarChart title={labels.topRoads} values={Object.fromEntries(summary.byRoadName.slice(0, 20).map((item) => [item.roadName, item.count]))} />
-        <BarChart title={labels.keywordSummary} values={Object.fromEntries(summary.byCameraDirectionKeyword.map((item) => [item.keyword, item.count]))} />
-        <BarChart title={labels.parsingQuality} values={{
-          [labels.hasParsedDistrict]: summary.locationParsingQuality.parsedDistrict,
-          [language === 'zh' ? '未解析行政區' : 'Unparsed district']: summary.locationParsingQuality.unparsedDistrict,
-          [labels.hasParsedRoadName]: summary.locationParsingQuality.parsedRoadName,
-        }} />
+        <BarChart title={labels.byDistrict} values={countsByDistrict} />
+        <BarChart title={labels.byPoliceUnit} values={Object.fromEntries(Object.entries(filteredByPoliceUnit).sort((a,b)=>b[1]-a[1]).slice(0,30))} />
+        <BarChart title={labels.cameraDirectionAvailability} values={{ [labels.hasCameraDirection]: filtered.filter((record)=>record.hasCameraDirection).length, [language === 'zh' ? '無攝影方向' : 'Without camera direction']: filtered.filter((record)=>!record.hasCameraDirection).length }} />
+        <BarChart title={labels.topRoads} values={Object.fromEntries(Object.entries(filteredByRoad).sort((a,b)=>b[1]-a[1]).slice(0,20))} />
+        <BarChart title={labels.keywordSummary} values={filteredDirectionKeywords} />
+        <BarChart title={labels.parsingQuality} values={{ [labels.hasParsedDistrict]: filtered.filter((record)=>record.hasParsedDistrict).length, [language === 'zh' ? '未解析行政區' : 'Unparsed district']: filtered.filter((record)=>!record.hasParsedDistrict).length, [labels.hasParsedRoadName]: filtered.filter((record)=>record.hasParsedRoadName).length }} />
       </section>
       <h2>{labels.directory}</h2>
       <p>{labels.recordCount}: {filtered.length.toLocaleString()}</p>
@@ -2713,7 +2714,6 @@ function VehicleTowingTopRoadSections({ data, language }: { data: SafetyDataBund
   const [minimum, setMinimum] = useState('');
   const [multiYear, setMultiYear] = useState(false);
   const [search, setSearch] = useState('');
-  const selectedYear = year === 'all' ? summary.latestYear : Number(year);
   const roads = [...new Set(records.map((record) => record.roadSectionName))].sort();
   const filtered = records.filter((record) => {
     const query = search.trim().toLowerCase();
@@ -2723,9 +2723,12 @@ function VehicleTowingTopRoadSections({ data, language }: { data: SafetyDataBund
       (!multiYear || record.appearanceCount > 1) &&
       (!query || [record.yearNumber, record.roadSectionName, record.cityName].join(' ').toLowerCase().includes(query));
   });
-  const selectedRecords = records.filter((record) => record.yearNumber === selectedYear);
-  const trendRoad = road === 'all' ? summary.mostFrequentRoadSection?.roadSectionName : road;
-  const trendRecords = records.filter((record) => record.roadSectionName === trendRoad).sort((a, b) => a.yearNumber! - b.yearNumber!);
+  const selectedYear = year === 'all' ? Math.max(...filtered.map((record) => record.yearNumber ?? 0)) : Number(year);
+  const selectedRecords = filtered.filter((record) => record.yearNumber === selectedYear);
+  const trendRoad = road === 'all' ? Object.entries(countBy(filtered, (record) => record.roadSectionName)).sort((a, b) => b[1] - a[1])[0]?.[0] : road;
+  const trendRecords = filtered.filter((record) => record.roadSectionName === trendRoad).sort((a, b) => (a.yearNumber ?? 0) - (b.yearNumber ?? 0));
+  const filteredByYear = countBy(filtered, (record) => String(record.yearNumber ?? '—'));
+  const filteredRoadAppearances = Object.entries(countBy(filtered, (record) => record.roadSectionName)).sort((a, b) => b[1] - a[1]);
   const quality = data.conversionReport.vehicleTowingTopRoadSections as { inputRows?: number; outputRows?: number; duplicateRows?: number; invalidRows?: number } | undefined;
   const changeLabel = (record: VehicleTowingTopRoadSectionRecord | null) => record ? `${record.roadSectionName} (${record.yearOverYearChange! >= 0 ? '+' : ''}${record.yearOverYearChange!.toLocaleString()})` : '-';
   return <main className="overview">
@@ -2739,14 +2742,14 @@ function VehicleTowingTopRoadSections({ data, language }: { data: SafetyDataBund
     </section>
     <h2>{labels.overview}</h2>
     <section className="summary-grid">
-      <Metric label={labels.latestYear} value={summary.latestYear?.toLocaleString() ?? '-'} /><Metric label={labels.latestTotal} value={summary.latestYearTotalTowingCount.toLocaleString()} />
-      <Metric label={labels.numberOne} value={summary.latestYearNumberOneRoadSection ?? '-'} /><Metric label={labels.multiYearRoads} value={summary.roadSectionsAppearingMultipleYears.toLocaleString()} />
-      <Metric label={labels.highest} value={summary.highestSingleYearTowingCount ? `${summary.highestSingleYearTowingCount.roadSectionName} (${summary.highestSingleYearTowingCount.towingCount.toLocaleString()})` : '-'} />
-      <Metric label={labels.frequent} value={summary.mostFrequentRoadSection ? `${summary.mostFrequentRoadSection.roadSectionName} (${summary.mostFrequentRoadSection.appearanceCount})` : '-'} />
-      <Metric label={labels.increase} value={changeLabel(summary.largestYearOverYearIncrease)} /><Metric label={labels.decrease} value={changeLabel(summary.largestYearOverYearDecrease)} />
+      <Metric label={labels.latestYear} value={selectedYear ? selectedYear.toLocaleString() : '-'} /><Metric label={labels.latestTotal} value={selectedRecords.reduce((sum, record) => sum + (record.towingCountNumber ?? 0), 0).toLocaleString()} />
+      <Metric label={labels.numberOne} value={[...selectedRecords].sort((a, b) => (a.rankWithinYear ?? 99) - (b.rankWithinYear ?? 99))[0]?.roadSectionName ?? '-'} /><Metric label={labels.multiYearRoads} value={filteredRoadAppearances.filter(([, count]) => count > 1).length.toLocaleString()} />
+      <Metric label={labels.highest} value={filtered.length ? `${[...filtered].sort((a, b) => (b.towingCountNumber ?? 0) - (a.towingCountNumber ?? 0))[0].roadSectionName} (${Math.max(...filtered.map((record) => record.towingCountNumber ?? 0)).toLocaleString()})` : '-'} />
+      <Metric label={labels.frequent} value={filteredRoadAppearances[0] ? `${filteredRoadAppearances[0][0]} (${filteredRoadAppearances[0][1]})` : '-'} />
+      <Metric label={labels.increase} value={changeLabel([...selectedRecords].sort((a,b)=>(b.yearOverYearChange ?? -Infinity)-(a.yearOverYearChange ?? -Infinity))[0] ?? null)} /><Metric label={labels.decrease} value={changeLabel([...selectedRecords].sort((a,b)=>(a.yearOverYearChange ?? Infinity)-(b.yearOverYearChange ?? Infinity))[0] ?? null)} />
     </section>
-    <h2>{labels.annual}</h2><section className="chart-grid"><BarChart title={`${labels.annual}: ${selectedYear ?? '-'}`} values={Object.fromEntries(selectedRecords.slice(0, 10).map((record) => [record.roadSectionName, record.towingCountNumber ?? 0]))} /><BarChart title={`${labels.count} by ${labels.year}`} values={Object.fromEntries(summary.byYear.map((item) => [String(item.year), item.totalTowingCount]))} /></section>
-    <h2>{labels.trends}</h2><section className="chart-grid"><BarChart title={trendRoad ? `${trendRoad} ${labels.count}` : labels.trends} values={Object.fromEntries(trendRecords.map((record) => [String(record.yearNumber), record.towingCountNumber ?? 0]))} /><BarChart title={labels.multiYearRoads} values={Object.fromEntries(summary.roadSectionAppearances.filter((item) => item.appearanceCount > 1).slice(0, 10).map((item) => [item.roadSectionName, item.appearanceCount]))} /></section>
+    <h2>{labels.annual}</h2><section className="chart-grid"><BarChart title={`${labels.annual}: ${selectedYear ?? '-'}`} values={Object.fromEntries(selectedRecords.slice(0, 10).map((record) => [record.roadSectionName, record.towingCountNumber ?? 0]))} /><BarChart title={`${labels.count} by ${labels.year}`} values={filteredByYear} /></section>
+    <h2>{labels.trends}</h2><section className="chart-grid"><BarChart title={trendRoad ? `${trendRoad} ${labels.count}` : labels.trends} values={Object.fromEntries(trendRecords.map((record) => [String(record.yearNumber), record.towingCountNumber ?? 0]))} /><BarChart title={labels.multiYearRoads} values={Object.fromEntries(filteredRoadAppearances.filter(([, count]) => count > 1).slice(0, 10))} /></section>
     <h2>{labels.changes}</h2><section className="chart-grid"><BarChart title={labels.rankChange} values={Object.fromEntries(selectedRecords.filter((record) => record.rankChange !== null).map((record) => [record.roadSectionName, record.rankChange ?? 0]))} /><BarChart title={labels.yoy} values={Object.fromEntries(selectedRecords.filter((record) => record.yearOverYearChange !== null).map((record) => [record.roadSectionName, record.yearOverYearChange ?? 0]))} /></section>
     <h2>{labels.table}</h2><p>{filtered.length.toLocaleString()} records</p><table><thead><tr><th>{labels.year}</th><th>{labels.rank}</th><th>{labels.road}</th><th>{labels.count}</th><th>{labels.previousRank}</th><th>{labels.rankChange}</th><th>{labels.yoy}</th><th>{labels.map}</th></tr></thead><tbody>{filtered.slice(0, 200).map((record) => <tr key={record.id}><td>{record.yearNumber}</td><td>{record.rankWithinYear}</td><td>{record.roadSectionName}</td><td>{record.towingCountNumber?.toLocaleString()}</td><td>{record.previousYearRank ?? '-'}</td><td>{record.rankChange ?? '-'}</td><td>{record.yearOverYearChange ?? '-'}</td><td><a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(record.googleMapsQuery)}`} target="_blank" rel="noreferrer">{labels.map}</a></td></tr>)}</tbody></table>
     <h2>{labels.quality}</h2><p>{labels.qualityText}</p><section className="summary-grid"><Metric label="Input rows" value={(quality?.inputRows ?? 0).toLocaleString()} /><Metric label="Output rows" value={(quality?.outputRows ?? 0).toLocaleString()} /><Metric label="Duplicate rows" value={(quality?.duplicateRows ?? 0).toLocaleString()} /><Metric label="Invalid rows" value={(quality?.invalidRows ?? 0).toLocaleString()} /></section>
@@ -2802,9 +2805,14 @@ function SmartTrafficEnforcementEquipment({ data, language }: { data: SafetyData
     );
   });
   const validMarkers = filtered.filter(hasValidPoint);
-  const topEquipmentType = summary.byEquipmentType.slice().sort((a, b) => b.count - a.count)[0];
-  const topItemCategory = summary.byEnforcementItemCategory.slice().sort((a, b) => b.count - a.count)[0];
-  const yearRange = firstYears.length ? `${firstYears[0]} - ${firstYears.at(-1)}` : '-';
+  const filteredEquipmentTypes = countBy(filtered, (record) => record.equipmentTypeCategory);
+  const filteredRoadTypes = countBy(filtered, (record) => record.roadSectionType);
+  const filteredItemCategories = countBy(filtered.flatMap((record) => record.enforcementItemCategories), (value) => value);
+  const filteredYears = filtered.flatMap((record) => record.firstActivationGregorianDate ? [Number(record.firstActivationGregorianDate.slice(0, 4))] : []);
+  const filteredCoordinates = countBy(filtered, (record) => record.coordinateQuality);
+  const topEquipmentType = Object.entries(filteredEquipmentTypes).sort((a, b) => b[1] - a[1])[0];
+  const topItemCategory = Object.entries(filteredItemCategories).sort((a, b) => b[1] - a[1])[0];
+  const yearRange = filteredYears.length ? `${Math.min(...filteredYears)} - ${Math.max(...filteredYears)}` : '-';
 
   return (
     <main className="overview">
@@ -2830,18 +2838,18 @@ function SmartTrafficEnforcementEquipment({ data, language }: { data: SafetyData
       <p className="notice">{labels.notice}</p>
       <h2>{labels.overview}</h2>
       <section className="summary-grid">
-        <Metric label={labels.recordCount} value={summary.totalRecords.toLocaleString()} />
-        <Metric label={labels.validCoordinateCount} value={summary.validCoordinateCount.toLocaleString()} />
-        <Metric label={labels.equipmentTypeCount} value={summary.equipmentTypeCount.toLocaleString()} />
-        <Metric label={labels.roadSectionCount} value={summary.roadSectionCount.toLocaleString()} />
-        <Metric label={labels.topEquipmentType} value={topEquipmentType ? formatSmartEquipmentType(topEquipmentType.equipmentTypeCategory, language) : '-'} />
-        <Metric label={labels.topEnforcementItem} value={topItemCategory ? formatSmartItemCategory(topItemCategory.enforcementItemCategory, language) : '-'} />
+        <Metric label={labels.recordCount} value={filtered.length.toLocaleString()} />
+        <Metric label={labels.validCoordinateCount} value={validMarkers.length.toLocaleString()} />
+        <Metric label={labels.equipmentTypeCount} value={Object.keys(filteredEquipmentTypes).length.toLocaleString()} />
+        <Metric label={labels.roadSectionCount} value={Object.keys(filteredRoadTypes).length.toLocaleString()} />
+        <Metric label={labels.topEquipmentType} value={topEquipmentType ? formatSmartEquipmentType(topEquipmentType[0] as SmartTrafficEnforcementEquipmentTypeCategory, language) : '-'} />
+        <Metric label={labels.topEnforcementItem} value={topItemCategory ? formatSmartItemCategory(topItemCategory[0] as TrafficEnforcementItemCategory, language) : '-'} />
         <Metric label={labels.firstActivationYearRange} value={yearRange} />
-        <Metric label={labels.suspensionHistoryCount} value={summary.recordsWithSuspensionHistory.toLocaleString()} />
-        <Metric label={labels.restartHistoryCount} value={summary.recordsWithRestartHistory.toLocaleString()} />
-        <Metric label={labels.intersectionEquipmentCount} value={records.filter((record) => record.equipmentTypeCategory === 'intersection_multi_function').length.toLocaleString()} />
-        <Metric label={labels.illegalParkingEquipmentCount} value={records.filter((record) => record.equipmentTypeCategory === 'illegal_parking').length.toLocaleString()} />
-        <Metric label={labels.averageSpeedSectionCount} value={records.filter((record) => record.equipmentTypeCategory === 'average_speed_section').length.toLocaleString()} />
+        <Metric label={labels.suspensionHistoryCount} value={filtered.filter((record) => record.statusHistoryHasSuspension).length.toLocaleString()} />
+        <Metric label={labels.restartHistoryCount} value={filtered.filter((record) => record.statusHistoryHasRestart).length.toLocaleString()} />
+        <Metric label={labels.intersectionEquipmentCount} value={filtered.filter((record) => record.equipmentTypeCategory === 'intersection_multi_function').length.toLocaleString()} />
+        <Metric label={labels.illegalParkingEquipmentCount} value={filtered.filter((record) => record.equipmentTypeCategory === 'illegal_parking').length.toLocaleString()} />
+        <Metric label={labels.averageSpeedSectionCount} value={filtered.filter((record) => record.equipmentTypeCategory === 'average_speed_section').length.toLocaleString()} />
       </section>
       <h2>{labels.map}</h2>
       <p className="notice">{labels.mapNotice}</p>
@@ -2871,14 +2879,14 @@ function SmartTrafficEnforcementEquipment({ data, language }: { data: SafetyData
       </section>
       <h2>{labels.equipmentTypes}</h2>
       <section className="chart-grid">
-        <BarChart title={labels.equipmentTypes} values={Object.fromEntries(summary.byEquipmentType.map((item) => [formatSmartEquipmentType(item.equipmentTypeCategory, language), item.count]))} />
-        <BarChart title={labels.roadSectionType} values={Object.fromEntries(summary.byRoadSectionType.map((item) => [formatSmartRoadSectionType(item.roadSectionType, language), item.count]))} />
-        <BarChart title={labels.enforcementItemsView} values={Object.fromEntries(summary.byEnforcementItemCategory.map((item) => [formatSmartItemCategory(item.enforcementItemCategory, language), item.count]))} />
-        <BarChart title={`${labels.equipmentType} × ${labels.itemCategory}`} values={Object.fromEntries(Object.entries(countBy(records.flatMap((record) => record.enforcementItemCategories.map((item) => `${formatSmartEquipmentType(record.equipmentTypeCategory, language)} / ${formatSmartItemCategory(item, language)}`)), (value) => value)).slice(0, 20))} />
-        <BarChart title={labels.activationHistory} values={Object.fromEntries(summary.byFirstActivationYear.map((item) => [String(item.year), item.recordCount]))} />
-        <BarChart title={labels.hasSuspension} values={{ [language === 'zh' ? '有' : 'With']: summary.recordsWithSuspensionHistory, [language === 'zh' ? '無' : 'Without']: summary.totalRecords - summary.recordsWithSuspensionHistory }} />
-        <BarChart title={labels.hasRestart} values={{ [language === 'zh' ? '有' : 'With']: summary.recordsWithRestartHistory, [language === 'zh' ? '無' : 'Without']: summary.totalRecords - summary.recordsWithRestartHistory }} />
-        <BarChart title={labels.dataQuality} values={{ [formatCoordinateStatus('valid', language)]: summary.validCoordinateCount, [formatCoordinateStatus('missing', language)]: summary.missingCoordinateCount, [formatCoordinateStatus('unparsed', language)]: summary.unparsedCoordinateCount, [formatCoordinateStatus('outlier', language)]: summary.outlierCoordinateCount }} />
+        <BarChart title={labels.equipmentTypes} values={Object.fromEntries(Object.entries(filteredEquipmentTypes).map(([name, count]) => [formatSmartEquipmentType(name as SmartTrafficEnforcementEquipmentTypeCategory, language), count]))} />
+        <BarChart title={labels.roadSectionType} values={Object.fromEntries(Object.entries(filteredRoadTypes).map(([name, count]) => [formatSmartRoadSectionType(name as TrafficEnforcementRoadSectionType, language), count]))} />
+        <BarChart title={labels.enforcementItemsView} values={Object.fromEntries(Object.entries(filteredItemCategories).map(([name, count]) => [formatSmartItemCategory(name as TrafficEnforcementItemCategory, language), count]))} />
+        <BarChart title={`${labels.equipmentType} × ${labels.itemCategory}`} values={countBy(filtered.flatMap((record) => record.enforcementItemCategories.map((item) => `${formatSmartEquipmentType(record.equipmentTypeCategory, language)} / ${formatSmartItemCategory(item, language)}`)), (value) => value)} />
+        <BarChart title={labels.activationHistory} values={countBy(filtered.flatMap((record) => record.firstActivationGregorianDate ? [record.firstActivationGregorianDate.slice(0, 4)] : []), (value) => value)} />
+        <BarChart title={labels.hasSuspension} values={{ [language === 'zh' ? '有' : 'With']: filtered.filter((record) => record.statusHistoryHasSuspension).length, [language === 'zh' ? '無' : 'Without']: filtered.filter((record) => !record.statusHistoryHasSuspension).length }} />
+        <BarChart title={labels.hasRestart} values={{ [language === 'zh' ? '有' : 'With']: filtered.filter((record) => record.statusHistoryHasRestart).length, [language === 'zh' ? '無' : 'Without']: filtered.filter((record) => !record.statusHistoryHasRestart).length }} />
+        <BarChart title={labels.dataQuality} values={Object.fromEntries(Object.entries(filteredCoordinates).map(([name, count]) => [formatCoordinateStatus(name as CoordinateStatus, language), count]))} />
       </section>
       <h2>{labels.directory}</h2>
       <p>{labels.recordCount}: {filtered.length.toLocaleString()}</p>
@@ -2936,8 +2944,16 @@ function FireDepartmentDonations({ data, language }: { data: SafetyDataBundle; l
       (!search.trim() || haystack.includes(search.trim().toLowerCase()))
     );
   });
-  const topItemCategory = summary.byDonatedItemCategory[0]?.donatedItemCategory;
-  const topPurposeCategory = summary.byDonationPurposeCategory[0]?.donationPurposeCategory;
+  const filteredByYear = countBy(filtered, (record) => String(record.year ?? '—'));
+  const filteredByMonth = countBy(filtered, (record) => record.donationMonthKey ?? '—');
+  const filteredItemCategories = countBy(filtered, (record) => record.donatedItemCategory);
+  const filteredPurposeCategories = countBy(filtered, (record) => record.donationPurposeCategory);
+  const filteredDonors = countBy(filtered, (record) => record.donorName ?? '—');
+  const filteredItems = countBy(filtered, (record) => record.donatedItem ?? '—');
+  const filteredPurposes = countBy(filtered, (record) => record.donationPurpose ?? '—');
+  const filteredResources = countBy(filtered, (record) => record.resourceName ?? '—');
+  const topItemCategory = Object.entries(filteredItemCategories).sort((a,b)=>b[1]-a[1])[0]?.[0];
+  const topPurposeCategory = Object.entries(filteredPurposeCategories).sort((a,b)=>b[1]-a[1])[0]?.[0];
 
   return (
     <main className="overview">
@@ -2956,29 +2972,29 @@ function FireDepartmentDonations({ data, language }: { data: SafetyDataBundle; l
       <p>{labels.subtitle}</p>
       <p className="notice">{labels.noMapNotice}</p>
       <section className="summary-grid">
-        <Metric label={labels.recordCount} value={summary.totalRecords.toLocaleString()} />
-        <Metric label={labels.yearRange} value={`${summary.minYear ?? '-'} - ${summary.maxYear ?? '-'}`} />
-        <Metric label={labels.latestYear} value={String(summary.latestYear ?? '-')} />
-        <Metric label={labels.uniqueDonorCount} value={summary.uniqueDonorCount.toLocaleString()} />
-        <Metric label={labels.uniqueDonatedItemCount} value={summary.uniqueDonatedItemCount.toLocaleString()} />
-        <Metric label={labels.uniqueDonationPurposeCount} value={summary.uniqueDonationPurposeCount.toLocaleString()} />
-        <Metric label={labels.recordsWithCompleteDate} value={summary.recordsWithDonationDate.toLocaleString()} />
-        <Metric label={labels.topDonor} value={summary.byDonor[0]?.donorName ?? '-'} />
+        <Metric label={labels.recordCount} value={filtered.length.toLocaleString()} />
+        <Metric label={labels.yearRange} value={filtered.length ? `${Math.min(...filtered.flatMap((record)=>record.year?[record.year]:[]))} - ${Math.max(...filtered.flatMap((record)=>record.year?[record.year]:[]))}` : '-'} />
+        <Metric label={labels.latestYear} value={filtered.length ? String(Math.max(...filtered.flatMap((record)=>record.year?[record.year]:[]))) : '-'} />
+        <Metric label={labels.uniqueDonorCount} value={Object.keys(filteredDonors).length.toLocaleString()} />
+        <Metric label={labels.uniqueDonatedItemCount} value={Object.keys(filteredItems).length.toLocaleString()} />
+        <Metric label={labels.uniqueDonationPurposeCount} value={Object.keys(filteredPurposes).length.toLocaleString()} />
+        <Metric label={labels.recordsWithCompleteDate} value={filtered.filter((record) => record.donationDate).length.toLocaleString()} />
+        <Metric label={labels.topDonor} value={Object.entries(filteredDonors).sort((a,b)=>b[1]-a[1])[0]?.[0] ?? '-'} />
         <Metric label={labels.topItemCategory} value={topItemCategory ? formatFireDonationItemCategory(topItemCategory, language) : '-'} />
         <Metric label={labels.topPurposeCategory} value={topPurposeCategory ? formatFireDonationPurposeCategory(topPurposeCategory, language) : '-'} />
-        <Metric label={labels.medical} value={records.filter((record) => record.hasMedicalOrRescueKeyword).length.toLocaleString()} />
-        <Metric label={labels.protective} value={records.filter((record) => record.hasProtectiveEquipmentKeyword).length.toLocaleString()} />
+        <Metric label={labels.medical} value={filtered.filter((record) => record.hasMedicalOrRescueKeyword).length.toLocaleString()} />
+        <Metric label={labels.protective} value={filtered.filter((record) => record.hasProtectiveEquipmentKeyword).length.toLocaleString()} />
       </section>
       <p className="notice">{labels.interpretationNote}</p>
       <section className="chart-grid">
-        <BarChart title={labels.byYear} values={Object.fromEntries(summary.byYear.map((item) => [String(item.year), item.recordCount]))} />
-        <BarChart title={labels.byMonth} values={Object.fromEntries(summary.byMonth.map((item) => [item.donationMonthKey, item.recordCount]))} />
-        <BarChart title={labels.itemCategoryDistribution} values={Object.fromEntries(summary.byDonatedItemCategory.map((item) => [formatFireDonationItemCategory(item.donatedItemCategory, language), item.count]))} />
-        <BarChart title={labels.purposeCategoryDistribution} values={Object.fromEntries(summary.byDonationPurposeCategory.map((item) => [formatFireDonationPurposeCategory(item.donationPurposeCategory, language), item.count]))} />
-        <BarChart title={labels.topDonors} values={Object.fromEntries(summary.byDonor.slice(0, 20).map((item) => [item.donorName, item.recordCount]))} />
-        <BarChart title={labels.topItems} values={Object.fromEntries(summary.topDonatedItems.slice(0, 20).map((item) => [item.donatedItem, item.count]))} />
-        <BarChart title={labels.topPurposes} values={Object.fromEntries(summary.topDonationPurposes.slice(0, 20).map((item) => [item.donationPurpose, item.count]))} />
-        <BarChart title={labels.resourceBreakdown} values={Object.fromEntries(summary.resourceBreakdown.map((item) => [item.resourceName, item.recordCount]))} />
+        <BarChart title={labels.byYear} values={filteredByYear} />
+        <BarChart title={labels.byMonth} values={filteredByMonth} />
+        <BarChart title={labels.itemCategoryDistribution} values={Object.fromEntries(Object.entries(filteredItemCategories).map(([name,count])=>[formatFireDonationItemCategory(name,language),count]))} />
+        <BarChart title={labels.purposeCategoryDistribution} values={Object.fromEntries(Object.entries(filteredPurposeCategories).map(([name,count])=>[formatFireDonationPurposeCategory(name,language),count]))} />
+        <BarChart title={labels.topDonors} values={Object.fromEntries(Object.entries(filteredDonors).sort((a,b)=>b[1]-a[1]).slice(0,20))} />
+        <BarChart title={labels.topItems} values={Object.fromEntries(Object.entries(filteredItems).sort((a,b)=>b[1]-a[1]).slice(0,20))} />
+        <BarChart title={labels.topPurposes} values={Object.fromEntries(Object.entries(filteredPurposes).sort((a,b)=>b[1]-a[1]).slice(0,20))} />
+        <BarChart title={labels.resourceBreakdown} values={filteredResources} />
       </section>
       <h2>{language === 'zh' ? '捐贈清冊' : 'Donation Directory'}</h2>
       <p>{labels.recordCount}: {filtered.length.toLocaleString()}</p>
@@ -3010,7 +3026,6 @@ function FireAccessRouteRegistry({ data, language }: { data: SafetyDataBundle; l
   const [phoneOnly, setPhoneOnly] = useState(false);
   const [search, setSearch] = useState('');
   const records = data.fireAccessRouteRegistry;
-  const summary = data.fireAccessRouteRegistrySummary;
   const districts = [...new Set(records.flatMap((record) => record.districtName ? [record.districtName] : []))].sort();
   const villages = [...new Set(records.flatMap((record) => record.villageNameNormalized ? [record.villageNameNormalized] : []))].sort();
   const stations = [...new Set(records.flatMap((record) => record.responsibleFireStationNormalized ? [record.responsibleFireStationNormalized] : []))].sort();
@@ -3018,6 +3033,11 @@ function FireAccessRouteRegistry({ data, language }: { data: SafetyDataBundle; l
     const haystack = [record.districtName, record.districtCode, record.villageName, record.listedRouteName, record.listingCriteria, record.difficultRescueLocation, record.responsibleFireStation, record.phone].join(' ').toLowerCase();
     return (district === 'all' || record.districtName === district) && (village === 'all' || record.villageNameNormalized === village) && (station === 'all' || record.responsibleFireStationNormalized === station) && (!difficultOnly || record.hasDifficultRescueLocation) && (!phoneOnly || record.hasPhone) && (!search.trim() || haystack.includes(search.trim().toLowerCase()));
   });
+  const filteredByDistrict = countBy(filtered, (record) => record.districtName ?? record.districtCode ?? '—');
+  const filteredByVillage = countBy(filtered, (record) => record.villageName ?? '—');
+  const filteredByStation = countBy(filtered, (record) => record.responsibleFireStation ?? '—');
+  const topFilteredDistrict = Object.entries(filteredByDistrict).sort((a,b)=>b[1]-a[1])[0];
+  const topFilteredStation = Object.entries(filteredByStation).sort((a,b)=>b[1]-a[1])[0];
   return <main className="overview">
     <section className="filter-panel health-filters">
       <label>{labels.district}<select value={district} onChange={(event) => setDistrict(event.target.value)}><option value="all">{labels.all}</option>{districts.map((value) => <option key={value}>{value}</option>)}</select></label>
@@ -3029,11 +3049,11 @@ function FireAccessRouteRegistry({ data, language }: { data: SafetyDataBundle; l
     </section>
     <h1>{labels.title}</h1><p>{labels.subtitle}</p><p className="notice">{labels.notice}</p>
     <section className="summary-grid">
-      <Metric label={labels.recordCount} value={summary.totalRecords.toLocaleString()} /><Metric label={labels.districts} value={summary.districtCount.toLocaleString()} /><Metric label={labels.villages} value={summary.villageCount.toLocaleString()} /><Metric label={labels.stations} value={summary.responsibleFireStationCount.toLocaleString()} />
-      <Metric label={labels.difficultLocations} value={summary.recordsWithDifficultRescueLocation.toLocaleString()} /><Metric label={labels.phones} value={summary.recordsWithPhone.toLocaleString()} /><Metric label={labels.topDistrict} value={summary.byDistrict[0]?.districtName ?? '-'} /><Metric label={labels.topStation} value={summary.byResponsibleFireStation[0]?.responsibleFireStation ?? '-'} />
+      <Metric label={labels.recordCount} value={filtered.length.toLocaleString()} /><Metric label={labels.districts} value={Object.keys(filteredByDistrict).length.toLocaleString()} /><Metric label={labels.villages} value={Object.keys(filteredByVillage).length.toLocaleString()} /><Metric label={labels.stations} value={Object.keys(filteredByStation).length.toLocaleString()} />
+      <Metric label={labels.difficultLocations} value={filtered.filter((record)=>record.hasDifficultRescueLocation).length.toLocaleString()} /><Metric label={labels.phones} value={filtered.filter((record)=>record.hasPhone).length.toLocaleString()} /><Metric label={labels.topDistrict} value={topFilteredDistrict?.[0] ?? '-'} /><Metric label={labels.topStation} value={topFilteredStation?.[0] ?? '-'} />
     </section>
     <section className="chart-grid">
-      <BarChart title={labels.byDistrict} values={Object.fromEntries(summary.byDistrict.map((item) => [item.districtName ?? item.districtCode, item.count]))} /><BarChart title={labels.byVillage} values={Object.fromEntries(summary.byVillage.slice(0, 30).map((item) => [item.villageName, item.count]))} /><BarChart title={labels.byStation} values={Object.fromEntries(summary.byResponsibleFireStation.map((item) => [item.responsibleFireStation, item.count]))} /><BarChart title={labels.difficultDistribution} values={{ [labels.yes]: summary.byDifficultRescueLocation.withLocation, [labels.no]: summary.byDifficultRescueLocation.withoutLocation }} /><BarChart title={labels.phoneDistribution} values={{ [labels.yes]: summary.byPhone.withPhone, [labels.no]: summary.byPhone.withoutPhone }} />
+      <BarChart title={labels.byDistrict} values={filteredByDistrict} /><BarChart title={labels.byVillage} values={Object.fromEntries(Object.entries(filteredByVillage).sort((a,b)=>b[1]-a[1]).slice(0,30))} /><BarChart title={labels.byStation} values={filteredByStation} /><BarChart title={labels.difficultDistribution} values={{ [labels.yes]: filtered.filter((record)=>record.hasDifficultRescueLocation).length, [labels.no]: filtered.filter((record)=>!record.hasDifficultRescueLocation).length }} /><BarChart title={labels.phoneDistribution} values={{ [labels.yes]: filtered.filter((record)=>record.hasPhone).length, [labels.no]: filtered.filter((record)=>!record.hasPhone).length }} />
     </section>
     <h2>{labels.directory}</h2><p>{labels.recordCount}: {filtered.length.toLocaleString()}</p>
     <table><thead><tr><th>{labels.id}</th><th>{labels.district}</th><th>{labels.village}</th><th>{labels.listedRoute}</th><th>{labels.criteria}</th><th>{labels.difficultRescueLocation}</th><th>{labels.station}</th><th>{labels.phone}</th><th>{labels.mapLookup}</th></tr></thead><tbody>{filtered.slice(0, 100).map((record) => <tr key={record.id}><td>{record.sourceSequenceNumber ?? '-'}</td><td>{record.districtName ?? record.districtCode ?? '-'}</td><td>{record.villageName ?? '-'}</td><td>{record.listedRouteName ?? '-'}</td><td>{record.listingCriteria ?? '-'}</td><td>{record.difficultRescueLocation ?? '-'}</td><td>{record.responsibleFireStation ?? '-'}</td><td>{record.phone ?? '-'}</td><td>{record.externalMapQuery ? <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(record.externalMapQuery)}`}>{labels.mapLookup}</a> : '-'}</td></tr>)}</tbody></table>
@@ -3285,7 +3305,6 @@ function HistoricalFloodingRecords({ data, language }: { data: SafetyDataBundle;
   const [areaCategory, setAreaCategory] = useState<FloodingAreaCategory | 'all'>('all');
   const [search, setSearch] = useState('');
   const records = data.historicalFloodingRecords;
-  const summary = data.historicalFloodingSummary;
   const districts = [...new Set(records.map((record) => record.districtNameNormalized).filter(Boolean))].sort();
   const years = [...new Set(records.map((record) => record.eventYear).filter(Boolean))].sort();
   const filtered = records.filter((record) => {
@@ -3297,10 +3316,21 @@ function HistoricalFloodingRecords({ data, language }: { data: SafetyDataBundle;
     const haystack = `${record.eventDate} ${record.districtNameNormalized} ${record.floodingLocationAddressNormalized} ${record.roadName} ${record.floodingDepthRaw} ${record.floodingAreaRaw}`.toLowerCase();
     return haystack.includes(search.trim().toLowerCase());
   });
-  const topDistrict = summary.byDistrict[0];
-  const topYear = [...summary.byEventYear].sort((a, b) => b.count - a.count)[0];
-  const topDepth = [...summary.byFloodingDepthCategory].sort((a, b) => b.count - a.count)[0];
-  const topArea = [...summary.byFloodingAreaCategory].sort((a, b) => b.count - a.count)[0];
+  const filteredByYear = countBy(filtered, (record) => String(record.eventYear ?? '—'));
+  const filteredByYearMonth = countBy(filtered, (record) => record.eventYearMonth ?? '—');
+  const filteredByDistrict = countBy(filtered, (record) => record.districtNameNormalized ?? '—');
+  const filteredByDepth = countBy(filtered, (record) => formatFloodingDepthCategory(record.floodingDepthCategory, language));
+  const filteredByArea = countBy(filtered, (record) => formatFloodingAreaCategory(record.floodingAreaCategory, language));
+  const filteredByGeometry = countBy(filtered, (record) => record.geometryType ?? '—');
+  const filteredByRoad = countBy(filtered, (record) => record.roadName ?? '—');
+  const filteredByAddress = countBy(filtered, (record) => record.floodingLocationAddressNormalized ?? '—');
+  const topDistrict = Object.entries(filteredByDistrict).sort((a,b)=>b[1]-a[1])[0];
+  const topYear = Object.entries(filteredByYear).sort((a,b)=>b[1]-a[1])[0];
+  const topDepth = Object.entries(filteredByDepth).sort((a,b)=>b[1]-a[1])[0];
+  const topArea = Object.entries(filteredByArea).sort((a,b)=>b[1]-a[1])[0];
+  const depths = filtered.flatMap((record)=>record.floodingDepthCm===undefined?[]:[record.floodingDepthCm]);
+  const areas = filtered.flatMap((record)=>record.floodingAreaSquareMeters===undefined?[]:[record.floodingAreaSquareMeters]);
+  const dates = filtered.flatMap((record)=>record.eventDate?[record.eventDate]:[]).sort();
   return (
     <main className="overview">
       <section className="section-heading">
@@ -3316,20 +3346,20 @@ function HistoricalFloodingRecords({ data, language }: { data: SafetyDataBundle;
         <label><span>{language === 'zh' ? '搜尋' : 'Search'}</span><input value={search} onChange={(event) => setSearch(event.target.value)} placeholder={labels.search} /></label>
       </section>
       <section className="summary-grid">
-        <Metric label={language === 'zh' ? '歷史積水紀錄數' : 'Historical flooding record count'} value={summary.totalRecords.toLocaleString()} />
-        <Metric label={language === 'zh' ? '發生日期範圍' : 'Event date range'} value={`${summary.minEventDate ?? '-'} - ${summary.maxEventDate ?? '-'}`} />
-        <Metric label={language === 'zh' ? '涵蓋行政區數' : 'Districts covered'} value={summary.districtCount.toLocaleString()} />
-        <Metric label={language === 'zh' ? '有效空間資料紀錄數' : 'Records with valid geometry'} value={summary.recordsWithValidGeometry.toLocaleString()} />
-        <Metric label={language === 'zh' ? '有積水深度紀錄數' : 'Records with depth'} value={summary.recordsWithDepth.toLocaleString()} />
-        <Metric label={language === 'zh' ? '有面積紀錄數' : 'Records with area'} value={summary.recordsWithArea.toLocaleString()} />
-        <Metric label={language === 'zh' ? '最大積水深度' : 'Maximum depth'} value={`${fmt(summary.maxFloodingDepthCm)} cm`} />
-        <Metric label={language === 'zh' ? '平均積水深度' : 'Average depth'} value={`${fmt(summary.averageFloodingDepthCm)} cm`} />
-        <Metric label={language === 'zh' ? '最大積水面積' : 'Maximum area'} value={`${fmt(summary.maxFloodingAreaSquareMeters, 0)} m2`} />
-        <Metric label={language === 'zh' ? '累計紀錄面積' : 'Total recorded area'} value={`${fmt(summary.totalFloodingAreaSquareMeters, 0)} m2`} />
-        <Metric label={language === 'zh' ? '紀錄最多行政區' : 'Top district'} value={topDistrict?.districtName ?? '-'} />
-        <Metric label={language === 'zh' ? '紀錄最多年度' : 'Top year'} value={topYear ? String(topYear.eventYear) : '-'} />
-        <Metric label={language === 'zh' ? '最多深度類別' : 'Most common depth category'} value={topDepth ? formatFloodingDepthCategory(topDepth.floodingDepthCategory, language) : '-'} />
-        <Metric label={language === 'zh' ? '最多面積類別' : 'Most common area category'} value={topArea ? formatFloodingAreaCategory(topArea.floodingAreaCategory, language) : '-'} />
+        <Metric label={language === 'zh' ? '歷史積水紀錄數' : 'Historical flooding record count'} value={filtered.length.toLocaleString()} />
+        <Metric label={language === 'zh' ? '發生日期範圍' : 'Event date range'} value={`${dates.at(0) ?? '-'} - ${dates.at(-1) ?? '-'}`} />
+        <Metric label={language === 'zh' ? '涵蓋行政區數' : 'Districts covered'} value={Object.keys(filteredByDistrict).length.toLocaleString()} />
+        <Metric label={language === 'zh' ? '有效空間資料紀錄數' : 'Records with valid geometry'} value={filtered.filter((record)=>record.geometryValid).length.toLocaleString()} />
+        <Metric label={language === 'zh' ? '有積水深度紀錄數' : 'Records with depth'} value={depths.length.toLocaleString()} />
+        <Metric label={language === 'zh' ? '有面積紀錄數' : 'Records with area'} value={areas.length.toLocaleString()} />
+        <Metric label={language === 'zh' ? '最大積水深度' : 'Maximum depth'} value={`${fmt(depths.length?Math.max(...depths):undefined)} cm`} />
+        <Metric label={language === 'zh' ? '平均積水深度' : 'Average depth'} value={`${fmt(depths.length?depths.reduce((sum,value)=>sum+value,0)/depths.length:undefined)} cm`} />
+        <Metric label={language === 'zh' ? '最大積水面積' : 'Maximum area'} value={`${fmt(areas.length?Math.max(...areas):undefined, 0)} m2`} />
+        <Metric label={language === 'zh' ? '累計紀錄面積' : 'Total recorded area'} value={`${fmt(areas.reduce((sum,value)=>sum+value,0), 0)} m2`} />
+        <Metric label={language === 'zh' ? '紀錄最多行政區' : 'Top district'} value={topDistrict?.[0] ?? '-'} />
+        <Metric label={language === 'zh' ? '紀錄最多年度' : 'Top year'} value={topYear?.[0] ?? '-'} />
+        <Metric label={language === 'zh' ? '最多深度類別' : 'Most common depth category'} value={topDepth?.[0] ?? '-'} />
+        <Metric label={language === 'zh' ? '最多面積類別' : 'Most common area category'} value={topArea?.[0] ?? '-'} />
       </section>
       <section className="map-card">
         <h2>{language === 'zh' ? '歷史積水紀錄圖' : 'Historical Flooding Records Map'}</h2>
@@ -3341,14 +3371,14 @@ function HistoricalFloodingRecords({ data, language }: { data: SafetyDataBundle;
         </MapContainer>
       </section>
       <section className="chart-grid">
-        <BarChart title={language === 'zh' ? '各年度紀錄數' : 'Records by year'} values={Object.fromEntries(summary.byEventYear.map((item) => [String(item.eventYear), item.count]))} />
-        <BarChart title={language === 'zh' ? '各年月紀錄數' : 'Records by year-month'} values={Object.fromEntries(summary.byEventYearMonth.slice(-36).map((item) => [item.eventYearMonth, item.count]))} />
-        <BarChart title={language === 'zh' ? '各行政區紀錄數' : 'Records by district'} values={Object.fromEntries(summary.byDistrict.map((item) => [item.districtName, item.count]))} />
-        <BarChart title={language === 'zh' ? '積水深度類別分布' : 'Flooding depth category distribution'} values={Object.fromEntries(summary.byFloodingDepthCategory.map((item) => [formatFloodingDepthCategory(item.floodingDepthCategory, language), item.count]))} />
-        <BarChart title={language === 'zh' ? '積水面積類別分布' : 'Flooding area category distribution'} values={Object.fromEntries(summary.byFloodingAreaCategory.map((item) => [formatFloodingAreaCategory(item.floodingAreaCategory, language), item.count]))} />
-        <BarChart title={language === 'zh' ? '各幾何類型紀錄數' : 'Records by geometry type'} values={Object.fromEntries(summary.byGeometryType.map((item) => [item.geometryType, item.count]))} />
-        <BarChart title={language === 'zh' ? '紀錄最多道路' : 'Top roads by record count'} values={Object.fromEntries(summary.topRoadNames.slice(0, 15).map((item) => [item.roadName, item.count]))} />
-        <BarChart title={language === 'zh' ? '紀錄最多積水位置' : 'Top ponding locations by record count'} values={Object.fromEntries(summary.topAddresses.slice(0, 15).map((item) => [item.address, item.count]))} />
+        <BarChart title={language === 'zh' ? '各年度紀錄數' : 'Records by year'} values={filteredByYear} />
+        <BarChart title={language === 'zh' ? '各年月紀錄數' : 'Records by year-month'} values={filteredByYearMonth} />
+        <BarChart title={language === 'zh' ? '各行政區紀錄數' : 'Records by district'} values={filteredByDistrict} />
+        <BarChart title={language === 'zh' ? '積水深度類別分布' : 'Flooding depth category distribution'} values={filteredByDepth} />
+        <BarChart title={language === 'zh' ? '積水面積類別分布' : 'Flooding area category distribution'} values={filteredByArea} />
+        <BarChart title={language === 'zh' ? '各幾何類型紀錄數' : 'Records by geometry type'} values={filteredByGeometry} />
+        <BarChart title={language === 'zh' ? '紀錄最多道路' : 'Top roads by record count'} values={Object.fromEntries(Object.entries(filteredByRoad).sort((a,b)=>b[1]-a[1]).slice(0,15))} />
+        <BarChart title={language === 'zh' ? '紀錄最多積水位置' : 'Top ponding locations by record count'} values={Object.fromEntries(Object.entries(filteredByAddress).sort((a,b)=>b[1]-a[1]).slice(0,15))} />
       </section>
       <p className="notice">{labels.disclaimer}</p>
       <section className="directory">
@@ -3535,12 +3565,16 @@ function NaturalDisasterSuspensions({ data, language }: { data: SafetyDataBundle
       (!search.trim() || haystack.includes(search.trim().toLowerCase()))
     );
   });
-  const summary = data.naturalDisasterSuspensionSummary;
-  const typhoonCount = summary.byDisasterType.find((item) => item.disasterType === 'typhoon')?.count ?? 0;
-  const heavyRainCount = summary.byDisasterType.find((item) => item.disasterType === 'heavy_rain')?.count ?? 0;
-  const citywideCount = summary.byDecisionCategory.find((item) => item.decisionCategory === 'citywide_full_suspension')?.count ?? 0;
-  const normalCount = summary.byDecisionCategory.find((item) => item.decisionCategory === 'normal_work_school')?.count ?? 0;
-  const localCount = data.naturalDisasterSuspensionRecords.filter((item) => item.hasLocalException).length;
+  const filteredByYear = countBy(filtered, (record) => String(record.year ?? '—'));
+  const filteredByMonth = countBy(filtered, (record) => String(record.month ?? '—'));
+  const filteredByDisasterType = countBy(filtered, (record) => formatNaturalDisasterType(record.disasterType, language));
+  const filteredByDecision = countBy(filtered, (record) => formatDecisionCategory(record.decisionCategory, language));
+  const typhoonCount = filtered.filter((record) => record.disasterType === 'typhoon').length;
+  const heavyRainCount = filtered.filter((record) => record.disasterType === 'heavy_rain').length;
+  const citywideCount = filtered.filter((record) => record.decisionCategory === 'citywide_full_suspension').length;
+  const normalCount = filtered.filter((record) => record.decisionCategory === 'normal_work_school').length;
+  const localCount = filtered.filter((record) => record.hasLocalException).length;
+  const filteredDates = filtered.flatMap((record) => record.date ? [record.date] : []).sort();
 
   return (
     <main className="overview">
@@ -3611,22 +3645,22 @@ function NaturalDisasterSuspensions({ data, language }: { data: SafetyDataBundle
       <h1>{labels.title}</h1>
       <p className="notice">{labels.disclaimer}</p>
       <section className="summary-grid">
-        <Metric label={labels.historicalRecordCount} value={summary.totalRecords.toLocaleString()} />
-        <Metric label={labels.dataDateRange} value={`${summary.minDate ?? '-'} - ${summary.maxDate ?? '-'}`} />
-        <Metric label={labels.disasterNameCount} value={summary.uniqueDisasterNameCount.toLocaleString()} />
-        <Metric label={labels.eventGroupCount} value={summary.eventGroupCount.toLocaleString()} />
+        <Metric label={labels.historicalRecordCount} value={filtered.length.toLocaleString()} />
+        <Metric label={labels.dataDateRange} value={`${filteredDates.at(0) ?? '-'} - ${filteredDates.at(-1) ?? '-'}`} />
+        <Metric label={labels.disasterNameCount} value={new Set(filtered.map((record)=>record.disasterName).filter(Boolean)).size.toLocaleString()} />
+        <Metric label={labels.eventGroupCount} value={new Set(filtered.map((record)=>record.eventGroupKey).filter(Boolean)).size.toLocaleString()} />
         <Metric label={labels.typhoonRecordCount} value={typhoonCount.toLocaleString()} />
         <Metric label={labels.heavyRainRecordCount} value={heavyRainCount.toLocaleString()} />
         <Metric label={labels.citywideSuspensionCount} value={citywideCount.toLocaleString()} />
         <Metric label={labels.normalWorkSchoolCount} value={normalCount.toLocaleString()} />
         <Metric label={labels.localExceptionCount} value={localCount.toLocaleString()} />
-        <Metric label={labels.latestRecordDate} value={summary.maxDate ?? '-'} />
+        <Metric label={labels.latestRecordDate} value={filteredDates.at(-1) ?? '-'} />
       </section>
       <section className="chart-grid">
-        <BarChart title={labels.recordsByYear} values={Object.fromEntries(summary.byYear.map((item) => [String(item.year), item.recordCount]))} />
-        <BarChart title={labels.recordsByMonth} values={Object.fromEntries(summary.byMonth.map((item) => [String(item.month), item.recordCount]))} />
-        <BarChart title={labels.recordsByDisasterType} values={Object.fromEntries(summary.byDisasterType.map((item) => [formatNaturalDisasterType(item.disasterType, language), item.count]))} />
-        <BarChart title={labels.recordsByDecisionCategory} values={Object.fromEntries(summary.byDecisionCategory.map((item) => [formatDecisionCategory(item.decisionCategory, language), item.count]))} />
+        <BarChart title={labels.recordsByYear} values={filteredByYear} />
+        <BarChart title={labels.recordsByMonth} values={filteredByMonth} />
+        <BarChart title={labels.recordsByDisasterType} values={filteredByDisasterType} />
+        <BarChart title={labels.recordsByDecisionCategory} values={filteredByDecision} />
       </section>
       <h2>{labels.timeline}</h2>
       <p className="notice">{labels.timelineNote}</p>
@@ -3642,7 +3676,7 @@ function NaturalDisasterSuspensions({ data, language }: { data: SafetyDataBundle
       <h2>{labels.eventGroups}</h2>
       <p className="notice">{labels.eventGroupNotice}</p>
       <div className="record-list">
-        {data.naturalDisasterSuspensionEventGroups.slice().reverse().slice(0, 20).map((group) => (
+        {data.naturalDisasterSuspensionEventGroups.filter((group) => filtered.some((record) => record.eventGroupKey === group.eventGroupKey)).slice().reverse().slice(0, 20).map((group) => (
           <article key={group.eventGroupKey}>
             <strong>{group.disasterName}</strong>
             <span>{formatNaturalDisasterType(group.disasterType, language)} · {group.startDate ?? '-'} - {group.endDate ?? '-'} · {group.recordCount}</span>

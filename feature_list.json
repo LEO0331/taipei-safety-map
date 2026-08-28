@@ -94,7 +94,7 @@
       "description": "Keep major navigation, module translations, filter-driven summaries, and directory layouts consistent across the customer dashboard.",
       "dependencies": ["feat-001"],
       "status": "done",
-      "evidence": "Major categories route to their first child; Fire Rescue KPIs/charts follow filters; named modules render bilingual labels; directory cards are responsive; customer maps use keyless OpenStreetMap tiles. npm run build and npm test (35 tests) passed, with browser interaction verification on 2026-08-28."
+      "evidence": "Major categories route to their first child; unused Infrastructure navigation removed; filter-driven cards/charts/tables now share the active record set across maps, traffic, fire, flooding, theft, donations, closures, and domestic-violence views; named modules render bilingual labels. npm run build and npm test (35 tests) passed on 2026-08-28."
     }
   ]
 }

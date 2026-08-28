@@ -94,3 +94,10 @@ The PWA cache version was bumped to v13 for the two new appeal JSON files. Do no
 - Replaced the shared CARTO tile URL with the keyless OpenStreetMap tile service and corrected attribution.
 - Browser screenshot confirms that the map renders without the `API KEY REQUIRED` watermark.
 - Verified: `npm run build`; `npm test` (35 tests).
+
+# 2026-08-28 — Dashboard filter and Chinese-mode consistency
+
+- Removed the unused 基礎設施安全 navigation category and its unreachable bridge module route.
+- Updated filter-driven dashboard summaries/charts to use the active result set for theft, police CCTV, smart enforcement, towing, fire donations, fire access, fire rescue, flooding, closure records, and domestic-violence views.
+- Added record-driven filters and readable Chinese violation categories to 檢舉交通違規; converted remaining quality views in the targeted health modules from raw JSON/key dumps into label/value lists.
+- Verified: `npm run build`; `npm test` (35 tests).
