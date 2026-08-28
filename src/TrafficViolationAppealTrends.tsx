@@ -1,36 +1,561 @@
 import { useEffect, useMemo, useState } from 'react';
 import type { Language } from './types';
 
-type AppealRecord={id:string;rocYearMonthRaw:string;period:string|null;rank:number|null;clauseCode:string;clauseDescription:string;appealCount:number|null;hasValidPeriod:boolean;hasValidRank:boolean;hasValidCount:boolean;originalValues:globalThis.Record<string,string>};
-type Metadata={latestPeriod:string|null;validMonths:string[];uniqueClauses:number;recordCount:number;sourceFileUpdateDate:string;metadataUpdateDate:string;monthlyCompleteness:{period:string;validRankedRows:number;complete:boolean}[];dataQuality:globalThis.Record<string,number>};
-const BASE=`${import.meta.env.BASE_URL}data/traffic-violation-appeal-top-clauses/`;
-const t=(l:Language,zh:string,en:string)=>l==='zh'?zh:en;
-const priorPeriod=(period:string)=>{const[y,m]=period.split('-').map(Number);return `${m===1?y-1:y}-${String(m===1?12:m-1).padStart(2,'0')}`};
-const previous=(r:AppealRecord,rows:AppealRecord[])=>r.period?rows.find(x=>x.period===priorPeriod(r.period!)&&x.clauseCode===r.clauseCode):undefined;
-const move=(r:AppealRecord,rows:AppealRecord[])=>{const p=previous(r,rows);return p?.rank!==null&&p?.rank!==undefined&&r.rank!==null?p.rank-r.rank:null};
+type AppealRecord = {
+  id: string;
+  rocYearMonthRaw: string;
+  period: string | null;
+  rank: number | null;
+  clauseCode: string;
+  clauseDescription: string;
+  appealCount: number | null;
+  hasValidPeriod: boolean;
+  hasValidRank: boolean;
+  hasValidCount: boolean;
+  originalValues: globalThis.Record<string, string>;
+};
 
-export default function TrafficViolationAppealTrends({language}:{language:Language}){
- const [records,setRecords]=useState<AppealRecord[]>([]),[meta,setMeta]=useState<Metadata|null>(null),[view,setView]=useState('overview'),[from,setFrom]=useState(''),[to,setTo]=useState(''),[rank,setRank]=useState('all'),[clause,setClause]=useState('all'),[query,setQuery]=useState(''),[valid,setValid]=useState(false),[latestOnly,setLatestOnly]=useState(false),[persistent,setPersistent]=useState(false),[page,setPage]=useState(0);
- useEffect(()=>{Promise.all([fetch(`${BASE}records.json`).then(r=>r.json()),fetch(`${BASE}metadata.json`).then(r=>r.json())]).then(([r,m])=>{setRecords(r);setMeta(m)})},[]);
- const periods=useMemo(()=>[...new Set(records.filter(r=>r.hasValidPeriod&&r.period).map(r=>r.period!))].sort(),[records]); const latest=periods.at(-1)??''; const clauses=useMemo(()=>[...new Set(records.map(r=>r.clauseCode).filter(Boolean))].sort(),[records]);
- const appearances=useMemo(()=>Object.fromEntries(clauses.map(c=>[c,records.filter(r=>r.clauseCode===c&&r.hasValidPeriod&&r.hasValidRank).length])),[clauses,records]);
- const rows=useMemo(()=>records.filter(r=>(!from||(r.period??'')>=from)&&(!to||(r.period??'')<=to)&&(rank==='all'||String(r.rank)===rank)&&(clause==='all'||r.clauseCode===clause)&&(!valid||r.hasValidCount)&&(!latestOnly||r.period===latest)&&(!persistent||(appearances[r.clauseCode]??0)>1)&&(!query||[r.clauseCode,r.clauseDescription,r.rocYearMonthRaw,r.period].join(' ').toLowerCase().includes(query.toLowerCase()))),[records,from,to,rank,clause,valid,latestOnly,persistent,query,latest,appearances]);
- const byPeriod=useMemo(()=>Object.fromEntries(periods.map(p=>[p,rows.filter(r=>r.period===p&&r.hasValidRank).sort((a,b)=>(a.rank??9)-(b.rank??9))])),[periods,rows]) as globalThis.Record<string,AppealRecord[]>; const latestRows=byPeriod[latest]??[]; const total=latestRows.reduce((s,r)=>s+(r.appealCount??0),0); const first=latestRows.find(r=>r.rank===1); const previousRows=byPeriod[priorPeriod(latest)]??[];
- const persistentRows=clauses.map(c=>{const list=records.filter(r=>r.clauseCode===c&&r.hasValidPeriod&&r.hasValidRank);return{clause:c,list,months:list.length,average:list.reduce((s,r)=>s+(r.rank??0),0)/Math.max(1,list.length),best:Math.min(...list.map(r=>r.rank??99)),latest:list.find(r=>r.period===latest)?.rank??null,total:list.reduce((s,r)=>s+(r.appealCount??0),0)}}).filter(x=>x.months).sort((a,b)=>b.months-a.months||a.average-b.average); const most=persistentRows[0];
- const changes=latestRows.flatMap(r=>{const p=previous(r,records);return p?.appealCount!==null&&p?.appealCount!==undefined&&r.appealCount!==null?[{r,delta:r.appealCount-p.appealCount}]:[]}); const biggest=changes.sort((a,b)=>b.delta-a.delta)[0]; const retained=latestRows.filter(r=>previousRows.some(p=>p.clauseCode===r.clauseCode)).length;
- const label=(zh:string,en:string)=>t(language,zh,en); const formatMonth=(p:string)=>p?`${p}${language==='zh'?'（西元推導）':' (derived)'}`:'—'; const nav=[['overview','\u7e3d\u89bd','Overview'],['latest','\u6700\u65b0\u524d\u4e94\u540d','Latest Top 5'],['trends','\u689d\u6b3e\u8da8\u52e2','Clause Trends'],['ranking','\u6392\u540d\u6b77\u7a0b','Ranking History'],['persistent','\u6301\u7e8c\u4e0a\u699c','Persistent Clauses'],['compare','\u6bcf\u6708\u6bd4\u8f03','Monthly Comparison'],['table','\u8cc7\u6599\u8868','Data Table'],['quality','\u8cc7\u6599\u54c1\u8cea','Data Quality'],['notes','\u8cc7\u6599\u8aaa\u660e','Data Notes']];
- const exportCsv=()=>{const header=['ROC period','Gregorian period (derived)','Rank','Clause','Chinese description','Appeals'];const blob=new Blob(['\uFEFF'+[header,...rows.map(r=>[r.rocYearMonthRaw,r.period??'',r.rank??'',r.clauseCode,r.clauseDescription,r.appealCount??''])].map(x=>x.map(v=>`"${String(v).replaceAll('"','""')}"`).join(',')).join('\n')],{type:'text/csv;charset=utf-8'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='traffic-violation-appeal-top-clauses.csv';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),0)};
- if(!meta)return <main className="status-screen">{label('\u8f09\u5165\u7533\u8a34\u7d71\u8a08\u4e2d\u2026','Loading appeal statistics…')}</main>;
- return <main className="overview appeal-trends"><section className="hero"><p className="eyebrow">Traffic Safety · Adjudication &amp; Appeal Statistics</p><h2>{label('\u9053\u8def\u4ea4\u901a\u7ba1\u7406\u4e8b\u4ef6\u7533\u8a34\u689d\u6b3e\u8da8\u52e2','Traffic Violation Appeal Trends')}</h2><p>{label('\u4ee5\u6bcf\u6708\u516c\u5e03\u7684\u524d\u4e94\u540d\u689d\u6b3e\u63cf\u8ff0\u7533\u8a34\u63d0\u4ea4\u7d71\u8a08\u8da8\u52e2\u3002','Submitted-appeal trends from the five clauses published each month by Taipei City’s Traffic Adjudication Office.')}</p><p className="notice">{label('\u6bcf\u671f\u50c5\u516c\u5e03\u7533\u8a34\u4ef6\u6578\u524d\u4e94\u540d\u689d\u6b3e\uff1b\u672a\u5217\u5165\u524d\u4e94\u540d\u4e0d\u4ee3\u8868\u7533\u8a34\u4ef6\u6578\u70ba\u96f6\u3002','This dataset publishes only the five clauses with the most appeals for each period. A clause absent from the Top 5 does not mean it received zero appeals.')}</p></section>
- <div className="tabs sub-tabs">{nav.map(([key,zh,en])=><button key={key} className={view===key?'active':''} onClick={()=>setView(key)}>{label(zh,en)}</button>)}</div>
- <section className="filter-panel health-filters"><label>{label('\u8d77\u59cb\u671f\u9593','From')}<select value={from} onChange={e=>setFrom(e.target.value)}><option value="">{label('\u5168\u90e8','All')}</option>{periods.map(p=><option key={p}>{p}</option>)}</select></label><label>{label('\u7d50\u675f\u671f\u9593','To')}<select value={to} onChange={e=>setTo(e.target.value)}><option value="">{label('\u5168\u90e8','All')}</option>{periods.map(p=><option key={p}>{p}</option>)}</select></label><label>{label('\u6392\u540d','Rank')}<select value={rank} onChange={e=>setRank(e.target.value)}><option value="all">{label('\u5168\u90e8','All')}</option>{[1,2,3,4,5].map(n=><option key={n}>{n}</option>)}</select></label><label>{label('\u689d\u6b3e','Clause')}<select value={clause} onChange={e=>setClause(e.target.value)}><option value="all">{label('\u5168\u90e8','All')}</option>{clauses.map(c=><option key={c}>{c}</option>)}</select></label><label className="search-field">{label('\u641c\u5c0b','Search')}<input value={query} onChange={e=>setQuery(e.target.value)} placeholder={label('\u689d\u6b3e\u3001\u8aaa\u660e\u6216\u671f\u9593','Clause, description, or period')}/></label><label><input type="checkbox" checked={valid} onChange={e=>setValid(e.target.checked)}/>{label('\u6709\u6548\u4ef6\u6578','Valid count')}</label><label><input type="checkbox" checked={latestOnly} onChange={e=>setLatestOnly(e.target.checked)}/>{label('\u6700\u65b0\u524d\u4e94\u540d','Latest Top 5')}</label><label><input type="checkbox" checked={persistent} onChange={e=>setPersistent(e.target.checked)}/>{label('\u591a\u6708\u51fa\u73fe','Persistent clause')}</label></section>
- {view==='overview'&&<><section className="summary-grid">{[[label('\u6700\u65b0\u6708\u4efd','Latest month'),formatMonth(latest)],[label('\u516c\u5e03\u524d\u4e94\u540d\u689d\u6b3e\u7533\u8a34\u4ef6\u6578','Appeals across the published top five clauses'),total.toLocaleString()],[label('\u7b2c 1 \u540d\u689d\u6b3e','Latest #1 clause'),first?.clauseCode??'—'],[label('\u7b2c 1 \u540d\u4ef6\u6578','Latest #1 appeal count'),first?.appealCount?.toLocaleString()??'—'],[label('\u4e0d\u91cd\u8907\u689d\u6b3e','Unique clauses'),meta.uniqueClauses],[label('\u591a\u6708\u51fa\u73fe\u689d\u6b3e','Clauses appearing in multiple months'),persistentRows.filter(x=>x.months>1).length],[label('\u6700\u5927\u6708\u589e\u4ef6\u6578','Largest month-over-month increase'),biggest?`${biggest.r.clauseCode} +${biggest.delta}`:'—'],[label('\u6700\u6301\u7e8c\u4e0a\u699c\u689d\u6b3e','Most persistent clause'),most?.clause??'—'],[label('\u8cc7\u6599\u66f4\u65b0\u65e5','Dataset update date'),meta.sourceFileUpdateDate]].map(([k,v])=><article className="metric" key={String(k)}><span>{k}</span><strong>{v}</strong></article>)}</section><section className="panel"><h3>{label('\u52d5\u614b\u6d1e\u5bdf','Insights')}</h3><p>{most&&label(`${most.clause} \u51fa\u73fe\u5728 ${most.months}/${periods.length} \u500b\u6709\u6548\u6708\u4efd\uff0c\u5e73\u5747\u6392\u540d ${most.average.toFixed(1)}\uff0c\u6700\u4f73\u6392\u540d\u7b2c ${most.best} \u540d\u3002`,`${most.clause} appears in ${most.months}/${periods.length} valid months, with average rank ${most.average.toFixed(1)} and best rank #${most.best}.`)}</p><p>{previousRows.length?label(`\u8207\u524d\u4e00\u66c6\u6708\u6bd4\u8f03\uff0c${retained} / 5 \u500b\u689d\u6b3e\u4fdd\u7559\u5728\u524d\u4e94\u540d\u3002`,`${retained} / 5 clauses remained in the Top 5 from the prior calendar month.`):label('\u524d\u4e00\u66c6\u6708\u672a\u767c\u5e03\u8cc7\u6599\uff0c\u4e0d\u9032\u884c\u524d\u671f\u6bd4\u8f03\u3002','The prior calendar month is not published, so no previous-period comparison is shown.')}</p></section></>}
- {view==='latest'&&<section className="panel"><h3>{label('\u6700\u65b0\u516c\u5e03\u524d\u4e94\u540d','Latest published Top 5')} · {formatMonth(latest)}</h3>{latestRows.map(r=>{const p=previous(r,records),m=move(r,records);return <div className="bar-row" key={r.id}><span>#{r.rank} · <strong>{r.clauseCode}</strong><small>{r.clauseDescription}</small></span><div><i style={{width:`${((r.appealCount??0)/Math.max(...latestRows.map(x=>x.appealCount??0),1))*100}%`}}/></div><b>{r.appealCount?.toLocaleString()??'—'}<small>{p?`${label('\u524d\u671f','Prev.')}: #${p.rank} · ${p.appealCount?.toLocaleString()??'—'} · ${m===null?'—':m>0?`↑ ${m}`:m<0?`↓ ${-m}`:'→'}`:label('\u672a\u5217\u5165\u524d\u671f\u524d\u4e94\u540d','Not in published Top 5')}</small></b></div>})}</section>}
- {view==='trends'&&<Trend language={language} rows={rows} periods={periods} clauses={clauses}/>} {view==='ranking'&&<section className="panel table-wrap"><h3>{label('\u6392\u540d\u6b77\u7a0b\uff08\u672a\u4e0a\u699c\u6708\u4efd\u7559\u767d\uff09','Ranking history (unranked months remain blank)')}</h3><table><thead><tr><th>{label('\u689d\u6b3e','Clause')}</th>{periods.map(p=><th key={p}>{p}</th>)}</tr></thead><tbody>{clauses.map(c=><tr key={c}><td>{c}</td>{periods.map(p=><td key={p}>{records.find(r=>r.period===p&&r.clauseCode===c)?.rank??'—'}</td>)}</tr>)}</tbody></table></section>}
- {view==='persistent'&&<section className="panel table-wrap"><h3>{label('\u6301\u7e8c\u4e0a\u699c\u689d\u6b3e','Persistent Top-5 clauses')}</h3><table><thead><tr>{['Clause','Months','Share','Average rank','Best rank','Latest rank','Recorded appeals'].map(x=><th key={x}>{x}</th>)}</tr></thead><tbody>{persistentRows.map(x=><tr key={x.clause}><td>{x.clause}</td><td>{x.months}</td><td>{(x.months/periods.length*100).toFixed(1)}%</td><td>{x.average.toFixed(1)}</td><td>#{x.best}</td><td>{x.latest?`#${x.latest}`:'—'}</td><td>{x.total.toLocaleString()}</td></tr>)}</tbody></table></section>}
- {view==='compare'&&<section className="panel table-wrap"><h3>{label('\u6bcf\u6708\u524d\u4e94\u540d\u7d44\u6210\u8207\u6bd4\u8f03','Monthly Top-5 composition and comparison')}</h3><table><thead><tr><th>{label('\u6708\u4efd','Month')}</th><th>{label('\u524d\u4e94\u540d\u689d\u6b3e','Top 5 clauses')}</th><th>{label('\u524d\u4e94\u540d\u4ef6\u6578','Published top-five appeals')}</th><th>{label('\u524d\u4e94\u540d\u7559\u5b58','Top-5 retention')}</th></tr></thead><tbody>{periods.map(p=>{const current=byPeriod[p]??[],prior=byPeriod[priorPeriod(p)]??[];return <tr key={p}><td>{formatMonth(p)}</td><td>{current.map(r=>r.clauseCode).join(' · ')}</td><td>{current.reduce((s,r)=>s+(r.appealCount??0),0).toLocaleString()}</td><td>{prior.length?`${current.filter(r=>prior.some(x=>x.clauseCode===r.clauseCode)).length} / 5`:'—'}</td></tr>})}</tbody></table></section>}
- {view==='table'&&<section className="panel table-wrap"><div className="filter-panel"><h3>{label('\u8cc7\u6599\u8868','Data Table')}</h3><button onClick={exportCsv}>{label('\u4e0b\u8f09\u7be9\u9078 CSV','Download filtered CSV')}</button></div><table><thead><tr>{['ROC period','Gregorian period (derived)','Rank','Clause','Chinese description','Appeals','Previous rank','Rank movement','Previous count','Appeal change'].map(x=><th key={x}>{x}</th>)}</tr></thead><tbody>{rows.slice(page*10,page*10+10).map(r=>{const p=previous(r,records),m=move(r,records);return <tr key={r.id}><td><details><summary>{r.rocYearMonthRaw}</summary><pre>{JSON.stringify(r.originalValues,null,2)}</pre></details></td><td>{r.period??'—'}</td><td>{r.rank??'—'}</td><td>{r.clauseCode||'—'}</td><td>{r.clauseDescription||'—'}</td><td>{r.appealCount?.toLocaleString()??'—'}</td><td>{p?.rank??label('\u672a\u5217\u5165\u524d\u4e94\u540d','Not in Top 5')}</td><td>{m===null?'—':m>0?`↑ ${m}`:m<0?`↓ ${-m}`:'→'}</td><td>{p?.appealCount?.toLocaleString()??'—'}</td><td>{p?.appealCount!==null&&p?.appealCount!==undefined&&r.appealCount!==null?`${r.appealCount-p.appealCount}${p.appealCount>0?` (${((r.appealCount/p.appealCount-1)*100).toFixed(1)}%)`:''}`:'—'}</td></tr>})}</tbody></table><div className="filter-panel"><button disabled={!page} onClick={()=>setPage(page-1)}>{label('\u4e0a\u4e00\u9801','Previous')}</button><span>{page+1} / {Math.max(1,Math.ceil(rows.length/10))}</span><button disabled={(page+1)*10>=rows.length} onClick={()=>setPage(page+1)}>{label('\u4e0b\u4e00\u9801','Next')}</button></div></section>}
- {view==='quality'&&<section className="panel"><h3>{label('\u8cc7\u6599\u54c1\u8cea','Data Quality')}</h3><ul>{Object.entries(meta.dataQuality).map(([k,v])=><li key={k}>{k}: <strong>{v}</strong></li>)}</ul><p>{meta.monthlyCompleteness.map(x=>`${x.period}: ${x.validRankedRows}/5`).join(' · ')}</p></section>}
- {view==='notes'&&<section className="panel"><h3>{label('\u8cc7\u6599\u8aaa\u660e\u8207\u9650\u5236','Data notes and limitations')}</h3><p>{label('\u672c\u8cc7\u6599\u662f\u4ea4\u901a\u4e8b\u4ef6\u88c1\u6c7a\u6240\u516c\u5e03\u7684\u7533\u8a34\u63d0\u4ea4\u7d71\u8a08\uff0c\u4e0d\u4ee3\u8868\u7533\u8a34\u6210\u529f\u3001\u7f70\u55ae\u932f\u8aa4\u3001\u57f7\u6cd5\u4e0d\u7576\u6216\u6cd5\u5f8b\u7d50\u8ad6\u3002','Counts are submitted-appeal statistics; they do not establish successful appeals, incorrect tickets, improper enforcement, or legal outcomes.')}</p><p>{label('\u672a\u5217\u5165\u524d\u4e94\u540d\u4e0d\u4ee3\u8868\u96f6\u4ef6\uff1b\u672c\u6a21\u7d44\u4e0d\u4f30\u8a08\u5168\u5e02\u7533\u8a34\u7e3d\u6578\u3001\u6210\u529f\u7387\u6216\u5b8c\u6574\u5206\u5e03\uff0c\u4e5f\u4e0d\u63d0\u4f9b\u6cd5\u5f8b\u5efa\u8b70\u3002','Not in Top 5 is not zero. This module does not estimate citywide totals, success rates, complete distributions, or provide legal advice.')}</p><a href="https://data.taipei/dataset/detail?id=da715207-29e8-4b8d-b680-7fc120211512" target="_blank" rel="noreferrer">{label('\u5b98\u65b9\u8cc7\u6599\u4f86\u6e90','Official source')}</a> · {label('\u6a94\u6848\u66f4\u65b0\u65e5','File update')}: {meta.sourceFileUpdateDate}</section>}</main>
+type Metadata = {
+  latestPeriod: string | null;
+  validMonths: string[];
+  uniqueClauses: number;
+  recordCount: number;
+  sourceFileUpdateDate: string;
+  metadataUpdateDate: string;
+  monthlyCompleteness: { period: string; validRankedRows: number; complete: boolean }[];
+  dataQuality: globalThis.Record<string, number>;
+};
+
+const BASE = `${import.meta.env.BASE_URL}data/traffic-violation-appeal-top-clauses/`;
+
+const t = (language: Language, zh: string, en: string) => (language === 'zh' ? zh : en);
+
+const priorPeriod = (period: string) => {
+  const [year, month] = period.split('-').map(Number);
+  return `${month === 1 ? year - 1 : year}-${String(month === 1 ? 12 : month - 1).padStart(2, '0')}`;
+};
+
+const previous = (record: AppealRecord, rows: AppealRecord[]) => (record.period ? rows.find((item) => item.period === priorPeriod(record.period!) && item.clauseCode === record.clauseCode) : undefined);
+const move = (record: AppealRecord, rows: AppealRecord[]) => {
+  const prior = previous(record, rows);
+  return prior?.rank !== null && prior?.rank !== undefined && record.rank !== null ? prior.rank - record.rank : null;
+};
+
+const qualityLabels: Record<string, [string, string]> = {
+  invalidPeriod: ['期間格式異常', 'Invalid period'],
+  missingRank: ['缺少排名', 'Missing rank'],
+  rankOutsideTopFive: ['排名超出前五名', 'Rank outside top five'],
+  missingClauseCode: ['缺少條款代碼', 'Missing clause code'],
+  missingClauseDescription: ['缺少條款中文說明', 'Missing clause description'],
+  malformedCount: ['件數格式異常', 'Malformed count'],
+  negativeCount: ['件數為負值', 'Negative count'],
+  duplicatePeriodClauseRows: ['同期間與條款重複列', 'Duplicate period-clause rows'],
+  duplicateRankWithinMonth: ['同月份排名重複', 'Duplicate ranks within month'],
+  samePeriodRankMultipleClauses: ['同月份同排名對應多條款', 'Same period rank mapped to multiple clauses'],
+  conflictingClauseDescriptions: ['同條款中文說明不一致', 'Conflicting clause descriptions'],
+  monthsFewerThanFive: ['單月少於五筆前五名資料', 'Months with fewer than five rows'],
+  monthsMoreThanFive: ['單月多於五筆前五名資料', 'Months with more than five rows'],
+  unexpectedMonthlyGaps: ['期間中有非預期缺月', 'Unexpected monthly gaps'],
+};
+
+const sourceFieldLabels: Record<string, [string, string]> = {
+  民國年月: ['民國年月', 'ROC period'],
+  排名: ['排名', 'Rank'],
+  條款: ['條款', 'Clause'],
+  條款中文說明: ['條款中文說明', 'Clause description'],
+  件數: ['件數', 'Appeals'],
+};
+
+const columnText = {
+  zh: ['民國年月', '西元期間（推導）', '排名', '條款', '中文說明', '件數', '前期排名', '排名變動', '前期件數', '件數變化'],
+  en: ['ROC period', 'Gregorian period (derived)', 'Rank', 'Clause', 'Chinese description', 'Appeals', 'Previous rank', 'Rank movement', 'Previous count', 'Appeal change'],
+} as const;
+
+const persistentColumnText = {
+  zh: ['條款', '出現月份數', '涵蓋比例', '平均排名', '最佳排名', '最新排名', '累計件數'],
+  en: ['Clause', 'Months', 'Share', 'Average rank', 'Best rank', 'Latest rank', 'Recorded appeals'],
+} as const;
+
+const labelFromMap = (language: Language, key: string, map: Record<string, [string, string]>) => (map[key] ? t(language, ...map[key]) : key);
+const clauseLabel = (record: Pick<AppealRecord, 'clauseCode' | 'clauseDescription'>) => `${record.clauseCode}｜${record.clauseDescription}`;
+
+function SourceFieldList({ language, values }: { language: Language; values: Record<string, string> }) {
+  const entries = Object.entries(values).filter(([, value]) => value);
+  if (!entries.length) {
+    return <p>{t(language, '沒有原始欄位內容。', 'No source fields available.')}</p>;
+  }
+
+  return (
+    <ul>
+      {entries.map(([key, value]) => (
+        <li key={key}>
+          {labelFromMap(language, key, sourceFieldLabels)}
+          {language === 'zh' ? '：' : ': '}
+          {value}
+        </li>
+      ))}
+    </ul>
+  );
 }
-function Trend({language,rows,periods,clauses}:{language:Language;rows:AppealRecord[];periods:string[];clauses:string[]}){const[selected,setSelected]=useState<string[]>(clauses.slice(0,5));const max=Math.max(...rows.filter(r=>selected.includes(r.clauseCode)).map(r=>r.appealCount??0),1);return <section className="panel table-wrap"><h3>{t(language,'\u7533\u8a34\u4ef6\u6578\u8da8\u52e2\uff08\u672a\u5217\u5165\u524d\u4e94\u540d\u70ba\u7121\u8cc7\u6599\uff0c\u4e0d\u662f\u96f6\uff09','Appeal-count trends (not in Top 5 means unavailable, not zero)')}</h3><div className="filter-panel">{clauses.map(c=><label key={c}><input type="checkbox" checked={selected.includes(c)} disabled={!selected.includes(c)&&selected.length>=5} onChange={e=>setSelected(v=>e.target.checked?[...v,c]:v.filter(x=>x!==c))}/>{c}</label>)}</div><svg className="appeal-chart" viewBox="0 0 800 260"><line x1="50" y1="220" x2="770" y2="220" stroke="currentColor"/>{selected.map((c,i)=>{const color=['#0f766e','#2563eb','#b45309','#be123c','#7c3aed'][i];const points=periods.map((p,j)=>{const r=rows.find(x=>x.period===p&&x.clauseCode===c);return r?.appealCount!==null&&r?.appealCount!==undefined?`${50+j*720/Math.max(1,periods.length-1)},${220-r.appealCount/max*185}`:''}).join(' ');return <g key={c}><polyline fill="none" stroke={color} strokeWidth="3" points={points}/><text x="60" y={35+i*18} fill={color}>{c}</text></g>})}</svg></section>}
+
+export default function TrafficViolationAppealTrends({ language }: { language: Language }) {
+  const [records, setRecords] = useState<AppealRecord[]>([]);
+  const [meta, setMeta] = useState<Metadata | null>(null);
+  const [view, setView] = useState('overview');
+  const [from, setFrom] = useState('');
+  const [to, setTo] = useState('');
+  const [rank, setRank] = useState('all');
+  const [clause, setClause] = useState('all');
+  const [query, setQuery] = useState('');
+  const [valid, setValid] = useState(false);
+  const [latestOnly, setLatestOnly] = useState(false);
+  const [persistent, setPersistent] = useState(false);
+  const [page, setPage] = useState(0);
+
+  useEffect(() => {
+    Promise.all([fetch(`${BASE}records.json`).then((response) => response.json()), fetch(`${BASE}metadata.json`).then((response) => response.json())]).then(([items, metadata]) => {
+      setRecords(items);
+      setMeta(metadata);
+    });
+  }, []);
+
+  const periods = useMemo(() => [...new Set(records.filter((record) => record.hasValidPeriod && record.period).map((record) => record.period!))].sort(), [records]);
+  const latest = periods.at(-1) ?? '';
+  const clauses = useMemo(() => [...new Set(records.map((record) => record.clauseCode).filter(Boolean))].sort(), [records]);
+  const clauseDescriptions = useMemo(() => Object.fromEntries(records.map((record) => [record.clauseCode, record.clauseDescription])), [records]);
+  const appearances = useMemo(() => Object.fromEntries(clauses.map((item) => [item, records.filter((record) => record.clauseCode === item && record.hasValidPeriod && record.hasValidRank).length])), [clauses, records]);
+
+  const rows = useMemo(
+    () =>
+      records.filter(
+        (record) =>
+          (!from || (record.period ?? '') >= from) &&
+          (!to || (record.period ?? '') <= to) &&
+          (rank === 'all' || String(record.rank) === rank) &&
+          (clause === 'all' || record.clauseCode === clause) &&
+          (!valid || record.hasValidCount) &&
+          (!latestOnly || record.period === latest) &&
+          (!persistent || (appearances[record.clauseCode] ?? 0) > 1) &&
+          (!query || [record.clauseCode, record.clauseDescription, record.rocYearMonthRaw, record.period].join(' ').toLowerCase().includes(query.toLowerCase())),
+      ),
+    [records, from, to, rank, clause, valid, latestOnly, persistent, query, latest, appearances],
+  );
+
+  const byPeriod = useMemo(
+    () => Object.fromEntries(periods.map((period) => [period, rows.filter((record) => record.period === period && record.hasValidRank).sort((a, b) => (a.rank ?? 9) - (b.rank ?? 9))])),
+    [periods, rows],
+  ) as globalThis.Record<string, AppealRecord[]>;
+
+  const latestRows = byPeriod[latest] ?? [];
+  const total = latestRows.reduce((sum, record) => sum + (record.appealCount ?? 0), 0);
+  const first = latestRows.find((record) => record.rank === 1);
+  const previousRows = byPeriod[priorPeriod(latest)] ?? [];
+
+  const persistentRows = clauses
+    .map((item) => {
+      const list = records.filter((record) => record.clauseCode === item && record.hasValidPeriod && record.hasValidRank);
+      return {
+        clause: item,
+        list,
+        months: list.length,
+        average: list.reduce((sum, record) => sum + (record.rank ?? 0), 0) / Math.max(1, list.length),
+        best: Math.min(...list.map((record) => record.rank ?? 99)),
+        latest: list.find((record) => record.period === latest)?.rank ?? null,
+        total: list.reduce((sum, record) => sum + (record.appealCount ?? 0), 0),
+      };
+    })
+    .filter((item) => item.months)
+    .sort((a, b) => b.months - a.months || a.average - b.average);
+
+  const most = persistentRows[0];
+  const changes = latestRows.flatMap((record) => {
+    const prior = previous(record, records);
+    return prior?.appealCount !== null && prior?.appealCount !== undefined && record.appealCount !== null ? [{ record, delta: record.appealCount - prior.appealCount }] : [];
+  });
+  const biggest = changes.sort((a, b) => b.delta - a.delta)[0];
+  const retained = latestRows.filter((record) => previousRows.some((item) => item.clauseCode === record.clauseCode)).length;
+
+  const label = (zh: string, en: string) => t(language, zh, en);
+  const formatMonth = (period: string) => (period ? `${period}${language === 'zh' ? '（西元推導）' : ' (derived)'}` : '—');
+
+  const nav = [
+    ['overview', '總覽', 'Overview'],
+    ['latest', '最新前五名', 'Latest Top 5'],
+    ['trends', '條款趨勢', 'Clause Trends'],
+    ['ranking', '排名歷程', 'Ranking History'],
+    ['persistent', '持續上榜', 'Persistent Clauses'],
+    ['compare', '每月比較', 'Monthly Comparison'],
+    ['table', '資料表', 'Data Table'],
+    ['quality', '資料品質', 'Data Quality'],
+    ['notes', '資料說明', 'Data Notes'],
+  ];
+
+  const exportCsv = () => {
+    const header = ['ROC period', 'Gregorian period (derived)', 'Rank', 'Clause', 'Chinese description', 'Appeals'];
+    const blob = new Blob(
+      [
+        `\uFEFF${[header, ...rows.map((record) => [record.rocYearMonthRaw, record.period ?? '', record.rank ?? '', record.clauseCode, record.clauseDescription, record.appealCount ?? ''])]
+          .map((row) => row.map((value) => `"${String(value).replaceAll('"', '""')}"`).join(','))
+          .join('\n')}`,
+      ],
+      { type: 'text/csv;charset=utf-8' },
+    );
+    const anchor = document.createElement('a');
+    anchor.href = URL.createObjectURL(blob);
+    anchor.download = 'traffic-violation-appeal-top-clauses.csv';
+    anchor.click();
+    setTimeout(() => URL.revokeObjectURL(anchor.href), 0);
+  };
+
+  if (!meta) {
+    return <main className="status-screen">{label('載入申訴統計中…', 'Loading appeal statistics…')}</main>;
+  }
+
+  return (
+    <main className="overview appeal-trends">
+      <section className="hero">
+        <p className="eyebrow">{label('交通安全 · 裁決與申訴統計', 'Traffic Safety · Adjudication & Appeal Statistics')}</p>
+        <h2>{label('道路交通管理事件申訴條款趨勢', 'Traffic Violation Appeal Trends')}</h2>
+        <p>{label('以每月公布的前五名條款描述申訴提交統計趨勢。', 'Submitted-appeal trends from the five clauses published each month by Taipei City’s Traffic Adjudication Office.')}</p>
+        <p className="notice">{label('每期僅公布申訴件數前五名條款；未列入前五名不代表申訴件數為零。', 'This dataset publishes only the five clauses with the most appeals for each period. A clause absent from the Top 5 does not mean it received zero appeals.')}</p>
+      </section>
+
+      <div className="tabs sub-tabs">
+        {nav.map(([key, zh, en]) => (
+          <button key={key} className={view === key ? 'active' : ''} onClick={() => setView(key)}>
+            {label(zh, en)}
+          </button>
+        ))}
+      </div>
+
+      <section className="filter-panel health-filters">
+        <label>
+          {label('起始期間', 'From')}
+          <select value={from} onChange={(event) => setFrom(event.target.value)}>
+            <option value="">{label('全部', 'All')}</option>
+            {periods.map((period) => (
+              <option key={period}>{period}</option>
+            ))}
+          </select>
+        </label>
+        <label>
+          {label('結束期間', 'To')}
+          <select value={to} onChange={(event) => setTo(event.target.value)}>
+            <option value="">{label('全部', 'All')}</option>
+            {periods.map((period) => (
+              <option key={period}>{period}</option>
+            ))}
+          </select>
+        </label>
+        <label>
+          {label('排名', 'Rank')}
+          <select value={rank} onChange={(event) => setRank(event.target.value)}>
+            <option value="all">{label('全部', 'All')}</option>
+            {[1, 2, 3, 4, 5].map((value) => (
+              <option key={value}>{value}</option>
+            ))}
+          </select>
+        </label>
+        <label>
+          {label('條款', 'Clause')}
+          <select value={clause} onChange={(event) => setClause(event.target.value)}>
+            <option value="all">{label('全部', 'All')}</option>
+            {clauses.map((item) => (
+              <option key={item} value={item}>
+                {clauseLabel({ clauseCode: item, clauseDescription: clauseDescriptions[item] ?? '' })}
+              </option>
+            ))}
+          </select>
+        </label>
+        <label className="search-field">
+          {label('搜尋', 'Search')}
+          <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder={label('條款、說明或期間', 'Clause, description, or period')} />
+        </label>
+        <label>
+          <input type="checkbox" checked={valid} onChange={(event) => setValid(event.target.checked)} />
+          {label('有效件數', 'Valid count')}
+        </label>
+        <label>
+          <input type="checkbox" checked={latestOnly} onChange={(event) => setLatestOnly(event.target.checked)} />
+          {label('最新前五名', 'Latest Top 5')}
+        </label>
+        <label>
+          <input type="checkbox" checked={persistent} onChange={(event) => setPersistent(event.target.checked)} />
+          {label('多月出現', 'Persistent clause')}
+        </label>
+      </section>
+
+      {view === 'overview' && (
+        <>
+          <section className="summary-grid">
+            {[
+              [label('最新月份', 'Latest month'), formatMonth(latest)],
+              [label('公布前五名條款申訴件數', 'Appeals across the published top five clauses'), total.toLocaleString()],
+              [label('第 1 名條款', 'Latest #1 clause'), first?.clauseCode ?? '—'],
+              [label('第 1 名件數', 'Latest #1 appeal count'), first?.appealCount?.toLocaleString() ?? '—'],
+              [label('不重複條款', 'Unique clauses'), meta.uniqueClauses],
+              [label('多月出現條款', 'Clauses appearing in multiple months'), persistentRows.filter((item) => item.months > 1).length],
+              [label('最大月增件數', 'Largest month-over-month increase'), biggest ? `${biggest.record.clauseCode} +${biggest.delta}` : '—'],
+              [label('最持續上榜條款', 'Most persistent clause'), most?.clause ?? '—'],
+              [label('資料更新日', 'Dataset update date'), meta.sourceFileUpdateDate],
+            ].map(([key, value]) => (
+              <article className="metric" key={String(key)}>
+                <span>{key}</span>
+                <strong>{value}</strong>
+              </article>
+            ))}
+          </section>
+          <section className="panel">
+            <h3>{label('動態洞察', 'Insights')}</h3>
+            <p>{most && label(`${most.clause} 出現在 ${most.months}/${periods.length} 個有效月份，平均排名 ${most.average.toFixed(1)}，最佳排名第 ${most.best} 名。`, `${most.clause} appears in ${most.months}/${periods.length} valid months, with average rank ${most.average.toFixed(1)} and best rank #${most.best}.`)}</p>
+            <p>{previousRows.length ? label(`與前一曆月比較，${retained} / 5 個條款保留在前五名。`, `${retained} / 5 clauses remained in the Top 5 from the prior calendar month.`) : label('前一曆月未發布資料，不進行前期比較。', 'The prior calendar month is not published, so no previous-period comparison is shown.')}</p>
+          </section>
+        </>
+      )}
+
+      {view === 'latest' && (
+        <section className="panel">
+          <h3>
+            {label('最新公布前五名', 'Latest published Top 5')} · {formatMonth(latest)}
+          </h3>
+          {latestRows.map((record) => {
+            const prior = previous(record, records);
+            const rankMove = move(record, records);
+            return (
+              <div className="bar-row" key={record.id}>
+                <span>
+                  #{record.rank} · <strong>{record.clauseCode}</strong>
+                  <small>{record.clauseDescription}</small>
+                </span>
+                <div>
+                  <i style={{ width: `${((record.appealCount ?? 0) / Math.max(...latestRows.map((item) => item.appealCount ?? 0), 1)) * 100}%` }} />
+                </div>
+                <b>
+                  {record.appealCount?.toLocaleString() ?? '—'}
+                  <small>{prior ? `${label('前期', 'Prev.')}: #${prior.rank} · ${prior.appealCount?.toLocaleString() ?? '—'} · ${rankMove === null ? '—' : rankMove > 0 ? `↑ ${rankMove}` : rankMove < 0 ? `↓ ${-rankMove}` : '→'}` : label('未列入前期前五名', 'Not in published Top 5')}</small>
+                </b>
+              </div>
+            );
+          })}
+        </section>
+      )}
+
+      {view === 'trends' && <Trend language={language} rows={rows} periods={periods} clauses={clauses} clauseDescriptions={clauseDescriptions} />}
+
+      {view === 'ranking' && (
+        <section className="panel table-wrap">
+          <h3>{label('排名歷程（未上榜月份留白）', 'Ranking history (unranked months remain blank)')}</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>{label('條款', 'Clause')}</th>
+                {periods.map((period) => (
+                  <th key={period}>{period}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {clauses.map((item) => (
+                <tr key={item}>
+                  <td>{clauseLabel({ clauseCode: item, clauseDescription: clauseDescriptions[item] ?? '' })}</td>
+                  {periods.map((period) => (
+                    <td key={period}>{records.find((record) => record.period === period && record.clauseCode === item)?.rank ?? '—'}</td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </section>
+      )}
+
+      {view === 'persistent' && (
+        <section className="panel table-wrap">
+          <h3>{label('持續上榜條款', 'Persistent Top-5 clauses')}</h3>
+          <table>
+            <thead>
+              <tr>
+                {persistentColumnText[language].map((item) => (
+                  <th key={item}>{item}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {persistentRows.map((item) => (
+                <tr key={item.clause}>
+                  <td>{clauseLabel({ clauseCode: item.clause, clauseDescription: clauseDescriptions[item.clause] ?? '' })}</td>
+                  <td>{item.months}</td>
+                  <td>{((item.months / periods.length) * 100).toFixed(1)}%</td>
+                  <td>{item.average.toFixed(1)}</td>
+                  <td>#{item.best}</td>
+                  <td>{item.latest ? `#${item.latest}` : '—'}</td>
+                  <td>{item.total.toLocaleString()}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </section>
+      )}
+
+      {view === 'compare' && (
+        <section className="panel table-wrap">
+          <h3>{label('每月前五名組成與比較', 'Monthly Top-5 composition and comparison')}</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>{label('月份', 'Month')}</th>
+                <th>{label('前五名條款', 'Top 5 clauses')}</th>
+                <th>{label('前五名件數', 'Published top-five appeals')}</th>
+                <th>{label('前五名留存', 'Top-5 retention')}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {periods.map((period) => {
+                const current = byPeriod[period] ?? [];
+                const prior = byPeriod[priorPeriod(period)] ?? [];
+                return (
+                  <tr key={period}>
+                    <td>{formatMonth(period)}</td>
+                    <td>{current.map((record) => clauseLabel(record)).join(' · ')}</td>
+                    <td>{current.reduce((sum, record) => sum + (record.appealCount ?? 0), 0).toLocaleString()}</td>
+                    <td>{prior.length ? `${current.filter((record) => prior.some((item) => item.clauseCode === record.clauseCode)).length} / 5` : '—'}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </section>
+      )}
+
+      {view === 'table' && (
+        <section className="panel table-wrap">
+          <div className="filter-panel">
+            <h3>{label('資料表', 'Data Table')}</h3>
+            <button onClick={exportCsv}>{label('下載篩選 CSV', 'Download filtered CSV')}</button>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                {columnText[language].map((item) => (
+                  <th key={item}>{item}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {rows.slice(page * 10, page * 10 + 10).map((record) => {
+                const prior = previous(record, records);
+                const rankMove = move(record, records);
+                return (
+                  <tr key={record.id}>
+                    <td>
+                      <details>
+                        <summary>{record.rocYearMonthRaw}</summary>
+                        <SourceFieldList language={language} values={record.originalValues} />
+                      </details>
+                    </td>
+                    <td>{record.period ?? '—'}</td>
+                    <td>{record.rank ?? '—'}</td>
+                    <td>{record.clauseCode || '—'}</td>
+                    <td>{record.clauseDescription || '—'}</td>
+                    <td>{record.appealCount?.toLocaleString() ?? '—'}</td>
+                    <td>{prior?.rank ?? label('未列入前五名', 'Not in Top 5')}</td>
+                    <td>{rankMove === null ? '—' : rankMove > 0 ? `↑ ${rankMove}` : rankMove < 0 ? `↓ ${-rankMove}` : '→'}</td>
+                    <td>{prior?.appealCount?.toLocaleString() ?? '—'}</td>
+                    <td>{prior?.appealCount !== null && prior?.appealCount !== undefined && record.appealCount !== null ? `${record.appealCount - prior.appealCount}${prior.appealCount > 0 ? ` (${((record.appealCount / prior.appealCount - 1) * 100).toFixed(1)}%)` : ''}` : '—'}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+          <div className="filter-panel">
+            <button disabled={!page} onClick={() => setPage(page - 1)}>
+              {label('上一頁', 'Previous')}
+            </button>
+            <span>
+              {page + 1} / {Math.max(1, Math.ceil(rows.length / 10))}
+            </span>
+            <button disabled={(page + 1) * 10 >= rows.length} onClick={() => setPage(page + 1)}>
+              {label('下一頁', 'Next')}
+            </button>
+          </div>
+        </section>
+      )}
+
+      {view === 'quality' && (
+        <section className="panel">
+          <h3>{label('資料品質', 'Data Quality')}</h3>
+          <ul>
+            {Object.entries(meta.dataQuality).map(([key, value]) => (
+              <li key={key}>
+                {labelFromMap(language, key, qualityLabels)}: <strong>{value}</strong>
+              </li>
+            ))}
+          </ul>
+          <p>{meta.monthlyCompleteness.map((item) => `${item.period}: ${language === 'zh' ? `有效排名 ${item.validRankedRows}/5` : `${item.validRankedRows}/5 ranked rows`}`).join(' · ')}</p>
+        </section>
+      )}
+
+      {view === 'notes' && (
+        <section className="panel">
+          <h3>{label('資料說明與限制', 'Data notes and limitations')}</h3>
+          <p>{label('本資料是交通事件裁決所公布的申訴提交統計，不代表申訴成功、罰單錯誤、執法不當或法律結論。', 'Counts are submitted-appeal statistics; they do not establish successful appeals, incorrect tickets, improper enforcement, or legal outcomes.')}</p>
+          <p>{label('未列入前五名不代表零件；本模組不估計全市申訴總數、成功率或完整分布，也不提供法律建議。', 'Not in Top 5 is not zero. This module does not estimate citywide totals, success rates, complete distributions, or provide legal advice.')}</p>
+          <a href="https://data.taipei/dataset/detail?id=da715207-29e8-4b8d-b680-7fc120211512" target="_blank" rel="noreferrer">
+            {label('官方資料來源', 'Official source')}
+          </a>{' '}
+          · {label('檔案更新日', 'File update')}: {meta.sourceFileUpdateDate}
+        </section>
+      )}
+    </main>
+  );
+}
+
+function Trend({
+  language,
+  rows,
+  periods,
+  clauses,
+  clauseDescriptions,
+}: {
+  language: Language;
+  rows: AppealRecord[];
+  periods: string[];
+  clauses: string[];
+  clauseDescriptions: Record<string, string>;
+}) {
+  const [selected, setSelected] = useState<string[]>(clauses.slice(0, 5));
+  const max = Math.max(...rows.filter((record) => selected.includes(record.clauseCode)).map((record) => record.appealCount ?? 0), 1);
+
+  return (
+    <section className="panel table-wrap">
+      <h3>{t(language, '申訴件數趨勢（未列入前五名為無資料，不是零）', 'Appeal-count trends (not in Top 5 means unavailable, not zero)')}</h3>
+      <div className="filter-panel">
+        {clauses.map((item) => (
+          <label key={item}>
+            <input type="checkbox" checked={selected.includes(item)} disabled={!selected.includes(item) && selected.length >= 5} onChange={(event) => setSelected((value) => (event.target.checked ? [...value, item] : value.filter((entry) => entry !== item)))} />
+            {`${item}｜${clauseDescriptions[item] ?? ''}`}
+          </label>
+        ))}
+      </div>
+      <svg className="appeal-chart" viewBox="0 0 800 260">
+        <line x1="50" y1="220" x2="770" y2="220" stroke="currentColor" />
+        {selected.map((item, index) => {
+          const color = ['#0f766e', '#2563eb', '#b45309', '#be123c', '#7c3aed'][index];
+          const points = periods
+            .map((period, step) => {
+              const record = rows.find((entry) => entry.period === period && entry.clauseCode === item);
+              return record?.appealCount !== null && record?.appealCount !== undefined ? `${50 + (step * 720) / Math.max(1, periods.length - 1)},${220 - (record.appealCount / max) * 185}` : '';
+            })
+            .join(' ');
+          return (
+            <g key={item}>
+              <polyline fill="none" stroke={color} strokeWidth="3" points={points} />
+              <text x="60" y={35 + index * 18} fill={color}>
+                {item}
+              </text>
+            </g>
+          );
+        })}
+      </svg>
+    </section>
+  );
+}

@@ -1,4 +1,4 @@
-const CACHE_NAME = 'taipei-safety-map-v19';
+const CACHE_NAME = 'taipei-safety-map-v20';
 const cacheUrl = (path) => new URL(path, self.registration.scope).toString();
 const APP_SHELL = [cacheUrl(''), cacheUrl('manifest.webmanifest'), cacheUrl('icons/icon.svg')];
 const DATA_FILES = [
@@ -95,6 +95,7 @@ self.addEventListener('install', (event) => {
     caches
       .open(CACHE_NAME)
       .then((cache) => Promise.allSettled([...APP_SHELL, ...DATA_FILES].map((url) => cache.add(url))))
+      .then(() => self.skipWaiting())
   );
 });
 
@@ -103,10 +104,15 @@ self.addEventListener('activate', (event) => {
     caches
       .keys()
       .then((keys) => Promise.all(keys.filter((key) => key !== CACHE_NAME).map((key) => caches.delete(key))))
+      .then(() => self.clients.claim())
   );
 });
 
 self.addEventListener('fetch', (event) => {
   if (event.request.method !== 'GET') return;
+  if (event.request.mode === 'navigate') {
+    event.respondWith(fetch(event.request).catch(() => caches.match(cacheUrl(''))));
+    return;
+  }
   event.respondWith(caches.match(event.request).then((cached) => cached || fetch(event.request)));
 });

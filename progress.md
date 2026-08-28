@@ -101,3 +101,9 @@ The PWA cache version was bumped to v13 for the two new appeal JSON files. Do no
 - Updated filter-driven dashboard summaries/charts to use the active result set for theft, police CCTV, smart enforcement, towing, fire donations, fire access, fire rescue, flooding, closure records, and domestic-violence views.
 - Added record-driven filters and readable Chinese violation categories to 檢舉交通違規; converted remaining quality views in the targeted health modules from raw JSON/key dumps into label/value lists.
 - Verified: `npm run build`; `npm test` (35 tests).
+
+# 2026-08-28 — Refresh recovery and final Chinese audit
+
+- Service-worker navigation requests are network-first with offline shell fallback, skip waiting, immediate client claim, and cache-bypassed worker updates. This prevents a stale cached HTML shell from referencing deleted deploy assets after refresh.
+- Traffic Appeal and Kindergarten table details and data-quality views now render readable localized field labels instead of raw JSON or metadata keys.
+- Verified production preview renders before and after a full browser refresh; `npm run build`; `npm test` (35 tests).
