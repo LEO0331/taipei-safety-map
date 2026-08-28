@@ -79,3 +79,12 @@ The PWA cache version was bumped to v13 for the two new appeal JSON files. Do no
 - Added the locally sourced Taipei bridge inspection and maintenance converter and analytical dashboard.
 - The official resource has no coordinates, geometry, or reliable existing-project geographic join, so no bridge markers are created.
 - Verified: `npm run data:convert:bridge-inspection-maintenance` (416 records / 415 unique bridges), `npm run build`, and `npm test` (35 tests) all passed.
+
+# 2026-08-28 — Dashboard UX consistency
+
+- Major category buttons now navigate to the category's first module, preventing stale content from the previous category.
+- Completed Traditional Chinese / English UI labels for the reported emergency, medical, fire, traffic, occupational, noise, and welfare modules.
+- Fire Rescue Difficult Areas KPIs and charts now use the same filtered records as its directory.
+- Applied responsive card grids to the antivenom, diabetes-health, and swimming-facility directories; aligned the welfare module with the shared hero/filter/metric/table structure.
+- Confirmed in the rendered dashboard that no customer-facing map API-key message is present and external text-map links do not require an application API key.
+- Verified: `npm run build`; `npm test` (35 tests); browser checks for navigation, language switching, filtered Fire Rescue summaries/charts, responsive directory columns, and absence of an API-key warning.

@@ -87,6 +87,14 @@
       "dependencies": ["feat-001"],
       "status": "done",
       "evidence": "416 official records converted into 415 unique bridges; npm run data:convert:bridge-inspection-maintenance, npm run build, and npm test (35 tests) passed on 2026-08-28."
+    },
+    {
+      "id": "feat-012",
+      "name": "Dashboard interaction and bilingual consistency",
+      "description": "Keep major navigation, module translations, filter-driven summaries, and directory layouts consistent across the customer dashboard.",
+      "dependencies": ["feat-001"],
+      "status": "done",
+      "evidence": "Major categories route to their first child; Fire Rescue KPIs/charts follow filters; named modules render bilingual labels; directory cards are responsive. npm run build and npm test (35 tests) passed, with browser interaction verification on 2026-08-28."
     }
   ]
 }

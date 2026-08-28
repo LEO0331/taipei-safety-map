@@ -1003,7 +1003,7 @@ function App() {
           const activeGroup = groups.find((group) => group.id === activeNavigationGroup) ?? groups[0];
           return <>
             <div className="navigation-groups" role="list" aria-label={language === 'zh' ? '資料分類' : 'Dataset categories'}>
-              {groups.map((group) => <button key={group.id} type="button" aria-pressed={activeGroup.id === group.id} className={activeGroup.id === group.id ? 'active' : ''} onClick={() => setActiveNavigationGroup(group.id)}><span>{group.label}</span><small>{group.description}</small></button>)}
+              {groups.map((group) => <button key={group.id} type="button" aria-pressed={activeGroup.id === group.id} className={activeGroup.id === group.id ? 'active' : ''} onClick={() => { setActiveNavigationGroup(group.id); setActiveTab(group.items[0][0]); }}><span>{group.label}</span><small>{group.description}</small></button>)}
             </div>
             <div className="navigation-modules" aria-label={activeGroup.label}>
               <p>{activeGroup.description}</p>
@@ -1037,7 +1037,7 @@ function App() {
       {activeTab === 'diabetesHealthInstitutions' && <DiabetesHealthInstitutions language={language} />}
       {activeTab === 'smokingCessationProviders' && <SmokingCessationProviders language={language} />}
       {activeTab === 'bridgeInspectionMaintenance' && <BridgeInspectionMaintenance language={language} />}
-      {activeTab === 'disabilityWelfareServices' && <DisabilityWelfareServices />}
+      {activeTab === 'disabilityWelfareServices' && <DisabilityWelfareServices language={language} />}
       {activeTab === 'noiseEnforcement' && <EntertainmentBusinessNoiseRecords records={data.entertainmentBusinessNoiseRecords} language={language} />}
       {activeTab === 'narrowAlleys' && <NarrowAlleyRegistry records={data.narrowAlleyRegistry} language={language} />}
       {activeTab === 'fireSafetyDeclarations' && <FireSafetyInspectionDeclarations records={data.fireSafetyInspectionDeclarations} language={language} />}
@@ -3080,6 +3080,13 @@ function FireRescueDifficultAreas({ data, language }: { data: SafetyDataBundle; 
       (!search.trim() || haystack.includes(search.trim().toLowerCase()))
     );
   });
+  const filteredByDistrict = countBy(filtered.map((record) => record.districtName ?? record.districtCodeNormalized ?? '-'), (value) => value);
+  const filteredByRatingLevel = countBy(filtered.map((record) => record.ratingLevel ?? 'unknown'), (value) => value);
+  const filteredByRecognitionItem = countBy(filtered.map((record) => record.recognitionItemCode ?? 'unknown'), (value) => value);
+  const filteredByRoad = countBy(filtered.flatMap((record) => record.roadName ? [record.roadName] : []), (value) => value);
+  const filteredByPlace = countBy(filtered.flatMap((record) => record.placeName ? [record.placeName] : []), (value) => value);
+  const sortedFilteredDistricts = Object.entries(filteredByDistrict).sort((a, b) => b[1] - a[1]);
+  const sortedFilteredRecognitionItems = Object.entries(filteredByRecognitionItem).sort((a, b) => b[1] - a[1]);
 
   return (
     <main className="overview">
@@ -3097,23 +3104,23 @@ function FireRescueDifficultAreas({ data, language }: { data: SafetyDataBundle; 
       <p>{labels.subtitle}</p>
       <p className="notice">{labels.defaultMapNotice}</p>
       <section className="summary-grid">
-        <Metric label={labels.recordCount} value={summary.totalRecords.toLocaleString()} />
-        <Metric label={labels.districtsCovered} value={summary.districtCount.toLocaleString()} />
-        <Metric label={labels.uniqueAddressCount} value={summary.uniqueAddressCount.toLocaleString()} />
-        <Metric label={labels.uniquePlaceNameCount} value={summary.uniquePlaceNameCount.toLocaleString()} />
-        <Metric label={labels.level1Count} value={(summary.byRatingLevel.find((item) => item.ratingLevelCategory === 'level_1')?.count ?? 0).toLocaleString()} />
-        <Metric label={labels.level2Count} value={(summary.byRatingLevel.find((item) => item.ratingLevelCategory === 'level_2')?.count ?? 0).toLocaleString()} />
-        <Metric label={labels.topDistrict} value={summary.byDistrict[0]?.districtName ?? '-'} />
-        <Metric label={labels.topRecognitionItem} value={summary.byRecognitionItem[0] ? formatFireRescueRecognitionItem(summary.byRecognitionItem[0].recognitionItemCode, language) : '-'} />
-        <Metric label={labels.areaOrRangeCount} value={summary.recordsWithAreaOrRangeAddress.toLocaleString()} />
-        <Metric label={labels.mapLookupCount} value={records.filter((record) => record.googleMapsQuery).length.toLocaleString()} />
+        <Metric label={labels.recordCount} value={filtered.length.toLocaleString()} />
+        <Metric label={labels.districtsCovered} value={new Set(filtered.map((record) => record.districtName).filter(Boolean)).size.toLocaleString()} />
+        <Metric label={labels.uniqueAddressCount} value={new Set(filtered.map((record) => record.address).filter(Boolean)).size.toLocaleString()} />
+        <Metric label={labels.uniquePlaceNameCount} value={new Set(filtered.map((record) => record.placeName).filter(Boolean)).size.toLocaleString()} />
+        <Metric label={labels.level1Count} value={filtered.filter((record) => record.ratingLevelCategory === 'level_1').length.toLocaleString()} />
+        <Metric label={labels.level2Count} value={filtered.filter((record) => record.ratingLevelCategory === 'level_2').length.toLocaleString()} />
+        <Metric label={labels.topDistrict} value={sortedFilteredDistricts[0]?.[0] ?? '-'} />
+        <Metric label={labels.topRecognitionItem} value={sortedFilteredRecognitionItems[0] ? formatFireRescueRecognitionItem(sortedFilteredRecognitionItems[0][0], language) : '-'} />
+        <Metric label={labels.areaOrRangeCount} value={filtered.filter((record) => record.addressLooksLikeAreaOrRange).length.toLocaleString()} />
+        <Metric label={labels.mapLookupCount} value={filtered.filter((record) => record.googleMapsQuery).length.toLocaleString()} />
       </section>
       <section className="chart-grid">
-        <BarChart title={labels.byDistrict} values={Object.fromEntries(summary.byDistrict.map((item) => [item.districtName ?? item.districtCode, item.count]))} />
-        <BarChart title={labels.byRatingLevel} values={Object.fromEntries(summary.byRatingLevel.map((item) => [formatFireRescueRatingLevel(item.ratingLevel, language), item.count]))} />
-        <BarChart title={labels.byRecognitionItem} values={Object.fromEntries(summary.byRecognitionItem.map((item) => [formatFireRescueRecognitionItem(item.recognitionItemCode, language), item.count]))} />
-        <BarChart title={labels.topRoads} values={Object.fromEntries(summary.byRoadName.slice(0, 20).map((item) => [item.roadName, item.count]))} />
-        <BarChart title={labels.topPlaces} values={Object.fromEntries(summary.topPlaceNames.slice(0, 20).map((item) => [item.placeName, item.count]))} />
+        <BarChart title={labels.byDistrict} values={filteredByDistrict} />
+        <BarChart title={labels.byRatingLevel} values={Object.fromEntries(Object.entries(filteredByRatingLevel).map(([name, count]) => [formatFireRescueRatingLevel(name, language), count]))} />
+        <BarChart title={labels.byRecognitionItem} values={Object.fromEntries(Object.entries(filteredByRecognitionItem).map(([name, count]) => [formatFireRescueRecognitionItem(name, language), count]))} />
+        <BarChart title={labels.topRoads} values={Object.fromEntries(Object.entries(filteredByRoad).sort((a, b) => b[1] - a[1]).slice(0, 20))} />
+        <BarChart title={labels.topPlaces} values={Object.fromEntries(Object.entries(filteredByPlace).sort((a, b) => b[1] - a[1]).slice(0, 20))} />
       </section>
       <h2>{labels.directory}</h2>
       <p>{labels.recordCount}: {filtered.length.toLocaleString()}</p>
