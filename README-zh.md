@@ -70,6 +70,16 @@ npm test
 
 資料更新請使用 `package.json` 中各模組的 `data:fetch:*` 及 `data:convert:*` 命令，並在發布前檢查產生的詮釋資料與轉換報告。
 
+## Policy #9 — 橋梁檢測與維護證據查核
+
+於「防災與整備 → 橋梁證據查核（Policy #9）」開啟獨立雙語決策介面，原橋梁目錄保留。A 為 416 筆檢測／維護來源列、415 個來源內分組；B 為 612 筆獨立保存的資產清冊列。保守對帳接受 216 筆本版研究對應，其中 194 筆通過地理文件查核門檻；這不是官方交叉表或結構安全排名。
+
+Mode A 提供文件級別、5／10／全部查核名額、證據缺口優先與平衡行政查核、篩選、實際識別碼比較、來源沿革及安全 JSON／CSV 匯出。Mode B 只接受身分與座標門檻均通過的紀錄；Mode C 不可用。維護缺漏不代表零支出或未維護，公開年度也不能構成確定逾期判定。
+
+政策程式與資料只在進入模組時載入；瀏覽器不呼叫官方資料 API。依序執行 `npm run data:fetch:bridge-policy`、`npm run data:audit:bridge-policy`、`npm run data:build:bridge-policy`、`npm run data:verify:bridge-policy` 及 `./init.sh` 可重現。預設 fetch 僅驗證留存來源；`--refresh` 將新版本放入獨立待審目錄，再明確接受。
+
+詳見[中文決策 MVP](docs/bridge-policy-decision-mvp.zh-TW.md)、[交付與驗證](docs/bridge-policy-delivery.md)、[來源稽核](docs/bridge-policy-source-audit.md)、[身分合約](docs/bridge-policy-identity-contract.md)、[地理證據](docs/bridge-policy-geographic-evidence.md)及[方法與敏感度](docs/bridge-policy-methodology.md)。
+
 ## 專案文件
 
 - [AGENTS.md](AGENTS.md)：編碼代理的啟動、範圍及驗證規則

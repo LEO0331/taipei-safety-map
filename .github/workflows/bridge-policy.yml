@@ -1,0 +1,21 @@
+name: Verify bridge evidence policy
+on:
+  pull_request:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run data:fetch:bridge-policy
+      - run: npm run data:audit:bridge-policy
+      - run: npm run data:build:bridge-policy
+      - run: git diff --exit-code -- public/data/bridge-policy
+      - run: bash ./init.sh

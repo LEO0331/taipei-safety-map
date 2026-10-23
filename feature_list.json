@@ -95,6 +95,16 @@
       "dependencies": ["feat-001"],
       "status": "done",
       "evidence": "Major categories route to their first child; unused Infrastructure navigation removed; filter-driven cards/charts/tables now share the active record set across maps, traffic, fire, flooding, theft, donations, closures, and domestic-violence views; named modules render bilingual labels; Traffic Appeal and Kindergarten table/quality tabs use readable localized field labels. Production refresh was browser-verified. npm run build and npm test (35 tests) passed on 2026-08-28."
+    },
+    {
+      "id": "feat-013",
+      "name": "Policy #9 Bridge Inspection Evidence Review",
+      "description": "Independent bilingual bridge documentation review, conservative asset reconciliation, geographic evidence gates and reproducible scenarios.",
+      "dependencies": [
+        "feat-011"
+      ],
+      "status": "done",
+      "evidence": "2026-10-23: official A/B 416/612 rows; 216 accepted, 5 ambiguous, 18 rejected, 177 unmatched; 194 geographic eligible; tiers 23/393/0. Seven files / 88 tests and init.sh pass; deterministic double rebuild; desktop/mobile/bilingual/map/export QA. See docs/bridge-policy-delivery.md."
     }
   ]
 }

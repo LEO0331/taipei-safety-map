@@ -107,3 +107,14 @@ The PWA cache version was bumped to v13 for the two new appeal JSON files. Do no
 - Service-worker navigation requests are network-first with offline shell fallback, skip waiting, immediate client claim, and cache-bypassed worker updates. This prevents a stale cached HTML shell from referencing deleted deploy assets after refresh.
 - Traffic Appeal and Kindergarten table details and data-quality views now render readable localized field labels instead of raw JSON or metadata keys.
 - Verified production preview renders before and after a full browser refresh; `npm run build`; `npm test` (35 tests).
+
+# 2026-10-23 — Policy #9 bridge evidence review (feat-013)
+
+- Verified latest main 0eb4f7c; baseline init.sh passed (35 tests) after npm ci.
+- Independently acquired official catalogue/source evidence; historical explorer remains unchanged. A 416 source rows / 415 groups; B 612 rows. Explicit Git byte-preservation handles legacy CSV newline normalization without inventing original acquisition provenance.
+- Conservative reconciliation: 216 accepted research associations, 5 ambiguous, 18 rejected, 177 unmatched. Geographic gate: 194 A records; inventory layer 580 bridge reference points. Tiers A/B/C: 23/393/0; structural mode unavailable.
+- Added lazy bilingual dashboard, deterministic 5/10/all scenarios, district balancing, sensitivity, accepted-only inspection map, 20-row pagination, full lineage and JSON/CSV exports.
+- Verified seven files / 88 tests, TypeScript/production build, diff checks, deterministic double rebuild, desktop/mobile Chinese/English, maps, zero-candidate state, actual downloads and explorer retention. Independent review fixes covered malformed quotes and partial endpoint contradictions.
+- Snapshot 3198380697811e454554c9c19a9c16ebf82019e7e07c4b8699099aa4bb74273a; full evidence and limitations in docs/bridge-policy-delivery.md.
+- Remaining: official crosswalk, exact event dates, engineering classifications, interval applicability, administrative polygons and safety metrics remain unavailable. Existing large main-bundle warning remains. Windows Vite dev file watchers may prevent atomic pointer rename; stop dev servers, retain old pointer on failure.
+- Branch codex/bridge-inspection-evidence-policy-9; deliver one PR against main, do not merge.
