@@ -1,0 +1,62 @@
+{
+  "initialSameOriginRequests": 130,
+  "initialPolicyRequests": 0,
+  "entrySameOriginRequests": 4,
+  "entryRequests": [
+    {
+      "path": "/taipei-safety-map/assets/BridgePolicyDashboard-D25UzvLB.css",
+      "status": 200,
+      "bytes": 575,
+      "ms": 4.991699999998673
+    },
+    {
+      "path": "/taipei-safety-map/assets/BridgePolicyDashboard-DzpbzufM.js",
+      "status": 200,
+      "bytes": 11858,
+      "ms": 5.684900000007474
+    },
+    {
+      "path": "/taipei-safety-map/data/bridge-policy/current.json",
+      "status": 200,
+      "bytes": 304,
+      "ms": 2.560799999992014
+    },
+    {
+      "path": "/taipei-safety-map/data/bridge-policy/bridge-policy-v1-07fa55ed35302037aa2fd65713aee6fff3f2c35c65aba05a1cb183d599f3dcf9.json",
+      "status": 200,
+      "bytes": 142354,
+      "ms": 16.106399999989662
+    }
+  ],
+  "measurement": "Local production preview via same-origin HTTP proxy, includes service-worker installation; excludes third-party tile requests; not public-host timing guarantee",
+  "finalEditionFollowup": {
+    "snapshotId": "bridge-policy-v1-3198380697811e454554c9c19a9c16ebf82019e7e07c4b8699099aa4bb74273a",
+    "requests": [
+      {
+        "path": "/taipei-safety-map/assets/BridgePolicyDashboard-BdcXywlg.css",
+        "status": 200,
+        "bytes": 596,
+        "ms": 2.2168000005185604
+      },
+      {
+        "path": "/taipei-safety-map/assets/BridgePolicyDashboard-Ca2tWrcG.js",
+        "status": 200,
+        "bytes": 11860,
+        "ms": 2.5584000004455447
+      },
+      {
+        "path": "/taipei-safety-map/data/bridge-policy/current.json",
+        "status": 200,
+        "bytes": 304,
+        "ms": 1.7967999996617436
+      },
+      {
+        "path": "/taipei-safety-map/data/bridge-policy/bridge-policy-v1-3198380697811e454554c9c19a9c16ebf82019e7e07c4b8699099aa4bb74273a.json",
+        "status": 200,
+        "bytes": 142453,
+        "ms": 31.241799999959767
+      }
+    ],
+    "measurement": "Fresh tab with existing browser cache; four policy requests, official calls absent"
+  }
+}

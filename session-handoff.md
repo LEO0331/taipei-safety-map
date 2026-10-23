@@ -1,3 +1,17 @@
+# Policy #9 handoff — 2026-10-23
+
+Current feature: feat-013, implemented and locally verified; PR delivery pending authentication. Branch: codex/bridge-inspection-evidence-policy-9; base 0eb4f7c. Branch pushed. PR connector returned HTTP 403; app browser is signed out. No PR exists yet. Once user signs in, create exactly one review PR against main using docs/bridge-policy-pr.md; do not merge.
+
+Startup: npm ci then ./init.sh (Git Bash on Windows). Policy source checks: npm run data:fetch:bridge-policy, data:audit:bridge-policy, data:build:bridge-policy, data:verify:bridge-policy. Fetch is offline verification unless --refresh is explicit.
+
+Actual evidence: A 416 rows/415 groups, B 612 rows; accepted/ambiguous/rejected/unmatched 216/5/18/177; geographic 194; tiers 23/393/0. Seven files/88 tests pass. See docs/bridge-policy-delivery.md and docs/bridge-policy-results.json for exact IDs, hashes, browser results and limitations. Preserve historical source editions; policy raw and snapshot files are byte-preserved by .gitattributes.
+
+No structural safety, overdue status, certified bridge count or administrative boundary certification is available. Stop Vite dev watchers before atomic policy rebuilds on Windows if they lock current.json. No new dependencies.
+
+---
+
+Historical handoff retained below:
+
 # Session Handoff
 
 ## Current Objective

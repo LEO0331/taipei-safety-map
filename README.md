@@ -146,6 +146,16 @@ npm test
 
 For data refreshes, use the module-specific `data:fetch:*` and `data:convert:*` commands in `package.json`. Check the generated metadata and conversion reports before publishing.
 
+## Policy #9 — bridge inspection evidence review
+
+Open **Preparedness → Bridge Evidence Review (Policy #9)** for a bilingual documentation-review POC beside the preserved bridge directory. It combines 416 inspection/maintenance rows (415 within-source groups) with 612 independently retained inventory rows. Conservative edition-specific reconciliation accepts 216 associations; 194 pass the geographic documentation gate. These are research associations, not an official crosswalk or a structural-safety ranking.
+
+Mode A offers evidence tiers, 5/10/all investigation slots, evidence-first and district-balanced review, filters, exact-ID sensitivity, candidate lineage and safe JSON/CSV exports. Mode B requires accepted identity and screened official reference coordinates. Mode C remains unavailable. Missing maintenance fields do not mean zero spending or absent maintenance; year-only inspection records do not establish overdue status.
+
+No official API runs in the browser; policy data and UI load only on entry. Reproduce with `npm run data:fetch:bridge-policy`, `npm run data:audit:bridge-policy`, `npm run data:build:bridge-policy`, `npm run data:verify:bridge-policy`, and `./init.sh`. Fetch verifies retained sources by default; `--refresh` stages a separate edition for explicit review/promotion.
+
+See [delivery and verification](docs/bridge-policy-delivery.md), [source audit](docs/bridge-policy-source-audit.md), [identity contract](docs/bridge-policy-identity-contract.md), [geographic evidence](docs/bridge-policy-geographic-evidence.md), [methodology](docs/bridge-policy-methodology.md), and [中文決策 MVP](docs/bridge-policy-decision-mvp.zh-TW.md).
+
 ## Project guidance
 
 - [AGENTS.md](AGENTS.md) — coding-agent startup, scope, and verification rules

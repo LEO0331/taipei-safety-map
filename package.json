@@ -68,8 +68,12 @@
     "data:convert:diabetes-health-institutions": "tsx scripts/convertDiabetesHealthInstitutions.ts",
     "data:geocode:medical-directories": "tsx scripts/geocodeMedicalDirectories.ts",
     "data:approximate:medical-directories": "tsx scripts/approximateMedicalDirectoryCoordinates.ts",
-    "data:convert:smoking-cessation-providers": "tsx scripts/convertSmokingCessationProviders.ts"
-    ,"data:convert:bridge-inspection-maintenance": "tsx scripts/convertBridgeInspectionMaintenance.ts"
+    "data:convert:smoking-cessation-providers": "tsx scripts/convertSmokingCessationProviders.ts",
+    "data:convert:bridge-inspection-maintenance": "tsx scripts/convertBridgeInspectionMaintenance.ts",
+    "data:fetch:bridge-policy": "tsx scripts/fetchBridgePolicySources.ts",
+    "data:audit:bridge-policy": "tsx scripts/auditBridgePolicySources.ts",
+    "data:build:bridge-policy": "tsx scripts/buildBridgePolicySnapshot.ts",
+    "data:verify:bridge-policy": "tsx scripts/verifyBridgePolicy.ts"
   },
   "dependencies": {
     "leaflet": "^1.9.4",
