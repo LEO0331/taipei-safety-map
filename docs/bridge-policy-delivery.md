@@ -1,8 +1,8 @@
 # Policy #9 delivery evidence
 
-Base: `0eb4f7cb65ff7ae15ebeb7717965dfce8ded7873` (latest `origin/main` fetched before edits). Branch: `codex/bridge-inspection-evidence-policy-9`. Exactly one PR against `LEO0331/taipei-safety-map/main`; no auto-merge. Portfolio repository was not changed.
+Base: `0eb4f7cb65ff7ae15ebeb7717965dfce8ded7873` (latest `origin/main` fetched before edits). Branch: `codex/bridge-inspection-evidence-policy-9`, pushed. Implementation and local verification are complete; the required PR is currently blocked by connector permission (HTTP 403) and a signed-out browser. No PR has been created or merged. [Prepared PR and authentication handoff](bridge-policy-pr.md) contains the exact title/description and compare link. Portfolio repository was not changed.
 
-The feature is `feat-013`; older in-progress feature records are preserved. Existing bridge CSV and explorer JSON/metadata retain their established contract. The historical converter was executed again: 416 rows / 415 groups, records unchanged; its timestamp-only metadata change was restored.
+The feature is `feat-013`; its delivery remains in progress until the PR exists, and older in-progress feature records are preserved. Existing bridge CSV and explorer JSON/metadata retain their established contract. The historical converter was executed again: 416 rows / 415 groups, records unchanged; its timestamp-only metadata change was restored.
 
 ## Result and artifacts
 

@@ -118,3 +118,5 @@ The PWA cache version was bumped to v13 for the two new appeal JSON files. Do no
 - Snapshot 3198380697811e454554c9c19a9c16ebf82019e7e07c4b8699099aa4bb74273a; full evidence and limitations in docs/bridge-policy-delivery.md.
 - Remaining: official crosswalk, exact event dates, engineering classifications, interval applicability, administrative polygons and safety metrics remain unavailable. Existing large main-bundle warning remains. Windows Vite dev file watchers may prevent atomic pointer rename; stop dev servers, retain old pointer on failure.
 - Branch codex/bridge-inspection-evidence-policy-9; deliver one PR against main, do not merge.
+
+- Delivery blocker: branch pushed through 687b252, but PR connector returned 403 and app browser is signed out. No PR created. Credential-helper extraction was rejected by automatic approval review and was not executed. Prepared PR title/body: docs/bridge-policy-pr.md. User authentication requested; no code/testing work remains.

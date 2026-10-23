@@ -103,8 +103,8 @@
       "dependencies": [
         "feat-011"
       ],
-      "status": "done",
-      "evidence": "2026-10-23: official A/B 416/612 rows; 216 accepted, 5 ambiguous, 18 rejected, 177 unmatched; 194 geographic eligible; tiers 23/393/0. Seven files / 88 tests and init.sh pass; deterministic double rebuild; desktop/mobile/bilingual/map/export QA. See docs/bridge-policy-delivery.md."
+      "status": "in-progress",
+      "evidence": "2026-10-23: official A/B 416/612 rows; 216 accepted, 5 ambiguous, 18 rejected, 177 unmatched; 194 geographic eligible; tiers 23/393/0. Seven files / 88 tests and init.sh pass; deterministic double rebuild; desktop/mobile/bilingual/map/export QA. Implementation verified and pushed; PR creation blocked by GitHub connector 403 and signed-out browser. See docs/bridge-policy-delivery.md."
     }
   ]
 }

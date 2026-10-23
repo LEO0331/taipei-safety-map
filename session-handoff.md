@@ -1,6 +1,6 @@
 # Policy #9 handoff — 2026-10-23
 
-Current feature: feat-013, complete and locally verified. Branch: codex/bridge-inspection-evidence-policy-9; base 0eb4f7c. Open one review PR against main; do not merge.
+Current feature: feat-013, implemented and locally verified; PR delivery pending authentication. Branch: codex/bridge-inspection-evidence-policy-9; base 0eb4f7c. Branch pushed. PR connector returned HTTP 403; app browser is signed out. No PR exists yet. Once user signs in, create exactly one review PR against main using docs/bridge-policy-pr.md; do not merge.
 
 Startup: npm ci then ./init.sh (Git Bash on Windows). Policy source checks: npm run data:fetch:bridge-policy, data:audit:bridge-policy, data:build:bridge-policy, data:verify:bridge-policy. Fetch is offline verification unless --refresh is explicit.
 
