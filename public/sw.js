@@ -1,4 +1,4 @@
-const CACHE_NAME = 'taipei-safety-map-v20';
+const CACHE_NAME = 'taipei-safety-map-v21';
 const cacheUrl = (path) => new URL(path, self.registration.scope).toString();
 const APP_SHELL = [cacheUrl(''), cacheUrl('manifest.webmanifest'), cacheUrl('icons/icon.svg')];
 const DATA_FILES = [
@@ -110,6 +110,22 @@ self.addEventListener('activate', (event) => {
 
 self.addEventListener('fetch', (event) => {
   if (event.request.method !== 'GET') return;
+  const url = new URL(event.request.url);
+  // Policy payloads are acquired only on module entry, never during install.
+  if (url.origin === self.location.origin && url.pathname.includes('/data/bridge-policy/')) {
+    if (url.pathname.endsWith('/current.json')) {
+      event.respondWith(fetch(event.request, { cache: 'no-cache' }).then(async (response) => {
+        if (response.ok) { const cache = await caches.open(CACHE_NAME); await cache.put(event.request, response.clone()); }
+        return response;
+      }).catch(() => caches.match(event.request)));
+    } else if (/\/bridge-policy-v1-[a-f0-9]{64}\.json$/.test(url.pathname)) {
+      event.respondWith(caches.match(event.request).then(cached => cached || fetch(event.request).then(async (response) => {
+        if (response.ok) { const cache = await caches.open(CACHE_NAME); await cache.put(event.request, response.clone()); }
+        return response;
+      })));
+    }
+    return;
+  }
   if (event.request.mode === 'navigate') {
     event.respondWith(fetch(event.request).catch(() => caches.match(cacheUrl(''))));
     return;

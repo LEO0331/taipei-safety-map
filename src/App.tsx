@@ -1,5 +1,5 @@
 ﻿import L from 'leaflet';
-import { useEffect, useMemo, useState } from 'react';
+import { lazy, Suspense, useEffect, useMemo, useState } from 'react';
 import { CircleMarker, MapContainer, Marker, Polygon, Polyline, Popup, TileLayer, useMap, useMapEvents } from 'react-leaflet';
 import { loadSafetyData } from './lib/loadSafetyData';
 import { loadFireHydrants } from './lib/loadSafetyData';
@@ -40,6 +40,8 @@ import NarrowAlleyRegistry from './NarrowAlleyRegistry';
 import FireSafetyInspectionDeclarations from './FireSafetyInspectionDeclarations';
 import LpgFacilitiesAndGasRetailers from './LpgFacilitiesAndGasRetailers';
 import ElectricalInspectionMaintenanceBusinesses from './ElectricalInspectionMaintenanceBusinesses';
+const BridgePolicyDashboard = lazy(() => import('./BridgePolicyDashboard'));
+const BridgeInspectionMaintenance = lazy(() => import('./BridgeInspectionMaintenance'));
 import type {
   AedLocation,
   AirRaidShelter,
@@ -75,7 +77,7 @@ import type {
   VehicleTowingTopRoadSectionRecord,
 } from './types';
 
-type Tab = 'map' | 'nearby' | 'burglary' | 'bike' | 'motorcycle' | 'streetSnatch' | 'policeCctv' | 'smartTrafficEnforcement' | 'vehicleTowing' | 'doubleParking' | 'reportedViolations' | 'trafficViolationAppeals' | 'kindergartenChildTransportVehicles' | 'soilWaterConservationViolations' | 'alcoholTobaccoBusinessInspections' | 'businessHygieneViolationCases' | 'swimmingBusinessHygieneAssessments' | 'cosmeticsInspectionResults' | 'surgicalMedicalInstitutions' | 'medicalViolationCases' | 'antivenomStockpiles' | 'diabetesHealthInstitutions' | 'smokingCessationProviders' | 'disabilityWelfareServices' | 'noiseEnforcement' | 'narrowAlleys' | 'fireSafetyDeclarations' | 'lpgFacilities' | 'electricalBusinesses' | 'tobaccoControl' | 'domesticViolence' | 'occupationalAccidents' | 'eocActivations' | 'fireDonations' | 'fireRescueAreas' | 'fireAccessRoutes' | 'hikingTrails' | 'flooding' | 'health' | 'disaster' | 'overview' | 'notes';
+type Tab = 'bridgePolicy' | 'bridgeDirectory' | 'map' | 'nearby' | 'burglary' | 'bike' | 'motorcycle' | 'streetSnatch' | 'policeCctv' | 'smartTrafficEnforcement' | 'vehicleTowing' | 'doubleParking' | 'reportedViolations' | 'trafficViolationAppeals' | 'kindergartenChildTransportVehicles' | 'soilWaterConservationViolations' | 'alcoholTobaccoBusinessInspections' | 'businessHygieneViolationCases' | 'swimmingBusinessHygieneAssessments' | 'cosmeticsInspectionResults' | 'surgicalMedicalInstitutions' | 'medicalViolationCases' | 'antivenomStockpiles' | 'diabetesHealthInstitutions' | 'smokingCessationProviders' | 'disabilityWelfareServices' | 'noiseEnforcement' | 'narrowAlleys' | 'fireSafetyDeclarations' | 'lpgFacilities' | 'electricalBusinesses' | 'tobaccoControl' | 'domesticViolence' | 'occupationalAccidents' | 'eocActivations' | 'fireDonations' | 'fireRescueAreas' | 'fireAccessRoutes' | 'hikingTrails' | 'flooding' | 'health' | 'disaster' | 'overview' | 'notes';
 type NavigationGroup = 'explore' | 'preparedness' | 'health' | 'traffic' | 'records';
 type CapacityRange = 'all' | 'under100' | '100-499' | '500-999' | '1000plus';
 type DenseLayer = 'aeds' | 'medical' | 'fireHydrants' | 'airRaidShelters' | 'evacuationGates' | 'cctv';
@@ -954,6 +956,8 @@ function App() {
   const [activeNavigationGroup, setActiveNavigationGroup] = useState<NavigationGroup>('explore');
   const [data, setData] = useState<SafetyDataBundle | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [visited, setVisited] = useState<string[]>([]);
+  useEffect(() => { setVisited(items => items.includes(activeTab) ? items : [...items, activeTab]); }, [activeTab]);
 
   useEffect(() => {
     loadSafetyData().then(setData).catch((loadError: unknown) => {
@@ -993,7 +997,7 @@ function App() {
         {(() => {
           const groups: Array<{ id: NavigationGroup; label: string; description: string; items: Array<[Tab, string]> }> = [
             { id: 'explore', label: language === 'zh' ? '快速探索' : 'Explore', description: language === 'zh' ? '地圖、附近資源與資料概覽' : 'Map, nearby resources, and data overview', items: [['map', t.safetyMap], ['nearby', t.nearbyFacilities], ['overview', t.safetyOverview], ['notes', t.dataNotes]] },
-            { id: 'preparedness', label: language === 'zh' ? '防災與整備' : 'Preparedness', description: language === 'zh' ? '防救、步道、淹水與災害紀錄' : 'Rescue, trails, flooding, and disaster history', items: [['fireRescueAreas', fireRescueAreaLabels[language].shortTitle], ['fireAccessRoutes', fireAccessRouteLabels[language].shortTitle], ['hikingTrails', hikingTrailLabels[language].shortTitle], ['flooding', floodingLabels[language].shortTitle], ['disaster', language === 'zh' ? '停班停課紀錄' : 'Closure Records'], ['eocActivations', language === 'zh' ? '應變中心開設' : 'EOC Activations'], ['narrowAlleys', language === 'zh' ? '狹小巷道清冊' : 'Narrow Alley Registry'], ['soilWaterConservationViolations', language === 'zh' ? '水土保持違規（歷史）' : 'Soil Conservation Violations (Historical)']] },
+            { id: 'preparedness', label: language === 'zh' ? '防災與整備' : 'Preparedness', description: language === 'zh' ? '防救、步道、淹水與災害紀錄' : 'Rescue, trails, flooding, and disaster history', items: [['bridgePolicy', language === 'zh' ? '橋梁證據查核（Policy #9）' : 'Bridge Evidence Review (Policy #9)'], ['bridgeDirectory', language === 'zh' ? '橋梁檢測與維修目錄' : 'Bridge Inspection & Maintenance'], ['fireRescueAreas', fireRescueAreaLabels[language].shortTitle], ['fireAccessRoutes', fireAccessRouteLabels[language].shortTitle], ['hikingTrails', hikingTrailLabels[language].shortTitle], ['flooding', floodingLabels[language].shortTitle], ['disaster', language === 'zh' ? '停班停課紀錄' : 'Closure Records'], ['eocActivations', language === 'zh' ? '應變中心開設' : 'EOC Activations'], ['narrowAlleys', language === 'zh' ? '狹小巷道清冊' : 'Narrow Alley Registry'], ['soilWaterConservationViolations', language === 'zh' ? '水土保持違規（歷史）' : 'Soil Conservation Violations (Historical)']] },
             { id: 'health', label: language === 'zh' ? '健康與設施' : 'Health & facilities', description: language === 'zh' ? '健康、消防、場所與公用設施資料' : 'Health, fire, premises, and public-facility data', items: [['health', t.publicHealth], ['surgicalMedicalInstitutions', language === 'zh' ? '外科醫療機構' : 'Surgical Medical Institutions'], ['antivenomStockpiles', language === 'zh' ? '抗蛇毒血清儲備點' : 'Antivenom Stockpile Locations'], ['diabetesHealthInstitutions', language === 'zh' ? '糖尿病健康促進機構' : 'Diabetes Health Promotion Institutions'], ['medicalViolationCases', language === 'zh' ? '醫療違規裁處' : 'Medical Violation Cases'], ['tobaccoControl', language === 'zh' ? '菸害防制稽查' : 'Tobacco Inspections'], ['businessHygieneViolationCases', language === 'zh' ? '營業衛生違規（歷史）' : 'Business Hygiene Violations (Historical)'], ['swimmingBusinessHygieneAssessments', language === 'zh' ? '游泳業衛生評核' : 'Swimming Hygiene Assessments'], ['cosmeticsInspectionResults', language === 'zh' ? '化粧品抽驗結果' : 'Cosmetics Inspection Results'], ['alcoholTobaccoBusinessInspections', language === 'zh' ? '菸酒業者抽檢' : 'Tobacco & Alcohol Inspections'], ['fireSafetyDeclarations', language === 'zh' ? '消防檢修申報' : 'Fire Safety Declarations'], ['lpgFacilities', language === 'zh' ? '液化石油氣場所' : 'LPG Facilities'], ['electricalBusinesses', language === 'zh' ? '用電設備檢驗維護業' : 'Electrical Inspection Businesses'], ['fireDonations', language === 'zh' ? '消防捐贈實物' : 'Fire Dept Donations']] },
             { id: 'traffic', label: language === 'zh' ? '交通與裁決' : 'Traffic & adjudication', description: language === 'zh' ? '設備、取締、拖吊、檢舉與申訴統計' : 'Equipment, enforcement, towing, reports, and appeals', items: [['policeCctv', language === 'zh' ? '警察局監視器' : 'Police CCTV'], ['smartTrafficEnforcement', smartTrafficLabels[language].shortTitle], ['vehicleTowing', vehicleTowingLabels[language].shortTitle], ['doubleParking', language === 'zh' ? '併排停車取締' : 'Double-Parking Enforcement'], ['reportedViolations', language === 'zh' ? '檢舉交通違規' : 'Reported Traffic Violations'], ['trafficViolationAppeals', language === 'zh' ? '交通申訴趨勢' : 'Traffic Appeal Trends'], ['kindergartenChildTransportVehicles', language === 'zh' ? '幼童專用車（歷史）' : 'Kindergarten Vehicles (Historical)']] },
             { id: 'records', label: language === 'zh' ? '歷史與社區紀錄' : 'Historical records', description: language === 'zh' ? '犯罪、職災、噪音與通報統計' : 'Crime, occupational, noise, and report statistics', items: [['disabilityWelfareServices', language === 'zh' ? '身心障礙福利服務' : 'Disability Welfare Services'], ['burglary', t.burglaryRecords], ['bike', language === 'zh' ? '自行車竊盜' : 'Bicycle Theft'], ['motorcycle', language === 'zh' ? '機車竊盜' : 'Motorcycle Theft'], ['streetSnatch', streetSnatchLabels[language].shortTitle], ['domesticViolence', language === 'zh' ? '家暴通報統計' : 'Domestic Violence Reports'], ['occupationalAccidents', language === 'zh' ? '重大職災' : 'Major Occupational Accidents'], ['noiseEnforcement', language === 'zh' ? '娛樂場所噪音' : 'Entertainment Noise Records']] },
@@ -1011,7 +1015,9 @@ function App() {
         })()}
       </nav>
 
-      {activeTab === 'map' && <SafetyMap data={data} language={language} />}
+      <div hidden={activeTab !== 'map'}><SafetyMap data={data} language={language} /></div>
+      {(activeTab === 'bridgePolicy' || visited.includes('bridgePolicy')) && <div hidden={activeTab !== 'bridgePolicy'}><Suspense fallback={<p>Loading…</p>}><BridgePolicyDashboard language={language} /></Suspense></div>}
+      {(activeTab === 'bridgeDirectory' || visited.includes('bridgeDirectory')) && <div hidden={activeTab !== 'bridgeDirectory'}><Suspense fallback={<p>Loading…</p>}><BridgeInspectionMaintenance language={language} /></Suspense></div>}
       {activeTab === 'nearby' && <SafetyMap data={data} language={language} nearbyMode />}
       {activeTab === 'burglary' && <BurglaryRecords data={data} language={language} />}
       {activeTab === 'bike' && <BicycleTheftRecords data={data} language={language} />}
