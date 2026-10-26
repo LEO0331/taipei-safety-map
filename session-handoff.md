@@ -1,6 +1,6 @@
 # Policy #12 handoff — 2026-10-26
 
-Current feature: feat-014; implemented and locally verified, final PR delivery underway. Branch codex/fire-rescue-access-policy-12; main baseline 0ee4cb1856d7eaa1ecdff99197fe151bc60c10ea. Do not merge automatically.
+Current feature: feat-014; implemented, locally verified and pushed; PR creation blocked by GitHub integration 403 and browser URL-confidence stop. No PR exists. Use docs/fire-rescue-access-policy-pr.md and its manual create link; merge remains the user’s action. Branch codex/fire-rescue-access-policy-12; main baseline 0ee4cb1856d7eaa1ecdff99197fe151bc60c10ea. Do not merge automatically.
 
 Worktree: managed attachment fire-rescue-access-policy-12/taipei-safety-map. Startup: npm ci then ./init.sh (Git Bash on Windows). Run npm run data:fetch:fire-rescue-access-policy (offline), data:audit:fire-rescue-access-policy, data:build:fire-rescue-access-policy and data:verify:fire-rescue-access-policy. No global fetch:data. Raw source and content-addressed JSON bytes must remain preserved.
 

@@ -1,6 +1,6 @@
 # Policy #12 delivery and verification — 2026-10-26
 
-Implementation is complete in one scoped feature, feat-014. Review PR: **pending creation**; target main; no automatic merge. Baseline main was fetched before editing and reconfirmed on 2026-10-26: `0ee4cb1856d7eaa1ecdff99197fe151bc60c10ea`. Branch: `codex/fire-rescue-access-policy-12`. Work remains isolated in the attached managed worktree; the main checkout is preserved.
+Implementation is complete in one scoped feature, feat-014. Review PR: **not created**; GitHub integration returned 403 (Resource not accessible by integration). The branch is pushed. The in-app browser is signed out; native browser control stopped because it could not reliably verify the current URL. No PR submission occurred. Use the [prepared PR title/body](fire-rescue-access-policy-pr.md) and [manual create link](https://github.com/LEO0331/taipei-safety-map/pull/new/codex/fire-rescue-access-policy-12); target main. Human merge only. Baseline main was fetched before editing and reconfirmed on 2026-10-26: `0ee4cb1856d7eaa1ecdff99197fe151bc60c10ea`. Branch: `codex/fire-rescue-access-policy-12`. Work remains isolated in the attached managed worktree; the main checkout is preserved.
 
 ## Verified findings
 
@@ -49,7 +49,10 @@ The main simplifications are evidence gates: no invented geometry, numeric-width
 | git diff --check | Passed | Full branch plus staged artifacts; original HTTP trailing whitespace preserved through scoped attributes |
 | npm run fetch:data | Not executed | Would refresh unrelated public datasets |
 | Separate lint/static analyzer | Not executed | Repository provides no lint script/dependency; TypeScript checks run through build |
-| Remote CI / external bot | Pending PR | No remote approval is claimed before it runs |
+| git push | Passed | Exact requested public repository and scoped branch; no automatic merge |
+| GitHub PR creation | Failed | Integration HTTP 403; no PR was created |
+| Browser PR fallback | Blocked | In-app browser signed out; native browser control stopped on URL-confidence safety check |
+| Remote PR CI / external bot | Not executed | No PR exists; no remote approval is claimed |
 
 Early local attempts failed because sandbox Bash could not start, dependencies were not yet installed, and newly introduced test imports crossed the app/node TypeScript boundary. These were corrected and the required commands rerun successfully. A missing await in the new determinism verifier was corrected; both snapshot and exports now verify. No pre-existing test failure remains. One browser-automation call timed out before completion; the page was recovered and final production checks were repeated with bounded actions, rather than counting the timeout as success.
 
