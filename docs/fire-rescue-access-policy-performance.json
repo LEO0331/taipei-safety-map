@@ -1,0 +1,102 @@
+{
+  "measuredAt": "2026-10-26T08:47:24.680Z",
+  "environment": "Node v24.14.1 win32 x64; local process, not browser render timings",
+  "baseline": {
+    "sha": "0ee4cb1856d7eaa1ecdff99197fe151bc60c10ea",
+    "shellBytesReported": 891000,
+    "shellGzipReported": 241150,
+    "precision": "Vite display kB rounded to 0.01; exact baseline bundle below uses same Node gzipSync as after",
+    "exactBundle": [
+      {
+        "name": "index-Cb2qT6dd.js",
+        "bytes": 891003,
+        "gzip": 239636,
+        "sha256": "dd16e89609afbe69e857afd5d7cb4ecc430a693dba44c5c5184fe160f67f2832"
+      }
+    ]
+  },
+  "bundle": [
+    {
+      "name": "FireRescueAccessPolicyDashboard-73LbyhJa.css",
+      "bytes": 3889,
+      "gzip": 1001
+    },
+    {
+      "name": "FireRescueAccessPolicyDashboard-DdLmYWcR.js",
+      "bytes": 44965,
+      "gzip": 15461
+    },
+    {
+      "name": "index-BZDxDFqn.js",
+      "bytes": 891824,
+      "gzip": 239823
+    },
+    {
+      "name": "index-CobvvhYW.css",
+      "bytes": 22963,
+      "gzip": 8722
+    }
+  ],
+  "snapshot": {
+    "bytes": 3353150,
+    "gzip": 163305,
+    "sha256": "704b4c9f72a3746b4216aa96a283794c16fc40ae1013a99d9016d96948f6844d"
+  },
+  "scenarioCpu": [
+    {
+      "capacity": 5,
+      "strategy": "evidence-first",
+      "runs": 100,
+      "medianMs": 1.9195999999999458,
+      "p95Ms": 2.6970000000001164
+    },
+    {
+      "capacity": 5,
+      "strategy": "balanced",
+      "runs": 100,
+      "medianMs": 1.9567999999999302,
+      "p95Ms": 2.3145999999999276
+    },
+    {
+      "capacity": 10,
+      "strategy": "evidence-first",
+      "runs": 100,
+      "medianMs": 1.6369999999999436,
+      "p95Ms": 1.9800000000000182
+    },
+    {
+      "capacity": 10,
+      "strategy": "balanced",
+      "runs": 100,
+      "medianMs": 1.827199999999948,
+      "p95Ms": 2.246699999999919
+    },
+    {
+      "capacity": "all",
+      "strategy": "evidence-first",
+      "runs": 100,
+      "medianMs": 1.684900000000198,
+      "p95Ms": 2.233699999999999
+    },
+    {
+      "capacity": "all",
+      "strategy": "balanced",
+      "runs": 100,
+      "medianMs": 1.803899999999885,
+      "p95Ms": 2.052099999999882
+    }
+  ],
+  "allExport": {
+    "rows": 869,
+    "jsonBytes": 361782,
+    "csvBytes": 301305
+  },
+  "processMemory": {
+    "rss": 187666432,
+    "heapTotal": 95625216,
+    "heapUsed": 29237152,
+    "external": 18440085,
+    "arrayBuffers": 16124598
+  },
+  "memoryLimitation": "Node process memory is not browser retained heap; browser evidence records bounded DOM node counts and on-demand pagination separately"
+}

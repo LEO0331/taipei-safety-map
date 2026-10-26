@@ -1,0 +1,45 @@
+.fire-access-policy { --fap-accent: #0e8077; }
+.fire-access-policy .fap-hero { border-top: 4px solid var(--fap-accent); }
+.fire-access-policy .fap-boundary { padding: 1rem; border-inline-start: 4px solid var(--fap-accent); background: color-mix(in srgb, var(--fap-accent) 9%, transparent); }
+.fire-access-policy .fap-metrics { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:1rem; }
+.fire-access-policy .fap-metrics article { border:1px solid var(--border); padding:1rem; border-radius:12px; display:grid; gap:.5rem; }
+.fire-access-policy .fap-metrics strong { font-size:2rem; }
+.fire-access-policy .fap-controls { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:1rem; }
+.fire-access-policy label { display:grid; gap:.4rem; font-size:.9rem; }
+.fire-access-policy select,.fire-access-policy input { width:100%; min-width:0; padding:.65rem; color:inherit; background:var(--panel); border:1px solid var(--border); border-radius:8px; font:inherit; }
+.fire-access-policy .fap-actions { display:flex; align-items:center; flex-wrap:wrap; gap:.6rem; margin:1rem 0; }
+.fire-access-policy .fap-records { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1rem; }
+.fire-access-policy .fap-record { padding:1rem; border:1px solid var(--border); border-radius:10px; }
+.fire-access-policy .fap-selection { margin:1rem 0; }
+.fire-access-policy .fap-scroll { max-width:100%; overflow:auto; }
+.fire-access-policy table { width:100%; border-collapse:collapse; font-size:.9rem; }
+.fire-access-policy td,.fire-access-policy th { padding:.7rem; text-align:start; border-bottom:1px solid var(--border); vertical-align:top; }
+.fire-access-policy caption { text-align:start; margin:.7rem 0; color:var(--muted); }
+.fire-access-policy code,.fire-access-policy pre,.fire-access-policy dd,.fire-access-policy button { overflow-wrap:anywhere; }
+.fire-access-policy pre { white-space:pre-wrap; max-height:32rem; overflow:auto; font-size:.8rem; }
+.fire-access-policy code { font-size:.8rem; }
+.fire-access-policy dt { font-weight:600; margin-top:.7rem; }
+.fire-access-policy dd { margin-inline-start:0; }
+.fire-access-policy .fap-ids { max-height:12rem; overflow:auto; padding-inline-start:1.5rem; }
+.fire-access-policy .fap-audit { padding:.7rem 0; border-bottom:1px solid var(--border); }
+.fire-access-policy .fap-audit button { margin:.4rem; }
+.fire-access-policy .fap-edition { padding:.7rem 0; border-bottom:1px solid var(--border); }
+.fire-access-policy :focus-visible { outline:3px solid var(--fap-accent); outline-offset:3px; }
+.fire-access-policy button:disabled { opacity:.5; cursor:default; }
+@media(max-width:1024px) { .fire-access-policy .fap-controls { grid-template-columns:repeat(2,minmax(0,1fr)); } .fire-access-policy .fap-metrics { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+@media(max-width:600px) { .fire-access-policy .fap-controls,.fire-access-policy .fap-records { grid-template-columns:minmax(0,1fr); } .fire-access-policy .fap-metrics { gap:.5rem; } .fire-access-policy .fap-metrics article { padding:.7rem; } }
+.fire-access-policy { --border:#dce4e2; --panel:#fff; --muted:#536660; display:grid; gap:1.25rem; }
+.fire-access-policy > section { min-width:0; padding:1.25rem; background:var(--panel); border:1px solid var(--border); border-radius:12px; }
+.fire-access-policy h2 { font-size:clamp(1.4rem,2.5vw,2.1rem); line-height:1.4; max-width:54rem; }
+.fire-access-policy h3 { margin-top:0; }
+.fire-access-policy p { line-height:1.7; }
+.fire-access-policy button { padding:.5rem .8rem; }
+.fire-access-policy .fap-hero { background:linear-gradient(125deg,#fff,#edf6f3); }
+.fire-access-policy .fap-detail { border-inline-start:4px solid var(--fap-accent); }
+@media(max-width:600px) { .fire-access-policy > section { padding:1rem; } }
+#fap-review { scroll-margin-top:180px; }
+.fire-access-policy .fap-selections { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1rem; }
+.fire-access-policy .fap-selections .fap-selection { margin:0; min-width:0; }
+.fire-access-policy .fap-selections .fap-records { grid-template-columns:minmax(0,1fr); height:100%; }
+#fap-detail { scroll-margin-top:180px; }
+@media(max-width:600px) { .fire-access-policy .fap-selections { grid-template-columns:minmax(0,1fr); } }

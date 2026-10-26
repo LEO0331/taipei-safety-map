@@ -1,0 +1,116 @@
+{
+  "viewports": [
+    {
+      "documentWidth": 320,
+      "language": "zh",
+      "policyMapCount": 0,
+      "unlabelledControls": 0,
+      "viewport": 320
+    },
+    {
+      "documentWidth": 375,
+      "language": "zh",
+      "policyMapCount": 0,
+      "unlabelledControls": 0,
+      "viewport": 390
+    },
+    {
+      "documentWidth": 753,
+      "language": "zh",
+      "policyMapCount": 0,
+      "unlabelledControls": 0,
+      "viewport": 768
+    },
+    {
+      "documentWidth": 1009,
+      "language": "zh",
+      "policyMapCount": 0,
+      "unlabelledControls": 0,
+      "viewport": 1024
+    },
+    {
+      "documentWidth": 1425,
+      "language": "zh",
+      "policyMapCount": 0,
+      "unlabelledControls": 0,
+      "viewport": 1440
+    },
+    {
+      "documentWidth": 320,
+      "language": "en",
+      "policyMapCount": 0,
+      "unlabelledControls": 0,
+      "viewport": 320
+    },
+    {
+      "documentWidth": 375,
+      "language": "en",
+      "policyMapCount": 0,
+      "unlabelledControls": 0,
+      "viewport": 390
+    },
+    {
+      "documentWidth": 753,
+      "language": "en",
+      "policyMapCount": 0,
+      "unlabelledControls": 0,
+      "viewport": 768
+    },
+    {
+      "documentWidth": 1009,
+      "language": "en",
+      "policyMapCount": 0,
+      "unlabelledControls": 0,
+      "viewport": 1024
+    },
+    {
+      "documentWidth": 1425,
+      "language": "en",
+      "policyMapCount": 0,
+      "unlabelledControls": 0,
+      "viewport": 1440
+    }
+  ],
+  "checks": {
+    "initialPolicyRequests": 0,
+    "retry": true,
+    "languages": [
+      "zh",
+      "en"
+    ],
+    "modes": [
+      "A",
+      "accepted-only-B",
+      "unavailable-C"
+    ],
+    "capacities": [
+      5,
+      10,
+      "all"
+    ],
+    "classificationRedRows": 196,
+    "pagination": 20,
+    "detailFocus": true,
+    "focusRestoration": true,
+    "keyboardOutline": true,
+    "labelledSensitivity": true,
+    "ambiguousAuditPage": 10,
+    "emptyCsvDownload": true,
+    "selectedJsonDownload": true,
+    "theme": "not applicable: existing app has no theme controls",
+    "directNavigation": true,
+    "returnNavigation": true,
+    "policy9Navigation": true
+  },
+  "screenshots": [
+    "fire-rescue-access-policy-desktop.png",
+    "fire-rescue-access-policy-mobile.png"
+  ],
+  "downloads": {
+    "emptyCsvFile": "fire-rescue-access-policy-browser-empty.csv",
+    "selectedJsonFile": "fire-rescue-access-policy-browser-briefing.json",
+    "snapshotHash": "704b4c9f72a3746b4216aa96a283794c16fc40ae1013a99d9016d96948f6844d"
+  },
+  "logs": [],
+  "measuredDate": "2026-10-26"
+}
