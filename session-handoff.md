@@ -1,3 +1,15 @@
+# Policy #12 handoff — 2026-10-26
+
+Current feature: feat-014; implemented and locally verified, final PR delivery underway. Branch codex/fire-rescue-access-policy-12; main baseline 0ee4cb1856d7eaa1ecdff99197fe151bc60c10ea. Do not merge automatically.
+
+Worktree: managed attachment fire-rescue-access-policy-12/taipei-safety-map. Startup: npm ci then ./init.sh (Git Bash on Windows). Run npm run data:fetch:fire-rescue-access-policy (offline), data:audit:fire-rescue-access-policy, data:build:fire-rescue-access-policy and data:verify:fire-rescue-access-policy. No global fetch:data. Raw source and content-addressed JSON bytes must remain preserved.
+
+Actual accepted editions A/B/C 185/273/411; old explorer stays 185/274/446. Mode A 869 rows, tiers 477/392/0. Sole accepted documentary relationship A6/B116 武昌街1段16巷; operational Mode C and geography remain unavailable. Width numeric research is disabled despite contextual PDF metre labels. Source changes and sequence renumbering are not proof of improvements or removals.
+
+134 tests / 10 files, production build, double reproducible rebuild and bilingual five-width browser QA passed. Snapshot a5354b561746336ecd171478dbd2c429c948055780cdda25c1a6c709c6e86524; exact SHA-256 704b4c9f72a3746b4216aa96a283794c16fc40ae1013a99d9016d96948f6844d. See docs/fire-rescue-access-policy-delivery.md, results.json, performance.json and browser-qa.json for evidence. The temporary QA server's first pointer 503 intentionally tested retry without altering accepted files.
+
+---
+
 # Policy #9 handoff — 2026-10-23
 
 Current feature: feat-013, implemented and locally verified; PR delivery pending authentication. Branch: codex/bridge-inspection-evidence-policy-9; base 0eb4f7c. Branch pushed. PR connector returned HTTP 403; app browser is signed out. No PR exists yet. Once user signs in, create exactly one review PR against main using docs/bridge-policy-pr.md; do not merge.

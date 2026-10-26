@@ -1,3 +1,6 @@
 # Retain official source bytes and content-addressed JSON across Windows/Linux.
 data/raw/bridge-policy/** -text whitespace=-blank-at-eol
 public/data/bridge-policy/*.json -text
+
+data/raw/fire-rescue-access-policy/** -text whitespace=-blank-at-eol,-blank-at-eof
+public/data/fire-rescue-access-policy/*.json -text

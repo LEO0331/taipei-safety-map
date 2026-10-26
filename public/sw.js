@@ -112,13 +112,13 @@ self.addEventListener('fetch', (event) => {
   if (event.request.method !== 'GET') return;
   const url = new URL(event.request.url);
   // Policy payloads are acquired only on module entry, never during install.
-  if (url.origin === self.location.origin && url.pathname.includes('/data/bridge-policy/')) {
+  if (url.origin === self.location.origin && (url.pathname.includes('/data/bridge-policy/') || url.pathname.includes('/data/fire-rescue-access-policy/'))) {
     if (url.pathname.endsWith('/current.json')) {
       event.respondWith(fetch(event.request, { cache: 'no-cache' }).then(async (response) => {
         if (response.ok) { const cache = await caches.open(CACHE_NAME); await cache.put(event.request, response.clone()); }
         return response;
       }).catch(() => caches.match(event.request)));
-    } else if (/\/bridge-policy-v1-[a-f0-9]{64}\.json$/.test(url.pathname)) {
+    } else if (/\/(?:bridge-policy|fire-rescue-access-policy)-v1-[a-f0-9]{64}\.json$/.test(url.pathname)) {
       event.respondWith(caches.match(event.request).then(cached => cached || fetch(event.request).then(async (response) => {
         if (response.ok) { const cache = await caches.open(CACHE_NAME); await cache.put(event.request, response.clone()); }
         return response;

@@ -73,7 +73,11 @@
     "data:fetch:bridge-policy": "tsx scripts/fetchBridgePolicySources.ts",
     "data:audit:bridge-policy": "tsx scripts/auditBridgePolicySources.ts",
     "data:build:bridge-policy": "tsx scripts/buildBridgePolicySnapshot.ts",
-    "data:verify:bridge-policy": "tsx scripts/verifyBridgePolicy.ts"
+    "data:verify:bridge-policy": "tsx scripts/verifyBridgePolicy.ts",
+    "data:fetch:fire-rescue-access-policy": "tsx scripts/fetchFireRescueAccessPolicySources.ts",
+    "data:audit:fire-rescue-access-policy": "tsx scripts/auditFireRescueAccessPolicySources.ts",
+    "data:build:fire-rescue-access-policy": "tsx scripts/buildFireRescueAccessPolicySnapshot.ts",
+    "data:verify:fire-rescue-access-policy": "tsx scripts/verifyFireRescueAccessPolicy.ts"
   },
   "dependencies": {
     "leaflet": "^1.9.4",

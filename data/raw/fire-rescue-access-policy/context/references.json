@@ -1,0 +1,72 @@
+[
+  {
+    "key": "alley-context",
+    "url": "https://www.119.gov.taipei/cp.aspx?n=C1778E86611A3CEE",
+    "filename": "data/raw/fire-rescue-access-policy/context/alley-context.html",
+    "sha256": "34ddeb5755c3ae86e2fb6e5c13cb009b459ce417b0b1495eef1685b433ea98ce",
+    "bytes": 139357,
+    "contentType": "text/html; charset=utf-8",
+    "acquiredAt": "2026-10-25T04:40:07.871Z",
+    "status": "context-only-not-admitted-for-row-interpretation-or-geography"
+  },
+  {
+    "key": "improvement-plan",
+    "url": "https://www.119.gov.taipei/cp.aspx?n=F1447C02C95C3A04",
+    "filename": "data/raw/fire-rescue-access-policy/context/improvement-plan.html",
+    "sha256": "4db6e3ee9fd3c0f9abe6fa5cf3fac890741d9f56782a2d6bfec9d52aa6be1d92",
+    "bytes": 137530,
+    "contentType": "text/html; charset=utf-8",
+    "acquiredAt": "2026-10-25T04:40:08.955Z",
+    "status": "context-only-not-admitted-for-row-interpretation-or-geography"
+  },
+  {
+    "key": "route-qa",
+    "url": "https://www.119.gov.taipei/cp.aspx?n=226AD0C4D0209EB5",
+    "filename": "data/raw/fire-rescue-access-policy/context/route-qa.html",
+    "sha256": "ee6a8b9e2d84f7ab7aa911bd53689692abfff991575ab3a0624de8159c15b1b5",
+    "bytes": 135934,
+    "contentType": "text/html; charset=utf-8",
+    "acquiredAt": "2026-10-25T04:40:10.035Z",
+    "status": "context-only-not-admitted-for-row-interpretation-or-geography"
+  },
+  {
+    "key": "route-management",
+    "url": "https://www.119.gov.taipei/cp.aspx?n=7D3E570C7532A588",
+    "filename": "data/raw/fire-rescue-access-policy/context/route-management.html",
+    "sha256": "d92f8f1581a797e80169740202a5a61edcebf0b3d6fd33e4372f8b04ce35f1d8",
+    "bytes": 136243,
+    "contentType": "text/html; charset=utf-8",
+    "acquiredAt": "2026-10-25T04:40:11.105Z",
+    "status": "context-only-not-admitted-for-row-interpretation-or-geography"
+  },
+  {
+    "key": "place-context",
+    "url": "https://www.119.gov.taipei/cp.aspx?n=E4260BBA73F88EC6",
+    "filename": "data/raw/fire-rescue-access-policy/context/place-context.html",
+    "sha256": "dacb8cfbb0ce1a9d66ec1fbd8620aa84b2f6d75192a5e56323c9be5ad7c24c15",
+    "bytes": 139534,
+    "contentType": "text/html; charset=utf-8",
+    "acquiredAt": "2026-10-25T04:40:11.209Z",
+    "status": "context-only-not-admitted-for-row-interpretation-or-geography"
+  },
+  {
+    "key": "district-geography",
+    "url": "https://data.gov.tw/dataset/121199",
+    "filename": "data/raw/fire-rescue-access-policy/context/district-geography.html",
+    "sha256": "3a7b3ce3b43ef85a3fbec05ba5c00d36d92c65e4ae839b56f8b3d1a7690cd88c",
+    "bytes": 528636,
+    "contentType": "text/html;charset=utf-8",
+    "acquiredAt": "2026-10-25T04:40:12.450Z",
+    "status": "context-only-not-admitted-for-row-interpretation-or-geography"
+  },
+  {
+    "key": "license",
+    "url": "https://data.taipei/rule",
+    "filename": "data/raw/fire-rescue-access-policy/context/license.html",
+    "sha256": "32c9d4722f52452a6901efee593bdd658297748b83b1e29386abc8868842fdf3",
+    "bytes": 75793,
+    "contentType": "text/html;charset=utf-8",
+    "acquiredAt": "2026-10-25T04:40:12.593Z",
+    "status": "context-only-not-admitted-for-row-interpretation-or-geography"
+  }
+]

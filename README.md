@@ -162,3 +162,12 @@ See [delivery and verification](docs/bridge-policy-delivery.md), [source audit](
 - [feature_list.json](feature_list.json) — feature state and evidence
 - [session-handoff.md](session-handoff.md) — current restart context
 - [Dashboard decision-support advisory](doc/dashboard-decision-support-and-design.md) — customer and governance recommendations
+## Policy #12 — fire rescue access evidence readiness
+
+Open **Preparedness → Fire Access Evidence Review (Policy #12)**, or use `?view=fire-rescue-access-policy`. Independently retained official A/B/C editions contain **185 fire-access listings, 273 narrow-alley listings and 411 difficult-rescue-place listings**; the established explorer's 185/274/446 editions are preserved. The combined 869 rows are documentary workload, not unique physical roads or places.
+
+Mode A provides reproducible A/B/C documentation tiers, source/district/classification filters, 5/10/all capacities, evidence-first and source/district-balanced review, exact-ID sensitivity, candidate lineage and safe JSON/CSV administrative briefings. Conservative matching admits only one A/B complete-label research relationship (武昌街1段16巷); ambiguous/rejected attempts stay visible. Mode C and geographic evidence remain unavailable. Raw widths and official classifications do not establish current vehicle clearance, fire probability or operational rescue readiness.
+
+Policy UI/data load lazily; the client makes no live Taipei API/geocoder request. Reproduce with `npm run data:fetch:fire-rescue-access-policy` (offline default), `npm run data:audit:fire-rescue-access-policy`, `npm run data:build:fire-rescue-access-policy`, `npm run data:verify:fire-rescue-access-policy`, then `./init.sh`. Explicit `--refresh` stages new original bytes; inspection and explicit promotion are separate. No dependencies added.
+
+See [delivery](docs/fire-rescue-access-policy-delivery.md), [source feasibility](docs/fire-rescue-access-policy-source-feasibility.md), [source custody](docs/fire-rescue-access-policy-source-audit.md), [identity](docs/fire-rescue-access-policy-identity-contract.md), [classification/width](docs/fire-rescue-access-policy-classification-and-width.md), [geography](docs/fire-rescue-access-policy-geographic-evidence.md), [methodology](docs/fire-rescue-access-policy-methodology.md), [real findings](docs/fire-rescue-access-policy-results.json), and [中文決策 MVP](docs/fire-rescue-access-policy-decision-mvp.zh-TW.md).

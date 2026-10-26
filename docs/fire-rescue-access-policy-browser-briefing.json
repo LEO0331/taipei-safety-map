@@ -1,0 +1,162 @@
+{
+  "title": "Administrative Fire Access Evidence Briefing / 消防通道行政證據查核摘要",
+  "policyId": "policy-12",
+  "methodId": "fire-rescue-access-evidence-review-v1",
+  "snapshotId": "fire-rescue-access-policy-v1-a5354b561746336ecd171478dbd2c429c948055780cdda25c1a6c709c6e86524",
+  "exactSnapshotHash": "704b4c9f72a3746b4216aa96a283794c16fc40ae1013a99d9016d96948f6844d",
+  "analysisDate": "2026-10-25",
+  "sourceVersions": [
+    {
+      "key": "A",
+      "datasetId": "7a800e92-eb22-461f-b29d-8def2127a1bc",
+      "resourceId": "351307e4-ffda-4660-ac72-1c4ef3808c38",
+      "sha256": "873c138fbc367b3123412785c2d1492fa7f4b2d1f73b4788f40587ce77145797",
+      "resourceUpdatedAt": "2024-08-01T10:22:27+08:00",
+      "referenceTime": null
+    },
+    {
+      "key": "B",
+      "datasetId": "95c2eed3-8253-4dce-bf8e-1d6a01517514",
+      "resourceId": "cd4ec60e-8d53-48a5-bbf1-9ec1f2afc20b",
+      "sha256": "d1882db87b8d0bc3e27f3bb74ec7c604446becc80d2f0f3e1e90d817e4eccb00",
+      "resourceUpdatedAt": "2026-08-03T09:26:14+08:00",
+      "referenceTime": null
+    },
+    {
+      "key": "C",
+      "datasetId": "0f322478-e09b-46af-8019-caeaa79678d7",
+      "resourceId": "577b3810-49b7-44fd-a5b7-97897bb50f9e",
+      "sha256": "a8ff6929d2f53438e50a94b7d0abbdc983f0300ef54b6e87b82596c349287049",
+      "resourceUpdatedAt": "2026-08-03T09:32:19+08:00",
+      "referenceTime": null
+    }
+  ],
+  "candidateGrain": "published-source-row",
+  "mode": "A",
+  "eligibility": {
+    "source": "all",
+    "issue": "all",
+    "district": "all",
+    "category": "all",
+    "query": ""
+  },
+  "capacity": 5,
+  "strategy": "evidence-first",
+  "eligibleCount": 869,
+  "selectedIds": [
+    "A-873c138fbc367b31-s1-14ef98c124eb-o1",
+    "A-873c138fbc367b31-s10-253ac0e3b7d5-o1",
+    "A-873c138fbc367b31-s100-50472be412f2-o1",
+    "A-873c138fbc367b31-s101-9e3818800fc1-o1",
+    "A-873c138fbc367b31-s102-2bf1009b036d-o1"
+  ],
+  "selectedSourceIds": [
+    "A-873c138fbc367b31-s1-14ef98c124eb-o1",
+    "A-873c138fbc367b31-s10-253ac0e3b7d5-o1",
+    "A-873c138fbc367b31-s100-50472be412f2-o1",
+    "A-873c138fbc367b31-s101-9e3818800fc1-o1",
+    "A-873c138fbc367b31-s102-2bf1009b036d-o1"
+  ],
+  "selectedRelationshipIds": [],
+  "selected": [
+    {
+      "id": "A-873c138fbc367b31-s1-14ef98c124eb-o1",
+      "sourceIds": [
+        "A-873c138fbc367b31-s1-14ef98c124eb-o1"
+      ],
+      "group": "A",
+      "district": "中正區",
+      "tier": "A",
+      "issues": [
+        "unverified-classification-definition",
+        "missing-geographic-evidence",
+        "ambiguous-association"
+      ],
+      "reason": "source-documentation-review"
+    },
+    {
+      "id": "A-873c138fbc367b31-s10-253ac0e3b7d5-o1",
+      "sourceIds": [
+        "A-873c138fbc367b31-s10-253ac0e3b7d5-o1"
+      ],
+      "group": "A",
+      "district": "中正區",
+      "tier": "A",
+      "issues": [
+        "unverified-classification-definition",
+        "missing-geographic-evidence",
+        "ambiguous-association"
+      ],
+      "reason": "source-documentation-review"
+    },
+    {
+      "id": "A-873c138fbc367b31-s100-50472be412f2-o1",
+      "sourceIds": [
+        "A-873c138fbc367b31-s100-50472be412f2-o1"
+      ],
+      "group": "A",
+      "district": "中山區",
+      "tier": "A",
+      "issues": [
+        "unverified-classification-definition",
+        "missing-geographic-evidence",
+        "ambiguous-association"
+      ],
+      "reason": "source-documentation-review"
+    },
+    {
+      "id": "A-873c138fbc367b31-s101-9e3818800fc1-o1",
+      "sourceIds": [
+        "A-873c138fbc367b31-s101-9e3818800fc1-o1"
+      ],
+      "group": "A",
+      "district": "中山區",
+      "tier": "A",
+      "issues": [
+        "unverified-classification-definition",
+        "missing-geographic-evidence",
+        "ambiguous-association"
+      ],
+      "reason": "source-documentation-review"
+    },
+    {
+      "id": "A-873c138fbc367b31-s102-2bf1009b036d-o1",
+      "sourceIds": [
+        "A-873c138fbc367b31-s102-2bf1009b036d-o1"
+      ],
+      "group": "A",
+      "district": "中山區",
+      "tier": "A",
+      "issues": [
+        "unverified-classification-definition",
+        "missing-geographic-evidence",
+        "ambiguous-association"
+      ],
+      "reason": "source-documentation-review"
+    }
+  ],
+  "districts": {
+    "中正區": 2,
+    "中山區": 3
+  },
+  "sources": {
+    "A": 5
+  },
+  "tiers": {
+    "A": 5
+  },
+  "exclusions": {},
+  "relationshipGateExclusions": {},
+  "relationshipGateGrain": "audit pair entries / unmatched left-source rows; separate from source-row filter exclusions",
+  "limitations": [
+    "Documentary evidence readiness is not operational emergency readiness. No current passability, dispatch, response-time or fire-risk conclusion is available.",
+    "Mixed-edition documentary research: A 2024 resource, B/C 2026 resources; effective reference periods and actual survey dates are unknown.",
+    "Published rows are administrative listings, not counts of unique roads, buildings or physical road segments.",
+    "Exact complete-label associations are conservative research correspondence, not official connectivity, overlap, adjacency or a government crosswalk.",
+    "Red/yellow, rating and recognition labels are preserved without hazard weights; contextual official definitions are not an edition-bound coding dictionary.",
+    "Width cells lack units and measurement method in this CSV contract. A separate official PDF uses metres; compatibility remains unproven. Numeric research is disabled; width is never vehicle clearance.",
+    "No compatible source geometry or operational evidence is admitted. District grouping uses published codes, without polygon validation.",
+    "Historical edition count differences and reordered sequence numbers do not establish removals, improvements, closures or a trend.",
+    "Tier A/B/C denotes documentary review only. Balanced selection retains global tier precedence, then source/pair rounds and district rounds in code-point order."
+  ]
+}

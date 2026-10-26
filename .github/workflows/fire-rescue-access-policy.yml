@@ -1,0 +1,23 @@
+name: Verify fire rescue access evidence policy
+on:
+  pull_request:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run data:fetch:fire-rescue-access-policy
+      - run: npm run data:audit:fire-rescue-access-policy
+      - run: npm run data:build:fire-rescue-access-policy
+      - run: npm run data:verify:fire-rescue-access-policy
+      - run: git diff --exit-code -- public/data/fire-rescue-access-policy docs/fire-rescue-access-policy-results.json docs/fire-rescue-access-policy-edition-comparison.json
+      - run: bash ./init.sh
+      - run: git diff --check

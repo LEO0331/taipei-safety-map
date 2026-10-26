@@ -105,6 +105,16 @@
       ],
       "status": "in-progress",
       "evidence": "2026-10-23: official A/B 416/612 rows; 216 accepted, 5 ambiguous, 18 rejected, 177 unmatched; 194 geographic eligible; tiers 23/393/0. Seven files / 88 tests and init.sh pass; deterministic double rebuild; desktop/mobile/bilingual/map/export QA. Implementation verified and pushed; PR creation blocked by GitHub connector 403 and signed-out browser. See docs/bridge-policy-delivery.md."
+    },
+    {
+      "id": "feat-014",
+      "name": "Policy #12 Fire Rescue Access Evidence Review",
+      "description": "Independent source-governed fire access, narrow alley and difficult rescue documentary research; accepted-only associations, immutable scenarios and bilingual dashboard.",
+      "dependencies": [
+        "feat-001"
+      ],
+      "status": "in-progress",
+      "evidence": "2026-10-26: implemented; official A/B/C 185/273/411, one accepted A/B relationship, tiers 477/392/0; 134 tests and production build pass; byte-identical double rebuild; bilingual five-width production/browser/export/retry QA. PR delivery in progress. See docs/fire-rescue-access-policy-delivery.md."
     }
   ]
 }
