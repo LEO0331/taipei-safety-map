@@ -86,3 +86,12 @@ Mode A 提供文件級別、5／10／全部查核名額、證據缺口優先與�
 - [feature_list.json](feature_list.json)：功能狀態與證據
 - [session-handoff.md](session-handoff.md)：目前交接內容
 - [儀表板決策支援建議](doc/dashboard-decision-support-and-design.md)：客戶與資料治理建議
+## Policy #12 — 消防通道與狹小巷道證據查核
+
+於「防災與整備 → 消防通道證據查核（Policy #12）」或 `?view=fire-rescue-access-policy` 開啟獨立雙語模組。本次實際取得 A/B/C 為185／273／411筆；原探索模組185／274／446版保留。合計869筆只是行政文件工作量，不是獨立道路或場所數。
+
+Mode A提供文件級別、5／10／全部查核名額、證據缺口優先與來源／行政區平衡策略、來源分類篩選、實際ID敏感度、沿革與安全JSON/CSV摘要。Mode B僅接受一項完整名稱研究對應：武昌街1段16巷；其他歧義／排除皆保留稽核。Mode C及地理證據尚不可用。來源寬度、紅黃標籤與場所等級不代表目前淨空、火災機率或實際救災能力。
+
+程式及快照只於進入政策模組載入，瀏覽器不呼叫官方API或地理編碼。依序執行 `data:fetch:fire-rescue-access-policy`、`data:audit:fire-rescue-access-policy`、`data:build:fire-rescue-access-policy`、`data:verify:fire-rescue-access-policy` 及 `./init.sh` 可重現；以上資料命令均以 `npm run` 執行。預設fetch離線，明確 `--refresh` 才暫存下載，稽核後再明確接受。沒有新增相依套件。
+
+詳見[中文決策 MVP](docs/fire-rescue-access-policy-decision-mvp.zh-TW.md)、[來源可行性](docs/fire-rescue-access-policy-source-feasibility.md)、[來源稽核](docs/fire-rescue-access-policy-source-audit.md)、[身分合約](docs/fire-rescue-access-policy-identity-contract.md)、[分類與寬度](docs/fire-rescue-access-policy-classification-and-width.md)、[地理證據](docs/fire-rescue-access-policy-geographic-evidence.md)、[方法](docs/fire-rescue-access-policy-methodology.md)、[實際結果](docs/fire-rescue-access-policy-results.json)及[交付驗證](docs/fire-rescue-access-policy-delivery.md)。
