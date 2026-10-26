@@ -1,6 +1,6 @@
 # Policy #12 handoff — 2026-10-26
 
-Current feature: feat-014; implemented, locally verified and pushed; PR creation blocked by GitHub integration 403 and browser URL-confidence stop. No PR exists. Use docs/fire-rescue-access-policy-pr.md and its manual create link; merge remains the user’s action. Branch codex/fire-rescue-access-policy-12; main baseline 0ee4cb1856d7eaa1ecdff99197fe151bc60c10ea. Do not merge automatically.
+Current feature: feat-014 complete; user LEO0331 manually created and merged PR #8 (https://github.com/LEO0331/taipei-safety-map/pull/8) at 2026-10-26 17:08:28 Asia/Taipei. Main merge 4e532d697eafb274530d0a1e524f027903a4c4d1; merged feature head 3cc0200. Both remote verify jobs succeeded. The assistant did not merge. Later status-only documentation commits remain on codex/fire-rescue-access-policy-12 outside PR #8; do not open a second PR automatically.
 
 Worktree: managed attachment fire-rescue-access-policy-12/taipei-safety-map. Startup: npm ci then ./init.sh (Git Bash on Windows). Run npm run data:fetch:fire-rescue-access-policy (offline), data:audit:fire-rescue-access-policy, data:build:fire-rescue-access-policy and data:verify:fire-rescue-access-policy. No global fetch:data. Raw source and content-addressed JSON bytes must remain preserved.
 

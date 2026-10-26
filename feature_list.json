@@ -113,8 +113,8 @@
       "dependencies": [
         "feat-001"
       ],
-      "status": "in-progress",
-      "evidence": "2026-10-26: locally implemented/verified and pushed; official A/B/C 185/273/411, one accepted A/B relationship, tiers 477/392/0; 134 tests and final init.sh pass; byte-identical rebuild and bilingual five-width browser/export/retry QA. PR creation blocked by integration 403 and browser URL-confidence stop; no PR created. Prepared manual PR body/link in docs/fire-rescue-access-policy-pr.md. Human merge only."
+      "status": "done",
+      "evidence": "2026-10-26: implementation delivered in PR #8, manually created/merged by LEO0331; main merge 4e532d6, merged head 3cc0200. Both remote verify checks passed. Official A/B/C 185/273/411; one accepted A/B relationship; tiers 477/392/0. Local 134 tests/final init.sh, exact reproducibility and bilingual five-width production/export/retry QA passed. No assistant merge. Later status-only documentation commits remain on this branch."
     }
   ]
 }

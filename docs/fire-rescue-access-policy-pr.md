@@ -1,8 +1,8 @@
 # Add Fire Rescue Access & Narrow Alley Evidence Decision Support (Policy #12)
 
-Target: main. Head: codex/fire-rescue-access-policy-12. Human review only; do not automatically merge.
+Delivered as [PR #8](https://github.com/LEO0331/taipei-safety-map/pull/8), manually created and merged by LEO0331. This prepared description is retained as historical delivery material; do not create a second PR for this feature.
 
-Create link: https://github.com/LEO0331/taipei-safety-map/pull/new/codex/fire-rescue-access-policy-12
+Both remote verify checks passed on merged head 3cc0200. The assistant did not merge.
 
 ---
 

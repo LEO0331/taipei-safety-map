@@ -1,6 +1,6 @@
 # Policy #12 delivery and verification — 2026-10-26
 
-Implementation is complete in one scoped feature, feat-014. Review PR: **not created**; GitHub integration returned 403 (Resource not accessible by integration). The branch is pushed. The in-app browser is signed out; native browser control stopped because it could not reliably verify the current URL. No PR submission occurred. Use the [prepared PR title/body](fire-rescue-access-policy-pr.md) and [manual create link](https://github.com/LEO0331/taipei-safety-map/pull/new/codex/fire-rescue-access-policy-12); target main. Human merge only. Baseline main was fetched before editing and reconfirmed on 2026-10-26: `0ee4cb1856d7eaa1ecdff99197fe151bc60c10ea`. Branch: `codex/fire-rescue-access-policy-12`. Work remains isolated in the attached managed worktree; the main checkout is preserved.
+Implementation is complete in one scoped feature, feat-014. Review PR: [#8](https://github.com/LEO0331/taipei-safety-map/pull/8), manually created and merged by LEO0331 at 2026-10-26 17:08:28 Asia/Taipei. The assistant did not merge or enable auto-merge. Merged source head: 3cc02007d70aa0a87580bf73cdcc73519c041c42; main merge commit: 4e532d697eafb274530d0a1e524f027903a4c4d1. Both remote verify checks passed. The subsequent status-only documentation commits remain on the feature branch and were not part of the human merge; no second PR is opened. Baseline main was fetched before editing and reconfirmed on 2026-10-26: `0ee4cb1856d7eaa1ecdff99197fe151bc60c10ea`. Branch: `codex/fire-rescue-access-policy-12`. Work remains isolated in the attached managed worktree; the main checkout is preserved.
 
 ## Verified findings
 
@@ -50,9 +50,11 @@ The main simplifications are evidence gates: no invented geometry, numeric-width
 | npm run fetch:data | Not executed | Would refresh unrelated public datasets |
 | Separate lint/static analyzer | Not executed | Repository provides no lint script/dependency; TypeScript checks run through build |
 | git push | Passed | Exact requested public repository and scoped branch; no automatic merge |
-| GitHub PR creation | Failed | Integration HTTP 403; no PR was created |
+| GitHub PR connector creation | Failed | Integration HTTP 403; user subsequently created PR #8 |
+| Human PR delivery | Passed | LEO0331 manually created and merged #8; assistant did not merge |
 | Browser PR fallback | Blocked | In-app browser signed out; native browser control stopped on URL-confidence safety check |
-| Remote PR CI / external bot | Not executed | No PR exists; no remote approval is claimed |
+| Remote PR CI | Passed | Two completed verify checks succeeded on merged head 3cc0200 |
+| External review bot | Not executed | No external bot approval is claimed |
 
 Early local attempts failed because sandbox Bash could not start, dependencies were not yet installed, and newly introduced test imports crossed the app/node TypeScript boundary. These were corrected and the required commands rerun successfully. A missing await in the new determinism verifier was corrected; both snapshot and exports now verify. No pre-existing test failure remains. One browser-automation call timed out before completion; the page was recovered and final production checks were repeated with bounded actions, rather than counting the timeout as success.
 
@@ -89,3 +91,5 @@ No common administrative reference cutoff, edition-bound classification dictiona
 Case Study 012 can demonstrate real source acquisition discrepancies (273/411 rather than cached 274/446), Big5 custody, original-vs-Git hashes, Chinese section/lane identity false positives, the single defensible documentary association, honest same-selection B results, tier/source/district strategy tradeoffs, rejected refresh recovery, immutable reproducibility and accessible bilingual evidence UI. This delivery does not modify a separate portfolio project.
 
 Complete documentation: source-feasibility, source-audit, identity-contract, classification-and-width, geographic-evidence, methodology, decision-mvp.zh-TW, results.json, this delivery record, edition comparison, performance and browser evidence. The review PR is for human assessment only; no automatic merge.
+
+Remote CI evidence: [verify run 40297253994](https://github.com/LEO0331/taipei-safety-map/actions/runs/40297253994) and [verify run 40297253871](https://github.com/LEO0331/taipei-safety-map/actions/runs/40297253871), both success on the merged PR head. Earlier connector/browser delivery blockers were resolved by the user’s manual PR action, not by bypassing access or URL checks.
