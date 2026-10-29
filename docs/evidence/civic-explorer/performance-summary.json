@@ -1,0 +1,78 @@
+{
+  "baseline": "4eb42b08bc2def873ede1231772b756ecca86206",
+  "compression": "Node gzipSync default options, same method before and after; differs slightly from Vite display estimates.",
+  "shell": {
+    "before": {
+      "name": "index-BZDxDFqn.js",
+      "bytes": 891824,
+      "gzip": 239823
+    },
+    "after": {
+      "name": "index-RJq5kzcl.js",
+      "bytes": 894614,
+      "gzip": 241747
+    },
+    "deltaBytes": 2790,
+    "deltaGzip": 1924
+  },
+  "css": {
+    "before": {
+      "name": "index-CobvvhYW.css",
+      "bytes": 22963,
+      "gzip": 8722
+    },
+    "after": {
+      "name": "index-BY-oK_s1.css",
+      "bytes": 23473,
+      "gzip": 8877
+    },
+    "deltaBytes": 510,
+    "deltaGzip": 155
+  },
+  "lazy": [
+    {
+      "name": "CivicExplorer-DGJnkvId.css",
+      "bytes": 5475,
+      "gzip": 1596
+    },
+    {
+      "name": "CivicExplorer-DLeT6nVT.js",
+      "bytes": 5504,
+      "gzip": 2470
+    }
+  ],
+  "loading": [
+    {
+      "width": 1440,
+      "beforeReadyMedianMs": 485.2521000000015,
+      "afterReadyMedianMs": 477.33870000000024,
+      "beforeFilterMedianMs": 22.470400000001973,
+      "afterFilterMedianMs": 36.43069999999989
+    },
+    {
+      "width": 390,
+      "beforeReadyMedianMs": 484.645199999999,
+      "afterReadyMedianMs": 498.3597,
+      "beforeFilterMedianMs": 43.53269999999975,
+      "afterFilterMedianMs": 31.77430000000004
+    }
+  ],
+  "interactionSummary": [
+    {
+      "action": "first Explorer entry including lazy chunk",
+      "medianMs": 368.21520000000237,
+      "maxMs": 383.03960000000006
+    },
+    {
+      "action": "keyboard group selection",
+      "medianMs": 6.703900000000431,
+      "maxMs": 10.056000000000495
+    },
+    {
+      "action": "cross-language search",
+      "medianMs": 7.854000000000269,
+      "maxMs": 9.439699999999903
+    }
+  ],
+  "limitation": "Three local Edge contexts per width, no throttling; external images stubbed and service worker blocked. Automation overhead and machine load affect timings; these samples do not establish real-device or field latency. Explorer requests zero additional dataset JSON; initial map still requests 36 dataset assets. Existing >500kB shell warning remains."
+}

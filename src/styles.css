@@ -35,6 +35,14 @@ input {
   min-height: 100vh;
 }
 
+.topbar-actions { display: flex; flex-wrap: wrap; gap: 8px; flex-shrink: 0; }
+.topbar-actions button { min-height: 44px; padding: 8px 16px; }
+.explorer-entry { color: #153f3b; background: #f5faf8; font-weight: 700; cursor: pointer; }
+.explorer-entry:focus-visible, .explorer-loading button:focus-visible { outline: 3px solid #e78b49; outline-offset: 4px; }
+.explorer-loading { padding: 24px; }
+.explorer-loading button { min-height: 44px; padding: 8px 16px; }
+[data-dashboard][hidden] { display: none; }
+
 .topbar {
   display: flex;
   justify-content: space-between;
@@ -519,7 +527,10 @@ footer {
 @media (max-width: 640px) {
   .topbar {
     min-height: 270px;
+    flex-direction: column;
   }
+
+  .topbar-actions { order: -1; align-self: flex-end; }
 
   .main-navigation {
     padding: 8px 12px 10px;

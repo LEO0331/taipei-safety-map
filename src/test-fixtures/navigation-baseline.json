@@ -1,0 +1,428 @@
+{
+  "zh": [
+    {
+      "id": "explore",
+      "label": "快速探索",
+      "description": "地圖、附近資源與資料概覽",
+      "items": [
+        [
+          "map",
+          "安全地圖"
+        ],
+        [
+          "nearby",
+          "附近設施"
+        ],
+        [
+          "overview",
+          "安全概覽"
+        ],
+        [
+          "notes",
+          "資料說明"
+        ]
+      ]
+    },
+    {
+      "id": "preparedness",
+      "label": "防災與整備",
+      "description": "防救、步道、淹水與災害紀錄",
+      "items": [
+        [
+          "fireRescueAccessPolicy",
+          "消防通道證據查核（Policy #12）"
+        ],
+        [
+          "bridgePolicy",
+          "橋梁證據查核（Policy #9）"
+        ],
+        [
+          "bridgeDirectory",
+          "橋梁檢測與維修目錄"
+        ],
+        [
+          "fireRescueAreas",
+          "搶救困難地區"
+        ],
+        [
+          "fireAccessRoutes",
+          "消防通道"
+        ],
+        [
+          "hikingTrails",
+          "登山步道"
+        ],
+        [
+          "flooding",
+          "歷史積水"
+        ],
+        [
+          "disaster",
+          "停班停課紀錄"
+        ],
+        [
+          "eocActivations",
+          "應變中心開設"
+        ],
+        [
+          "narrowAlleys",
+          "狹小巷道清冊"
+        ],
+        [
+          "soilWaterConservationViolations",
+          "水土保持違規（歷史）"
+        ]
+      ]
+    },
+    {
+      "id": "health",
+      "label": "健康與設施",
+      "description": "健康、消防、場所與公用設施資料",
+      "items": [
+        [
+          "health",
+          "公共衛生"
+        ],
+        [
+          "surgicalMedicalInstitutions",
+          "外科醫療機構"
+        ],
+        [
+          "antivenomStockpiles",
+          "抗蛇毒血清儲備點"
+        ],
+        [
+          "diabetesHealthInstitutions",
+          "糖尿病健康促進機構"
+        ],
+        [
+          "medicalViolationCases",
+          "醫療違規裁處"
+        ],
+        [
+          "tobaccoControl",
+          "菸害防制稽查"
+        ],
+        [
+          "businessHygieneViolationCases",
+          "營業衛生違規（歷史）"
+        ],
+        [
+          "swimmingBusinessHygieneAssessments",
+          "游泳業衛生評核"
+        ],
+        [
+          "cosmeticsInspectionResults",
+          "化粧品抽驗結果"
+        ],
+        [
+          "alcoholTobaccoBusinessInspections",
+          "菸酒業者抽檢"
+        ],
+        [
+          "fireSafetyDeclarations",
+          "消防檢修申報"
+        ],
+        [
+          "lpgFacilities",
+          "液化石油氣場所"
+        ],
+        [
+          "electricalBusinesses",
+          "用電設備檢驗維護業"
+        ],
+        [
+          "fireDonations",
+          "消防捐贈實物"
+        ]
+      ]
+    },
+    {
+      "id": "traffic",
+      "label": "交通與裁決",
+      "description": "設備、取締、拖吊、檢舉與申訴統計",
+      "items": [
+        [
+          "policeCctv",
+          "警察局監視器"
+        ],
+        [
+          "smartTrafficEnforcement",
+          "科技執法設備"
+        ],
+        [
+          "vehicleTowing",
+          "車輛拖吊統計"
+        ],
+        [
+          "doubleParking",
+          "併排停車取締"
+        ],
+        [
+          "reportedViolations",
+          "檢舉交通違規"
+        ],
+        [
+          "trafficViolationAppeals",
+          "交通申訴趨勢"
+        ],
+        [
+          "kindergartenChildTransportVehicles",
+          "幼童專用車（歷史）"
+        ]
+      ]
+    },
+    {
+      "id": "records",
+      "label": "歷史與社區紀錄",
+      "description": "犯罪、職災、噪音與通報統計",
+      "items": [
+        [
+          "disabilityWelfareServices",
+          "身心障礙福利服務"
+        ],
+        [
+          "burglary",
+          "住宅竊盜紀錄"
+        ],
+        [
+          "bike",
+          "自行車竊盜"
+        ],
+        [
+          "motorcycle",
+          "機車竊盜"
+        ],
+        [
+          "streetSnatch",
+          "街頭搶奪案件"
+        ],
+        [
+          "domesticViolence",
+          "家暴通報統計"
+        ],
+        [
+          "occupationalAccidents",
+          "重大職災"
+        ],
+        [
+          "noiseEnforcement",
+          "娛樂場所噪音"
+        ]
+      ]
+    }
+  ],
+  "en": [
+    {
+      "id": "explore",
+      "label": "Explore",
+      "description": "Map, nearby resources, and data overview",
+      "items": [
+        [
+          "map",
+          "Safety Map"
+        ],
+        [
+          "nearby",
+          "Nearby Facilities"
+        ],
+        [
+          "overview",
+          "Safety Overview"
+        ],
+        [
+          "notes",
+          "Data Notes"
+        ]
+      ]
+    },
+    {
+      "id": "preparedness",
+      "label": "Preparedness",
+      "description": "Rescue, trails, flooding, and disaster history",
+      "items": [
+        [
+          "fireRescueAccessPolicy",
+          "Fire Access Evidence Review (Policy #12)"
+        ],
+        [
+          "bridgePolicy",
+          "Bridge Evidence Review (Policy #9)"
+        ],
+        [
+          "bridgeDirectory",
+          "Bridge Inspection & Maintenance"
+        ],
+        [
+          "fireRescueAreas",
+          "Rescue Difficult Areas"
+        ],
+        [
+          "fireAccessRoutes",
+          "Fire Access Routes"
+        ],
+        [
+          "hikingTrails",
+          "Hiking Trails"
+        ],
+        [
+          "flooding",
+          "Historical Flooding"
+        ],
+        [
+          "disaster",
+          "Closure Records"
+        ],
+        [
+          "eocActivations",
+          "EOC Activations"
+        ],
+        [
+          "narrowAlleys",
+          "Narrow Alley Registry"
+        ],
+        [
+          "soilWaterConservationViolations",
+          "Soil Conservation Violations (Historical)"
+        ]
+      ]
+    },
+    {
+      "id": "health",
+      "label": "Health & facilities",
+      "description": "Health, fire, premises, and public-facility data",
+      "items": [
+        [
+          "health",
+          "Public Health"
+        ],
+        [
+          "surgicalMedicalInstitutions",
+          "Surgical Medical Institutions"
+        ],
+        [
+          "antivenomStockpiles",
+          "Antivenom Stockpile Locations"
+        ],
+        [
+          "diabetesHealthInstitutions",
+          "Diabetes Health Promotion Institutions"
+        ],
+        [
+          "medicalViolationCases",
+          "Medical Violation Cases"
+        ],
+        [
+          "tobaccoControl",
+          "Tobacco Inspections"
+        ],
+        [
+          "businessHygieneViolationCases",
+          "Business Hygiene Violations (Historical)"
+        ],
+        [
+          "swimmingBusinessHygieneAssessments",
+          "Swimming Hygiene Assessments"
+        ],
+        [
+          "cosmeticsInspectionResults",
+          "Cosmetics Inspection Results"
+        ],
+        [
+          "alcoholTobaccoBusinessInspections",
+          "Tobacco & Alcohol Inspections"
+        ],
+        [
+          "fireSafetyDeclarations",
+          "Fire Safety Declarations"
+        ],
+        [
+          "lpgFacilities",
+          "LPG Facilities"
+        ],
+        [
+          "electricalBusinesses",
+          "Electrical Inspection Businesses"
+        ],
+        [
+          "fireDonations",
+          "Fire Dept Donations"
+        ]
+      ]
+    },
+    {
+      "id": "traffic",
+      "label": "Traffic & adjudication",
+      "description": "Equipment, enforcement, towing, reports, and appeals",
+      "items": [
+        [
+          "policeCctv",
+          "Police CCTV"
+        ],
+        [
+          "smartTrafficEnforcement",
+          "Traffic Enforcement Equipment"
+        ],
+        [
+          "vehicleTowing",
+          "Vehicle Towing"
+        ],
+        [
+          "doubleParking",
+          "Double-Parking Enforcement"
+        ],
+        [
+          "reportedViolations",
+          "Reported Traffic Violations"
+        ],
+        [
+          "trafficViolationAppeals",
+          "Traffic Appeal Trends"
+        ],
+        [
+          "kindergartenChildTransportVehicles",
+          "Kindergarten Vehicles (Historical)"
+        ]
+      ]
+    },
+    {
+      "id": "records",
+      "label": "Historical records",
+      "description": "Crime, occupational, noise, and report statistics",
+      "items": [
+        [
+          "disabilityWelfareServices",
+          "Disability Welfare Services"
+        ],
+        [
+          "burglary",
+          "Residential Burglary Records"
+        ],
+        [
+          "bike",
+          "Bicycle Theft"
+        ],
+        [
+          "motorcycle",
+          "Motorcycle Theft"
+        ],
+        [
+          "streetSnatch",
+          "Street Snatch Incidents"
+        ],
+        [
+          "domesticViolence",
+          "Domestic Violence Reports"
+        ],
+        [
+          "occupationalAccidents",
+          "Major Occupational Accidents"
+        ],
+        [
+          "noiseEnforcement",
+          "Entertainment Noise Records"
+        ]
+      ]
+    }
+  ]
+}

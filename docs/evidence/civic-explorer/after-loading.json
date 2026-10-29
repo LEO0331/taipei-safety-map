@@ -1,0 +1,71 @@
+{
+  "conditions": "Three fresh contexts per width, local production preview, Edge headless, external images stubbed, service workers blocked, no CPU/network throttling; wall timings include automation overhead.",
+  "samples": [
+    {
+      "width": 1440,
+      "run": 0,
+      "dashboardReadyMs": 523.1044,
+      "filterRoundTripMs": 30.285100000000057,
+      "initialDataRequests": 36,
+      "initialJs": [
+        "index-RJq5kzcl.js"
+      ],
+      "browser": "156.0.4314.50"
+    },
+    {
+      "width": 1440,
+      "run": 1,
+      "dashboardReadyMs": 477.0967999999998,
+      "filterRoundTripMs": 36.43069999999989,
+      "initialDataRequests": 36,
+      "initialJs": [
+        "index-RJq5kzcl.js"
+      ],
+      "browser": "156.0.4314.50"
+    },
+    {
+      "width": 1440,
+      "run": 2,
+      "dashboardReadyMs": 477.33870000000024,
+      "filterRoundTripMs": 39.08970000000045,
+      "initialDataRequests": 36,
+      "initialJs": [
+        "index-RJq5kzcl.js"
+      ],
+      "browser": "156.0.4314.50"
+    },
+    {
+      "width": 390,
+      "run": 0,
+      "dashboardReadyMs": 498.3597,
+      "filterRoundTripMs": 31.097999999999956,
+      "initialDataRequests": 36,
+      "initialJs": [
+        "index-RJq5kzcl.js"
+      ],
+      "browser": "156.0.4314.50"
+    },
+    {
+      "width": 390,
+      "run": 1,
+      "dashboardReadyMs": 501.0583000000006,
+      "filterRoundTripMs": 39.11110000000008,
+      "initialDataRequests": 36,
+      "initialJs": [
+        "index-RJq5kzcl.js"
+      ],
+      "browser": "156.0.4314.50"
+    },
+    {
+      "width": 390,
+      "run": 2,
+      "dashboardReadyMs": 495.2469000000001,
+      "filterRoundTripMs": 31.77430000000004,
+      "initialDataRequests": 36,
+      "initialJs": [
+        "index-RJq5kzcl.js"
+      ],
+      "browser": "156.0.4314.50"
+    }
+  ]
+}

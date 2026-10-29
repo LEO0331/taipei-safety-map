@@ -1,0 +1,9 @@
+{
+  "baseline": "4eb42b08bc2def873ede1231772b756ecca86206",
+  "protectedTrackedFiles": 358,
+  "changedProtectedFiles": [],
+  "mapAndInlineModulesSha256": "5f720a230db9241b0eddaed30844c752cdf9d8ee60144f715e92c8f7c5eded9e",
+  "mapAndInlineModulesUnchanged": true,
+  "noDependencyOrLockfileChanges": true,
+  "scope": "All pre-existing public assets, raw snapshots, ETL/validation scripts, loaders, types, analytical/policy/privacy modules are unchanged. App content from SafetyMap through all inline panels is unchanged after newline normalization. Explorer indexes only catalogue names and tab IDs."
+}

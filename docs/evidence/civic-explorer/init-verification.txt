@@ -1,0 +1,50 @@
+=== Harness Initialization ===
+=== npm run build ===
+
+> taipei-safety-map@0.1.0 build
+> tsc -b && vite build
+
+vite v8.3.5 building client environment for production...
+transforming...
+✓ 210 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                                             0.88 kB │ gzip:   0.58 kB
+dist/assets/BridgePolicyDashboard-BdcXywlg.css              1.67 kB │ gzip:   0.59 kB
+dist/assets/FireRescueAccessPolicyDashboard-73LbyhJa.css    3.88 kB │ gzip:   1.00 kB
+dist/assets/CivicExplorer-DGJnkvId.css                      5.47 kB │ gzip:   1.59 kB
+dist/assets/index-BY-oK_s1.css                             23.47 kB │ gzip:   8.89 kB
+dist/assets/BridgePolicyMap-DU_PH8tA.js                     1.85 kB │ gzip:   1.09 kB
+dist/assets/CivicExplorer-DLeT6nVT.js                       5.50 kB │ gzip:   2.47 kB
+dist/assets/BridgeInspectionMaintenance-CEReCPeD.js        20.40 kB │ gzip:   6.60 kB
+dist/assets/BridgePolicyDashboard-a_FmtunA.js              34.03 kB │ gzip:  11.88 kB
+dist/assets/FireRescueAccessPolicyDashboard-E_XPrlIt.js    44.96 kB │ gzip:  15.50 kB
+dist/assets/index-RJq5kzcl.js                             894.61 kB │ gzip: 243.40 kB
+
+✓ built in 362ms
+[plugin builtin:vite-reporter]
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+=== npm test ===
+
+> taipei-safety-map@0.1.0 test
+> vitest run
+
+
+ RUN  v4.1.12 C:/Users/LeoLi/.codex/worktrees/civic-explorer/taipei-safety-map
+
+
+ Test Files  11 passed (11)
+      Tests  140 passed (140)
+   Start at  20:08:18
+   Duration  727ms (transform 921ms, setup 0ms, import 1.39s, tests 611ms, environment 1ms)
+
+=== Verification Complete ===
+
+Next steps:
+1. Read feature_list.json to see current feature state
+2. Pick ONE unfinished feature to work on
+3. Implement only that feature
+4. Re-run verification before claiming done

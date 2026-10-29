@@ -115,6 +115,16 @@
       ],
       "status": "done",
       "evidence": "2026-10-26: implementation delivered in PR #8, manually created/merged by LEO0331; main merge 4e532d6, merged head 3cc0200. Both remote verify checks passed. Official A/B/C 185/273/411; one accepted A/B relationship; tiers 477/392/0. Local 134 tests/final init.sh, exact reproducibility and bilingual five-width production/export/retry QA passed. No assistant merge. Later status-only documentation commits remain on this branch."
+    },
+    {
+      "id": "feat-015",
+      "name": "Optional Civic Explorer navigation",
+      "description": "Five lightweight 2.5D navigation hubs, bilingual catalogue and search with preserved dashboard state and safety semantics.",
+      "dependencies": [
+        "feat-001"
+      ],
+      "status": "done",
+      "evidence": "2026-10-29: optional lazy five-hub catalogue; 45 destinations, original 44 mappings retained; init.sh passes (140 tests), 151 production browser checks, audit 0, protected scope 358 unchanged files. Desktop/mobile bilingual screenshots, state/focus/privacy/performance evidence in docs/civic-explorer-delivery.md. Manual Draft PR review/merge only."
     }
   ]
 }
