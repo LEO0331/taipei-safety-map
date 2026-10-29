@@ -1,0 +1,756 @@
+{
+  "checks": [
+    {
+      "name": "en/320 default map and lazy optional/policy chunks",
+      "pass": true
+    },
+    {
+      "name": "en/320 complete catalogue, no new data and accessible controls",
+      "pass": true
+    },
+    {
+      "name": "en/320 group selection and reduced motion",
+      "pass": true
+    },
+    {
+      "name": "en/320 cross-language literal search and reset",
+      "pass": true
+    },
+    {
+      "name": "en/320 list fallback and touch selection",
+      "pass": true
+    },
+    {
+      "name": "en/320 return preserves actual Leaflet node, filters, layers and view",
+      "pass": true
+    },
+    {
+      "name": "en/320 actual destination overview",
+      "pass": true
+    },
+    {
+      "name": "en/320 actual destination fireRescueAreas",
+      "pass": true
+    },
+    {
+      "name": "en/320 actual destination health",
+      "pass": true
+    },
+    {
+      "name": "en/320 actual destination vehicleTowing",
+      "pass": true
+    },
+    {
+      "name": "en/320 actual destination bike",
+      "pass": true
+    },
+    {
+      "name": "en/320 selecting other destinations retains map layer and district",
+      "pass": true
+    },
+    {
+      "name": "en/390 default map and lazy optional/policy chunks",
+      "pass": true
+    },
+    {
+      "name": "en/390 complete catalogue, no new data and accessible controls",
+      "pass": true
+    },
+    {
+      "name": "en/390 group selection and reduced motion",
+      "pass": true
+    },
+    {
+      "name": "en/390 cross-language literal search and reset",
+      "pass": true
+    },
+    {
+      "name": "en/390 list fallback and touch selection",
+      "pass": true
+    },
+    {
+      "name": "en/390 return preserves actual Leaflet node, filters, layers and view",
+      "pass": true
+    },
+    {
+      "name": "en/390 actual destination overview",
+      "pass": true
+    },
+    {
+      "name": "en/390 actual destination fireRescueAreas",
+      "pass": true
+    },
+    {
+      "name": "en/390 actual destination health",
+      "pass": true
+    },
+    {
+      "name": "en/390 actual destination vehicleTowing",
+      "pass": true
+    },
+    {
+      "name": "en/390 actual destination bike",
+      "pass": true
+    },
+    {
+      "name": "en/390 selecting other destinations retains map layer and district",
+      "pass": true
+    },
+    {
+      "name": "en/768 default map and lazy optional/policy chunks",
+      "pass": true
+    },
+    {
+      "name": "en/768 complete catalogue, no new data and accessible controls",
+      "pass": true
+    },
+    {
+      "name": "en/768 group selection and reduced motion",
+      "pass": true
+    },
+    {
+      "name": "en/768 cross-language literal search and reset",
+      "pass": true
+    },
+    {
+      "name": "en/768 list fallback and touch selection",
+      "pass": true
+    },
+    {
+      "name": "en/768 return preserves actual Leaflet node, filters, layers and view",
+      "pass": true
+    },
+    {
+      "name": "en/768 actual destination overview",
+      "pass": true
+    },
+    {
+      "name": "en/768 actual destination fireRescueAreas",
+      "pass": true
+    },
+    {
+      "name": "en/768 actual destination health",
+      "pass": true
+    },
+    {
+      "name": "en/768 actual destination vehicleTowing",
+      "pass": true
+    },
+    {
+      "name": "en/768 actual destination bike",
+      "pass": true
+    },
+    {
+      "name": "en/768 selecting other destinations retains map layer and district",
+      "pass": true
+    },
+    {
+      "name": "en/1440 default map and lazy optional/policy chunks",
+      "pass": true
+    },
+    {
+      "name": "en/1440 complete catalogue, no new data and accessible controls",
+      "pass": true
+    },
+    {
+      "name": "en/1440 group selection and reduced motion",
+      "pass": true
+    },
+    {
+      "name": "en/1440 cross-language literal search and reset",
+      "pass": true
+    },
+    {
+      "name": "en/1440 list fallback and touch selection",
+      "pass": true
+    },
+    {
+      "name": "en/1440 return preserves actual Leaflet node, filters, layers and view",
+      "pass": true
+    },
+    {
+      "name": "en/1440 actual destination overview",
+      "pass": true
+    },
+    {
+      "name": "en/1440 actual destination fireRescueAreas",
+      "pass": true
+    },
+    {
+      "name": "en/1440 actual destination health",
+      "pass": true
+    },
+    {
+      "name": "en/1440 actual destination vehicleTowing",
+      "pass": true
+    },
+    {
+      "name": "en/1440 actual destination bike",
+      "pass": true
+    },
+    {
+      "name": "en/1440 selecting other destinations retains map layer and district",
+      "pass": true
+    },
+    {
+      "name": "zh/320 default map and lazy optional/policy chunks",
+      "pass": true
+    },
+    {
+      "name": "zh/320 complete catalogue, no new data and accessible controls",
+      "pass": true
+    },
+    {
+      "name": "zh/320 group selection and reduced motion",
+      "pass": true
+    },
+    {
+      "name": "zh/320 cross-language literal search and reset",
+      "pass": true
+    },
+    {
+      "name": "zh/320 list fallback and touch selection",
+      "pass": true
+    },
+    {
+      "name": "zh/320 return preserves actual Leaflet node, filters, layers and view",
+      "pass": true
+    },
+    {
+      "name": "zh/320 actual destination overview",
+      "pass": true
+    },
+    {
+      "name": "zh/320 actual destination fireRescueAreas",
+      "pass": true
+    },
+    {
+      "name": "zh/320 actual destination health",
+      "pass": true
+    },
+    {
+      "name": "zh/320 actual destination vehicleTowing",
+      "pass": true
+    },
+    {
+      "name": "zh/320 actual destination bike",
+      "pass": true
+    },
+    {
+      "name": "zh/320 selecting other destinations retains map layer and district",
+      "pass": true
+    },
+    {
+      "name": "zh/390 default map and lazy optional/policy chunks",
+      "pass": true
+    },
+    {
+      "name": "zh/390 complete catalogue, no new data and accessible controls",
+      "pass": true
+    },
+    {
+      "name": "zh/390 group selection and reduced motion",
+      "pass": true
+    },
+    {
+      "name": "zh/390 cross-language literal search and reset",
+      "pass": true
+    },
+    {
+      "name": "zh/390 list fallback and touch selection",
+      "pass": true
+    },
+    {
+      "name": "zh/390 return preserves actual Leaflet node, filters, layers and view",
+      "pass": true
+    },
+    {
+      "name": "zh/390 actual destination overview",
+      "pass": true
+    },
+    {
+      "name": "zh/390 actual destination fireRescueAreas",
+      "pass": true
+    },
+    {
+      "name": "zh/390 actual destination health",
+      "pass": true
+    },
+    {
+      "name": "zh/390 actual destination vehicleTowing",
+      "pass": true
+    },
+    {
+      "name": "zh/390 actual destination bike",
+      "pass": true
+    },
+    {
+      "name": "zh/390 selecting other destinations retains map layer and district",
+      "pass": true
+    },
+    {
+      "name": "zh/768 default map and lazy optional/policy chunks",
+      "pass": true
+    },
+    {
+      "name": "zh/768 complete catalogue, no new data and accessible controls",
+      "pass": true
+    },
+    {
+      "name": "zh/768 group selection and reduced motion",
+      "pass": true
+    },
+    {
+      "name": "zh/768 cross-language literal search and reset",
+      "pass": true
+    },
+    {
+      "name": "zh/768 list fallback and touch selection",
+      "pass": true
+    },
+    {
+      "name": "zh/768 return preserves actual Leaflet node, filters, layers and view",
+      "pass": true
+    },
+    {
+      "name": "zh/768 actual destination overview",
+      "pass": true
+    },
+    {
+      "name": "zh/768 actual destination fireRescueAreas",
+      "pass": true
+    },
+    {
+      "name": "zh/768 actual destination health",
+      "pass": true
+    },
+    {
+      "name": "zh/768 actual destination vehicleTowing",
+      "pass": true
+    },
+    {
+      "name": "zh/768 actual destination bike",
+      "pass": true
+    },
+    {
+      "name": "zh/768 selecting other destinations retains map layer and district",
+      "pass": true
+    },
+    {
+      "name": "zh/1440 default map and lazy optional/policy chunks",
+      "pass": true
+    },
+    {
+      "name": "zh/1440 complete catalogue, no new data and accessible controls",
+      "pass": true
+    },
+    {
+      "name": "zh/1440 group selection and reduced motion",
+      "pass": true
+    },
+    {
+      "name": "zh/1440 cross-language literal search and reset",
+      "pass": true
+    },
+    {
+      "name": "zh/1440 list fallback and touch selection",
+      "pass": true
+    },
+    {
+      "name": "zh/1440 return preserves actual Leaflet node, filters, layers and view",
+      "pass": true
+    },
+    {
+      "name": "zh/1440 actual destination overview",
+      "pass": true
+    },
+    {
+      "name": "zh/1440 actual destination fireRescueAreas",
+      "pass": true
+    },
+    {
+      "name": "zh/1440 actual destination health",
+      "pass": true
+    },
+    {
+      "name": "zh/1440 actual destination vehicleTowing",
+      "pass": true
+    },
+    {
+      "name": "zh/1440 actual destination bike",
+      "pass": true
+    },
+    {
+      "name": "zh/1440 selecting other destinations retains map layer and district",
+      "pass": true
+    },
+    {
+      "name": "complete mapping explore/map",
+      "pass": true
+    },
+    {
+      "name": "complete mapping explore/nearby",
+      "pass": true
+    },
+    {
+      "name": "complete mapping explore/overview",
+      "pass": true
+    },
+    {
+      "name": "complete mapping explore/notes",
+      "pass": true
+    },
+    {
+      "name": "complete mapping preparedness/fireRescueAccessPolicy",
+      "pass": true
+    },
+    {
+      "name": "complete mapping preparedness/bridgePolicy",
+      "pass": true
+    },
+    {
+      "name": "complete mapping preparedness/bridgeDirectory",
+      "pass": true
+    },
+    {
+      "name": "complete mapping preparedness/fireRescueAreas",
+      "pass": true
+    },
+    {
+      "name": "complete mapping preparedness/fireAccessRoutes",
+      "pass": true
+    },
+    {
+      "name": "complete mapping preparedness/hikingTrails",
+      "pass": true
+    },
+    {
+      "name": "complete mapping preparedness/flooding",
+      "pass": true
+    },
+    {
+      "name": "complete mapping preparedness/disaster",
+      "pass": true
+    },
+    {
+      "name": "complete mapping preparedness/eocActivations",
+      "pass": true
+    },
+    {
+      "name": "complete mapping preparedness/narrowAlleys",
+      "pass": true
+    },
+    {
+      "name": "complete mapping preparedness/soilWaterConservationViolations",
+      "pass": true
+    },
+    {
+      "name": "complete mapping health/health",
+      "pass": true
+    },
+    {
+      "name": "complete mapping health/surgicalMedicalInstitutions",
+      "pass": true
+    },
+    {
+      "name": "complete mapping health/antivenomStockpiles",
+      "pass": true
+    },
+    {
+      "name": "complete mapping health/diabetesHealthInstitutions",
+      "pass": true
+    },
+    {
+      "name": "complete mapping health/medicalViolationCases",
+      "pass": true
+    },
+    {
+      "name": "complete mapping health/tobaccoControl",
+      "pass": true
+    },
+    {
+      "name": "complete mapping health/businessHygieneViolationCases",
+      "pass": true
+    },
+    {
+      "name": "complete mapping health/swimmingBusinessHygieneAssessments",
+      "pass": true
+    },
+    {
+      "name": "complete mapping health/cosmeticsInspectionResults",
+      "pass": true
+    },
+    {
+      "name": "complete mapping health/alcoholTobaccoBusinessInspections",
+      "pass": true
+    },
+    {
+      "name": "complete mapping health/fireSafetyDeclarations",
+      "pass": true
+    },
+    {
+      "name": "complete mapping health/lpgFacilities",
+      "pass": true
+    },
+    {
+      "name": "complete mapping health/electricalBusinesses",
+      "pass": true
+    },
+    {
+      "name": "complete mapping health/fireDonations",
+      "pass": true
+    },
+    {
+      "name": "complete mapping traffic/policeCctv",
+      "pass": true
+    },
+    {
+      "name": "complete mapping traffic/smartTrafficEnforcement",
+      "pass": true
+    },
+    {
+      "name": "complete mapping traffic/vehicleTowing",
+      "pass": true
+    },
+    {
+      "name": "complete mapping traffic/doubleParking",
+      "pass": true
+    },
+    {
+      "name": "complete mapping traffic/reportedViolations",
+      "pass": true
+    },
+    {
+      "name": "complete mapping traffic/trafficViolationAppeals",
+      "pass": true
+    },
+    {
+      "name": "complete mapping traffic/kindergartenChildTransportVehicles",
+      "pass": true
+    },
+    {
+      "name": "complete mapping records/disabilityWelfareServices",
+      "pass": true
+    },
+    {
+      "name": "complete mapping records/burglary",
+      "pass": true
+    },
+    {
+      "name": "complete mapping records/bike",
+      "pass": true
+    },
+    {
+      "name": "complete mapping records/motorcycle",
+      "pass": true
+    },
+    {
+      "name": "complete mapping records/streetSnatch",
+      "pass": true
+    },
+    {
+      "name": "complete mapping records/domesticViolence",
+      "pass": true
+    },
+    {
+      "name": "complete mapping records/occupationalAccidents",
+      "pass": true
+    },
+    {
+      "name": "complete mapping records/noiseEnforcement",
+      "pass": true
+    },
+    {
+      "name": "already implemented smoking cessation directory accessible",
+      "pass": true
+    },
+    {
+      "name": "mounted module/filter/chart and no reload nearby",
+      "pass": true
+    },
+    {
+      "name": "mounted module/filter/chart and no reload burglary",
+      "pass": true
+    },
+    {
+      "name": "mounted module/filter/chart and no reload bike",
+      "pass": true
+    },
+    {
+      "name": "mounted module/filter/chart and no reload vehicleTowing",
+      "pass": true
+    },
+    {
+      "name": "mounted module/filter/chart and no reload bridgePolicy",
+      "pass": true
+    },
+    {
+      "name": "mounted module/filter/chart and no reload fireRescueAccessPolicy",
+      "pass": true
+    },
+    {
+      "name": "direct-entry 390 preserved and Explorer remains optional",
+      "pass": true
+    },
+    {
+      "name": "direct-entry 1440 preserved and Explorer remains optional",
+      "pass": true
+    },
+    {
+      "name": "normal-motion hover uses lightweight CSS transition",
+      "pass": true
+    },
+    {
+      "name": "failed optional chunk has a working dashboard return",
+      "pass": true
+    }
+  ],
+  "interactions": [
+    {
+      "language": "en",
+      "width": 320,
+      "action": "first Explorer entry including lazy chunk",
+      "elapsedMs": 354.0758999999998
+    },
+    {
+      "language": "en",
+      "width": 320,
+      "action": "keyboard group selection",
+      "elapsedMs": 6.598500000000058
+    },
+    {
+      "language": "en",
+      "width": 320,
+      "action": "cross-language search",
+      "elapsedMs": 9.439699999999903
+    },
+    {
+      "language": "en",
+      "width": 390,
+      "action": "first Explorer entry including lazy chunk",
+      "elapsedMs": 342.9376000000002
+    },
+    {
+      "language": "en",
+      "width": 390,
+      "action": "keyboard group selection",
+      "elapsedMs": 5.903700000000754
+    },
+    {
+      "language": "en",
+      "width": 390,
+      "action": "cross-language search",
+      "elapsedMs": 7.854000000000269
+    },
+    {
+      "language": "en",
+      "width": 768,
+      "action": "first Explorer entry including lazy chunk",
+      "elapsedMs": 360.33870000000024
+    },
+    {
+      "language": "en",
+      "width": 768,
+      "action": "keyboard group selection",
+      "elapsedMs": 5.142499999999927
+    },
+    {
+      "language": "en",
+      "width": 768,
+      "action": "cross-language search",
+      "elapsedMs": 9.014499999999316
+    },
+    {
+      "language": "en",
+      "width": 1440,
+      "action": "first Explorer entry including lazy chunk",
+      "elapsedMs": 352.84850000000006
+    },
+    {
+      "language": "en",
+      "width": 1440,
+      "action": "keyboard group selection",
+      "elapsedMs": 7.522499999999127
+    },
+    {
+      "language": "en",
+      "width": 1440,
+      "action": "cross-language search",
+      "elapsedMs": 7.399599999998827
+    },
+    {
+      "language": "zh",
+      "width": 320,
+      "action": "first Explorer entry including lazy chunk",
+      "elapsedMs": 373.34839999999895
+    },
+    {
+      "language": "zh",
+      "width": 320,
+      "action": "keyboard group selection",
+      "elapsedMs": 7.119099999999889
+    },
+    {
+      "language": "zh",
+      "width": 320,
+      "action": "cross-language search",
+      "elapsedMs": 7.132499999999709
+    },
+    {
+      "language": "zh",
+      "width": 390,
+      "action": "first Explorer entry including lazy chunk",
+      "elapsedMs": 368.21520000000237
+    },
+    {
+      "language": "zh",
+      "width": 390,
+      "action": "keyboard group selection",
+      "elapsedMs": 6.703900000000431
+    },
+    {
+      "language": "zh",
+      "width": 390,
+      "action": "cross-language search",
+      "elapsedMs": 7.00090000000273
+    },
+    {
+      "language": "zh",
+      "width": 768,
+      "action": "first Explorer entry including lazy chunk",
+      "elapsedMs": 373.69880000000194
+    },
+    {
+      "language": "zh",
+      "width": 768,
+      "action": "keyboard group selection",
+      "elapsedMs": 6.081699999998818
+    },
+    {
+      "language": "zh",
+      "width": 768,
+      "action": "cross-language search",
+      "elapsedMs": 8.523199999999633
+    },
+    {
+      "language": "zh",
+      "width": 1440,
+      "action": "first Explorer entry including lazy chunk",
+      "elapsedMs": 383.03960000000006
+    },
+    {
+      "language": "zh",
+      "width": 1440,
+      "action": "keyboard group selection",
+      "elapsedMs": 10.056000000000495
+    },
+    {
+      "language": "zh",
+      "width": 1440,
+      "action": "cross-language search",
+      "elapsedMs": 7.238099999998667
+    }
+  ],
+  "errors": [],
+  "conditions": "Local Edge production preview; external image requests stubbed, service worker blocked. Mobile uses touch emulation; not physical device testing."
+}

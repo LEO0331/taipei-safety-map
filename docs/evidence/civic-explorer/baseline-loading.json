@@ -1,0 +1,71 @@
+{
+  "conditions": "Three fresh contexts per width, local production preview, Edge headless, external images stubbed, service workers blocked, no CPU/network throttling; wall timings include automation overhead.",
+  "samples": [
+    {
+      "width": 1440,
+      "run": 0,
+      "dashboardReadyMs": 577.6764000000003,
+      "filterRoundTripMs": 14.382400000002235,
+      "initialDataRequests": 36,
+      "initialJs": [
+        "index-BZDxDFqn.js"
+      ],
+      "browser": "156.0.4314.50"
+    },
+    {
+      "width": 1440,
+      "run": 1,
+      "dashboardReadyMs": 485.2521000000015,
+      "filterRoundTripMs": 22.470400000001973,
+      "initialDataRequests": 36,
+      "initialJs": [
+        "index-BZDxDFqn.js"
+      ],
+      "browser": "156.0.4314.50"
+    },
+    {
+      "width": 1440,
+      "run": 2,
+      "dashboardReadyMs": 476.4454000000005,
+      "filterRoundTripMs": 33.90869999999995,
+      "initialDataRequests": 36,
+      "initialJs": [
+        "index-BZDxDFqn.js"
+      ],
+      "browser": "156.0.4314.50"
+    },
+    {
+      "width": 390,
+      "run": 0,
+      "dashboardReadyMs": 484.645199999999,
+      "filterRoundTripMs": 43.53269999999975,
+      "initialDataRequests": 36,
+      "initialJs": [
+        "index-BZDxDFqn.js"
+      ],
+      "browser": "156.0.4314.50"
+    },
+    {
+      "width": 390,
+      "run": 1,
+      "dashboardReadyMs": 492.880799999999,
+      "filterRoundTripMs": 54.5692999999992,
+      "initialDataRequests": 36,
+      "initialJs": [
+        "index-BZDxDFqn.js"
+      ],
+      "browser": "156.0.4314.50"
+    },
+    {
+      "width": 390,
+      "run": 2,
+      "dashboardReadyMs": 475.9291000000012,
+      "filterRoundTripMs": 42.959500000000844,
+      "initialDataRequests": 36,
+      "initialJs": [
+        "index-BZDxDFqn.js"
+      ],
+      "browser": "156.0.4314.50"
+    }
+  ]
+}

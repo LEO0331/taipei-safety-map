@@ -1,0 +1,8 @@
+{
+  "score": 87,
+  "verdict": "revise",
+  "category_match": true,
+  "differences": ["The added header actions squeeze the existing Chinese title and subtitle into a narrow column on mobile; the Explorer itself matches the reference scene/detail treatment."],
+  "suggestions": ["Stack the host header on small screens and give language/Explorer actions their own row before the title."],
+  "reasoning": "Five layered hubs, restrained colors, focus rings and detail list match Feitsui's established visual language. Mobile host-header wrapping needs correction before delivery."
+}

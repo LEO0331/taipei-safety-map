@@ -1,0 +1,42 @@
+[
+  {
+    "name": "BridgeInspectionMaintenance-CX3wiARm.js",
+    "bytes": 20405,
+    "gzip": 6581
+  },
+  {
+    "name": "BridgePolicyDashboard-BdcXywlg.css",
+    "bytes": 1679,
+    "gzip": 596
+  },
+  {
+    "name": "BridgePolicyDashboard-C5U1Yauw.js",
+    "bytes": 34039,
+    "gzip": 11848
+  },
+  {
+    "name": "BridgePolicyMap-Zr9RMZ_z.js",
+    "bytes": 1852,
+    "gzip": 1089
+  },
+  {
+    "name": "FireRescueAccessPolicyDashboard-73LbyhJa.css",
+    "bytes": 3889,
+    "gzip": 1001
+  },
+  {
+    "name": "FireRescueAccessPolicyDashboard-DdLmYWcR.js",
+    "bytes": 44965,
+    "gzip": 15461
+  },
+  {
+    "name": "index-BZDxDFqn.js",
+    "bytes": 891824,
+    "gzip": 239823
+  },
+  {
+    "name": "index-CobvvhYW.css",
+    "bytes": 22963,
+    "gzip": 8722
+  }
+]
