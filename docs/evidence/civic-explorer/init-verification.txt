@@ -22,7 +22,7 @@ dist/assets/FireRescueAccessPolicyDashboard-E_XPrlIt.js    44.96 kB │ gzip:  1
 dist/assets/index-RJq5kzcl.js                             894.61 kB │ gzip: 243.40 kB
 
 ✓ built in 362ms
-[plugin builtin:vite-reporter] 
+[plugin builtin:vite-reporter]
 (!) Some chunks are larger than 500 kB after minification. Consider:
 - Using dynamic import() to code-split the application
 - Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
