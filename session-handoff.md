@@ -73,3 +73,7 @@ Historical handoff retained below:
 ## Recommended Next Step
 
 - Start with `git status --short`, then decide whether to stage/commit the verified changes.
+
+## 2026-10-29 — Civic Explorer handoff
+
+Current work is in managed worktree `C:/Users/LeoLi/.codex/worktrees/civic-explorer/taipei-safety-map`, branch `codex/civic-explorer`, base `4eb42b0`. See `docs/civic-explorer-delivery.md` for architecture, complete mapping, screenshots, actual tests, safety/privacy scope and performance. `bash ./init.sh` passes (140 tests); browser suite passes 151 checks. Feature feat-015 is implemented and verified; manual Draft PR review/merge only. Do not regenerate source datasets or alter either policy implementation as part of Explorer review.
