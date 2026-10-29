@@ -144,3 +144,5 @@ The PWA cache version was bumped to v13 for the two new appeal JSON files. Do no
 - Initial JS +2,790 bytes (+1,924 gzip); lazy Explorer JS/CSS 5,504/5,475 bytes; initial 36 dataset requests unchanged, Explorer adds no dataset fetch. Exact measurements, 45-destination mapping, six screenshots and limitations in `docs/civic-explorer-delivery.md`.
 - Independent read-only review: no material blockers. Feitsui Explorer reference was open Draft PR #8 at inspection, not merged; attribution records this accurately.
 - Ready for manual Draft PR review; no automatic merge. Remaining limits: real devices/screen readers/field networking not tested; headless Edge touch emulation and stubbed external images used; existing large-shell warning and host module-switch lifecycle remain.
+
+- Delivery: Draft PR #10 created at https://github.com/LEO0331/taipei-safety-map/pull/10 with requested title. Both existing policy verification workflows were running when opened. Manual review and merge only; live PR checks are authoritative.
