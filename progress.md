@@ -146,3 +146,11 @@ The PWA cache version was bumped to v13 for the two new appeal JSON files. Do no
 - Ready for manual Draft PR review; no automatic merge. Remaining limits: real devices/screen readers/field networking not tested; headless Edge touch emulation and stubbed external images used; existing large-shell warning and host module-switch lifecycle remain.
 
 - Delivery: Draft PR #10 created at https://github.com/LEO0331/taipei-safety-map/pull/10 with requested title. Both existing policy verification workflows were running when opened. Manual review and merge only; live PR checks are authoritative.
+
+# 2026-11-02 — Audit: bridge detail source identity
+
+- Verified P2: selecting the Zhongshan 民權橋 directory row (inspection 2023) opened the Nangang history (inspection 2022 / maintenance 2019). Same-name 長安橋 rows were also affected.
+- Kept the existing normalized-name + district + authority grouping for detail selection and lookup in both directory and follow-up views. No source identity inference or analytical rule changed.
+- Added current-data regressions for both duplicate names and authority separation.
+- Verification: npm test (12 files / 143 tests), npm run build, npm audit (zero vulnerabilities), git diff --check; production browser checked both names/district histories, navigation, language toggle, Explorer and mobile layout.
+- Source data, generated JSON, snapshots, dependencies and policy methods unchanged. Existing main-chunk size warning remains deferred P3.

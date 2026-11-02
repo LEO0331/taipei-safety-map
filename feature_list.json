@@ -22,7 +22,7 @@
       "description": "Maintain build, tests, and data-contract verification for changed modules.",
       "dependencies": ["feat-002"],
       "status": "in-progress",
-      "evidence": "Current suite: npm run build; npm test (35 tests)."
+      "evidence": "2026-11-02 audit: bridge history composite identity regression coverage added for same-name bridges in different districts; npm test passed 143 tests across 12 files and npm run build passed. Production browser confirmed selected district history; source/generated data unchanged."
     },
     {
       "id": "feat-004",
