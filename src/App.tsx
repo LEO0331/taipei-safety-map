@@ -18,30 +18,30 @@ import {
   mostCommonEntry,
 } from './lib/safetyData';
 import { timePeriodLabels, translations } from './lib/translations';
-import TobaccoControlInspectionResults from './TobaccoControlInspectionResults';
-import DomesticViolenceReportStatistics from './DomesticViolenceReportStatistics';
-import MajorOccupationalAccidents from './MajorOccupationalAccidents';
-import EmergencyOperationsCenterActivations from './EmergencyOperationsCenterActivations';
-import DoubleParkingEnforcementTopIntersections from './DoubleParkingEnforcementTopIntersections';
-import ReportedTrafficViolationEnforcement from './ReportedTrafficViolationEnforcement';
-import TrafficViolationAppealTrends from './TrafficViolationAppealTrends';
-import KindergartenChildTransportVehicles from './KindergartenChildTransportVehicles';
-import SoilWaterConservationViolations from './SoilWaterConservationViolations';
-import AlcoholTobaccoBusinessInspections from './AlcoholTobaccoBusinessInspections';
-import BusinessHygieneViolationCases from './BusinessHygieneViolationCases';
-import SwimmingBusinessHygieneAssessments from './SwimmingBusinessHygieneAssessments';
-import CosmeticsInspectionResults from './CosmeticsInspectionResults';
-import SurgicalMedicalInstitutions from './SurgicalMedicalInstitutions';
-import MedicalViolationCases from './MedicalViolationCases';
-import AntivenomStockpiles from './AntivenomStockpiles';
-import DisabilityWelfareServices from './DisabilityWelfareServices';
-import DiabetesHealthInstitutions from './DiabetesHealthInstitutions';
-import SmokingCessationProviders from './SmokingCessationProviders';
-import EntertainmentBusinessNoiseRecords from './EntertainmentBusinessNoiseRecords';
-import NarrowAlleyRegistry from './NarrowAlleyRegistry';
-import FireSafetyInspectionDeclarations from './FireSafetyInspectionDeclarations';
-import LpgFacilitiesAndGasRetailers from './LpgFacilitiesAndGasRetailers';
-import ElectricalInspectionMaintenanceBusinesses from './ElectricalInspectionMaintenanceBusinesses';
+const TobaccoControlInspectionResults = lazy(() => import('./TobaccoControlInspectionResults'));
+const DomesticViolenceReportStatistics = lazy(() => import('./DomesticViolenceReportStatistics'));
+const MajorOccupationalAccidents = lazy(() => import('./MajorOccupationalAccidents'));
+const EmergencyOperationsCenterActivations = lazy(() => import('./EmergencyOperationsCenterActivations'));
+const DoubleParkingEnforcementTopIntersections = lazy(() => import('./DoubleParkingEnforcementTopIntersections'));
+const ReportedTrafficViolationEnforcement = lazy(() => import('./ReportedTrafficViolationEnforcement'));
+const TrafficViolationAppealTrends = lazy(() => import('./TrafficViolationAppealTrends'));
+const KindergartenChildTransportVehicles = lazy(() => import('./KindergartenChildTransportVehicles'));
+const SoilWaterConservationViolations = lazy(() => import('./SoilWaterConservationViolations'));
+const AlcoholTobaccoBusinessInspections = lazy(() => import('./AlcoholTobaccoBusinessInspections'));
+const BusinessHygieneViolationCases = lazy(() => import('./BusinessHygieneViolationCases'));
+const SwimmingBusinessHygieneAssessments = lazy(() => import('./SwimmingBusinessHygieneAssessments'));
+const CosmeticsInspectionResults = lazy(() => import('./CosmeticsInspectionResults'));
+const SurgicalMedicalInstitutions = lazy(() => import('./SurgicalMedicalInstitutions'));
+const MedicalViolationCases = lazy(() => import('./MedicalViolationCases'));
+const AntivenomStockpiles = lazy(() => import('./AntivenomStockpiles'));
+const DisabilityWelfareServices = lazy(() => import('./DisabilityWelfareServices'));
+const DiabetesHealthInstitutions = lazy(() => import('./DiabetesHealthInstitutions'));
+const SmokingCessationProviders = lazy(() => import('./SmokingCessationProviders'));
+const EntertainmentBusinessNoiseRecords = lazy(() => import('./EntertainmentBusinessNoiseRecords'));
+const NarrowAlleyRegistry = lazy(() => import('./NarrowAlleyRegistry'));
+const FireSafetyInspectionDeclarations = lazy(() => import('./FireSafetyInspectionDeclarations'));
+const LpgFacilitiesAndGasRetailers = lazy(() => import('./LpgFacilitiesAndGasRetailers'));
+const ElectricalInspectionMaintenanceBusinesses = lazy(() => import('./ElectricalInspectionMaintenanceBusinesses'));
 const FireRescueAccessPolicyDashboard = lazy(() => import('./FireRescueAccessPolicyDashboard'));
 const CivicExplorer = lazy(() => import('./CivicExplorer'));
 const BridgePolicyDashboard = lazy(() => import('./BridgePolicyDashboard'));
@@ -1058,30 +1058,30 @@ function App() {
       {activeTab === 'policeCctv' && <PoliceCctvInstallationLocations data={data} language={language} />}
       {activeTab === 'smartTrafficEnforcement' && <SmartTrafficEnforcementEquipment data={data} language={language} />}
       {activeTab === 'vehicleTowing' && <VehicleTowingTopRoadSections data={data} language={language} />}
-      {activeTab === 'doubleParking' && <DoubleParkingEnforcementTopIntersections records={data.doubleParkingEnforcementTopIntersections} language={language} />}
-      {activeTab === 'reportedViolations' && <ReportedTrafficViolationEnforcement language={language} />}
-      {activeTab === 'trafficViolationAppeals' && <TrafficViolationAppealTrends language={language} />}
-      {activeTab === 'kindergartenChildTransportVehicles' && <KindergartenChildTransportVehicles language={language} />}
-      {activeTab === 'soilWaterConservationViolations' && <SoilWaterConservationViolations language={language} />}
-      {activeTab === 'alcoholTobaccoBusinessInspections' && <AlcoholTobaccoBusinessInspections language={language} />}
-      {activeTab === 'businessHygieneViolationCases' && <BusinessHygieneViolationCases language={language} />}
-      {activeTab === 'swimmingBusinessHygieneAssessments' && <SwimmingBusinessHygieneAssessments language={language} />}
-      {activeTab === 'cosmeticsInspectionResults' && <CosmeticsInspectionResults language={language} />}
-      {activeTab === 'surgicalMedicalInstitutions' && <SurgicalMedicalInstitutions language={language} />}
-      {activeTab === 'medicalViolationCases' && <MedicalViolationCases language={language} />}
-      {activeTab === 'antivenomStockpiles' && <AntivenomStockpiles language={language} />}
-      {activeTab === 'diabetesHealthInstitutions' && <DiabetesHealthInstitutions language={language} />}
-      {activeTab === 'smokingCessationProviders' && <SmokingCessationProviders language={language} />}
-      {activeTab === 'disabilityWelfareServices' && <DisabilityWelfareServices language={language} />}
-      {activeTab === 'noiseEnforcement' && <EntertainmentBusinessNoiseRecords records={data.entertainmentBusinessNoiseRecords} language={language} />}
-      {activeTab === 'narrowAlleys' && <NarrowAlleyRegistry records={data.narrowAlleyRegistry} language={language} />}
-      {activeTab === 'fireSafetyDeclarations' && <FireSafetyInspectionDeclarations records={data.fireSafetyInspectionDeclarations} language={language} />}
-      {activeTab === 'lpgFacilities' && <LpgFacilitiesAndGasRetailers records={data.lpgFacilitiesAndGasRetailers} language={language} />}
-      {activeTab === 'electricalBusinesses' && <ElectricalInspectionMaintenanceBusinesses records={data.electricalInspectionMaintenanceBusinesses} language={language} />}
-      {activeTab === 'tobaccoControl' && <TobaccoControlInspectionResults records={data.tobaccoControlInspectionResults} summary={data.tobaccoControlInspectionSummary} language={language} />}
-      {activeTab === 'domesticViolence' && <DomesticViolenceReportStatistics summary={data.domesticViolenceReportSummary} language={language} />}
-      {activeTab === 'occupationalAccidents' && <MajorOccupationalAccidents records={data.majorOccupationalAccidents} language={language} />}
-      {activeTab === 'eocActivations' && <EmergencyOperationsCenterActivations records={data.emergencyOperationsCenterActivations} language={language} />}
+      {activeTab === 'doubleParking' && <Suspense fallback={<p role="status">{language === 'zh' ? '載入…' : 'Loading…'}</p>}><DoubleParkingEnforcementTopIntersections records={data.doubleParkingEnforcementTopIntersections} language={language} /></Suspense>}
+      {activeTab === 'reportedViolations' && <Suspense fallback={<p role="status">{language === 'zh' ? '載入…' : 'Loading…'}</p>}><ReportedTrafficViolationEnforcement language={language} /></Suspense>}
+      {activeTab === 'trafficViolationAppeals' && <Suspense fallback={<p role="status">{language === 'zh' ? '載入…' : 'Loading…'}</p>}><TrafficViolationAppealTrends language={language} /></Suspense>}
+      {activeTab === 'kindergartenChildTransportVehicles' && <Suspense fallback={<p role="status">{language === 'zh' ? '載入…' : 'Loading…'}</p>}><KindergartenChildTransportVehicles language={language} /></Suspense>}
+      {activeTab === 'soilWaterConservationViolations' && <Suspense fallback={<p role="status">{language === 'zh' ? '載入…' : 'Loading…'}</p>}><SoilWaterConservationViolations language={language} /></Suspense>}
+      {activeTab === 'alcoholTobaccoBusinessInspections' && <Suspense fallback={<p role="status">{language === 'zh' ? '載入…' : 'Loading…'}</p>}><AlcoholTobaccoBusinessInspections language={language} /></Suspense>}
+      {activeTab === 'businessHygieneViolationCases' && <Suspense fallback={<p role="status">{language === 'zh' ? '載入…' : 'Loading…'}</p>}><BusinessHygieneViolationCases language={language} /></Suspense>}
+      {activeTab === 'swimmingBusinessHygieneAssessments' && <Suspense fallback={<p role="status">{language === 'zh' ? '載入…' : 'Loading…'}</p>}><SwimmingBusinessHygieneAssessments language={language} /></Suspense>}
+      {activeTab === 'cosmeticsInspectionResults' && <Suspense fallback={<p role="status">{language === 'zh' ? '載入…' : 'Loading…'}</p>}><CosmeticsInspectionResults language={language} /></Suspense>}
+      {activeTab === 'surgicalMedicalInstitutions' && <Suspense fallback={<p role="status">{language === 'zh' ? '載入…' : 'Loading…'}</p>}><SurgicalMedicalInstitutions language={language} /></Suspense>}
+      {activeTab === 'medicalViolationCases' && <Suspense fallback={<p role="status">{language === 'zh' ? '載入…' : 'Loading…'}</p>}><MedicalViolationCases language={language} /></Suspense>}
+      {activeTab === 'antivenomStockpiles' && <Suspense fallback={<p role="status">{language === 'zh' ? '載入…' : 'Loading…'}</p>}><AntivenomStockpiles language={language} /></Suspense>}
+      {activeTab === 'diabetesHealthInstitutions' && <Suspense fallback={<p role="status">{language === 'zh' ? '載入…' : 'Loading…'}</p>}><DiabetesHealthInstitutions language={language} /></Suspense>}
+      {activeTab === 'smokingCessationProviders' && <Suspense fallback={<p role="status">{language === 'zh' ? '載入…' : 'Loading…'}</p>}><SmokingCessationProviders language={language} /></Suspense>}
+      {activeTab === 'disabilityWelfareServices' && <Suspense fallback={<p role="status">{language === 'zh' ? '載入…' : 'Loading…'}</p>}><DisabilityWelfareServices language={language} /></Suspense>}
+      {activeTab === 'noiseEnforcement' && <Suspense fallback={<p role="status">{language === 'zh' ? '載入…' : 'Loading…'}</p>}><EntertainmentBusinessNoiseRecords records={data.entertainmentBusinessNoiseRecords} language={language} /></Suspense>}
+      {activeTab === 'narrowAlleys' && <Suspense fallback={<p role="status">{language === 'zh' ? '載入…' : 'Loading…'}</p>}><NarrowAlleyRegistry records={data.narrowAlleyRegistry} language={language} /></Suspense>}
+      {activeTab === 'fireSafetyDeclarations' && <Suspense fallback={<p role="status">{language === 'zh' ? '載入…' : 'Loading…'}</p>}><FireSafetyInspectionDeclarations records={data.fireSafetyInspectionDeclarations} language={language} /></Suspense>}
+      {activeTab === 'lpgFacilities' && <Suspense fallback={<p role="status">{language === 'zh' ? '載入…' : 'Loading…'}</p>}><LpgFacilitiesAndGasRetailers records={data.lpgFacilitiesAndGasRetailers} language={language} /></Suspense>}
+      {activeTab === 'electricalBusinesses' && <Suspense fallback={<p role="status">{language === 'zh' ? '載入…' : 'Loading…'}</p>}><ElectricalInspectionMaintenanceBusinesses records={data.electricalInspectionMaintenanceBusinesses} language={language} /></Suspense>}
+      {activeTab === 'tobaccoControl' && <Suspense fallback={<p role="status">{language === 'zh' ? '載入…' : 'Loading…'}</p>}><TobaccoControlInspectionResults records={data.tobaccoControlInspectionResults} summary={data.tobaccoControlInspectionSummary} language={language} /></Suspense>}
+      {activeTab === 'domesticViolence' && <Suspense fallback={<p role="status">{language === 'zh' ? '載入…' : 'Loading…'}</p>}><DomesticViolenceReportStatistics summary={data.domesticViolenceReportSummary} language={language} /></Suspense>}
+      {activeTab === 'occupationalAccidents' && <Suspense fallback={<p role="status">{language === 'zh' ? '載入…' : 'Loading…'}</p>}><MajorOccupationalAccidents records={data.majorOccupationalAccidents} language={language} /></Suspense>}
+      {activeTab === 'eocActivations' && <Suspense fallback={<p role="status">{language === 'zh' ? '載入…' : 'Loading…'}</p>}><EmergencyOperationsCenterActivations records={data.emergencyOperationsCenterActivations} language={language} /></Suspense>}
       {activeTab === 'fireDonations' && <FireDepartmentDonations data={data} language={language} />}
       {activeTab === 'fireRescueAreas' && <FireRescueDifficultAreas data={data} language={language} />}
       {activeTab === 'fireAccessRoutes' && <FireAccessRouteRegistry data={data} language={language} />}

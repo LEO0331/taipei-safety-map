@@ -1,5 +1,6 @@
-const CACHE_NAME = 'taipei-safety-map-v21';
+const CACHE_NAME = 'taipei-safety-map-v22';
 const cacheUrl = (path) => new URL(path, self.registration.scope).toString();
+const BUILD_ASSETS = [];
 const APP_SHELL = [cacheUrl(''), cacheUrl('manifest.webmanifest'), cacheUrl('icons/icon.svg')];
 const DATA_FILES = [
   cacheUrl('data/air-raid-shelters.json'),
@@ -94,7 +95,7 @@ self.addEventListener('install', (event) => {
   event.waitUntil(
     caches
       .open(CACHE_NAME)
-      .then((cache) => Promise.allSettled([...APP_SHELL, ...DATA_FILES].map((url) => cache.add(url))))
+      .then((cache) => Promise.allSettled([...APP_SHELL, ...DATA_FILES, ...BUILD_ASSETS].map((url) => cache.add(url))))
       .then(() => self.skipWaiting())
   );
 });
@@ -111,6 +112,11 @@ self.addEventListener('activate', (event) => {
 self.addEventListener('fetch', (event) => {
   if (event.request.method !== 'GET') return;
   const url = new URL(event.request.url);
+  // Hashed public build assets have one representation; module requests can add Origin.
+  if (url.origin === self.location.origin && url.pathname.startsWith(new URL('assets/', self.registration.scope).pathname) && /-[A-Za-z0-9_-]+\.(?:js|css)$/.test(url.pathname)) {
+    event.respondWith(caches.match(event.request, { ignoreVary: true }).then((cached) => cached || fetch(event.request)));
+    return;
+  }
   // Policy payloads are acquired only on module entry, never during install.
   if (url.origin === self.location.origin && (url.pathname.includes('/data/bridge-policy/') || url.pathname.includes('/data/fire-rescue-access-policy/'))) {
     if (url.pathname.endsWith('/current.json')) {

@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "tsc -b && vite build && node scripts/buildOfflineAssets.mjs",
     "preview": "vite preview",
     "test": "vitest run",
     "fetch:data": "tsx scripts/fetchSafetyData.ts && tsx scripts/fetchAedLocations.ts && tsx scripts/fetchDengueVectorDensity.ts && tsx scripts/fetchEvacuationGates.ts && tsx scripts/fetchMedicalFacilities.ts && tsx scripts/fetchFireHydrants.ts && tsx scripts/fetchEmergencyShelters.ts && tsx scripts/fetchTrafficCctvFacilities.ts && tsx scripts/fetchSmartTrafficEnforcementEquipment.ts && tsx scripts/fetchVehicleTowingTopRoadSections.ts && tsx scripts/fetchPoliceCctvInstallationLocations.ts && tsx scripts/fetchFireDepartmentDonationInKindRecords.ts && tsx scripts/fetchManagedHikingTrails.ts && tsx scripts/fetchFireRescueDifficultAreas.ts && tsx scripts/fetchFireAccessRouteRegistry.ts && tsx scripts/fetchStreetRandomSnatchIncidents.ts && tsx scripts/fetchHistoricalFloodingRecords.ts && tsx scripts/fetchTobaccoControlInspectionResults.ts && tsx scripts/fetchDomesticViolenceReportStatistics.ts",

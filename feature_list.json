@@ -22,7 +22,7 @@
       "description": "Maintain build, tests, and data-contract verification for changed modules.",
       "dependencies": ["feat-002"],
       "status": "in-progress",
-      "evidence": "2026-11-02 audit: bridge history composite identity regression coverage added for same-name bridges in different districts; npm test passed 143 tests across 12 files and npm run build passed. Production browser confirmed selected district history; source/generated data unchanged."
+      "evidence": "2026-11-02 publish follow-up: 13 files / 145 tests; production build; dependency audit 0. Initial module graph reduced from 894614 to 740142 bytes; source/data unchanged. See docs/release-readiness-2026-11-02.md."
     },
     {
       "id": "feat-004",
@@ -37,8 +37,8 @@
       "name": "Working-tree handoff",
       "description": "Review, stage, and commit the verified current changes when authorized.",
       "dependencies": ["feat-004"],
-      "status": "in-progress",
-      "evidence": "Changes remain unstaged; no commit was requested."
+      "status": "done",
+      "evidence": "2026-11-02: original working tree verified clean; prior audit correction merged in PR #11 at 8ae4b050355de3fdba6576de6c8275a5d621edf3. Follow-up changes isolated on codex/reduce-safety-initial-bundle."
     },
     {
       "id": "feat-006",
@@ -103,8 +103,8 @@
       "dependencies": [
         "feat-011"
       ],
-      "status": "in-progress",
-      "evidence": "2026-10-23: official A/B 416/612 rows; 216 accepted, 5 ambiguous, 18 rejected, 177 unmatched; 194 geographic eligible; tiers 23/393/0. Seven files / 88 tests and init.sh pass; deterministic double rebuild; desktop/mobile/bilingual/map/export QA. Implementation verified and pushed; PR creation blocked by GitHub connector 403 and signed-out browser. See docs/bridge-policy-delivery.md."
+      "status": "done",
+      "evidence": "2026-10-23: official A/B 416/612 rows; 216 accepted, 5 ambiguous, 18 rejected, 177 unmatched; 194 geographic eligible; tiers 23/393/0. Seven files / 88 tests and init.sh pass; deterministic double rebuild; desktop/mobile/bilingual/map/export QA. Implementation verified and pushed; PR creation blocked by GitHub connector 403 and signed-out browser. See docs/bridge-policy-delivery.md. Status verified 2026-11-02: delivered in merged PR #6 (main merge deb812b); former authentication blocker is historical."
     },
     {
       "id": "feat-014",
@@ -124,7 +124,7 @@
         "feat-001"
       ],
       "status": "done",
-      "evidence": "2026-10-29: optional lazy five-hub catalogue; 45 destinations, original 44 mappings retained; init.sh passes (140 tests), 151 production browser checks, audit 0, protected scope 358 unchanged files. Desktop/mobile bilingual screenshots, state/focus/privacy/performance evidence in docs/civic-explorer-delivery.md. Manual Draft PR review/merge only."
+      "evidence": "2026-10-29: optional lazy five-hub catalogue; 45 destinations, original 44 mappings retained; init.sh passes (140 tests), 151 production browser checks, audit 0, protected scope 358 unchanged files. Desktop/mobile bilingual screenshots, state/focus/privacy/performance evidence in docs/civic-explorer-delivery.md. Manual Draft PR review/merge only. Status verified 2026-11-02: PR #10 merged at 5f6a04f."
     }
   ]
 }
