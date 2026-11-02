@@ -1,3 +1,16 @@
+# Current release handoff — 2026-11-02
+
+- Verified release baseline: origin/main 8ae4b050355de3fdba6576de6c8275a5d621edf3. Prior bridge-history correction PR #11 is merged. Explorer PR #10 and bridge-policy PR #6 are merged; old pending/authentication statements below are historical.
+- Active follow-up branch: codex/reduce-safety-initial-bundle, isolated from the original clean checkout. This follow-up remains a Draft PR for review; no merge or deployment is claimed.
+- 24 independent dashboards load on entry with localized status fallback. Initial JS module graph: 894614 → 740142 bytes (17.27% lower); remaining main chunk 731702 bytes still triggers the 500 kB warning.
+- Build-generated content-versioned JS/CSS precache preserves offline chunk availability, including unvisited modules, after successful worker installation. Background offline warming still downloads all built JS/CSS; total installed transfer is not reduced. Hashed same-origin JS/CSS alone bypass Vary cache matching; data/cross-origin matching stays strict.
+- Verification: 145 tests / 13 files, production build, npm audit 0, 151 existing production browser regressions. Full release evidence and limitations: docs/release-readiness-2026-11-02.md.
+- Source data, generated data, policy contracts, navigation mappings and dependencies unchanged. Restart with npm ci and ./init.sh (Git Bash), or npm.cmd run build and npm.cmd test in PowerShell.
+
+---
+
+Historical handoffs and evidence retained verbatim below. Their former current/pending statuses do not override the current handoff above.
+
 # Policy #12 handoff — 2026-10-26
 
 Current feature: feat-014 complete; user LEO0331 manually created and merged PR #8 (https://github.com/LEO0331/taipei-safety-map/pull/8) at 2026-10-26 17:08:28 Asia/Taipei. Main merge 4e532d697eafb274530d0a1e524f027903a4c4d1; merged feature head 3cc0200. Both remote verify jobs succeeded. The assistant did not merge. Later status-only documentation commits remain on codex/fire-rescue-access-policy-12 outside PR #8; do not open a second PR automatically.

@@ -2,9 +2,9 @@
 
 ## Current State
 
-**Last Updated:** 2026-08-17 Asia/Taipei
+**Last Updated:** 2026-11-02 Asia/Taipei
 **Session ID:** Codex desktop
-**Active Feature:** feat-010 - Medical safety and welfare customer views
+**Active Feature:** Release readiness — defer independent dashboards and preserve offline access
 
 ## Status
 
@@ -154,3 +154,11 @@ The PWA cache version was bumped to v13 for the two new appeal JSON files. Do no
 - Added current-data regressions for both duplicate names and authority separation.
 - Verification: npm test (12 files / 143 tests), npm run build, npm audit (zero vulnerabilities), git diff --check; production browser checked both names/district histories, navigation, language toggle, Explorer and mobile layout.
 - Source data, generated JSON, snapshots, dependencies and policy methods unchanged. Existing main-chunk size warning remains deferred P3.
+
+# 2026-11-02 — Publish readiness follow-up
+
+- Verified merged audit PR #11 in main 8ae4b05 and created codex/reduce-safety-initial-bundle without touching the original clean checkout.
+- Deferred 24 independent dashboard modules; initial module graph 894614 → 740142 bytes; deterministic gzip 241750 → 207292 bytes. Map/navigation and existing mount/state rules preserved.
+- Production build generates a content-versioned precache of all 35 JS/CSS assets so unvisited modules can still load after successful offline install. Background warming remains a separate transfer; no total offline-download reduction is claimed.
+- Fixed Vary: Origin matching only for same-origin hashed JS/CSS, with regression checks preserving strict data/external cache matching.
+- 145 tests / 13 files, production build, npm audit 0 and 151 existing production browser regressions passed. Current release evidence is docs/release-readiness-2026-11-02.md. Historical handoff records retained below a current status summary.
