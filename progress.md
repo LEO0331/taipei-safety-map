@@ -2,9 +2,9 @@
 
 ## Current State
 
-**Last Updated:** 2026-11-02 Asia/Taipei
+**Last Updated:** 2026-11-03 Asia/Taipei
 **Session ID:** Codex desktop
-**Active Feature:** Release readiness — defer independent dashboards and preserve offline access
+**Active Feature:** Closure readiness — preserve sibling caches and distribute exact license notices
 
 ## Status
 
@@ -162,3 +162,10 @@ The PWA cache version was bumped to v13 for the two new appeal JSON files. Do no
 - Production build generates a content-versioned precache of all 35 JS/CSS assets so unvisited modules can still load after successful offline install. Background warming remains a separate transfer; no total offline-download reduction is claimed.
 - Fixed Vary: Origin matching only for same-origin hashed JS/CSS, with regression checks preserving strict data/external cache matching.
 - 145 tests / 13 files, production build, npm audit 0 and 151 existing production browser regressions passed. Current release evidence is docs/release-readiness-2026-11-02.md. Historical handoff records retained below a current status summary.
+
+# 2026-11-03 — Closure cache and distribution-notice corrections
+
+- Isolated from main 11fb56a on codex/safety-cache-and-notices. Actual worker activation now removes only owned legacy versioned caches, retaining sibling applications and lookalike cache names.
+- Build copies exact installed LICENSE/NOTICE texts for all nine locked runtime packages and the project/adapted Civic Explorer MIT notice into discoverable THIRD_PARTY_NOTICES.txt, with inventory JSON and offline cache support. UTF-8 BOM preserves correct plain-text display when a host omits charset. No license reclassification or use certification.
+- Full tests: 148 / 14 files; production build and audit 0; all 45 real Explorer destinations in both languages plus keyboard/mobile/map/chart/policy/bridge regression checks passed. Real worker cache/notice browser check removed three old own caches and retained five foreign/lookalike fixtures; unvisited LPG 81 records, notice popup, reload and Explorer worked offline.
+- Raw/generated data, policy methods, dependency versions and lockfile unchanged. Existing bundle-size warning remains; evidence in docs/closure-cache-and-notices-2026-11-03.md. Commit/push only; no new PR or release action.

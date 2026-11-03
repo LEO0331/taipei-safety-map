@@ -1092,7 +1092,7 @@ function App() {
       {activeTab === 'overview' && <SafetyOverview data={data} language={language} />}
       {activeTab === 'notes' && <DataNotes data={data} language={language} />}
 
-      <footer>{t.footer}</footer>
+      <footer>{t.footer}<p><a href={`${import.meta.env.BASE_URL}THIRD_PARTY_NOTICES.txt`} target="_blank" rel="noreferrer">{language === 'zh' ? '授權與第三方聲明' : 'Licenses and third-party notices'}</a></p></footer>
       </div>
     </div>
   );
