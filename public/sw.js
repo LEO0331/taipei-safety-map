@@ -1,7 +1,9 @@
-const CACHE_NAME = 'taipei-safety-map-v22';
+const CACHE_PREFIX = 'taipei-safety-map-v';
+const CACHE_NAME = 'taipei-safety-map-v23';
+const ownsCache = (key) => key.startsWith(CACHE_PREFIX) && /^\d+(?:-[a-f0-9]{16})?$/.test(key.slice(CACHE_PREFIX.length));
 const cacheUrl = (path) => new URL(path, self.registration.scope).toString();
 const BUILD_ASSETS = [];
-const APP_SHELL = [cacheUrl(''), cacheUrl('manifest.webmanifest'), cacheUrl('icons/icon.svg')];
+const APP_SHELL = [cacheUrl(''), cacheUrl('manifest.webmanifest'), cacheUrl('icons/icon.svg'), cacheUrl('THIRD_PARTY_NOTICES.txt')];
 const DATA_FILES = [
   cacheUrl('data/air-raid-shelters.json'),
   cacheUrl('data/residential-burglary-records.json'),
@@ -104,7 +106,7 @@ self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches
       .keys()
-      .then((keys) => Promise.all(keys.filter((key) => key !== CACHE_NAME).map((key) => caches.delete(key))))
+      .then((keys) => Promise.all(keys.filter((key) => ownsCache(key) && key !== CACHE_NAME).map((key) => caches.delete(key))))
       .then(() => self.clients.claim())
   );
 });
@@ -130,6 +132,11 @@ self.addEventListener('fetch', (event) => {
         return response;
       })));
     }
+    return;
+  }
+  // A notice-file navigation must keep its own offline response, not the app shell.
+  if (url.href === cacheUrl('THIRD_PARTY_NOTICES.txt')) {
+    event.respondWith(caches.match(event.request).then((cached) => cached || fetch(event.request)));
     return;
   }
   if (event.request.mode === 'navigate') {

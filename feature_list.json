@@ -22,7 +22,7 @@
       "description": "Maintain build, tests, and data-contract verification for changed modules.",
       "dependencies": ["feat-002"],
       "status": "in-progress",
-      "evidence": "2026-11-02 publish follow-up: 13 files / 145 tests; production build; dependency audit 0. Initial module graph reduced from 894614 to 740142 bytes; source/data unchanged. See docs/release-readiness-2026-11-02.md."
+      "evidence": "2026-11-03 closure corrections: 14 files / 148 tests, production build and npm audit 0. Actual worker activation removes own legacy caches while preserving sibling applications; exact nine-package runtime notices plus project/adaptation MIT text are discoverable and readable online/offline. 45 Explorer destinations checked in both languages; data/policy/dependency versions unchanged. See docs/closure-cache-and-notices-2026-11-03.md."
     },
     {
       "id": "feat-004",

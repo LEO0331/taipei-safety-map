@@ -1,3 +1,14 @@
+# Current closure handoff — 2026-11-03
+
+- Baseline: origin/main 11fb56a170d2d64bde05532cab4585801271d1b4, including merged PR #12. This correction is isolated on codex/safety-cache-and-notices; push only, no new PR, merge or deployment performed. Original checkout preserved clean.
+- Worker activation now removes only old versioned taipei-safety-map caches and preserves sibling applications and lookalike names.
+- Build emits THIRD_PARTY_NOTICES.txt and its inventory JSON from exact installed license/notice files for all nine locked runtime packages, plus project/adaptation MIT notices. Localized footer link and explicit offline document response keep the UTF-8 text discoverable and readable online/offline. This preserves the distinct Hippocratic-2.1, BSD-2-Clause and MIT terms; it is not legal certification.
+- Verification: 148 tests / 14 files, production build, audit 0; all 45 actual Explorer destinations in English and Chinese, keyboard/mobile, maps/charts/policies and bridge identity regression passed. A real worker in an isolated browser context removed three old own caches and retained five sibling/lookalike caches, including sentinel contents; 35 JS/CSS assets, previously unvisited LPG directory (81 records), full reload, Explorer and notice popup all worked offline.
+- Data, policy methods, dependency versions and lockfile unchanged. Existing >500 kB initial bundle warning remains. See docs/closure-cache-and-notices-2026-11-03.md.
+- Restart with npm ci then ./init.sh (Git Bash), or npm.cmd run build and npm.cmd test in PowerShell. Historical evidence below retains its original dates/statuses.
+
+---
+
 # Current release handoff — 2026-11-02
 
 - Verified release baseline: origin/main 8ae4b050355de3fdba6576de6c8275a5d621edf3. Prior bridge-history correction PR #11 is merged. Explorer PR #10 and bridge-policy PR #6 are merged; old pending/authentication statements below are historical.
